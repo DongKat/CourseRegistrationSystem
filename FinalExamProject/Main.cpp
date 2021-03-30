@@ -3,7 +3,7 @@ using namespace std;
 
 int main()
 {
-	cout << "Seno... de-";
+	cout << "Guten tag";
 
 	return 0;
 }
