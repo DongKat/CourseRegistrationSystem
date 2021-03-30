@@ -3,7 +3,7 @@ using namespace std;
 
 int main()
 {
-	cout << "Waifu for Laifu";
+	cout << "Seno... de-";
 
 	return 0;
 }
