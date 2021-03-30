@@ -1,8 +1,0 @@
-#include <iostream>
-using namespace std;
-
-int main() {
-	cout << "Chào mừng mn đến với code có dấu ;) và cả icon <3  nè " << endl;
-
-	return 0;
-} 
