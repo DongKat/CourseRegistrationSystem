@@ -1,9 +1,10 @@
-#include <iostream>
-using namespace std;
+#include "Header.h"
 
-int main()
-{
-	cout << "Guten tag";
+int main() {
+	setWindowFullSize();
+	logo_moodle();
+	loginUI();
+	Nocursortype();
 
 	return 0;
 }
