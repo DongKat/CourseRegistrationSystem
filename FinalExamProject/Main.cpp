@@ -1,9 +1,11 @@
-#include <iostream>
-using namespace std;
+#include "Header.h"
 
 int main()
 {
-	cout << "Guten tag";
-
-	return 0;
+	ifstream studentsCSV("Test.csv");
+	Student student;
+	Student student2;
+	readClassCSV(studentsCSV, student);
+	readClassCSV(studentsCSV, student2);
+	studentsCSV.close();
 }

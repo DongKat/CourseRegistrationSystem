@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
+#include <sstream>
 
 using namespace std;
 
@@ -31,13 +33,14 @@ struct Staff {
 
 struct Student 
 {
+    // No, Student ID, First name, Last name, Gender, Date of Birth, Social ID.
     int ID;
-    string password;
+    string password = "a";
     int no;
-    string name;
-    bool gender;
+    string firstName, lastName; // first nama, last name
+    string gender; // In case someone is Other gender, we are not homophobia here :)
     string dateOfBirth;
-    string idSocial;
+    string socialID;
 };
 
 struct Node
@@ -45,3 +48,5 @@ struct Node
 	Node* next, * prev;
 	int data;
 };
+
+void readClassCSV(ifstream& classList, Student& student);

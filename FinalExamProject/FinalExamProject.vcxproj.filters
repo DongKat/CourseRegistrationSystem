@@ -21,16 +21,15 @@
     <ClCompile Include="Functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="autoGenerateAccounts.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="CourseRegistrationSystem.h">
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Test.csv">
       <Filter>Source Files</Filter>
-    </ClInclude>
+    </None>
   </ItemGroup>
 </Project>
