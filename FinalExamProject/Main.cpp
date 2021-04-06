@@ -1,6 +1,8 @@
 #include "Header.h"
 
-int main()
-{
 
-}
+int main() {
+	setWindowFullSize();
+	logo_moodle();
+	loginUI();
+	Nocursortype();
