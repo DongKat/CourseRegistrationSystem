@@ -3,105 +3,7 @@
 void Nocursortype() {
 	CONSOLE_CURSOR_INFO Info;
 	Info.bVisible = FALSE;
-	Info.dwSize = 20;
-	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &Info);
-}
 
-void UnNocursortype() {
-	CONSOLE_CURSOR_INFO Info;
-	Info.bVisible = TRUE;
-	Info.dwSize = 20;
-	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &Info);
-}
-
-void gotoxy(int x, int y) {
-	static HANDLE h = NULL;
-	if (!h)
-		h = GetStdHandle(STD_OUTPUT_HANDLE);
-	COORD c = { x, y };
-	SetConsoleCursorPosition(h, c);
-}
-
-void txtColor(int color) {
-	HANDLE hConsoleColor;
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
-}
-
-void setWindowFullSize() {
-	ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
-}
-
-void logo_moodle() {
-	txtColor(11);
-	gotoxy(58, 4);	cout << " __   __  _______  _______  ______   ___      _______ " << endl;
-	gotoxy(58, 5);	cout << "|  |_|  ||       ||       ||      | |   |    |       |" << endl;
-	gotoxy(58, 6);	cout << "|       ||   _   ||   _   ||  _    ||   |    |    ___|" << endl;
-	gotoxy(58, 7);	cout << "|       ||  | |  ||  | |  || | |   ||   |    |   |___ " << endl;
-	gotoxy(58, 8);	cout << "|       ||  |_|  ||  |_|  || |_|   ||   |___ |    ___|" << endl;
-	gotoxy(58, 9);	cout << "| ||_|| ||       ||       ||       ||       ||   |___ " << endl;
-	gotoxy(58, 10);	cout << "|_|   |_||_______||_______||______| |_______||_______|" << endl;
-
-	gotoxy(50, 2);
-	for (int i = 0; i < 70; ++i)
-		cout << char(220);
-	gotoxy(53, 3);
-	for (int i = 0; i < 65; ++i)
-		cout << char(205);
-	gotoxy(53, 12);
-	for (int i = 0; i < 65; ++i)
-		cout << char(205);
-	gotoxy(50, 13);
-	for (int i = 0; i < 70; ++i)
-		cout << char(223);
-
-	gotoxy(52, 3);
-	cout << char(201);
-	gotoxy(52, 12);
-	cout << char(200);
-
-	gotoxy(117, 3);
-	cout << char(187);
-	gotoxy(117, 12);
-	cout << char(188);
-
-	for (int i = 4; i < 12; ++i)
-	{
-		gotoxy(52, i);
-		cout << char(186);
-	}
-	for (int i = 4; i < 12; ++i)
-	{
-		gotoxy(117, i);
-		cout << char(186);
-	}
-	for (int i = 3; i < 13; ++i)
-	{
-		gotoxy(50, i);
-		cout << char(219);
-	}
-	for (int i = 3; i < 13; ++i)
-	{
-		gotoxy(119, i);
-		cout << char(219);
-	}
-
-	cout << endl;
-	cout << endl;
-
-
-}
-
-void loginUI() {
-	txtColor(9);
-	gotoxy(58, 14); cout << "  __ _ _               _                              " << endl;
-	gotoxy(58, 15); cout << " / _(_) |      ____   | |                             " << endl;
-	gotoxy(58, 16); cout << "| |_ _| |_    / __ \\  | |__   ___ _ __ ___  _   _ ___ " << endl;
-	gotoxy(58, 17); cout << "|  _| | __|  / / _` | | '_ \\ / __| '_ ` _ \\| | | / __|" << endl;
-	gotoxy(58, 18); cout << "| | | | |_  | | (_| | | | | | (__| | | | | | |_| \\__ \\" << endl;
-	gotoxy(58, 19); cout << "|_| |_|\\__|  \\ \\__,_| |_| |_|\\___|_| |_| |_|\\__,_|___/" << endl;
-	gotoxy(58, 20); cout << "              \\____/                                  " << endl;
-
-	txtColor(14);
 	// bigger bolder
 	gotoxy(63, 21);
 	for (int i = 0; i < 45; ++i)
@@ -187,4 +89,25 @@ void loginUI() {
 		gotoxy(78, 41);
 		txtColor(15);
 	}
+}
+
+void readClassCSV(ifstream& classList, Student& student) // Assume storing student as doubly linked list
+{
+    // Temp function only read one row for a single student
+    string temp;
+    // Read the Data from the file as String Vector
+    getline(classList, temp, ',');
+    student.no = stoi(temp);
+    getline(classList, temp, ',');
+    student.ID = stoi(temp);
+    getline(classList, temp, ',');
+    student.firstName = temp;
+    getline(classList, temp, ',');
+    student.lastName = temp;
+    getline(classList, temp, ',');
+    student.gender = temp;
+    getline(classList, temp, ',');
+    student.dateOfBirth = temp;
+    getline(classList, temp);
+    student.socialID = temp;
 }
