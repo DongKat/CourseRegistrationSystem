@@ -73,13 +73,12 @@ struct Students
     string firstName;
     string lastName;
     bool gender;    //Assume: 0 = Female, 1 = Male, 2 = Others, 3 = NULL, 
-    //Comment: this is sexist, why 0 stands female, is being female is a mistake for not being male? :^)
+    //Comment: This is sexist, why 0 stands female, is being female is a mistake for not being male? :^) (just kidding)
 
     date dateOfBirth;
     string idSocial;
     CoursesStudent courseStudent[15];
     // 13 [15] mỗi sem tối đa 5 course x3 sem, dùng tra cứu, kiểm tra thời gian buổi học - 14 xem danh sách các khoá đã ghi danh - 15 xoá khoá - 20-26
-
     Students* next;
     Students* prev;
 };

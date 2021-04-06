@@ -91,7 +91,7 @@ void Nocursortype() {
 	}
 }
 
-void readClassCSV(ifstream& classList, Students& student) // Assume storing student as doubly linked list
+void readClassCSV(ifstream& classList, Students& student) // Read CSV file for student's info
 {
     // Temp function only read one row for a single student
     string temp;
@@ -111,3 +111,5 @@ void readClassCSV(ifstream& classList, Students& student) // Assume storing stud
     getline(classList, temp);
     student.idSocial = temp;
 }
+
+void createStudentList()
