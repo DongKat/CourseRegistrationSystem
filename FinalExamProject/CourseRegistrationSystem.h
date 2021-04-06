@@ -7,10 +7,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-
-
 using namespace std;
-
 
 void autoGenerateAccounts(string filePath);
 
