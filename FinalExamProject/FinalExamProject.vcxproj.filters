@@ -21,9 +21,6 @@
     <ClCompile Include="Functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="linklistcycle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -32,12 +29,18 @@
     <ClInclude Include="CourseRegistrationSystem.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header.h">
+    <ClInclude Include="Library.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Students.csv">
+    <None Include="Test.csv">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

@@ -4,7 +4,7 @@ void autoGenerateAccounts(string filePath)
 {
 
 	int check;
-	check = mkdir("../accounts"); //create account folder
+	//check = mkdir("../accounts"); //create account folder
 
 	ifstream in;
 	in.open(filePath);
@@ -40,9 +40,4 @@ void autoGenerateAccounts(string filePath)
 	}
 
 	in.close();
-}
-
-int main()
-{
-	autoGenerateAccounts("student.txt");
 }

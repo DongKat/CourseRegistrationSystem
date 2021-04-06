@@ -29,8 +29,13 @@ struct Scores
     float Final;
     float Bonus;
 };
+struct CourseScore : Scores
+{
+    string studentID;
+};
 
-struct CoursesStudent
+
+struct Course
 {
     int sem;
     date dateStart; // 7 ngày bắt đầu đăng ký môn
@@ -40,39 +45,30 @@ struct CoursesStudent
     string teacher_name;
     int numCredits;
     int maxStudent;// cap phat studentID
-    int* studentID; //8 [50] là tối đa 50 SV 1 lớp - 13 ghi danh- 15 xoá khoá- 16 xem các môn mà sv học
+};
+struct CoursesStudent : Course // Coures for using in Students struct
+{
+    BasicStudents* studentList; //8 [50] là tối đa 50 SV 1 lớp - 13 ghi danh- 15 xoá khoá- 16 xem các môn mà sv học
     Schedules* schedule[2];
     Scores scoreBoard;// 22-26
 };
-
-struct CoursesSemester// 23 chi coi diem
+struct CoursesSemester : Course// 23 chi coi diem || Courses for using in Semesters struct
 {
-    int sem;
-    date dateStart; // 7 ngày bắt đầu đăng ký môn
-    date dateEnd;  // 7 ngày kết thúc đăng ký môn
-    string courseName;
-    string courseID;
-    string teacher_name;
-    int numCredits;
-    int maxStudent;
     CourseScore* mark;
 
 };
 
-struct CourseScore
+struct BasicStudents // Student with basic info, tạo để export riêng tên và MSSV trong csv file. - Dong Cat 
 {
-    string studentID;
-    Scores score;
-};
+    string firstName, lastName;
+    string ID;
 
-struct Students
+};
+struct Students: BasicStudents // Students inherit BasicStudents variables
 {
     int no;
-    int ID;
-    string password;
-    string firstName;
-    string lastName;
-    bool gender;    //Assume: 0 = Female, 1 = Male, 2 = Others, 3 = NULL, 
+    string password = "password";
+    bool gender;    //Assume: 0 = Female, 1 = Male
     //Comment: This is sexist, why 0 stands female, is being female is a mistake for not being male? :^) (just kidding)
 
     date dateOfBirth;
@@ -94,7 +90,7 @@ struct Semesters
 struct Classes
 {
     string className;
-    Students* student; // 3 thêm sinh viên vào lớp , 18 xem danh sách sinh viên 1 lớp
+    Students* studentList = nullptr; // 3 thêm sinh viên vào lớp , 18 xem danh sách sinh viên 1 lớp
     Classes* next;
     Classes* prev;
 };
