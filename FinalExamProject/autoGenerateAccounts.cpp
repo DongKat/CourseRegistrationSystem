@@ -42,7 +42,6 @@ void autoGenerateAccounts(string filePath)
 	in.close();
 }
 
-
 int main()
 {
 	autoGenerateAccounts("student.txt");

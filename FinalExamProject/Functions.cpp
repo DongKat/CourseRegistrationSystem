@@ -1,4 +1,4 @@
-#include "Header.h"
+#include "Functions.h"
 
 void Nocursortype() {
 	CONSOLE_CURSOR_INFO Info;
@@ -91,7 +91,7 @@ void Nocursortype() {
 	}
 }
 
-void readClassCSV(ifstream& classList, Student& student) // Assume storing student as doubly linked list
+void readClassCSV(ifstream& classList, Students& student) // Assume storing student as doubly linked list
 {
     // Temp function only read one row for a single student
     string temp;
@@ -105,9 +105,9 @@ void readClassCSV(ifstream& classList, Student& student) // Assume storing stude
     getline(classList, temp, ',');
     student.lastName = temp;
     getline(classList, temp, ',');
-    student.gender = temp;
+	student.gender = stoi(temp);
     getline(classList, temp, ',');
-    student.dateOfBirth = temp;
+    //dateofbirth
     getline(classList, temp);
-    student.socialID = temp;
+    student.idSocial = temp;
 }
