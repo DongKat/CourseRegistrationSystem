@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{82a37f6a-ef61-4cff-a831-12d6dc4bde20}</ProjectGuid>
+    <ProjectGuid>{027f2b4d-3aeb-4547-9b93-50709f3b56e6}</ProjectGuid>
     <RootNamespace>FinalExamProject</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -139,15 +139,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="autoGenerateAccounts.cpp" />
     <ClCompile Include="Functions.cpp" />
+    <ClCompile Include="linklistcycle.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Functions.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CourseRegistrationSystem.h" />
     <ClInclude Include="Header.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Test.csv" />
+    <None Include="Students.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
