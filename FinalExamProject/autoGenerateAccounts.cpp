@@ -2,9 +2,7 @@
 
 void autoGenerateAccounts(string filePath)
 {
-
-	int check;
-	check = mkdir("../accounts"); //create account folder
+	_mkdir("./accounts"); //create account folder
 
 	ifstream in;
 	in.open(filePath);
