@@ -20,3 +20,4 @@ void readClassCSV(ifstream& classList, Student& student) // Assume storing stude
     getline(classList, temp);
     student.socialID = temp;
 }
+
