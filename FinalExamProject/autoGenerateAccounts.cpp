@@ -2,7 +2,7 @@
 
 void autoGenerateAccounts(string filePath)
 {
-	_mkdir("./accounts"); //create account folder
+	_mkdir("accounts"); //create account folder
 
 	ifstream in;
 	in.open(filePath);
@@ -31,7 +31,7 @@ void autoGenerateAccounts(string filePath)
 		getline(in, socialID);
 
 		// OUT
-		out.open("../accounts/" + ID + ".txt");
+		out.open("accounts/" + ID);
 		out << ID << endl << socialID << endl;
 		out.close();
 
@@ -42,5 +42,5 @@ void autoGenerateAccounts(string filePath)
 
 int main()
 {
-	autoGenerateAccounts("student.txt");
+	autoGenerateAccounts("listOfStudent.csv");
 }
