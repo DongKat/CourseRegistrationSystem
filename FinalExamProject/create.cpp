@@ -6,18 +6,20 @@ schoolYear* newSchoolYear(int yearStart, int yearEnd) {
 	schoolYear* newYear = new schoolYear;
 	newYear->yearStart = yearStart;
 	newYear->yearEnd = yearEnd;
+	newYear->Class = 0;
 	newYear->next = 0;
 	newYear->prev = 0;
 	return newYear;
 }
 
-void createSchoolYear(schoolYear *&sYear, int yearStart, int yearEnd) {
+void createSchoolYear(schoolYear*& sYear, int yearStart, int yearEnd) {
 	if (!sYear) {
 		sYear = newSchoolYear(yearStart, yearEnd);
 		return;
 	}
 	schoolYear* cur = sYear;
-	while (cur->next) cur = cur->next;
+	while (cur && cur->next)
+		cur = cur->next;
 	cur->next = newSchoolYear(yearStart, yearEnd);
 	cur->next->prev = cur;
 }
@@ -54,40 +56,35 @@ Classes* newClass(string filepath, string className) {
 	ifstream f;
 	f.open(filepath);
 	Students* stu = nullptr;
-	while (!f.eof()) {
-		int no, ID;
+	int no;
+	while (f >> no) {
+		int ID;
 		string FirstName, LastName;
 		bool gender;
 		date dateOfBirth;
 		string idSocial;
 
 		//get NO
-		f >> no;
 		f.ignore(1000, ',');
-		f.ignore(1000, ' ');
 
 		//get ID
 		f >> ID;
-		f.ignore(1000, ' ');
+		f.ignore(1000, ',');
 
 		//get name
 		getline(f, FirstName, ',');
-		f.ignore(1000, ' ');
 		getline(f, LastName, ',');
-		f.ignore(1000, ' ');
 
 		//get gender
 		char c;
 		f >> c;
 		f.ignore(1000, ',');
-		f.ignore(1000, ' ');
 		if (c == 'F' || c == 'f') gender = 1; // 1 = female, 0 = male
 		else gender = 0;
 
 		//get DoB
 		string DOB;
 		getline(f, DOB, ',');
-		f.ignore(1000, ' ');
 		dateOfBirth = convertToDay(DOB);
 
 		//get social ID
@@ -107,8 +104,9 @@ Classes* newClass(string filepath, string className) {
 	return Class;
 }
 
-void addClass(schoolYear& sYear) {
-	cin.ignore(1000, '\n');
+void addClass(schoolYear*& sYear) {
+	cin.clear();
+	fflush(stdin);
 	cout << "Please enter class's name: ";
 	string Cname;
 	getline(cin, Cname);
@@ -117,9 +115,9 @@ void addClass(schoolYear& sYear) {
 	string filepath;
 	getline(cin, filepath);
 
-	if (!sYear.Class) sYear.Class = newClass(filepath, Cname);
+	if (!sYear->Class) sYear->Class = newClass(filepath, Cname);
 	else {
-		Classes* Class = sYear.Class;
+		Classes* Class = sYear->Class;
 		while (Class->next) Class = Class->next;
 		Class->next = newClass(filepath, Cname);
 		Class->next->prev = Class;
@@ -137,7 +135,17 @@ void deleteStudent(Students*& stu) {
 void deleteClass(Classes*& Class) {
 	while (Class) {
 		Classes* tmp = Class;
+		if (tmp->student) deleteStudent(tmp->student);
 		Class = Class->next;
+		delete tmp;
+	}
+}
+
+void deleteYear(schoolYear*& sYear) {
+	while (sYear) {
+		schoolYear* tmp = sYear;
+		if (tmp->Class) deleteClass(tmp->Class);
+		sYear = sYear->next;
 		delete tmp;
 	}
 }

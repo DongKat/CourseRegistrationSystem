@@ -5,11 +5,12 @@
 
 using namespace std;
 
-void creatSchoolYear(schoolYear& sYear);
+void createSchoolYear(schoolYear*& sYear, int yearStart, int yearEnd);
 date convertToDay(string Day);
 Students* newStudent(int no, int ID, string FirstName, string LastName, bool gender, date dateOfBirth, string idSocial);
 Classes* newClass(string filepath, string className);
-void addClass(schoolYear& sYear);
+schoolYear* newSchoolYear(int yearStart, int yearEnd);
+void addClass(schoolYear*& sYear);
 void deleteStudent(Students*& stu);
 void deleteClass(Classes*& Class);
-
+void deleteYear(schoolYear*& sYear);
