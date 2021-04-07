@@ -130,7 +130,7 @@ void deleteStudent(Students*& stu) {
 	while (stu) {
 		Students* tmp = stu;
 		stu = stu->next;
-		delete stu;
+		delete tmp;
 	}
 }
 
