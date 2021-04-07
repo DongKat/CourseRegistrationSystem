@@ -11,7 +11,7 @@ schoolYear* newSchoolYear(int yearStart, int yearEnd) {
 	return newYear;
 }
 
-void creatSchoolYear(schoolYear *&sYear, int yearStart, int yearEnd) {
+void createSchoolYear(schoolYear *&sYear, int yearStart, int yearEnd) {
 	if (!sYear) {
 		sYear = newSchoolYear(yearStart, yearEnd);
 		return;
