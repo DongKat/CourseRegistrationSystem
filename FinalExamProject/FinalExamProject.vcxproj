@@ -140,13 +140,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="autoGenerateAccounts.cpp" />
+    <ClCompile Include="create.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="linklistcycle.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CourseRegistrationSystem.h" />
+    <ClInclude Include="create.h" />
+    <ClInclude Include="Functions.h" />
     <ClInclude Include="Header.h" />
+    <ClInclude Include="Library.h" />
+    <ClInclude Include="Struct.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Students.csv" />
