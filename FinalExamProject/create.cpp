@@ -148,10 +148,6 @@ void deleteYear(schoolYear*& sYear) {
 		sYear = sYear->next;
 		delete tmp;
 	}
-<<<<<<< Updated upstream
-}
-=======
-}
 
 
 
@@ -235,4 +231,3 @@ void deleteCourse(Course *&course, Course *delCourse) // delete 1 course thoi
 
 	delete delCourse;
 }
->>>>>>> Stashed changes
