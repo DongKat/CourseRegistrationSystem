@@ -9,11 +9,13 @@ struct date
 
 struct StaffAccount
 {
+    string username;
     string name;
     string password;
-    string address;
-    string phoneNumber;
-    date  dateOfBirth;
+    string gender;
+    date dateOfBirth;
+    string idSocial;
+	string phoneNumber;
 };
 
 struct Schedules
