@@ -148,4 +148,91 @@ void deleteYear(schoolYear*& sYear) {
 		sYear = sYear->next;
 		delete tmp;
 	}
+<<<<<<< Updated upstream
 }
+=======
+}
+
+
+
+
+
+
+
+
+
+
+Semeseter *newSemeseter(int currSem, date begin, date end)
+{
+	Semeseter newSemeseter = new Semeseter;
+	newSemeseter -> sem = currSem;
+	newSemeseter -> dateStart = begin;
+	newSemeseter -> dateEnd = end;
+
+	newSemeseter -> prev = NULL;
+	newSemeseter -> next = NULL;
+
+	return newSemeseter;
+}
+
+void addSemeseter(Semeseter *&semester, int currSem, date begin, date end)
+{
+	if (!semester)
+	{
+		semester = newSemeseter(currSem, begin, end);
+		return;
+	}
+
+	Semester *curr = semester;
+	while (curr -> next)
+		curr = curr -> next;
+
+	curr -> next = newSemeseter(currSem, begin, end);
+	curr -> next -> prev = curr;
+}
+
+CoursesSemester *newCourse(int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *&schedule)
+{
+	CoursesSemester newCourse = new CoursesSemester;
+	newCourse -> sem = currSem;
+	newCourse -> dateStart = begin;
+	newCourse -> dateEnd = end;
+	newCourse -> courseName = courseName;
+	newCourse -> teacher_name = teacher_name;
+	newCourse -> numCredits = numCredits;
+	newCourse -> maxStudent =  maxStudent;
+	newCourse -> schedule = schedule;
+
+	newCourse -> prev = NULL;
+	newCourse -> next = NULL;
+}
+
+void addCourse(Course *&course, int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *&schedule)
+{
+	if (!course)
+	{
+		course = newCourse(sem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
+		return;
+	}
+
+	Course *curr = course;
+	while (curr -> next)
+		curr = curr -> next;
+
+	curr -> next = newCourse(currSem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
+	curr -> next -> prev = curr;
+}
+
+void deleteCourse(Course *&course, Course *delCourse) // delete 1 course thoi
+{
+	if (delCourse -> prev)
+		delcourse -> prev -> next = delCourse -> next;
+	else
+		coruse = delCourse -> next;
+
+	if (delCourse -> next)
+		delCourse -> next -> prev = delCourse -> prev;
+
+	delete delCourse;
+}
+>>>>>>> Stashed changes
