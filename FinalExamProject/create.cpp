@@ -148,15 +148,7 @@ void deleteYear(schoolYear*& sYear) {
 		sYear = sYear->next;
 		delete tmp;
 	}
-
-
-
-
-
-
-
-
-
+}
 
 Semeseter *newSemeseter(int currSem, date begin, date end)
 {
