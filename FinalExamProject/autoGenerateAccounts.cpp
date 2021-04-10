@@ -1,16 +1,51 @@
 #include "CourseRegistrationSystem.h"
 
-void autoGenerateAccounts(string filePath)
+void autoGenerateStaffAccounts(string filePath)
 {
-
-	int check;
-	//check = mkdir("../accounts"); //create account folder
+	_mkdir("Staff Accounts"); //create account folder
 
 	ifstream in;
 	in.open(filePath);
 
 	ofstream out;
-	
+
+	string username;
+	string socialID;
+	string ignore_line;
+
+	// No, Student ID, First name, Last name, Gender, Date of Birth, Social ID.
+
+
+	while (!in.eof()) // run to the end of file
+	{
+		// GET
+		getline(in, username, ',');
+		getline(in, ignore_line, ',');  // Ignore name
+		getline(in, ignore_line, ',');	// Ignore gender
+		getline(in, ignore_line, ',');	// Ignore day month year
+		getline(in, socialID, ',');		
+		getline(in, ignore_line);		// Ignore phoneNumber
+
+		// OUT
+		out.open("Staff Accounts/" + username);
+		out << username << endl << socialID << endl;
+		out.close();
+
+	}
+
+	in.close();
+}
+
+void autoGenerateStudentAccounts(string filePath)
+{
+	_mkdir("Student Accounts"); //create account folder
+
+
+	ifstream in;
+	in.open(filePath);
+
+	ofstream out;
+
 	string ID;
 	string socialID;
 	string ignore_line;
@@ -18,7 +53,7 @@ void autoGenerateAccounts(string filePath)
 	// No, Student ID, First name, Last name, Gender, Date of Birth, Social ID.
 
 
-	while(!in.eof()) // run to the end of file
+	while (!in.eof()) // run to the end of file
 	{
 		// GET
 		getline(in, ignore_line, ','); // Ignore No
@@ -33,7 +68,7 @@ void autoGenerateAccounts(string filePath)
 		getline(in, socialID);
 
 		// OUT
-		out.open("../accounts/" + ID + ".txt");
+		out.open("Student Accounts/" + ID);
 		out << ID << endl << socialID << endl;
 		out.close();
 
@@ -41,3 +76,105 @@ void autoGenerateAccounts(string filePath)
 
 	in.close();
 }
+
+
+void autoGenerateStaffProfiles(string filePath)
+{
+	_mkdir("Staff Profiles"); //create account folder
+
+	ifstream in;
+	in.open(filePath);
+
+	ofstream out;
+
+	string username;
+	string name;
+	string gender;
+	string day;
+	string month;
+	string year;
+	string socialID;
+	string phoneNumber;
+	string ignore_line;
+
+	// No, Student ID, First name, Last name, Gender, Date of Birth, Social ID.
+
+
+	while (!in.eof()) // run to the end of file
+	{
+		// GET
+		getline(in, username, ',');
+		getline(in, name, ',');
+		getline(in, gender, ',');
+		getline(in, day, '/');
+		getline(in, month, '/');
+		getline(in, year, ',');
+		getline(in, socialID, ',');
+		getline(in, phoneNumber);
+
+		// OUT
+		out.open("Staff Profiles/" + username);
+		out << name << endl << gender << endl;
+		out << day << "/" << month << "/" << year << endl;
+		out << socialID << endl << phoneNumber << endl;
+		out.close();
+
+	}
+
+	in.close();
+}
+
+void autoGenerateStudentProfiles(string filePath)
+{
+	_mkdir("Student Profiles"); //create account folder
+
+	ifstream in;
+	in.open(filePath);
+
+	ofstream out;
+
+	string no;
+	string ID;
+	string firstName;
+	string lastName;
+	string gender;
+	string day;
+	string month;
+	string year;
+	string socialID;
+
+	// No, Student ID, First name, Last name, Gender, Date of Birth, Social ID.
+
+	while (!in.eof()) // run to the end of file
+	{
+		// GET
+		getline(in, no, ','); 
+		getline(in, ID, ','); 
+		getline(in, firstName, ',');	
+		getline(in, lastName, ',');	
+		getline(in, gender, ',');	
+		getline(in, day, '/');	
+		getline(in, month, '/');
+		getline(in, year, ',');
+		getline(in, socialID);
+
+		// OUT
+		out.open("Student Profiles/" + ID);
+		out << no << endl << ID << endl << firstName << endl << lastName << endl << gender << endl;
+		out << day << "/" << month << "/" << year << endl;
+		out << socialID << endl;
+		out.close();
+
+	}
+
+	in.close();
+}
+
+int main()
+{
+	autoGenerateStudentAccounts("student.csv");
+	autoGenerateStaffAccounts("staff.csv");
+	autoGenerateStudentProfiles("student.csv");
+	autoGenerateStaffProfiles("staff.csv");
+}
+

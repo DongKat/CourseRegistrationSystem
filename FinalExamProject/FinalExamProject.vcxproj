@@ -140,8 +140,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="autoGenerateAccounts.cpp" />
+    <ClCompile Include="create.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="LoginUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CourseRegistrationSystem.h" />
