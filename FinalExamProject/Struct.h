@@ -71,6 +71,7 @@ struct Courses
     Schedules *schedule[2];
     Scores scoreBoard;// 22-26
     CourseScore *mark;
+    Courses *prev, *next;
 };
 
 struct Students
