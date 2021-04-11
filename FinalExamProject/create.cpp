@@ -150,38 +150,24 @@ void deleteYear(schoolYear*& sYear) {
 	}
 }
 
-Semeseter *newSemeseter(int currSem, date begin, date end)
+Semeseter *newSemester(int currSem, date begin, date end)
 {
-	Semeseter newSemeseter = new Semeseter;
-	newSemeseter -> sem = currSem;
-	newSemeseter -> dateStart = begin;
-	newSemeseter -> dateEnd = end;
+	Semester newSemester = new Semester;
+	newSemester -> sem = currSem;
+	newSemester -> dateStart = begin;
+	newSemester -> dateEnd = end;
 
-	newSemeseter -> prev = NULL;
-	newSemeseter -> next = NULL;
-
-	return newSemeseter;
+	return newSemester;
 }
 
-void addSemeseter(Semeseter *&semester, int currSem, date begin, date end)
+void addSemester(Semester *&semester, int currSem, date begin, date end)
 {
-	if (!semester)
-	{
-		semester = newSemeseter(currSem, begin, end);
-		return;
-	}
-
-	Semester *curr = semester;
-	while (curr -> next)
-		curr = curr -> next;
-
-	curr -> next = newSemeseter(currSem, begin, end);
-	curr -> next -> prev = curr;
+	semester[currSem - 1] = newSemester(currSem, begin, end);
 }
 
-CoursesSemester *newCourse(int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *&schedule)
+Courses *newCourse(int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *&schedule)
 {
-	CoursesSemester newCourse = new CoursesSemester;
+	Courses newCourse = new CoursesSemester;
 	newCourse -> sem = currSem;
 	newCourse -> dateStart = begin;
 	newCourse -> dateEnd = end;
