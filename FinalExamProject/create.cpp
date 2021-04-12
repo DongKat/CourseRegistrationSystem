@@ -1,4 +1,6 @@
 #include "create.h"
+#include "Library.h"
+#include "Struct.h"
 
 using namespace std;
 

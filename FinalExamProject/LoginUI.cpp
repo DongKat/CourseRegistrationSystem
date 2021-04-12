@@ -1,4 +1,4 @@
-#include "Functions.h"
+#include "UI.h"
 
 void Nocursortype() {
 	CONSOLE_CURSOR_INFO Info;
@@ -187,4 +187,16 @@ void loginUI() {
 		gotoxy(78, 41);
 		txtColor(15);
 	}
+}
+
+void fillBlackLogin() {
+	gotoxy(66, 38);
+	for (int i = 0; i < 40; ++i)
+		cout << char(32);
+	gotoxy(75, 30);
+	for (int i = 0; i < 24; ++i)
+		cout << char(32);
+	gotoxy(75, 35);
+	for (int i = 0; i < 24; ++i)
+		cout << char(32);
 }

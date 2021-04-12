@@ -1,11 +1,5 @@
-0\#ifndef function_h
-#define function_h
-
 #pragma once
 #include "Library.h"
-#include <iostream>
-#include <string>
-#include <fstream>
 
 using namespace std;
 
@@ -116,7 +110,3 @@ struct schoolYear // 1 tạo năm học
     schoolYear *next;
     schoolYear *prev;
 };
-
-
-
-#endif /* function_h */

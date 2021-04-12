@@ -1,4 +1,6 @@
 #include "Functions.h"
+#include "Library.h"
+#include "Struct.h"
 
 void readClassCSV(ifstream& classList, Students& student) // Assume storing student as doubly linked list
 {
