@@ -172,6 +172,7 @@ Courses *newCourse(int currSem, date begin, date end, string courseName, string 
 	newCourse -> dateStart = begin;
 	newCourse -> dateEnd = end;
 	newCourse -> courseName = courseName;
+	newCourse -> courseID = courseID;
 	newCourse -> teacher_name = teacher_name;
 	newCourse -> numCredits = numCredits;
 	newCourse -> maxStudent =  maxStudent;
