@@ -382,7 +382,22 @@ void extractCourse(Courses *course)
 	out.close();
 }
 
-void deleteCourse(Courses *&course, Courses *delCourse) // delete 1 course thoi
+
+Courses *findCourse(Courses *&course, string courseID, string courseName, string teacher_name)
+{
+	Courses *curr = course;
+
+	while (curr)
+	{
+		if (curr -> courseID == courseID && curr -> courseName == courseName && curr -> teacherName == teacherName)
+			return curr;
+		curr = curr -> next;
+	}
+
+	return NULL;
+}
+
+void deleteCourse(Courses *&course, Courses *delCourse)
 {
 	if (delCourse -> prev)
 		delCourse -> prev -> next = delCourse -> next;
@@ -394,3 +409,14 @@ void deleteCourse(Courses *&course, Courses *delCourse) // delete 1 course thoi
 
 	delete delCourse;
 }
+
+void deleteCourseMain(Courses *&course, string courseID, string courseName, string teacher_name)
+{
+	Courses *del = findCourse(course, courseID, courseName, teacher_name);
+
+	if (del)
+		deleteCourse(course, del);
+	// else
+	// cout ra la nguoi dung nhap sai cmnr
+}
+
