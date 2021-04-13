@@ -1,27 +1,17 @@
 #include "function.h"
 bool checkSchedule(Students aStudent,Courses courseNew)
 {
-    int i = 0;
-    switch (courseNew.sem)
+    Courses *ptem = aStudent.courseStudent ;
+    while (ptem!=nullptr)
     {
-        case 1:
-             i=0;
-            break;
-        case 2:
-             i=5;
-            break;
-        case 3:
-             i=10;
-            break;
-        default:
-            break;
-    }
-    for ( ;i<i+5;i++)
-    {
-        for (int j =0 ; j < 2; j++)
-        if((aStudent.courseStudent[i].schedule[j]->day==courseNew.schedule[j]->day)
-           && (aStudent.courseStudent[i].schedule[j]->time==courseNew.schedule[j]->time))
+        if (ptem->sem==courseNew.sem)
+        {
+            for (int j =0 ; j < 2; j++)
+                if((ptem->schedule[j]->day==courseNew.schedule[j]->day)
+                   && (ptem->schedule[j]->time==courseNew.schedule[j]->time))
                 return false;
+        }
+        ptem->next;
     }
     return true;
 };
@@ -30,7 +20,7 @@ void enrollACourse(Students aStudent,Courses courseNew,fstream &f)
 {
     int k=courseNew.sem;
     int count=0;
-    f.open(Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(k) + ".csv", ios::app || ios::in || ios::out);
+    f.open(Schoolyear+ "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(k) + ".csv", ios::app || ios::in || ios::out);
     string ignore_line;
     if(!f.is_open())
         throw "error";
@@ -45,7 +35,7 @@ void enrollACourse(Students aStudent,Courses courseNew,fstream &f)
         {
             f << courseNew.courseID << "," << courseNew.courseName << ",0,0,0,0" << endl;
             f.close();
-            f.open(Schoolyear + "/Semester/Semester" + to_string(k) + "/" + courseNew.courseID + "Scoreboard.csv", ios::app || ios::in || ios::out);
+            f.open(Schoolyear+ "/Semester/Semester" + to_string(k) + "/" + courseNew.courseID + "Scoreboard.csv", ios::app || ios::in || ios::out);
             int count1 = 0;
             if(!f.is_open())
                 throw "error";
@@ -75,7 +65,7 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
     string overall;
     // in course sem 1
     cout<<"Courses semester 1: "<<endl;
-    f.open(to_string(Schoolyear) + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(1) + ".csv");
+    f.open(Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(1) + ".csv");
     if(!f.is_open())
         throw "error";
     while(!f.eof())
@@ -98,7 +88,7 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
 
     // in course sem 2
     cout<<"Courses semester 2: "<<endl;
-    f.open(to_string(Schoolyear) + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(2) + ".csv");
+    f.open(Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(2) + ".csv");
     if(!f.is_open())
         throw "error";
     while(!f.eof())
@@ -121,7 +111,7 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
     
     // in course sem 3
     cout<<"Courses semester 3: "<<endl;
-    f.open(to_string(Schoolyear)+ "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(3) + ".csv");
+    f.open(Schoolyear+ "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(3) + ".csv");
     if(!f.is_open())
         throw "error";
     while(!f.eof())
@@ -144,7 +134,7 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
 }
 void updateCourse (Students aStudent,Courses courseDelete,fstream &f)
 {
-    string file="./"+to_string(Schoolyear) + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(courseDelete.sem) + ".csv";
+    string file="./"+Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(courseDelete.sem) + ".csv";
     remove(file.c_str());
     f.open(file);
     Courses *ptem = aStudent.courseStudent ;
@@ -204,5 +194,6 @@ void removeACourse(Students aStudent,Courses courseDelete,fstream &f)
     // gọi hàm doc lai file
         updateCourse(aStudent,courseDelete,f);
 };
+
 
 

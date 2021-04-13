@@ -84,7 +84,7 @@ struct Students
     string gender;
     date dateOfBirth;
     string idSocial;
-    Courses courseStudent[15];
+    Courses *courseStudent;
     // 13 [15] mỗi sem tối đa 5 course x3 sem, dùng tra cứu, kiểm tra thời gian buổi học - 14 xem danh sách các khoá đã ghi danh - 15 xoá khoá - 20-26
     Students *next;
     Students *prev;
