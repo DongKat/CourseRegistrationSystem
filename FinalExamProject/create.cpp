@@ -326,7 +326,6 @@ void addCourse(Courses *&course, int currSem, date begin, date end, string cours
 void extractCourse(Courses *course)
 {
 	ofstream out;
-	string filePath;
 
 	createFolder(schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + '/' + course -> courseID);
 
