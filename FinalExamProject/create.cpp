@@ -270,9 +270,9 @@ void deleteYear(schoolYear *&sYear){
 	if (sYear->prev) sYear->prev->next=sYear->next;
 }
 
-Semeseter *newSemester(int currSem, date begin, date end)
+Semeseters *newSemester(int currSem, date begin, date end)
 {
-	Semester newSemester = new Semester;
+	Semesters newSemester = new Semester;
 	newSemester -> sem = currSem;
 	newSemester -> dateStart = begin;
 	newSemester -> dateEnd = end;
@@ -280,9 +280,9 @@ Semeseter *newSemester(int currSem, date begin, date end)
 	return newSemester;
 }
 
-void addSemester(Semester *&semester, int currSem, date begin, date end)
+void addSemester(Semesters *&semester, int currSem, date begin, date end)
 {
-	semester[currSem - 1] = newSemester(currSem, begin, end);
+	semesters[currSem - 1] = newSemester(currSem, begin, end);
 }
 
 Courses *newCourse(int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules schedule[])
