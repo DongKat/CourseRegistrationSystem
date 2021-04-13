@@ -142,7 +142,7 @@ void deleteClass(Classes*& Class) {
 	}
 }
 
-Semeseter *newSemeseter(int currSem, date begin, date end)
+Semeseters *newSemeseter(int currSem, date begin, date end)
 {
 	Semeseter newSemeseter = new Semeseter;
 	newSemeseter -> sem = currSem;

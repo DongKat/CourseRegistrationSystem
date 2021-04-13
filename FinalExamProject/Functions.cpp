@@ -1,8 +1,6 @@
 #include "Functions.h"
-#include "Library.h"
-#include "Struct.h"
 
-void readClassCSV(ifstream& classList, Students& student) // Assume storing student as doubly linked list
+void readClassCSV(ifstream& classList, Students& student)
 {
     // Temp function only read one row for a single student
     string temp;
@@ -29,7 +27,7 @@ void createStudent(ifstream& classList, Students& student) // Read CSV file for 
 	string temp;
 	// Read the Data from the file as String Vector
 	// Ignore first line
-	getline(classList, temp);
+	getline(classList, temp);	
 
 	getline(classList, temp, ',');
 	student.no = stoi(temp);
@@ -71,24 +69,153 @@ void createStudentList(Students*& pHead, string csvFileName)
 			pCur->next->prev = pCur;
 			pCur = pCur->next;
 		}
-		pCur = readClassCSV(file, pCur);
+		readClassCSV(file, *pCur);
 		pCur->next = nullptr;
 	}
 	file.close();
 }
 
-void exportCourseStudent(CoursesStudent Course)
+void exportCourseStudent(Courses Course)
 {
 	ofstream file(Course.courseName + "_List_of_Students.csv");
 	string colName[] = { "No", "Student ID", "Student Full Name", "Total Mark", "Final Mark", "Midterm Mark", "Other Mark" };
 	for (int i = 0; i < 7; i++)
 		file << colName[i] << ",";
 	file << endl;
-	for (int i = 0; i < sizeof(Course.studentList) / sizeof(Course.studentList[0]); ++i)
+	int j = 0;
+	while(Course.studentID)
 	{
-		file << i + 1 << ",";
-		file << Course.studentList[i].ID << ",";
-		file << Course.studentList[i].lastName << Course.studentList[i].firstName << ",";
+		file << j + 1 << ",";
+		file << Course.studentID->ID << ",";
+		file << Course.studentID->lastName << Course.studentID->firstName << ",";
 		file << "," << "," << "," << "," << endl;
+		Course.studentID = Course.studentID->next;
+
 	}
 }
+
+void viewScoreboard(Courses Course)
+{
+	ifstream file("School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv");
+	string temp;
+	while (file.eof())
+	{
+		getline(file, temp, ',');	cout << temp << " | ";
+		getline(file, temp, ',');	cout << temp << " | ";
+		getline(file, temp, ',');	cout << temp << " | ";
+		getline(file, temp, ',');	cout << temp << " | ";
+		getline(file, temp, ',');	cout << temp << " | ";
+		getline(file, temp, ',');	cout << temp << " | ";
+		getline(file, temp, ',');	cout << temp;
+		cout << endl;
+<<<<<<< Updated upstream
+	}
+}
+
+void importScoreboard(Courses Course)
+{
+	// I am void, is this neeeded since we are reading files :o
+	return;
+}
+
+void updateStudentResult(Courses Course, string studentID)
+{
+	ifstream infile("School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv");
+	ofstream outfile("School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard_new.csv");
+	string temp;
+	while (infile.eof())
+	{
+		getline(infile, temp, ',');	
+		if (temp == studentID)
+		{
+			int i;
+			cout << "Record found!\n";
+			cout << "New midterm score\n";
+			cin >> i;
+			outfile << i << ",";
+			cout << "New final score\n";
+			cin >> i;
+			outfile << i << ",";
+			cout << "New bonus score\n";
+			cin >> i;
+			outfile << i << ",";
+			cout << "New overall score\n";
+			cin >> i;
+			outfile << i;
+			return;
+		}
+	}
+}
+
+void viewClassScoreboard(Courses Course, string className) // ;-;
+{
+	string studentID;
+
+	ifstream file("School year/Classes/" + className + "/" + studentID + "/Course Sem" + to_string(Course.sem) + ".csv");
+	string temp;
+	while (file.eof())
+	{	
+		for(int i = 0; i < 7; i++)
+		{
+			getline(file, temp, ',');
+			cout << temp << " ";
+		}
+		getline(file, temp);
+		cout << temp << endl;
+	}
+}
+=======
+	}
+}
+
+void importScoreboard(Courses Course)
+{
+	// I am void, is this neeeded since we are reading files :o
+	return;
+}
+
+void updateStudentResult(Courses Course, string studentID)
+{
+	ifstream infile("./School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv");
+	ofstream outfile("./School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard_new.csv");
+	string temp, line;
+	while (!infile.eof())
+	{
+		getline(infile, temp);
+		ostringstream s(temp);
+		s << temp << ",";
+		if (temp == studentID)
+		{
+			int i;
+			cout << "Record found!\n";
+			cout << "New midterm score\n";
+			cin >> i;
+			cout << "New final score\n";
+			cin >> i;
+			cout << "New bonus score\n";
+			cin >> i;
+			cout << "New overall score\n";
+			cin >> i;
+			return;
+		}
+	}
+}
+
+void viewClassScoreboard(Courses Course, string className) // ;-;
+{
+	string studentID;
+
+	ifstream file("School year/Classes/" + className + "/" + studentID + "/Course Sem" + to_string(Course.sem) + ".csv");
+	string temp;
+	while (file.eof())
+	{	
+		for(int i = 0; i < 7; i++)
+		{
+			getline(file, temp, ',');
+			cout << temp << " ";
+		}
+		getline(file, temp);
+		cout << temp << endl;
+	}
+}
+>>>>>>> Stashed changes
