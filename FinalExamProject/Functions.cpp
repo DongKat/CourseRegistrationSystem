@@ -108,7 +108,6 @@ void viewScoreboard(Courses Course)
 		getline(file, temp, ',');	cout << temp << " | ";
 		getline(file, temp, ',');	cout << temp;
 		cout << endl;
-<<<<<<< Updated upstream
 	}
 }
 
@@ -164,9 +163,6 @@ void viewClassScoreboard(Courses Course, string className) // ;-;
 		cout << temp << endl;
 	}
 }
-=======
-	}
-}
 
 void importScoreboard(Courses Course)
 {
@@ -218,4 +214,3 @@ void viewClassScoreboard(Courses Course, string className) // ;-;
 		cout << temp << endl;
 	}
 }
->>>>>>> Stashed changes
