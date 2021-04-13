@@ -7,8 +7,8 @@ bool checkSchedule(Students aStudent,Courses courseNew)
         if (ptem->sem==courseNew.sem)
         {
             for (int j =0 ; j < 2; j++)
-                if((ptem->schedule[j]->day==courseNew.schedule[j]->day)
-                   && (ptem->schedule[j]->time==courseNew.schedule[j]->time))
+            if((ptem->schedule[j].day==courseNew.schedule[j].day)
+               && (ptem->schedule[j].time==courseNew.schedule[j].time))
                 return false;
         }
         ptem->next;
@@ -16,11 +16,11 @@ bool checkSchedule(Students aStudent,Courses courseNew)
     return true;
 };
 
-void enrollACourse(Students aStudent,Courses courseNew,fstream &f)
+void enrollACourse(Students& aStudent,Courses courseNew,fstream &f)
 {
     int k=courseNew.sem;
-    int count=0;
-    f.open(Schoolyear+ "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(k) + ".csv", ios::app || ios::in || ios::out);
+    int count=-1;
+    f.open(Schoolyear+ "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(k) + ".csv", ios::in);
     string ignore_line;
     if(!f.is_open())
         throw "error";
@@ -29,14 +29,16 @@ void enrollACourse(Students aStudent,Courses courseNew,fstream &f)
         getline(f, ignore_line);
         count++;
     }
+    f.close();
+    f.open(Schoolyear+ "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(k) + ".csv", ios::out|ios::in);
     
     if((checkSchedule(aStudent,courseNew)==true) && courseNew.countStudent<courseNew.maxStudent)
         if(count<5)
         {
             f << courseNew.courseID << "," << courseNew.courseName << ",0,0,0,0" << endl;
             f.close();
-            f.open(Schoolyear+ "/Semester/Semester" + to_string(k) + "/" + courseNew.courseID + "Scoreboard.csv", ios::app || ios::in || ios::out);
-            int count1 = 0;
+            f.open(Schoolyear+ "/Semester/Semester" + to_string(k) + "/" + courseNew.courseID + "Scoreboard.csv", ios::in);
+            int count1 = -1;
             if(!f.is_open())
                 throw "error";
             while(!f.eof())
@@ -44,15 +46,40 @@ void enrollACourse(Students aStudent,Courses courseNew,fstream &f)
                 getline(f, ignore_line);
                 count1++;
             }
+            f.close();
+            f.open(Schoolyear+ "/Semester/Semester" + to_string(k) + "/" + courseNew.courseID + "Scoreboard.csv", ios::out|ios::in);
             f << ++count1 << "," << aStudent.ID << "," << aStudent.firstName << "," << aStudent.lastName << ",0,0,0,0" << endl;
             f.close();
             
+            // chèn vào list course student
+            Courses *&pt=aStudent.courseStudent;
+            if(pt==nullptr)
+                pt=&courseNew;
+            else
+            {
+                while(pt->next!= nullptr)
+                    pt = pt->next;
+                pt->next=&courseNew;
+            }
+            
+            // chèn student vào course
+            if (courseNew.countStudent==0)
+            {
+                courseNew.studentID= new BasicStudents;
+                courseNew.studentID->firstName = aStudent.firstName;
+                courseNew.studentID->lastName = aStudent.lastName;
+                courseNew.studentID->ID = aStudent.ID;
+                courseNew.studentID->next=nullptr;
+            }
+            else
+            {
+                courseNew.studentID->next = new BasicStudents;
+                courseNew.studentID->next->firstName = aStudent.firstName;
+                courseNew.studentID->next->lastName = aStudent.lastName;
+                courseNew.studentID->next->ID = aStudent.ID;
+                courseNew.studentID->next=courseNew.studentID;
+            }
             courseNew.countStudent++;
-            aStudent.courseStudent[(k-1)*5+count] = courseNew;
-            courseNew.studentID->next = new BasicStudents;
-            courseNew.studentID->next->firstName = aStudent.firstName;
-            courseNew.studentID->next->lastName = aStudent.lastName;
-            courseNew.studentID->next->ID = aStudent.ID;
         }
 }
 void viewEnrolledCourses(Students aStudent, fstream &f)
@@ -65,7 +92,7 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
     string overall;
     // in course sem 1
     cout<<"Courses semester 1: "<<endl;
-    f.open(Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(1) + ".csv");
+    f.open("input.csv");
     if(!f.is_open())
         throw "error";
     while(!f.eof())
@@ -88,7 +115,7 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
 
     // in course sem 2
     cout<<"Courses semester 2: "<<endl;
-    f.open(Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(2) + ".csv");
+    f.open("input.csv");
     if(!f.is_open())
         throw "error";
     while(!f.eof())
@@ -111,7 +138,7 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
     
     // in course sem 3
     cout<<"Courses semester 3: "<<endl;
-    f.open(Schoolyear+ "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(3) + ".csv");
+    f.open("input.csv");
     if(!f.is_open())
         throw "error";
     while(!f.eof())
@@ -141,7 +168,7 @@ void updateCourse (Students aStudent,Courses courseDelete,fstream &f)
     while (ptem!=nullptr)
     {
         f << ptem->courseID << "," << ptem->courseName<< "," << ptem->mark->Midterm<< ","<<ptem->mark->Final<<","<<ptem->mark->Bonus<<","<<ptem->mark->GPA<<endl;
-        ptem->next;
+        ptem=ptem->next;
     }
     f.close();
 }
@@ -149,18 +176,20 @@ void updateCourse (Students aStudent,Courses courseDelete,fstream &f)
 void removeACourse(Students aStudent,Courses courseDelete,fstream &f)
 {
     // xoá trong student // list
-    Courses *ptem = aStudent.courseStudent ;
+    Courses *ptem =  new Courses;
+    ptem=aStudent.courseStudent ;
     Courses *pdelete;
-    if(ptem->courseID==courseDelete.courseID)
+    string s1 = aStudent.courseStudent->courseID, s2 = courseDelete.courseID;
+    if(s1 == s2)
         {
             pdelete=ptem;
             aStudent.courseStudent=aStudent.courseStudent->next;
-            delete pdelete;
+            delete ptem;
         }
     else
     {
         while (ptem!=nullptr || ptem->courseID!=courseDelete.courseID)
-            ptem->next;
+            ptem=ptem->next;
         if (ptem!=nullptr)
             {
                 pdelete=ptem;
@@ -194,6 +223,7 @@ void removeACourse(Students aStudent,Courses courseDelete,fstream &f)
     // gọi hàm doc lai file
         updateCourse(aStudent,courseDelete,f);
 };
+
 
 
 
