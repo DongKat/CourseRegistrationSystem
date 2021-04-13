@@ -1,6 +1,10 @@
-#include "function13.h"
+#include "Functions.h"
 
 
 int main() 
 {
+	setWindowFullSize();
+	logo_moodle();
+	loginUI();
+	Nocursortype();
 }

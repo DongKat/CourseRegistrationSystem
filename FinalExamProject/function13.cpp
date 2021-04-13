@@ -1,14 +1,14 @@
-#include "function13.h"
-
+#include "function.h"
 bool checkSchedule(Students aStudent,Courses courseNew)
 {
-    Courses *ptem = aStudent.courseStudent;
+    Courses *ptem = aStudent.courseStudent ;
     while (ptem!=nullptr)
     {
         if (ptem->sem==courseNew.sem)
         {
             for (int j =0 ; j < 2; j++)
-            if((ptem->schedule[j].day == courseNew.schedule[j].day) && (ptem->schedule[j].time== courseNew.schedule[j].time))
+            if((ptem->schedule[j].day==courseNew.schedule[j].day)
+               && (ptem->schedule[j].time==courseNew.schedule[j].time))
                 return false;
         }
         ptem->next;

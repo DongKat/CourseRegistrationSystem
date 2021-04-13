@@ -1,3 +1,5 @@
+0\#ifndef function_h
+#define function_h
 
 #pragma once
 #include "Library.h"
@@ -7,6 +9,7 @@
 
 using namespace std;
 
+string Schoolyear;
 
 struct date
 {
@@ -65,10 +68,9 @@ struct Courses
     int maxStudent;// cap phat studentID
     int countStudent;
     BasicStudents *studentID;//8 [50] là tối đa 50 SV 1 lớp - 13 ghi danh- 15 xoá khoá- 16 xem các môn mà sv học
-    Schedules schedule[2];
+    Schedules *schedule[2];
     Scores scoreBoard;// 22-26
     CourseScore *mark;
-    Courses* next = nullptr, *prev;
 };
 
 struct Students
@@ -116,4 +118,4 @@ struct schoolYear // 1 tạo năm học
 
 
 
-
+#endif /* function_h */
