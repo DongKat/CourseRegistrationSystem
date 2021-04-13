@@ -182,6 +182,8 @@ Courses *newCourse(int currSem, date begin, date end, string courseName, string 
 
 	newCourse -> prev = NULL;
 	newCourse -> next = NULL;
+
+	return newCourse;
 }
 
 void addCourse(Course *&course, int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *&schedule)
