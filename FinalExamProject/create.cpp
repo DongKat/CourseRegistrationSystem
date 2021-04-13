@@ -5,11 +5,11 @@
 using namespace std;
 
 void createFolder(string path){
-	mkdir(path.c_str());
+	_mkdir(path.c_str());
 }
 
 void removeFolder(string path){
-	rmdir(path.c_str());
+	_rmdir(path.c_str());
 }
 
 bool checkDate(date Date1, date Date2){  // true if date1 before or same as date 2
@@ -270,19 +270,19 @@ void deleteYear(schoolYear *&sYear){
 	if (sYear->prev) sYear->prev->next=sYear->next;
 }
 
-Semeseters *newSemester(int currSem, date begin, date end)
-{
-	Semesters newSemester = new Semester;
-	newSemester -> sem = currSem;
-	newSemester -> dateStart = begin;
-	newSemester -> dateEnd = end;
+Semesters newSemester(int currSem, date begin, date end)
+{	
+	Semesters newSemester;
+	newSemester.sem = currSem;
+	newSemester.dateStart = begin;
+	newSemester.dateEnd = end;
 
 	return newSemester;
 }
 
-void addSemester(Semesters *&semester, int currSem, date begin, date end)
+void addSemester(Semesters semester[], int currSem, date begin, date end)
 {
-	semesters[currSem - 1] = newSemester(currSem, begin, end);
+	semester[currSem - 1] = newSemester(currSem, begin, end);
 }
 
 Courses *newCourse(int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules schedule[])
@@ -307,15 +307,15 @@ Courses *newCourse(int currSem, date begin, date end, string courseName, string 
 }
 
 
-void addCourse(Course *&course, int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *&schedule)
+void addCourse(Courses *&course, int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *&schedule)
 {
 	if (!course)
 	{
-		course = newCourse(sem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
+		course = newCourse(currSem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
 		return;
 	}
 
-	Course *curr = course;
+	Courses *curr = course;
 	while (curr -> next)
 		curr = curr -> next;
 
@@ -329,7 +329,7 @@ void extractCourse(Courses *course)
 	string filePath;
 
 	filePath = schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + '/' + course -> courseID;
-	mkdir(filePath.c_str());
+	_mkdir(filePath.c_str());
 
 	out.open(schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Profile.csv");
 	
@@ -344,12 +344,12 @@ void extractCourse(Courses *course)
 	out.close();
 }
 
-void deleteCourse(Course *&course, Course *delCourse) // delete 1 course thoi
+void deleteCourse(Courses *&course, Courses *delCourse) // delete 1 course thoi
 {
 	if (delCourse -> prev)
-		delcourse -> prev -> next = delCourse -> next;
+		delCourse -> prev -> next = delCourse -> next;
 	else
-		coruse = delCourse -> next;
+		course = delCourse -> next;
 
 	if (delCourse -> next)
 		delCourse -> next -> prev = delCourse -> prev;

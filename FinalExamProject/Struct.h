@@ -1,10 +1,9 @@
-
 #pragma once
 #include "Library.h"
 
 using namespace std;
 
-string Schoolyear;
+string schoolyear = "";
 
 struct date
 {
