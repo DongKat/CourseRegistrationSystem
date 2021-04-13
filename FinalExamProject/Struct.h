@@ -1,9 +1,4 @@
-<<<<<<< Updated upstream
-=======
-﻿#ifndef function_h
-#define function_h
 
->>>>>>> Stashed changes
 #pragma once
 #include "Library.h"
 
