@@ -169,7 +169,7 @@ void addSemester(Semester *&semester, int currSem, date begin, date end)
 
 Courses *newCourse(int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *&schedule)
 {
-	Courses newCourse = new CoursesSemester;
+	Courses *newCourse = new Courses;
 	newCourse -> sem = currSem;
 	newCourse -> dateStart = begin;
 	newCourse -> dateEnd = end;
