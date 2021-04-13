@@ -347,7 +347,7 @@ Courses *newCourse(int currSem, date begin, date end, string courseName, string 
 }
 
 
-void addCourse(Courses *&course, int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *&schedule)
+void addCourse(Courses *&course, int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *schedule)
 {
 	if (!course)
 	{
