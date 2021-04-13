@@ -24,9 +24,12 @@ int main() {
 	while (true) {
 		fillBlackLogin();
 		inputUsername(username, sizeUser);
-		inputPassword(username, sizePass);
+		inputPassword(password, sizePass);
 
-		if (checkValidUsernameAndPassword(username, password) == true) {
+		if (checkValidUsernameAndPasswordStaff(username, password) == true) {
+			break;
+		}
+		if (checkValidUsernameAndPasswordStudent(username, password) == true) {
 			break;
 		}
 

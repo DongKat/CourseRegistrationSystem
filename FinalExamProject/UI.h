@@ -15,4 +15,5 @@ void fillBlackLogin();
 string convertToString(char* a, int size);
 string inputUsername(char username[], int& sizeUser);
 string inputPassword(char password[], int& sizePass);
-bool checkValidUsernameAndPassword(string username, string password);
+bool checkValidUsernameAndPasswordStaff(string username, string password);
+bool checkValidUsernameAndPasswordStudent(string username, string password);

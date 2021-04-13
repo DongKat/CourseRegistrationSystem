@@ -105,11 +105,11 @@ string inputPassword(char password[], int& sizePass) {
 	return pass;
 }
 
-bool checkValidUsernameAndPassword(string username, string password) {
+bool checkValidUsernameAndPasswordStaff(string username, string password) {
 
 	ifstream in;
 
-	in.open("Student Accounts/" + username);
+	in.open("Staff Accounts/" + username);
 	if (!in.is_open()) {
 		return false;
 	}
@@ -117,7 +117,7 @@ bool checkValidUsernameAndPassword(string username, string password) {
 		while (!in.eof()) {
 			string passwordFile;
 			string ignore_line;
-
+			cout << passwordFile[0];
 			getline(in, ignore_line, '\n');
 			getline(in, passwordFile, '\n');
 
@@ -131,6 +131,40 @@ bool checkValidUsernameAndPassword(string username, string password) {
 				else
 					return true;
 
+			}
+		}
+	}
+	in.close();
+
+	return true;
+}
+
+bool checkValidUsernameAndPasswordStudent(string username, string password) {
+
+	ifstream in;
+
+	in.open("Student Accounts/" + username);
+	if (!in.is_open()) {
+		return false;
+	}
+	else {
+		while (!in.eof()) {
+			string passwordFile;
+			string ignore_line;
+			cout << passwordFile[0];
+			getline(in, ignore_line, '\n');
+			getline(in, passwordFile, '\n');
+		
+			for (int i = 0; i < password.size(); ++i) {
+				if (password.size() > passwordFile.size())
+					return false;
+				if (password.size() < passwordFile.size())
+					return false;
+				if (passwordFile[i] != password[i])
+					return false;
+				else
+					return true;
+				
 			}
 		}
 	}
