@@ -1,12 +1,7 @@
-#ifndef __COURSEREGISTRATIONSYSTEM_H_
-#define __COURSEREGISTRATIONSYSTEM_H_
+#pragma once
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <direct.h> // mkdir
+#include "Library.h"
+#include "Struct.h"
 
 using namespace std;
 
@@ -15,5 +10,3 @@ void autoGenerateStudentAccounts(string filePath);
 void autoGenerateStaffProfiles(string filePath);
 void autoGenerateStudentProfiles(string filePath);
 
-
-#endif
