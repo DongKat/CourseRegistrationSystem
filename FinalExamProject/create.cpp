@@ -167,7 +167,7 @@ void addSemester(Semester *&semester, int currSem, date begin, date end)
 	semester[currSem - 1] = newSemester(currSem, begin, end);
 }
 
-Courses *newCourse(int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *&schedule)
+Courses *newCourse(int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules schedule[])
 {
 	Courses *newCourse = new Courses;
 	newCourse -> sem = currSem;
@@ -178,13 +178,16 @@ Courses *newCourse(int currSem, date begin, date end, string courseName, string 
 	newCourse -> teacher_name = teacher_name;
 	newCourse -> numCredits = numCredits;
 	newCourse -> maxStudent =  maxStudent;
-	newCourse -> schedule = schedule;
+	newCourse -> schedule[0] = schedule[0];
+	newCourse -> schedule[1] = schedule[1];
+
 
 	newCourse -> prev = NULL;
 	newCourse -> next = NULL;
 
 	return newCourse;
 }
+
 
 void addCourse(Course *&course, int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *&schedule)
 {
@@ -200,6 +203,27 @@ void addCourse(Course *&course, int currSem, date begin, date end, string course
 
 	curr -> next = newCourse(currSem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
 	curr -> next -> prev = curr;
+}
+
+void extractCourse(Courses *course)
+{
+	ofstream out;
+	string filePath;
+
+	filePath = schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + '/' + course -> courseID;
+	mkdir(filePath.c_str());
+
+	out.open(schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Profile.csv");
+	
+	out << course -> courseID + ',' + course -> courseName + ',' + course -> teacher_name + ',' + "Credits: " + to_string(course -> numCredits) + "MaxStu: " + to_string(course -> maxStudent);
+
+	out.close();
+
+	out.open(schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Scoreboard.csv");
+
+	out << "No,Student ID,First Name, Last Name,Midterm,Final,Bonus,Overall";
+
+	out.close();
 }
 
 void deleteCourse(Course *&course, Course *delCourse) // delete 1 course thoi

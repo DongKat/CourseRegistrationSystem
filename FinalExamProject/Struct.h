@@ -68,7 +68,7 @@ struct Courses
     int maxStudent;// cap phat studentID
     int countStudent;
     BasicStudents *studentID;//8 [50] là tối đa 50 SV 1 lớp - 13 ghi danh- 15 xoá khoá- 16 xem các môn mà sv học
-    Schedules *schedule[2];
+    Schedules schedule[2];
     Scores scoreBoard;// 22-26
     CourseScore *mark;
     Courses *prev, *next;
