@@ -337,7 +337,7 @@ void extractCourse(Courses *course)
 
 	out.open(schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Scoreboard.csv");
 
-	out << "No,Student ID,First Name, Last Name,Midterm,Final,Bonus,Overall";
+	out << "No,Student ID,First Name,Last Name,Midterm,Final,Bonus,Overall";
 
 	out.close();
 }
