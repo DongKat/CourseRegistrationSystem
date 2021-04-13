@@ -328,8 +328,7 @@ void extractCourse(Courses *course)
 	ofstream out;
 	string filePath;
 
-	filePath = schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + '/' + course -> courseID;
-	_mkdir(filePath.c_str());
+	createFolder(schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + '/' + course -> courseID);
 
 	out.open(schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Profile.csv");
 	
