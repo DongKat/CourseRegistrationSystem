@@ -10,7 +10,7 @@ string convertToString(char* a, int size)
 	return s;
 }
 
-string inputUsername(char username[], int& sizeUser) {
+string inputUsername(char username[], int &sizeUser) {
 	UnNocursortype();
 	sizeUser = 0;
 	string user;
@@ -26,17 +26,8 @@ string inputUsername(char username[], int& sizeUser) {
 					break;
 			}
 		}
-		if (x == 13)
+		if (x == 13) {
 			break;
-		if (username[0] == '\0') {
-			while (true) {
-				x = _getch();
-				if (x != 8)
-					break;
-			}
-			username[sizeUser] = '\0';
-			sizeUser--;
-			cout << "\b \b";
 		}
 		if (x == 8) {
 			if (sizeUser != 0) {
@@ -73,17 +64,8 @@ string inputPassword(char password[], int& sizePass) {
 					break;
 			}
 		}
-		if (x == 13)
+		if (x == 13) {
 			break;
-		if (password[0] == '\0') {
-			while (true) {
-				x = _getch();
-				if (x != 8)
-					break;
-			}
-			password[sizePass] = '\0';
-			sizePass--;
-			cout << "\b \b";
 		}
 		if (x == 8) {
 			if (sizePass != 0) {
@@ -117,21 +99,14 @@ bool checkValidUsernameAndPasswordStaff(string username, string password) {
 		while (!in.eof()) {
 			string passwordFile;
 			string ignore_line;
-			cout << passwordFile[0];
+			
 			getline(in, ignore_line, '\n');
 			getline(in, passwordFile, '\n');
 
-			for (int i = 0; i < password.size(); ++i) {
-				if (password.size() > passwordFile.size())
-					return false;
-				if (password.size() < passwordFile.size())
-					return false;
-				if (passwordFile[i] != password[i])
-					return false;
-				else
-					return true;
-
-			}
+			if (password.compare(passwordFile) == 0)
+				return true;
+			else
+				return false;
 		}
 	}
 	in.close();
@@ -151,24 +126,18 @@ bool checkValidUsernameAndPasswordStudent(string username, string password) {
 		while (!in.eof()) {
 			string passwordFile;
 			string ignore_line;
-			cout << passwordFile[0];
+
 			getline(in, ignore_line, '\n');
 			getline(in, passwordFile, '\n');
 		
-			for (int i = 0; i < password.size(); ++i) {
-				if (password.size() > passwordFile.size())
-					return false;
-				if (password.size() < passwordFile.size())
-					return false;
-				if (passwordFile[i] != password[i])
-					return false;
-				else
-					return true;
-				
-			}
+			if (password.compare(passwordFile) == 0)
+				return true;
+			else
+				return false;
 		}
 	}
 	in.close();
 
 	return true;
 }
+
