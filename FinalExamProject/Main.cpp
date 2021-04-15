@@ -5,8 +5,8 @@
 #include "Library.h"
 #include "Struct.h"
 
-int main() {
-
+int main() 
+{
 	setWindowFullSize();
 	logo_moodle();
 	loginUI();

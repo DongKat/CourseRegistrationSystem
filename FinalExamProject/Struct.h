@@ -1,9 +1,11 @@
+
 #pragma once
 #include "Library.h"
 
 using namespace std;
 
-string schoolyear = "";
+string Schoolyear = "";
+
 
 struct date
 {
@@ -65,7 +67,8 @@ struct Courses
     Schedules schedule[2];
     Scores scoreBoard;// 22-26
     CourseScore *mark;
-    Courses *prev, *next;
+    Courses *prev, *next = nullptr;
+
 };
 
 struct Students
@@ -79,7 +82,7 @@ struct Students
     string gender;
     date dateOfBirth;
     string idSocial;
-    Courses courseStudent[15];
+    Courses *courseStudent;
     // 13 [15] mỗi sem tối đa 5 course x3 sem, dùng tra cứu, kiểm tra thời gian buổi học - 14 xem danh sách các khoá đã ghi danh - 15 xoá khoá - 20-26
     Students *next;
     Students *prev;
