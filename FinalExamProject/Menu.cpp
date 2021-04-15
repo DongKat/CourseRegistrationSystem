@@ -175,3 +175,137 @@ void menuStaffSettings(char username[], char password[], int sizeUser, int sizeP
 	}
 
 }
+
+void menuStudent(char username[], char password[], int sizeUser, int sizePass) {
+	system("cls");
+	logo_moodle();
+	Nocursortype();
+
+	keyboardShortcutMenu();
+
+	txtColor(14);
+	gotoxy(63, 16);
+	for (int i = 0; i < 45; ++i)
+		cout << char(219);
+
+	for (int i = 17; i < 33; ++i) {
+		gotoxy(63, i);
+		cout << char(219);
+	}
+
+	for (int i = 17; i < 33; ++i) {
+		gotoxy(107, i);
+		cout << char(219);
+	}
+
+	gotoxy(63, 32);
+	for (int i = 0; i < 45; ++i)
+		cout << char(223);
+
+	txtColor(240);
+	gotoxy(72, 18); cout << char(32);
+	gotoxy(99, 18); cout << char(32);
+
+	txtColor(15);
+	gotoxy(74, 18); cout << "H E L L O  S T U D E N T";
+
+	txtColor(15);
+	gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
+	gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
+	gotoxy(64, 24); cout << "          E D I T   C O U R S E S          ";
+	gotoxy(64, 26); cout << "          V I E W   C O U R S E S          ";
+	gotoxy(64, 28); cout << "            S C O R E B O A R D            ";
+	gotoxy(64, 30); cout << "               L O G   O U T               ";
+
+	menuStudentSettings(username, password, sizeUser, sizePass);
+}
+
+void menuStudentSettings(char username[], char password[], int sizeUser, int sizePass) {
+	int dem = 0;
+	while (true)
+	{
+		char choice = _getch();
+		txtColor(15);
+		gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
+		gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
+		gotoxy(64, 24); cout << "          E D I T   C O U R S E S          ";
+		gotoxy(64, 26); cout << "          V I E W   C O U R S E S          ";
+		gotoxy(64, 28); cout << "            S C O R E B O A R D            ";
+		gotoxy(64, 30); cout << "               L O G   O U T               ";
+
+		if (choice == 80)
+		{
+			dem++;
+			if (dem > 6)
+				dem = 1;
+		}
+
+		if (choice == 72)
+		{
+			dem--;
+			if (dem < 1)
+				dem = 6;
+		}
+
+		if (choice == 27) { // ESC
+			system("cls");
+			exit(0);
+		}
+
+		if (dem == 1)
+		{
+			txtColor(240);
+			gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
+			if (choice == 13)
+			{
+				return;
+			}
+		}
+		if (dem == 2)
+		{
+			txtColor(240);
+			gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
+			if (choice == 13)
+			{
+
+			}
+		}
+		if (dem == 3)
+		{
+			txtColor(240);
+			gotoxy(64, 24); cout << "          E D I T   C O U R S E S          ";
+			if (choice == 13)
+			{
+
+			}
+		}
+		if (dem == 4)
+		{
+			txtColor(240);
+			gotoxy(64, 26); cout << "          V I E W   C O U R S E S          ";
+			if (choice == 13)
+			{
+
+			}
+		}
+		if (dem == 5)
+		{
+			txtColor(240);
+			gotoxy(64, 28); cout << "            S C O R E B O A R D            ";
+			if (choice == 13)
+			{
+
+			}
+		}
+		if (dem == 6)
+		{
+			txtColor(240);
+			gotoxy(64, 30); cout << "               L O G   O U T               ";
+			if (choice == 13)
+			{
+				txtColor(0);
+				Login(username, password, sizeUser, sizePass);
+			}
+		}
+	}
+}
