@@ -4,6 +4,7 @@
 #include "Library.h"
 #include "Struct.h"
 #include <direct.h>
+#include <cstdio>
 
 using namespace std;
 
