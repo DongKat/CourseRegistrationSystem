@@ -1,11 +1,10 @@
 
 #pragma once
 #include "Library.h"
-#include <iostream>
-#include <string>
-#include <fstream>
 
 using namespace std;
+
+string Schoolyear = "";
 
 
 struct date
@@ -68,7 +67,8 @@ struct Courses
     Schedules schedule[2];
     Scores scoreBoard;// 22-26
     CourseScore *mark;
-    Courses* next = nullptr, *prev;
+    Courses *prev, *next = nullptr;
+
 };
 
 struct Students
@@ -113,7 +113,3 @@ struct schoolYear // 1 tạo năm học
     schoolYear *next;
     schoolYear *prev;
 };
-
-
-
-
