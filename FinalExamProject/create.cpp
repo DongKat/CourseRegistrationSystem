@@ -1,15 +1,13 @@
 #include "create.h"
-#include "Library.h"
-#include "Struct.h"
 
 using namespace std;
 
 void createFolder(string path){
-	mkdir(path.c_str());
+	_mkdir(path.c_str());
 }
 
 void removeFolder(string path){
-	rmdir(path.c_str());
+	_rmdir(path.c_str());
 }
 
 void removeFile(string path)
@@ -338,7 +336,7 @@ Courses *newCourse(int currSem, date begin, date end, string courseName, string 
 	newCourse -> dateEnd = end;
 	newCourse -> courseName = courseName;
 	newCourse -> courseID = courseID;
-	newCourse -> teacher_name = teacher_name;
+	newCourse -> teacherName = teacher_name;
 	newCourse -> numCredits = numCredits;
 	newCourse -> maxStudent =  maxStudent;
 	newCourse -> schedule[0] = schedule[0];
@@ -372,15 +370,15 @@ void extractCourse(Courses *course)
 {
 	ofstream out;
 
-	createFolder(schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + '/' + course -> courseID);
+	createFolder(Schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + '/' + course -> courseID);
 
-	out.open(schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Profile.csv");
+	out.open(Schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Profile.csv");
 	
-	out << course -> courseID + ',' + course -> courseName + ',' + course -> teacher_name + ',' + "Credits: " + to_string(course -> numCredits) + "MaxStu: " + to_string(course -> maxStudent);
+	out << course -> courseID + ',' + course -> courseName + ',' + course -> teacherName + ',' + "Credits: " + to_string(course -> numCredits) + "MaxStu: " + to_string(course -> maxStudent);
 
 	out.close();
 
-	out.open(schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Scoreboard.csv");
+	out.open(Schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Scoreboard.csv");
 
 	out << "No,Student ID,First Name,Last Name,Midterm,Final,Bonus,Overall";
 
@@ -394,7 +392,7 @@ Courses *findCourse(Courses *&course, string courseID, string courseName, string
 
 	while (curr)
 	{
-		if (curr -> courseID == courseID && curr -> courseName == courseName && curr -> teacherName == teacherName)
+		if (curr -> courseID == courseID && curr -> courseName == courseName && curr -> teacherName == course->teacherName)
 			return curr;
 		curr = curr -> next;
 	}

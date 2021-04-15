@@ -25,5 +25,6 @@ void deleteAllClasses(Classes*& Class, string path);
 void deleteClass(Classes *&Class, string path);
 void deleteAllYears(schoolYear*& sYear);
 void deleteYear(schoolYear*& sYear);
+void addSemeseter(Semesters*& semester, int currSem, date begin, date end);
 
 #endif

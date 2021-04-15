@@ -1,4 +1,3 @@
-
 #pragma once
 #include "Library.h"
 
@@ -59,7 +58,7 @@ struct Courses
     date dateEnd;  // 7 ngày kết thúc đăng ký môn
     string courseName;
     string courseID;
-    string teacher_name;
+    string teacherName;
     int numCredits;
     int maxStudent;// cap phat studentID
     int countStudent;
@@ -94,6 +93,7 @@ struct Semesters
     date dateStart;// 6 ngày bắt đầu học kỳ
     date dateEnd;// 6 ngày kết thúc học kỳ
     Courses *course; // 7-11, 19 xem các môn có trong kỳ ( dù có học hay không học )
+    Semesters* next = nullptr, * prev = nullptr;
 };
 
 struct Classes
