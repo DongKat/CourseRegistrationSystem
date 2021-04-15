@@ -172,29 +172,38 @@ void importScoreboard(Courses Course)
 
 void updateStudentResult(Courses Course, string studentID)
 {
-	ifstream infile("./School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv");
-	ofstream outfile("./School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard_new.csv");
-	string temp, line;
-	while (!infile.eof())
+	string oldDir, newDir;
+	oldDir = "./School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv";
+	newDir = "./School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard_new.csv";
+	ifstream oldFile(oldDir);
+	ofstream newFile(newDir);
+	string temp;
+	while (!oldFile.eof())
 	{
-		getline(infile, temp);
-		ostringstream s(temp);
-		s << temp << ",";
-		if (temp == studentID)
-		{
-			int i;
-			cout << "Record found!\n";
-			cout << "New midterm score\n";
-			cin >> i;
-			cout << "New final score\n";
-			cin >> i;
-			cout << "New bonus score\n";
-			cin >> i;
-			cout << "New overall score\n";
-			cin >> i;
-			return;
+			getline(oldFile, temp,',');
+			newFile << temp << ",";
+			if (temp == studentID)
+			{
+				int i;
+				cout << "Record found!\n";
+				cout << "New midterm score\n";
+				cin >> i;
+				newFile << i << ",";
+				cout << "New final score\n";
+				cin >> i;
+				newFile << i << ",";
+				cout << "New bonus score\n";
+				cin >> i;
+				newFile << i << ",";
+				cout << "New overall score\n";
+				cin >> i;
+				newFile << i << "\n";
 		}
 	}
+	oldFile.close();
+	newFile.close();
+	remove(oldDir.c_str());
+	rename(newDir.c_str(), oldDir.c_str());
 }
 
 void viewClassScoreboard(Courses Course, string className) // ;-;

@@ -154,6 +154,9 @@
     <ClInclude Include="Library.h" />
     <ClInclude Include="Struct.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Test.csv" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
