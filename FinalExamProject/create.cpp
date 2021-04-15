@@ -12,6 +12,11 @@ void removeFolder(string path){
 	rmdir(path.c_str());
 }
 
+void removeFile(string path)
+{
+	_remove(path.c_str());
+}
+
 bool checkDate(date Date1, date Date2){  // true if date1 before or same as date 2
 	if (Date1.year<Date2.year) return 1;
 	if (Date1.year>Date2.year) return 0;
@@ -399,6 +404,14 @@ Courses *findCourse(Courses *&course, string courseID, string courseName, string
 
 void deleteCourse(Courses *&course, Courses *delCourse)
 {
+	ifstream in;
+
+	string delPath = (schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID)
+
+	removeFile(delPath + "/Profile.csv");
+	removeFile(delPath + "/Scoreboard.csv");
+	removeFolder(delPath);
+
 	if (delCourse -> prev)
 		delCourse -> prev -> next = delCourse -> next;
 	else
