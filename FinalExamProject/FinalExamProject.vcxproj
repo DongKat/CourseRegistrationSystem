@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="autoGenerateAccounts.cpp" />
     <ClCompile Include="create.cpp" />
-    <ClCompile Include="function13.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="LoginUI.cpp" />
@@ -152,7 +151,6 @@
   <ItemGroup>
     <ClInclude Include="CourseRegistrationSystem.h" />
     <ClInclude Include="create.h" />
-    <ClInclude Include="function13.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Library.h" />
