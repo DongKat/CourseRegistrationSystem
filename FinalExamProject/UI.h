@@ -17,4 +17,8 @@ string inputUsername(char username[], int& sizeUser);
 string inputPassword(char password[], int& sizePass);
 bool checkValidUsernameAndPasswordStaff(string username, string password);
 bool checkValidUsernameAndPasswordStudent(string username, string password);
+void Login(char username[], char password[], int sizeUser, int sizePass);
+void menuStaff(char username[], char password[], int sizeUser, int sizePass);
 void menuStaffSettings(char username[], char password[], int sizeUser, int sizePass);
+void menuStudent(char username[], char password[], int sizeUser, int sizePass);
+void menuStudentSettings(char username[], char password[], int sizeUser, int sizePass);

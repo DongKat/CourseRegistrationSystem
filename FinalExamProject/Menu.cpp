@@ -30,6 +30,45 @@ void keyboardShortcut() {
 
 }
 
+void Login(char username[], char password[], int sizeUser, int sizePass) {
+	system("cls");
+	logo_moodle();
+	loginUI();
+
+	while (true) {
+		fillBlackLogin();
+		inputUsername(username, sizeUser);
+		inputPassword(password, sizePass);
+
+		if (checkValidUsernameAndPasswordStaff(username, password) == true) {
+			break;
+		}
+		if (checkValidUsernameAndPasswordStudent(username, password) == true) {
+			break;
+		}
+
+		else {
+			txtColor(12);
+			gotoxy(66, 38); cout << " *** INCORRECT USERNAME OR PASSWORD ***" << endl;
+			Nocursortype();
+			Sleep(700);
+			txtColor(15);
+		}
+
+	}
+	if (checkValidUsernameAndPasswordStaff(username, password) == true) {
+		system("cls");
+		logo_moodle();
+		menuStaff(username, password, sizeUser, sizePass);
+	}
+
+	if (checkValidUsernameAndPasswordStudent(username, password) == true) {
+		system("cls");
+		logo_moodle();
+		menuStudent(username, password, sizeUser, sizePass);
+	}
+}
+
 void menuStaff(char username[], char password[], int sizeUser, int sizePass) {
 	system("cls");
 	logo_moodle();
@@ -309,3 +348,4 @@ void menuStudentSettings(char username[], char password[], int sizeUser, int siz
 		}
 	}
 }
+

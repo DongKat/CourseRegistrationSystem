@@ -142,7 +142,7 @@
     <ClCompile Include="autoGenerateAccounts.cpp" />
     <ClCompile Include="create.cpp" />
     <ClCompile Include="Functions.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="LoginUI.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Menu.cpp" />
