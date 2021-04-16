@@ -17,3 +17,4 @@ string inputUsername(char username[], int& sizeUser);
 string inputPassword(char password[], int& sizePass);
 bool checkValidUsernameAndPasswordStaff(string username, string password);
 bool checkValidUsernameAndPasswordStudent(string username, string password);
+void menuStaffSettings(char username[], char password[], int sizeUser, int sizePass);

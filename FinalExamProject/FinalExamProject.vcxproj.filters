@@ -30,6 +30,18 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="autoGenerateAccounts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="create.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="new_create.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Library.h">
@@ -50,9 +62,18 @@
     <ClInclude Include="UI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CourseRegistrationSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Test.csv">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="staff.csv">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="student.csv">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

@@ -142,9 +142,9 @@ void deleteClass(Classes*& Class) {
 	}
 }
 
-Semeseters *newSemeseter(int currSem, date begin, date end)
+Semesters *newSemeseter(int currSem, date begin, date end)
 {
-	Semeseter newSemeseter = new Semeseter;
+	Semesters* newSemeseter = new Semesters;
 	newSemeseter -> sem = currSem;
 	newSemeseter -> dateStart = begin;
 	newSemeseter -> dateEnd = end;
@@ -155,7 +155,7 @@ Semeseters *newSemeseter(int currSem, date begin, date end)
 	return newSemeseter;
 }
 
-void addSemeseter(Semeseter *&semester, int currSem, date begin, date end)
+void addSemeseter(Semesters*& semester, int currSem, date begin, date end)
 {
 	if (!semester)
 	{
@@ -163,7 +163,7 @@ void addSemeseter(Semeseter *&semester, int currSem, date begin, date end)
 		return;
 	}
 
-	Semester *curr = semester;
+	Semesters *curr = semester;
 	while (curr -> next)
 		curr = curr -> next;
 
@@ -171,31 +171,32 @@ void addSemeseter(Semeseter *&semester, int currSem, date begin, date end)
 	curr -> next -> prev = curr;
 }
 
-CoursesSemester *newCourse(int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *&schedule)
+Courses *newCourse(int currSem, date begin, date end, string courseName, string courseID, string teacherName, int numCredits, int maxStudent, Schedules schedule)
 {
-	CoursesSemester newCourse = new CoursesSemester;
+	Courses* newCourse = new Courses;
 	newCourse -> sem = currSem;
 	newCourse -> dateStart = begin;
 	newCourse -> dateEnd = end;
 	newCourse -> courseName = courseName;
-	newCourse -> teacher_name = teacher_name;
+	newCourse -> teacherName = teacherName;
 	newCourse -> numCredits = numCredits;
-	newCourse -> maxStudent =  maxStudent;
-	newCourse -> schedule = schedule;
+	newCourse -> maxStudent = maxStudent;
+	newCourse -> schedule->day = schedule.day;
+	newCourse -> schedule->time = schedule.time;
 
 	newCourse -> prev = NULL;
 	newCourse -> next = NULL;
 }
 
-void addCourse(Course *&course, int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *&schedule)
+void addCourse(Courses *&course, int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules schedule)
 {
 	if (!course)
 	{
-		course = newCourse(sem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
+		course = newCourse(currSem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
 		return;
 	}
 
-	Course *curr = course;
+	Courses *curr = course;
 	while (curr -> next)
 		curr = curr -> next;
 

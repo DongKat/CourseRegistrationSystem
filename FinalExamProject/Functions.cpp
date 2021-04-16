@@ -119,59 +119,6 @@ void importScoreboard(Courses Course)
 
 void updateStudentResult(Courses Course, string studentID)
 {
-	ifstream infile("School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv");
-	ofstream outfile("School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard_new.csv");
-	string temp;
-	while (infile.eof())
-	{
-		getline(infile, temp, ',');	
-		if (temp == studentID)
-		{
-			int i;
-			cout << "Record found!\n";
-			cout << "New midterm score\n";
-			cin >> i;
-			outfile << i << ",";
-			cout << "New final score\n";
-			cin >> i;
-			outfile << i << ",";
-			cout << "New bonus score\n";
-			cin >> i;
-			outfile << i << ",";
-			cout << "New overall score\n";
-			cin >> i;
-			outfile << i;
-			return;
-		}
-	}
-}
-
-void viewClassScoreboard(Courses Course, string className) // ;-;
-{
-	string studentID;
-
-	ifstream file("School year/Classes/" + className + "/" + studentID + "/Course Sem" + to_string(Course.sem) + ".csv");
-	string temp;
-	while (file.eof())
-	{	
-		for(int i = 0; i < 7; i++)
-		{
-			getline(file, temp, ',');
-			cout << temp << " ";
-		}
-		getline(file, temp);
-		cout << temp << endl;
-	}
-}
-
-void importScoreboard(Courses Course)
-{
-	// I am void, is this neeeded since we are reading files :o
-	return;
-}
-
-void updateStudentResult(Courses Course, string studentID)
-{
 	string oldDir, newDir;
 	oldDir = "./School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv";
 	newDir = "./School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard_new.csv";
