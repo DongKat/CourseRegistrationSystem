@@ -5,43 +5,20 @@
 #include "Library.h"
 #include "Struct.h"
 
-int main() 
-{
+int main() {
 	setWindowFullSize();
-	logo_moodle();
-	loginUI();
-
+	txtColor(0);
 	autoGenerateStudentAccounts("student.csv");
-	autoGenerateStaffAccounts("staff.csv");
+	autoGenerateStaffAccounts("staff.txt");
 	autoGenerateStudentProfiles("student.csv");
-	autoGenerateStaffProfiles("staff.csv");
+	autoGenerateStaffProfiles("staff.txt");
 
 	char username[23];
 	char password[23];
 	int sizeUser = 0;
 	int sizePass = 0;
 
-	while (true) {
-		fillBlackLogin();
-		inputUsername(username, sizeUser);
-		inputPassword(password, sizePass);
-
-		if (checkValidUsernameAndPasswordStaff(username, password) == true) {
-			break;
-		}
-		if (checkValidUsernameAndPasswordStudent(username, password) == true) {
-			break;
-		}
-
-		else {
-			txtColor(12);
-			gotoxy(66, 38); cout << " *** INCORRECT USERNAME OR PASSWORD ***" << endl;
-			Nocursortype();
-			Sleep(700);
-			txtColor(15);
-		}
-
-	}
+	Login(username, password, sizeUser, sizePass);
 
 	system("cls");
 	logo_moodle();
