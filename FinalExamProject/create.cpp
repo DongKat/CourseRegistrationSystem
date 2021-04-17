@@ -326,6 +326,7 @@ Semesters newSemester(int currSem, date begin, date end)
 void addSemester(Semesters semester[], int currSem, date begin, date end)
 {
 	semester[currSem - 1] = newSemester(currSem, begin, end);
+	Sem = "Sem " + to_string(currSem);
 }
 
 Courses *newCourse(int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules schedule[])
