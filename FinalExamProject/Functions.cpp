@@ -2,32 +2,34 @@
 
 void readClassCSV(ifstream& classList, Students& student)
 {
-    // Temp function only read one row for a single student
-    string temp;
-    // Read the Data from the file as String Vector
-    getline(classList, temp, ',');
-    student.no = stoi(temp);
-    getline(classList, temp, ',');
-    student.ID = stoi(temp);
-    getline(classList, temp, ',');
-    student.firstName = temp;
-    getline(classList, temp, ',');
-    student.lastName = temp;
-    getline(classList, temp, ',');
+	//trash function
+	// Temp function only read one row for a single student
+	string temp;
+	// Read the Data from the file as String Vector
+	getline(classList, temp, ',');
+	student.no = stoi(temp);
+	getline(classList, temp, ',');
+	student.ID = stoi(temp);
+	getline(classList, temp, ',');
+	student.firstName = temp;
+	getline(classList, temp, ',');
+	student.lastName = temp;
+	getline(classList, temp, ',');
 	student.gender = stoi(temp);
-    getline(classList, temp, ',');
-    //dateofbirth
-    getline(classList, temp);
-    student.idSocial = temp;
+	getline(classList, temp, ',');
+	//dateofbirth
+	getline(classList, temp);
+	student.idSocial = temp;
 }
 
 void createStudent(ifstream& classList, Students& student) // Read CSV file for student's info
 {
+	//trash function
 	// Temp function only read one row for a single student
 	string temp;
 	// Read the Data from the file as String Vector
 	// Ignore first line
-	getline(classList, temp);	
+	getline(classList, temp);
 
 	getline(classList, temp, ',');
 	student.no = stoi(temp);
@@ -53,6 +55,7 @@ void createStudent(ifstream& classList, Students& student) // Read CSV file for 
 
 void createStudentList(Students*& pHead, string csvFileName)
 {
+	//trash function
 	ifstream file(csvFileName);
 	Students* pCur = nullptr;
 	while (!file.eof())
@@ -75,27 +78,24 @@ void createStudentList(Students*& pHead, string csvFileName)
 	file.close();
 }
 
+
 void exportCourseStudent(Courses Course)
 {
-	ofstream file(Course.courseName + "_List_of_Students.csv");
-	string colName[] = { "No", "Student ID", "Student Full Name", "Total Mark", "Final Mark", "Midterm Mark", "Other Mark" };
-	for (int i = 0; i < 7; i++)
-		file << colName[i] << ",";
-	file << endl;
-	int j = 0;
-	while(Course.studentID)
+	// copy course scoreboard to outside file
+	string scoreboard_dir = Schoolyear + "./Semester/Sem " + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv";
+	string temp;
+	ifstream target(scoreboard_dir);
+	ofstream file(Course.courseID + "_Scoreboard.csv");
+	while (!target.eof())
 	{
-		file << j + 1 << ",";
-		file << Course.studentID->ID << ",";
-		file << Course.studentID->lastName << Course.studentID->firstName << ",";
-		file << "," << "," << "," << "," << endl;
-		Course.studentID = Course.studentID->next;
-
+		getline(target, temp);
+		file << temp;
 	}
 }
 
 void viewScoreboard(Courses Course)
 {
+	// view Course scoreboard
 	ifstream file("School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv");
 	string temp;
 	while (file.eof())
@@ -111,40 +111,58 @@ void viewScoreboard(Courses Course)
 	}
 }
 
-void importScoreboard(Courses Course)
+void importScoreboard(Courses Course, string file_name)
 {
-	// I am void, is this neeeded since we are reading files :o
-	return;
+	// copy outside file to course scoreboard
+	string target_dir = Schoolyear + "./Semester/Sem " + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv";
+	string line;
+	ifstream file(file_name);
+	ofstream target(target_dir);
+	while (!file.eof())
+	{
+		getline(file, line);
+		target << line;
+	}
 }
 
-void updateStudentResult(Courses Course, string studentID)
+void updateStudentResult(Courses Course, string studentID, Scores newScore)
 {
-	string oldDir, newDir;
-	oldDir = "./School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv";
-	newDir = "./School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard_new.csv";
+	string oldDir, newDir, temp;
+	bool recordFlag = false; // check if student record is update. if updated -> true
+	oldDir = "./" + Schoolyear + "/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv";
+	newDir = "./" + Schoolyear + "/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard_new.csv";
 	ifstream oldFile(oldDir);
 	ofstream newFile(newDir);
-	string temp;
 	while (!oldFile.eof())
 	{
-			getline(oldFile, temp,',');
-			newFile << temp << ",";
-			if (temp == studentID)
+		if (!recordFlag)
+		{
+			for (int i = 0; i < 8; i++)
 			{
-				int i;
-				cout << "Record found!\n";
-				cout << "New midterm score\n";
-				cin >> i;
-				newFile << i << ",";
-				cout << "New final score\n";
-				cin >> i;
-				newFile << i << ",";
-				cout << "New bonus score\n";
-				cin >> i;
-				newFile << i << ",";
-				cout << "New overall score\n";
-				cin >> i;
-				newFile << i << "\n";
+				if (i == 7)
+				{
+					getline(oldFile, temp);
+					newFile << temp << "\n";
+				}
+				getline(oldFile, temp, ',');
+				newFile << temp << ",";
+				if (temp == studentID)
+				{
+					getline(oldFile, temp, ',');
+					newFile << temp << ",";
+					getline(oldFile, temp, ',');
+					newFile << temp << ",";
+					newFile << newScore.Midterm << "," << newScore.Final << "," << newScore.Bonus << "," << newScore.GPA << "\n";
+					getline(oldFile, temp);
+					recordFlag = true;
+					break;
+				}
+			}
+		}
+		else
+		{
+			getline(oldFile, temp);
+			newFile << temp << "\n";
 		}
 	}
 	oldFile.close();
@@ -152,21 +170,59 @@ void updateStudentResult(Courses Course, string studentID)
 	remove(oldDir.c_str());
 	rename(newDir.c_str(), oldDir.c_str());
 }
+string sem;
 
-void viewClassScoreboard(Courses Course, string className) // ;-;
+void viewClassScoreboard(Classes Class) // Require changing UI
 {
-	string studentID;
+	// Read class's students list Students.txt
+	// Go to each studentID folder, read score from Course Sem 1/2/3
+	// Problem many students with different courses
 
-	ifstream file("School year/Classes/" + className + "/" + studentID + "/Course Sem" + to_string(Course.sem) + ".csv");
-	string temp;
-	while (file.eof())
-	{	
-		for(int i = 0; i < 7; i++)
-		{
-			getline(file, temp, ',');
-			cout << temp << " ";
-		}
+	string studentID;
+	string line, temp;
+	float overall_GPA;
+	int count;
+	ifstream student_list("./" + Schoolyear + "/Classes/" + Class.className + "/Students.txt");
+	ifstream file;
+
+	cout << "Student ID\t";
+	cout << "Student Name\t";
+	cout << "Course ID\t";
+	cout << "Course final score";
+	cout << "Course GPA\t";
+	cout << "Overall GPA\n";
+
+
+	while (!student_list.eof())
+	{
+		getline(student_list, studentID);
+
+		cout << studentID << "\t";
+		file.open("./" + Schoolyear + "/Classes/" + Class.className + "/" + studentID + "/Profile.txt"); // Get student name with ID
 		getline(file, temp);
-		cout << temp << endl;
+		cout << temp << "\t"; // Assume name is first row
+		file.close();
+		
+		file.open("./" + Schoolyear + "/Classes/" + Class.className + "/" + studentID + "/Course Sem" + sem + ".csv");
+		overall_GPA = 0;
+		count = 0;
+		while (!file.eof())
+		{
+			getline(file, line, ','); //get courseID
+			cout << line << "\t";
+			getline(file, line, ','); // skip course name
+			getline(file, line, ','); // skip midterm score
+			getline(file, line, ','); // get final score
+			cout << line << "\t";
+			getline(file, line, ','); // skip bonus
+			getline(file, line); // get overall
+			cout << line << "\n";
+			overall_GPA += stof(line);
+			count++;
+		}
+		file.close();
+		overall_GPA /= count;
+		cout << "Overall GPA: " << overall_GPA << endl;
+
 	}
 }
