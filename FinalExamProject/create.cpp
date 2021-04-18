@@ -367,7 +367,7 @@ void addCourse(Courses *&course, int currSem, date begin, date end, string cours
 	curr -> next -> prev = curr;
 }
 
-void extractCourse(Courses *course)
+void creatFolderNFileCourse(Courses *course)
 {
 	ofstream out;
 
@@ -375,13 +375,14 @@ void extractCourse(Courses *course)
 
 	out.open(Schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Profile.csv");
 	
-	out << course -> courseID + ',' + course -> courseName + ',' + course -> teacherName + ',' + "Credits: " + to_string(course -> numCredits) + "MaxStu: " + to_string(course -> maxStudent);
+	out << "Course ID,Course Name,Teacher Name,Num of Credits,Max Students,Session 1,Session 2\n";
+	out << course -> courseID + ',' + course -> courseName + ',' + course -> teacherName + ',' + "Credits: " + to_string(course -> numCredits) + "MaxStu: " + to_string(course -> maxStudent) + ',' + course -> schedule[0].day + ' ' course -> schedule[0].time + ',' + course -> schedule[1].day + ' ' course -> schedule[1].time + '\n';
 
 	out.close();
 
 	out.open(Schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Scoreboard.csv");
 
-	out << "No,Student ID,First Name,Last Name,Midterm,Final,Bonus,Overall";
+	out << "No,Student ID,First Name,Last Name,Midterm,Final,Bonus,Overall\n";
 
 	out.close();
 }
