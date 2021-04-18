@@ -44,6 +44,7 @@ struct CourseScore : Scores
 
 struct BasicStudents
 {
+    int No;
     string ID;
     string firstName;
     string lastName;
