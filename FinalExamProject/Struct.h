@@ -1,11 +1,13 @@
 
 #pragma once
 #include "Library.h"
-
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <stdio.h>
+#include <algorithm>
 using namespace std;
-
 string Schoolyear = "";
-
 
 struct date
 {
@@ -51,6 +53,16 @@ struct BasicStudents
     BasicStudents *next = nullptr;
     BasicStudents *prev;
 };
+struct BasicCourses
+{
+    int sem;
+    string courseName;
+    string courseID;
+    CourseScore *mark;
+    BasicCourses *next=nullptr;
+    Schedules schedule[2];
+
+};
 
 struct Courses
 {
@@ -62,13 +74,12 @@ struct Courses
     string teacher_name;
     int numCredits;
     int maxStudent;// cap phat studentID
-    int countStudent;
+    int countStudent=0;
     BasicStudents *studentID;//8 [50] là tối đa 50 SV 1 lớp - 13 ghi danh- 15 xoá khoá- 16 xem các môn mà sv học
+    CourseScore *mark;
     Schedules schedule[2];
     Scores scoreBoard;// 22-26
-    CourseScore *mark;
-    Courses *prev, *next = nullptr;
-
+    Courses *next=nullptr , *prev;
 };
 
 struct Students
@@ -82,8 +93,7 @@ struct Students
     string gender;
     date dateOfBirth;
     string idSocial;
-    Courses *courseStudent;
-    // 13 [15] mỗi sem tối đa 5 course x3 sem, dùng tra cứu, kiểm tra thời gian buổi học - 14 xem danh sách các khoá đã ghi danh - 15 xoá khoá - 20-26
+    BasicCourses *courseStudent=nullptr;
     Students *next;
     Students *prev;
 };

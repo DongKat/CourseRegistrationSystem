@@ -1,8 +1,6 @@
-#include "function13.h"
-
-bool checkSchedule(Students aStudent,Courses courseNew)
+bool checkSchedule(Students aStudent,BasicCourses courseNew)
 {
-    Courses *ptem = aStudent.courseStudent;
+    BasicCourses *ptem = aStudent.courseStudent ;
     while (ptem!=nullptr)
     {
         if (ptem->sem==courseNew.sem)
@@ -11,7 +9,7 @@ bool checkSchedule(Students aStudent,Courses courseNew)
             if((ptem->schedule[j].day == courseNew.schedule[j].day) && (ptem->schedule[j].time== courseNew.schedule[j].time))
                 return false;
         }
-        ptem->next;
+        ptem=ptem->next;
     }
     return true;
 };
@@ -52,14 +50,28 @@ void enrollACourse(Students& aStudent,Courses courseNew,fstream &f)
             f.close();
             
             // chèn vào list course student
-            Courses *&pt=aStudent.courseStudent;
+            BasicCourses *pt=aStudent.courseStudent;
             if(pt==nullptr)
-                pt=&courseNew;
+            {
+                pt->courseID=courseNew.courseID;
+                pt->courseName=courseNew.courseName;
+                pt->mark=courseNew.mark;
+                for(int i=0; i<2;i++)
+                    pt->schedule[i]=courseNew.schedule[i];
+                pt->sem=courseNew.sem;
+                courseNew.studentID->next=nullptr;
+            }
             else
             {
                 while(pt->next!= nullptr)
                     pt = pt->next;
-                pt->next=&courseNew;
+                pt->next->courseID=courseNew.courseID;
+                pt->next->courseName=courseNew.courseName;
+                pt->next->mark=courseNew.mark;
+                for(int i=0; i<2;i++)
+                    pt->next->schedule[i]=courseNew.schedule[i];
+                pt->next->sem=courseNew.sem;
+                courseNew.studentID->next=nullptr;
             }
             
             // chèn student vào course
@@ -92,7 +104,7 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
     string overall;
     // in course sem 1
     cout<<"Courses semester 1: "<<endl;
-    f.open("input.csv");
+    f.open(Schoolyear+ "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(1) + ".csv");
     if(!f.is_open())
         throw "error";
     while(!f.eof())
@@ -115,7 +127,7 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
 
     // in course sem 2
     cout<<"Courses semester 2: "<<endl;
-    f.open("input.csv");
+    f.open(Schoolyear+ "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(2) + ".csv");
     if(!f.is_open())
         throw "error";
     while(!f.eof())
@@ -138,7 +150,7 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
     
     // in course sem 3
     cout<<"Courses semester 3: "<<endl;
-    f.open("input.csv");
+    f.open(Schoolyear+ "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(3) + ".csv");
     if(!f.is_open())
         throw "error";
     while(!f.eof())
@@ -159,71 +171,121 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
     }
     f.close();
 }
-void updateCourse (Students aStudent,Courses courseDelete,fstream &f)
+void updateCourseB4D (Students aStudent,Courses courseDelete,fstream &f)
 {
+    //file student
     string file="./"+Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(courseDelete.sem) + ".csv";
     remove(file.c_str());
     f.open(file);
-    Courses *ptem = aStudent.courseStudent ;
+    string temp;
+    BasicCourses *ptem = aStudent.courseStudent;
     while (ptem!=nullptr)
     {
-        f << ptem->courseID << "," << ptem->courseName<< "," << ptem->mark->Midterm<< ","<<ptem->mark->Final<<","<<ptem->mark->Bonus<<","<<ptem->mark->GPA<<endl;
-        ptem=ptem->next;
+        getline(f, temp, ',');
+        if (temp == courseDelete.courseID)
+        {
+            ptem = ptem->next;
+        }
+        else
+        {
+            f << ptem->courseID << "," << ptem->courseName<< "," << ptem->mark->Midterm<< ","<<ptem->mark->Final<<","<<ptem->mark->Bonus<<","<<ptem->mark->GPA<<endl;
+            ptem=ptem->next;
+        }
+    }
+    f.close();
+    
+    // file scoreboard
+    file="./"+Schoolyear+ "/Semester/Semester" + to_string(courseDelete.sem) + "/" + courseDelete.courseID + "Scoreboard.csv";
+    remove(file.c_str());
+    f.open(file);
+    BasicStudents *pCur = courseDelete.studentID;
+    int count =1;
+    while (pCur!=nullptr)
+    {
+        getline(f, temp, ',');
+        if (temp == aStudent.ID)
+        {
+            pCur = pCur->next;
+        }
+        else
+        {
+            f << count++<< pCur->ID<< "," << pCur->firstName<< "," << pCur->lastName<<","<< aStudent.courseStudent->mark->Midterm<< ","<<aStudent.courseStudent->mark->Final<<","<<aStudent.courseStudent->mark->Bonus<<","<<aStudent.courseStudent->mark->GPA<<endl;
+            pCur=pCur->next;
+        }
     }
     f.close();
 }
 
-void removeACourse(Students aStudent,Courses courseDelete,fstream &f)
+void removeACourse(Students *aStudent,Courses *courseDelete,fstream &f)
 {
-    // xoá trong student // list
-    Courses *ptem =  new Courses;
-    ptem=aStudent.courseStudent ;
-    Courses *pdelete;
-    string s1 = aStudent.courseStudent->courseID, s2 = courseDelete.courseID;
-    if(s1 == s2)
-        {
-            pdelete=ptem;
-            aStudent.courseStudent=aStudent.courseStudent->next;
-            delete ptem;
-        }
-    else
+    string ignore_line;
+    
+    // update file xoá
+    updateCourseB4D(*aStudent,*courseDelete,f);
+    
+    //Xoá dãy studentID cua course
+    BasicStudents *pCur = courseDelete->studentID;
+    BasicStudents *pdelete;
+    while(pCur!=nullptr)
     {
-        while (ptem!=nullptr || ptem->courseID!=courseDelete.courseID)
-            ptem=ptem->next;
-        if (ptem!=nullptr)
-            {
-                pdelete=ptem;
-                ptem=ptem->next;
-                delete pdelete;
-            };
-    };
-   
-    // xoá trong Course
-    BasicStudents *pt = courseDelete.studentID;
-    BasicStudents *pdele;
-    if (pt==nullptr)
-        return;
-    if(pt->ID==aStudent.ID)
-        {
-            pdele=pt;
-            courseDelete.studentID=courseDelete.studentID->next;
-            delete pdele;
-        }
-    else
+        pdelete=pCur;
+        pCur=pCur->next;
+        delete pdelete;
+    }
+    
+    // doc lai day studentID tu file
+    f.open(Schoolyear+ "/Semester/Semester" + to_string(courseDelete->sem) + "/" + courseDelete->courseID + "Scoreboard.csv", ios::in);
+    while(!f.eof())
     {
-        while (pt!=nullptr && pt->ID!=aStudent.ID)
-            pt=pt->next;
-        if (pt!=nullptr)
-            {
-                pdele=pt;
-                pt=pt->next;
-                delete pdele;
-            };
-    };
-    // gọi hàm doc lai file
-        updateCourse(aStudent,courseDelete,f);
+        pCur= new BasicStudents;
+        getline(f,ignore_line,',');
+        getline(f,pCur->ID,',');
+        getline(f,pCur->firstName,',');
+        getline(f,pCur->lastName,',');
+        getline(f,ignore_line,',');
+        getline(f,ignore_line,',');
+        getline(f,ignore_line,',');
+        getline(f,ignore_line);
+        pCur=pCur->next;
+    }
+    
+    
+    //xoa day course cua student
+    BasicCourses *temp = aStudent->courseStudent;
+    BasicCourses *pdele;
+    while(temp!=nullptr)
+    {
+        pdele=temp;
+        temp=temp->next;
+        delete pdele;
+    }
+    
+    // doc lai day course cua student tu file
+    temp = aStudent->courseStudent;
+    f.open(Schoolyear + "/Classes/" + aStudent->className + "/" + aStudent->ID + "/Course Sem" + to_string(courseDelete->sem) + ".csv", ios::in);
+    temp->sem=courseDelete->sem;
+    while(!f.eof())
+    {
+        temp= new BasicCourses;
+        getline(f,temp->courseID,',');
+        getline(f,temp->courseName,',');
+        getline(f,ignore_line,',');
+        temp->mark->Midterm=stof(ignore_line);
+        getline(f,ignore_line,',');
+        temp->mark->Final=stof(ignore_line);
+        getline(f,ignore_line,',');
+        temp->mark->Bonus=stof(ignore_line);
+        getline(f,ignore_line);
+        temp->mark->GPA=stof(ignore_line);
+        for(int i = 2; i < 2; i++)
+        {
+            temp->schedule[i].day=courseDelete->schedule[i].day;
+            temp->schedule[i].time=courseDelete->schedule[i].time;
+        }
+        temp=temp->next;
+    }
+    f.close();
 };
-
 
 
 
