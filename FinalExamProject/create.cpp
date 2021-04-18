@@ -433,3 +433,117 @@ void deleteCourseMain(Courses *&course, string courseID, string courseName, stri
 	// cout ra la nguoi dung nhap sai cmnr
 }
 
+
+void viewCourseFile(Courses *course)
+{
+	ofstream out;
+
+	Courses *curr = course;
+
+	out.open(Schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + "AllCourses");
+
+	while (curr)
+		out << curr -> courseID + ',' + curr -> courseName + ',' + curr -> teacherName + '\n';
+
+	out.close();
+}
+
+void loadCoursesFromFile(Courses *&course)
+{
+
+	ifstream in;
+
+	string ignore;
+
+	in.open(Schoolyear + "/Semesters/" + Sem + "/AllCourses.csv");
+ 
+	int count = 0;
+
+	while (!in.eof())
+	{
+		++count;
+		getline(in, ignore);
+	}
+
+	in.close();
+
+	string *getCourse = new string[count];
+
+	in.open(Schoolyear + "/Semesters/" + Sem + "/AllCourses.csv");
+
+	count = -1;
+
+	while (!in.eof())
+	{
+		getline(in, getCourse[++count], ',');
+		getline(in, ignore);
+	}
+
+	in.close();
+	Courses *curr;
+
+	for (int i = 0; i <= count; ++i)
+	{
+		if (course == NULL)
+		{
+			course = new Courses;
+			curr = course;
+		}
+		else
+		{
+			curr -> next = new Courses;
+			curr = curr -> next;
+		}
+
+
+		in.open(Schoolyear + "/Semesters/" + Sem + '/' + getCourse[i] + "/Profile.csv");
+		getline(in, ignore);
+
+		curr -> sem = Sem[4] - '0';
+		getline(in, curr -> courseID, ',');
+		getline(in, curr -> courseName, ',');
+		getline(in, curr -> teacherName,  ',');
+		in >> curr -> numCredits;
+		in.ignore();
+		in >> curr -> maxStudent;
+		in.ignore();
+		getline(in, curr -> schedule[0].day, ' ');
+		getline(in, curr -> schedule[0].time, ',');
+		getline(in, curr -> schedule[1].day, ' ');
+		getline(in, curr -> schedule[1].time);
+
+		in.close();
+
+		in.open(Schoolyear + "/Semesters/" + Sem + '/' + getCourse[i] + "/Scoreboard.csv");
+		getline(in, ignore);
+
+		BasicStudents *currStu;
+		curr -> studentID = NULL;
+
+		while (!in.eof())
+		{
+			if (curr -> studentID == NULL)
+			{
+				curr -> studentID = new BasicStudents;
+				currStu = curr -> studentID;
+			}
+			else
+			{
+				currStu -> next = new BasicStudents;
+				currStu = currStu -> next;
+			}
+
+			in >> currStu -> No;
+			in.ignore();
+			getline(in, currStu -> ID, ',');
+			getline(in, currStu -> firstName, ',');
+			getline(in, currStu -> lastName, ',');
+
+			getline(in, ignore);
+		}
+
+		in.close();
+	}
+	
+
+}
