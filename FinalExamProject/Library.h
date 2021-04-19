@@ -9,5 +9,9 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <direct.h> // mkdir
+#include <chrono>
+#include <ctime>
+
+#pragma warning(disable:4996)
 
 using namespace std;
