@@ -2,17 +2,27 @@
 
 using namespace std;
 
-bool createFolder(string path){ //true if folder existed
+bool createFolder(string path)
+{
+	//true if folder existed
 	int tmp=mkdir(path.c_str());
 	if (tmp) return true;
 	else return false;
 }
 
-void removeFolder(string path){
+void removeFolder(string path)
+{
 	rmdir(path.c_str());
 }
 
-bool checkDate(date Date1, date Date2){  // true if date1 before or same as date 2
+void removeFile(string path)
+{
+	remove(path.c_str());
+}
+
+bool checkDate(date Date1, date Date2)
+{ 
+	// true if date1 before or same as date 2
 	if (Date1.year<Date2.year) return 1;
 	if (Date1.year>Date2.year) return 0;
 
@@ -264,7 +274,7 @@ void addSemester(Semesters semester[], int currSem, date begin, date end)
 	Sem = "Sem " + to_string(currSem);
 }
 
-void addNewSemesterMain(Semester semester[])
+void addNewSemesterMain(Semesters semester[])
 {
 	int currSem;
 	date begin, end;
@@ -434,7 +444,7 @@ void addNewCourseMain(Courses *&course)
 		cout << "Day of week: "; // MON, THU
 		cin >> schedule[i].day;
 		cout << "Time: ";		//S1, S2, S3
-		cin >. schedule[i].time;
+		cin >> schedule[i].time;
 	}
 
 
@@ -460,7 +470,7 @@ void editCourseMain(Courses *&course, string courseID, string courseName, string
 
 	if (edit)
 	{
-		deleteCourse(course, del);
+		deleteCourse(course, del); //error
 		addNewCourseMain(course);
 	}
 	else
@@ -491,7 +501,7 @@ bool loadCoursesFromFile(Courses *&course)
 
 	string *getCourse = new string[count];
 
-	in.open(Schoolyear + "/Semesters/" + course->sem + "/AllCourses.csv");
+	in.open("./" + Schoolyear + "/Semesters/" + to_string(course->sem) + "/AllCourses.csv");
 
 	count = -1;
 

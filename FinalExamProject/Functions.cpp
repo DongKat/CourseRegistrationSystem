@@ -78,14 +78,13 @@ void createStudentList(Students*& pHead, string csvFileName)
 	file.close();
 }
 
-
-void exportCourseStudent(Courses Course)
+void exportCourseStudent(Courses course)
 {
 	// copy course scoreboard to outside file
-	string scoreboard_dir = Schoolyear + "./Semester/Sem " + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv";
+	string scoreboard_dir = "./" + Schoolyear + "./Semester/Sem " + Sem + "/" + course.courseID + "/Scoreboard.csv";
 	string temp;
 	ifstream target(scoreboard_dir);
-	ofstream file(Course.courseID + "_Scoreboard.csv");
+	ofstream file(course.courseID + "_Scoreboard.csv");
 	while (!target.eof())
 	{
 		getline(target, temp);
@@ -93,35 +92,131 @@ void exportCourseStudent(Courses Course)
 	}
 }
 
-void viewScoreboard(Courses Course)
+void viewCourseScoreboard(Courses course)
 {
 	// view Course scoreboard
-	ifstream file("School year/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv");
+	ifstream file("./" + Schoolyear + "/Semester/Sem" + Sem + "/" + course.courseID + "/Scoreboard.csv");
 	string temp;
 	while (file.eof())
 	{
+		getline(file, temp, ',');	cout << temp << " | "; // no
 		getline(file, temp, ',');	cout << temp << " | ";
 		getline(file, temp, ',');	cout << temp << " | ";
 		getline(file, temp, ',');	cout << temp << " | ";
 		getline(file, temp, ',');	cout << temp << " | ";
 		getline(file, temp, ',');	cout << temp << " | ";
-		getline(file, temp, ',');	cout << temp << " | ";
+		getline(file, temp, ',');	cout << temp << " | "; // Total
 		getline(file, temp, ',');	cout << temp;
 		cout << endl;
 	}
 }
 
-void importScoreboard(Courses Course, string file_name)
+void viewStudentScoreboard(Students student)
 {
+	ifstream file("./" + Schoolyear + "/Classes/" + student.className + "/" + student.ID + "/Course Sem " + Sem + ".csv");
+	string temp;
+	while (file.eof())
+	{
+		getline(file, temp, ',');	cout << temp << " | ";		// Course ID
+		getline(file, temp, ',');	cout << temp << " | ";		// Course Name
+		getline(file, temp, ',');	cout << temp << " | ";		// Midterm
+		getline(file, temp, ',');	cout << temp << " | ";		// Final
+		getline(file, temp, ',');	cout << temp << " | ";		// Bonus
+		getline(file, temp);		cout << temp << endl;		// Total
+	}
+}
+
+string checkStudentInClass(string studentID)
+{
+	//trash function
+	//return whole directory(class name that students is in)
+	string className, sID; // studentID
+	ifstream classList("./" + Schoolyear + "/Classes/AllClasses.csv");
+	while (!classList.eof())
+	{
+		getline(classList, className);
+		ifstream studentList("./" + Schoolyear + "/Classes/" + className + "/AllStudents.csv");
+		while (!studentList.eof())
+		{
+			getline(studentList, sID);
+			if (sID == studentID)
+			{
+				string dir = "./" + Schoolyear + "/Classes/" + className + "/" + studentID + "/";
+				return dir;
+			}
+		}
+	}
+}
+
+void importScoreboard(Courses* courseHead, string courseID)
+{
+	CourseScore* pHead = new CourseScore, * pCur = pHead;
 	// copy outside file to course scoreboard
-	string target_dir = Schoolyear + "./Semester/Sem " + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv";
+	string course_dir = Schoolyear + "./Semester/Sem " + Sem + "/" + courseID + "/Scoreboard.csv";
 	string line;
-	ifstream file(file_name);
-	ofstream target(target_dir);
+	ifstream file(courseID + "_Scoreboard.csv");
+	ofstream courseScoreboard(course_dir);
+
 	while (!file.eof())
 	{
 		getline(file, line);
-		target << line;
+		courseScoreboard << line << endl;
+	}
+	file.close();
+	file.open(course_dir);
+
+	string student_dir;
+	Courses* CourseCur = courseHead;
+	while (CourseCur)
+	{
+		if (CourseCur->courseID == courseID)
+			break;
+		CourseCur = CourseCur->next;
+	}
+
+	getline(file, line);	//skip field name
+	while (!file.eof())
+	{
+		getline(file, line);
+		stringstream s(line);
+		string temp;
+		getline(s, temp, ',');
+		getline(s, temp, ',');
+		pCur->studentID = temp;
+		getline(s, temp, ',');
+		pCur->Total = stof(temp);
+		getline(s, temp, ',');
+		pCur->Final = stof(temp);
+		getline(s, temp, ',');
+		pCur->Midterm = stof(temp);
+		getline(s, temp, ',');
+		pCur->Bonus = stof(temp);
+
+		pCur->next = new CourseScore;
+		pCur = pCur->next;
+	}
+	pCur = pHead;
+	BasicStudents* StudentCur = CourseCur->studentID;
+	while (StudentCur)
+	{
+		student_dir = "./" + Schoolyear + "/Classes/" + StudentCur->className + "/" + StudentCur->ID + "/Course Sem " + Sem + "_Scoreboard.csv";
+		ofstream studentScoreboard(student_dir, ios::out | ios::app);
+		while(pCur)
+			if (pCur->studentID == StudentCur->ID)
+			{
+				studentScoreboard << CourseCur->courseID << "," << CourseCur->courseName << "," << pCur->Total << "," << pCur->Final << "," << pCur->Midterm << "," << pCur->Bonus << endl;
+				break;
+			}
+		StudentCur = StudentCur->next;
+	}
+}
+
+void deleteMarks(CourseScore*& pHead)
+{
+	while (pHead)
+	{
+		CourseScore* temp = pHead;
+		pHead = pHead->next;
 	}
 }
 
@@ -152,7 +247,7 @@ void updateStudentResult(Courses Course, string studentID, Scores newScore)
 					newFile << temp << ",";
 					getline(oldFile, temp, ',');
 					newFile << temp << ",";
-					newFile << newScore.Midterm << "," << newScore.Final << "," << newScore.Bonus << "," << newScore.GPA << "\n";
+					newFile << "," << newScore.Total << "," << newScore.Final << "," << newScore.Midterm << "," << newScore.Bonus << "\n";
 					getline(oldFile, temp);
 					recordFlag = true;
 					break;
@@ -187,10 +282,9 @@ void viewClassScoreboard(Classes Class) // Require changing UI
 	cout << "Student ID\t";
 	cout << "Student Name\t";
 	cout << "Course ID\t";
-	cout << "Course final score";
-	cout << "Course GPA\t";
+	cout << "Course final score\n";
+	cout << "Semester's GPA\n";
 	cout << "Overall GPA\n";
-
 
 	while (!student_list.eof())
 	{
@@ -201,8 +295,8 @@ void viewClassScoreboard(Classes Class) // Require changing UI
 		getline(file, temp);
 		cout << temp << "\t"; // Assume name is first row
 		file.close();
-		
-		file.open("./" + Schoolyear + "/Classes/" + Class.className + "/" + studentID + "/Course Sem" + sem + ".csv");
+
+		file.open("./" + Schoolyear + "/Classes/" + Class.className + "/" + studentID + "/Course Sem" + Sem + ".csv");
 		overall_GPA = 0;
 		count = 0;
 		while (!file.eof())
@@ -222,7 +316,6 @@ void viewClassScoreboard(Classes Class) // Require changing UI
 		file.close();
 		overall_GPA /= count;
 		cout << "Overall GPA: " << overall_GPA << endl;
-
 	}
 }
 
@@ -236,13 +329,12 @@ time_t timeToUnixTime(date end)
 
 	timeinfo->tm_year = end.year - 1900;
 	timeinfo->tm_mon = end.month - 1;		//months since January - [0,11]
-	timeinfo->tm_mday = end.day;			//day of the month - [1,31] 
+	timeinfo->tm_mday = end.day;			//day of the month - [1,31]
 	timeinfo->tm_hour = hour;			//hours since midnight - [0,23]
 	timeinfo->tm_min = min;				//minutes after the hour - [0,59]
 	timeinfo->tm_sec = sec;				//seconds after the minute - [0,59]
 
 	a = mktime(timeinfo);
-
 
 	return a;
 }

@@ -3,18 +3,19 @@
 
 using namespace std;
 
-string Schoolyear = "";
-date dateStart;
-date dateEnd;
-string sem = "";
-
-
 struct date
 {
     int day;
     int month;
     int year;
 };
+
+string Schoolyear = "";
+date dateStart;
+date dateEnd;
+string Sem = "";
+
+
 
 struct StaffAccount
 {
@@ -34,7 +35,7 @@ struct Schedules
 };
 struct Scores
 {
-    float GPA;
+    float Total;
     float Midterm;
     float Final;
     float Bonus;
@@ -43,6 +44,7 @@ struct Scores
 struct CourseScore : Scores
 {
     string studentID;
+    CourseScore* next = nullptr;
 };
 
 struct BasicStudents
@@ -51,6 +53,7 @@ struct BasicStudents
     string ID;
     string firstName;
     string lastName;
+    string className;
     BasicStudents *next = nullptr;
     BasicStudents *prev;
 };

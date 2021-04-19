@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Anh.cpp" />
     <ClCompile Include="autoGenerateAccounts.cpp" />
     <ClCompile Include="create.cpp" />
     <ClCompile Include="Functions.cpp" />
@@ -146,7 +147,6 @@
     <ClCompile Include="LoginUI.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="new_create.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CourseRegistrationSystem.h" />

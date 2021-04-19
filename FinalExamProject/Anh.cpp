@@ -1,4 +1,4 @@
-﻿#include "function13.h"
+﻿#include "Functions.h"
 
 bool checkSchedule(Students aStudent, Courses courseNew)
 {
@@ -173,7 +173,6 @@ void updateCourse(Students aStudent, Courses courseDelete, fstream& f)
     }
     f.close();
 }
-
 void removeACourse(Students aStudent, Courses courseDelete, fstream& f)
 {
     // xoá trong student // list
