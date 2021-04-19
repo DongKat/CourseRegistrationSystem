@@ -265,7 +265,7 @@ Semesters newSemester(int currSem, date begin, date end)
 void addSemester(Semesters semester[], int currSem, date begin, date end)
 {
 	semester[currSem - 1] = newSemester(currSem, begin, end);
-	Sem = "Sem " + to_string(currSem);
+	currSem = "Sem " + to_string(currSem);
 }
 
 Courses *newCourse(int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules schedule[])
@@ -288,7 +288,6 @@ Courses *newCourse(int currSem, date begin, date end, string courseName, string 
 
 	return newCourse;
 }
-
 
 void addCourse(Courses *&course, int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *schedule)
 {
@@ -315,7 +314,7 @@ void creatFolderNFileCourse(Courses *course)
 	out.open(Schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Profile.csv");
 	
 	out << "Course ID,Course Name,Teacher Name,Num of Credits,Max Students,Session 1,Session 2\n";
-	out << course -> courseID + ',' + course -> courseName + ',' + course -> teacherName + ',' + "Credits: " + to_string(course -> numCredits) + "MaxStu: " + to_string(course -> maxStudent) + ',' + course -> schedule[0].day + ' ' course -> schedule[0].time + ',' + course -> schedule[1].day + ' ' course -> schedule[1].time + '\n';
+	out << course -> courseID + ',' + course -> courseName + ',' + course -> teacherName + ',' + "Credits: " + to_string(course -> numCredits) + "MaxStu: " + to_string(course -> maxStudent) + ',' + course -> schedule[0].day + ' ' + course -> schedule[0].time + ',' + course -> schedule[1].day + ' '  +course -> schedule[1].time + '\n';
 
 	out.close();
 
@@ -325,7 +324,6 @@ void creatFolderNFileCourse(Courses *course)
 
 	out.close();
 }
-
 
 Courses *findCourse(Courses *&course, string courseID, string courseName, string teacher_name)
 {
@@ -345,7 +343,7 @@ void deleteCourse(Courses *&course, Courses *delCourse)
 {
 	ifstream in;
 
-	string delPath = (schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID)
+	string delPath = (Schoolyear + "/Semesters/" + "/Sem " + to_string(course->sem) + '/' + course->courseID);
 
 	removeFile(delPath + "/Profile.csv");
 	removeFile(delPath + "/Scoreboard.csv");
@@ -371,7 +369,6 @@ void deleteCourseMain(Courses *&course, string courseID, string courseName, stri
 	// else
 	// cout ra la nguoi dung nhap sai cmnr
 }
-
 
 void viewCourseFile(Courses *course)
 {
@@ -411,7 +408,7 @@ bool loadCoursesFromFile(Courses *&course)
 
 	string *getCourse = new string[count];
 
-	in.open(Schoolyear + "/Semesters/" + Sem + "/AllCourses.csv");
+	in.open(Schoolyear + "/Semesters/" + course->sem + "/AllCourses.csv");
 
 	count = -1;
 
