@@ -261,7 +261,36 @@ Semesters newSemester(int currSem, date begin, date end)
 void addSemester(Semesters semester[], int currSem, date begin, date end)
 {
 	semester[currSem - 1] = newSemester(currSem, begin, end);
-	currSem = "Sem " + to_string(currSem);
+	Sem = "Sem " + to_string(currSem);
+}
+
+void addNewSemesterMain(Semester semester[])
+{
+	int currSem;
+	date begin, end;
+
+	cout << "You are creating new semester\n";
+	cout << "Enter semester: ";
+	cin >> currSem;
+
+	cout << "Enter starting date: ";
+	cout << "Day: ";
+	cin >> begin.day;
+	cout << "Month: ";
+	cin >> begin.month;
+	cout << "Year: ";
+	cin >>  begin.year;
+
+
+	cout << "Enter ending date: ";
+	cout << "Day: ";
+	cin >> end.day;
+	cout << "Month: ";
+	cin >> end.month;
+	cout << "Year: ";
+	cin >>  end.year;
+
+	addSemester(semester, currSem, begin, end);
 }
 
 Courses *newCourse(string courseName, string courseID, string teacherName, int numCredits, int maxStudent, Schedules schedule[])
@@ -421,8 +450,8 @@ void deleteCourseMain(Courses *&course, string courseID, string courseName, stri
 
 	if (del)
 		deleteCourse(course, del);
-	// else
-	// cout ra la nguoi dung nhap sai cmnr
+	else
+		cout << "There are no course match with your information\n";
 }
 
 void editCourseMain(Courses *&course, string courseID, string courseName, string teacherName)
@@ -432,11 +461,10 @@ void editCourseMain(Courses *&course, string courseID, string courseName, string
 	if (edit)
 	{
 		deleteCourse(course, del);
-		//cho nguoi dung nhap lieu
-		addCourse(course, courseName, courseID, teacherName, numCredits, maxStudent, schedule);
+		addNewCourseMain(course);
 	}
-	// else
-	// cout ra la nguoi dung nhap sai cmnr
+	else
+		cout << "There are no course match with your information\n";
 }
 
 bool loadCoursesFromFile(Courses *&course)
