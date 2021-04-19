@@ -1,6 +1,7 @@
-#pragma once
+#ifndef __UI_H_INCLUDED__ 
+#define __UI_H_INCLUDED__ 
 
-#include "Library.h"
+
 #include "Struct.h"
 
 void Nocursortype();
@@ -24,3 +25,5 @@ void menuStaff(char username[], char password[], int sizeUser, int sizePass);
 void menuStaffSettings(char username[], char password[], int sizeUser, int sizePass);
 void menuStudent(char username[], char password[], int sizeUser, int sizePass);
 void menuStudentSettings(char username[], char password[], int sizeUser, int sizePass);
+
+#endif // !_UI_H_

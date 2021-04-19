@@ -11,6 +11,7 @@
 #include <direct.h> // mkdir
 #include <chrono>
 #include <ctime>
+#include <cstdio>
 
 #pragma warning(disable:4996)
 

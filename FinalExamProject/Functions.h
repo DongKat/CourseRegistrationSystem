@@ -1,6 +1,7 @@
-#pragma once
+#ifndef __FUNCTIONS_H_INCLUDED__ 
+#define __FUNCTIONS_H_INCLUDED__ 
 
-#include "Library.h"
+
 #include "Struct.h"
 
 void readClassCSV(ifstream& classList, Students& student);
@@ -28,3 +29,5 @@ void viewClassScoreboard(Classes Class);
 time_t timeToUnixTime(date end);
 
 bool isCourseRegistrationSessionActive(date registerStartDay, date registerEndDay);
+
+#endif // !_FUNCTIONS_H_

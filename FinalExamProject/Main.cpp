@@ -2,8 +2,13 @@
 #include "create.h"
 #include "Functions.h"
 #include "UI.h"
-#include "Library.h"
 #include "Struct.h"
+#include "Library.h"
+
+string Schoolyear;
+date dateStart;
+date dateEnd;
+string Sem;
 
 int main() {
 	setWindowFullSize();

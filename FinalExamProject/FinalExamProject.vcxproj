@@ -139,8 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Anh.cpp" />
-    <ClCompile Include="autoGenerateAccounts.cpp" />
+    <ClCompile Include="CourseRegistrationSystem.cpp" />
     <ClCompile Include="create.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="main.cpp" />

@@ -1,10 +1,8 @@
-#ifndef _CREATE_H_
-#define _CREATE_H_
+#ifndef __CREATE_H_INCLUDED__ 
+#define __CREATE_H_INCLUDED__ 
 
-#include "Library.h"
 #include "Struct.h"
-#include <direct.h>
-#include <cstdio>
+
 
 using namespace std;
 

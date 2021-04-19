@@ -329,7 +329,7 @@ Courses *addCourse(Courses *&course, string courseName, string courseID, string 
 	if (!course)
 	{
 		course = newC;
-		return;
+		return newC;
 	}
 
 	Courses *curr = course;
@@ -453,7 +453,6 @@ void addNewCourseMain(Courses *&course)
 	viewCourseFile(course);
 }
 
-
 void deleteCourseMain(Courses *&course, string courseID, string courseName, string teacherName)
 {
 	Courses *del = findCourse(course, courseID, courseName, teacherName);
@@ -470,7 +469,7 @@ void editCourseMain(Courses *&course, string courseID, string courseName, string
 
 	if (edit)
 	{
-		deleteCourse(course, del); //error
+		deleteCourse(course, edit); //error
 		addNewCourseMain(course);
 	}
 	else
@@ -512,7 +511,7 @@ bool loadCoursesFromFile(Courses *&course)
 	}
 
 	in.close();
-	Courses *curr;
+	Courses *curr = nullptr;
 
 	for (int i = 0; i <= count; ++i)
 	{
@@ -549,7 +548,7 @@ bool loadCoursesFromFile(Courses *&course)
 		in.open(Schoolyear + "/Semesters/" + Sem + '/' + getCourse[i] + "/Scoreboard.csv");
 		getline(in, ignore);
 
-		BasicStudents *currStu;
+		BasicStudents *currStu = nullptr;
 		curr -> studentID = NULL;
 
 		while (!in.eof())

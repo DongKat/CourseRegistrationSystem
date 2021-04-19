@@ -27,16 +27,13 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="autoGenerateAccounts.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="create.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Anh.cpp">
+    <ClCompile Include="CourseRegistrationSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
