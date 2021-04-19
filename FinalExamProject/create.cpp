@@ -309,7 +309,7 @@ Courses *addCourse(Courses *&course, int currSem, date begin, date end, string c
 	return newCourse;
 }
 
-void creatFolderNFileCourse(Courses *course)
+void createFolderNFileCourse(Courses *course)
 {
 	ofstream out;
 
@@ -341,6 +341,14 @@ Courses *findCourse(Courses *&course, string courseID, string courseName, string
 	}
 
 	return NULL;
+}
+
+void addNewCourseMain(Courses *&course)
+{
+	// cho nguoi dung nhap lieu
+
+	Courses *newCourse = addCourse(Courses, currSem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
+	createFolderNFileCourse(newCourse);
 }
 
 void deleteCourse(Courses *&course, Courses *delCourse)
