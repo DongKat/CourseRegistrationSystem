@@ -432,11 +432,10 @@ void editCourseMain(Courses *&course, string courseID, string courseName, string
 	if (edit)
 	{
 		deleteCourse(course, del);
-		//cho nguoi dung nhap lieu
-		addCourse(course, courseName, courseID, teacherName, numCredits, maxStudent, schedule);
+		addNewCourseMain(course);
 	}
-	// else
-	// cout ra la nguoi dung nhap sai cmnr
+	else
+		cout << "There are no course match with your information\n";
 }
 
 bool loadCoursesFromFile(Courses *&course)
