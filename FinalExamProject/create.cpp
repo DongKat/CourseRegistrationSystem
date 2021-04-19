@@ -370,6 +370,20 @@ void deleteCourseMain(Courses *&course, string courseID, string courseName, stri
 	// cout ra la nguoi dung nhap sai cmnr
 }
 
+void editCourseMain(Courses *&course, string courseID, string courseName, string teacher_name)
+{
+	Courses *edit = findCourse(course, courseID, courseName, teacher_name);
+
+	if (edit)
+	{
+		deleteCourse(course, del);
+		//cho nguoi dung nhap lieu
+		addCourse(Courses, currSem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
+	}
+	// else
+	// cout ra la nguoi dung nhap sai cmnr
+}
+
 void viewCourseFile(Courses *course)
 {
 	ofstream out;
