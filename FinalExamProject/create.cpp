@@ -37,16 +37,12 @@ bool createFolderSchoolYear(string path){	//false if this is new year
 
 bool inputSchoolYear(){ 						//false if this is new SchoolYear
 	int syear,eyear;
-	while (1){
-		cout << "Please intput start year: ";
+	do{
+		cout << "Please input schoolyear: ";
 		cin >> syear;
-		cout << "Please input end year: ";
-		cin >> eyear;
-		if (eyear<syear) {
-			cout << "Error! The start year must be before end year!\n";
-		}
-		else break;
-	}
+		eyear = syear + 1;
+
+	} while (syear < 0);
 
 	Schoolyear = to_string(syear)+"-"+to_string(eyear);
 	return createFolderSchoolYear(Schoolyear);
@@ -319,6 +315,7 @@ void createFolderNFileCourse(Courses *course)
 	
 	out << "Course ID,Course Name,Teacher Name,Num of Credits,Max Students,Session 1,Session 2\n";
 	out << course -> courseID + ',' + course -> courseName + ',' + course -> teacherName + ',' + "Credits: " + to_string(course -> numCredits) + "MaxStu: " + to_string(course -> maxStudent) + ',' + course -> schedule[0].day + ' ' + course -> schedule[0].time + ',' + course -> schedule[1].day + ' '  +course -> schedule[1].time + '\n';
+	out << course -> courseID + ',' + course -> courseName + ',' + course -> teacherName + ',' + "Credits: " + to_string(course -> numCredits) + "MaxStu: " + to_string(course -> maxStudent) + ',' + course -> schedule[0].day + ' ' + course -> schedule[0].time + ',' + course -> schedule[1].day + ' ' + course -> schedule[1].time + '\n';
 
 	out.close();
 
