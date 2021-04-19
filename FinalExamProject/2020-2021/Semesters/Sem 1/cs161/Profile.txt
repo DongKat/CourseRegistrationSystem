@@ -1,1 +1,2 @@
-cs161, intro to CS, ho tuan thanh, num credit
+courseID,courseName,teacherName,numOfCredits,maxStudent,first ss, second ss
+CS161,Introduction to Computer Science,ho tuan thanh,4,50,MON S1,FRI S2
