@@ -33,7 +33,7 @@ void enrollACourse(Students& aStudent,Courses courseNew,fstream &f)
     if((checkSchedule(aStudent,courseNew)==true) && courseNew.countStudent<courseNew.maxStudent)
         if(count<5)
         {
-            f << courseNew.courseID << "," << courseNew.courseName << ",0,0,0,0" << endl;
+            f << courseNew.courseID << "," << courseNew.courseName << ",0,0,0,0" <<courseNew.schedule[0].day<<","<<courseNew.schedule[0].time<<","<<courseNew.schedule[1].day<<","<<courseNew.schedule[1].time<<endl;
             f.close();
             f.open(Schoolyear+ "/Semester/Semester" + to_string(k) + "/" + courseNew.courseID + "Scoreboard.csv", ios::in);
             int count1 = -1;
@@ -102,6 +102,7 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
     string finalscore;
     string bonus;
     string overall;
+    string schedule;
     // in course sem 1
     cout<<"Courses semester 1: "<<endl;
     f.open(Schoolyear+ "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(1) + ".csv");
@@ -119,8 +120,16 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
         cout << "Final Score: " << finalscore << " " ;
         getline(f,bonus , ',');
         cout << "Bonus: " << bonus << " " ;
-        getline(f,overall);
+        getline(f,overall, ',');
         cout << "GPA: " << overall << " " ;
+        getline(f,schedule, ',');
+        cout << "Schedule: " << schedule << " " ;
+        getline(f,schedule, ',');
+        cout << "Schedule: " << schedule << " " ;
+        getline(f,schedule, ',');
+        cout << "Schedule: " << schedule << " " ;
+        getline(f,schedule);
+        cout << "Schedule: " << schedule << " " ;
         cout<<endl;
     }
     f.close();
@@ -142,8 +151,16 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
         cout << "Final Score: " << finalscore << " " ;
         getline(f,bonus , ',');
         cout << "Bonus: " << bonus << " " ;
-        getline(f,overall );
+        getline(f,overall, ',');
         cout << "GPA: " << overall << " " ;
+        getline(f,schedule, ',');
+        cout << "Schedule: " << schedule << " " ;
+        getline(f,schedule, ',');
+        cout << "Schedule: " << schedule << " " ;
+        getline(f,schedule, ',');
+        cout << "Schedule: " << schedule << " " ;
+        getline(f,schedule);
+        cout << "Schedule: " << schedule << " " ;
         cout<<endl;
     }
     f.close();
@@ -165,8 +182,16 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
         cout << "Final Score: " << finalscore << " " ;
         getline(f,bonus , ',');
         cout << "Bonus: " << bonus << " " ;
-        getline(f,overall);
+        getline(f,overall, ',');
         cout << "GPA: " << overall << " " ;
+        getline(f,schedule, ',');
+        cout << "Schedule: " << schedule << " " ;
+        getline(f,schedule, ',');
+        cout << "Schedule: " << schedule << " " ;
+        getline(f,schedule, ',');
+        cout << "Schedule: " << schedule << " " ;
+        getline(f,schedule);
+        cout << "Schedule: " << schedule << " " ;
         cout<<endl;
     }
     f.close();
@@ -188,7 +213,7 @@ void updateCourseB4D (Students aStudent,Courses courseDelete,fstream &f)
         }
         else
         {
-            f << ptem->courseID << "," << ptem->courseName<< "," << ptem->mark->Midterm<< ","<<ptem->mark->Final<<","<<ptem->mark->Bonus<<","<<ptem->mark->GPA<<endl;
+            f << ptem->courseID << "," << ptem->courseName<< "," << ptem->mark->Midterm<< ","<<ptem->mark->Final<<","<<ptem->mark->Bonus<<","<<ptem->mark->GPA<<","<<courseDelete.schedule[0].day<<","<<courseDelete.schedule[0].time<<","<<courseDelete.schedule[1].day<<","<<courseDelete.schedule[1].time<<endl;
             ptem=ptem->next;
         }
     }
