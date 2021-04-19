@@ -1,5 +1,41 @@
 #include "CourseRegistrationSystem.h"
 
+void autoGenerateStaffAccounts(string filePath)
+{
+	_mkdir("Staff Accounts"); //create account folder
+
+	ifstream in;
+	in.open(filePath);
+
+	ofstream out;
+
+	string username;
+	string socialID;
+	string ignore_line;
+
+	// No, Student ID, First name, Last name, Gender, Date of Birth, Social ID.
+
+
+	while (!in.eof()) // run to the end of file
+	{
+		// GET
+		getline(in, username, ',');
+		getline(in, ignore_line, ',');  // Ignore name
+		getline(in, ignore_line, ',');	// Ignore gender
+		getline(in, ignore_line, ',');	// Ignore day month year
+		getline(in, socialID, ',');
+		getline(in, ignore_line);		// Ignore phoneNumber
+
+		// OUT
+		out.open("Staff Accounts/" + username);
+		out << username << endl << socialID << endl;
+		out.close();
+
+	}
+
+	in.close();
+}
+
 void autoGenerateStudentAccounts(string filePath)
 {
 	_mkdir("Student Accounts"); //create account folder
@@ -131,7 +167,7 @@ void autoGenerateStudentProfiles(string filePath)
 
 	in.close();
 }
-
+/*
 int main()
 {
 	autoGenerateStudentAccounts("student.csv");
@@ -139,3 +175,4 @@ int main()
 	autoGenerateStudentProfiles("student.csv");
 	autoGenerateStaffProfiles("staff.csv");
 }
+*/
