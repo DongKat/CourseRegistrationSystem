@@ -4,6 +4,8 @@
 using namespace std;
 
 string Schoolyear = "";
+date dateStart;
+date dateEnd;
 
 
 struct date
@@ -55,8 +57,6 @@ struct BasicStudents
 struct Courses
 {
     int sem;
-    date dateStart; // 7 ngày bắt đầu đăng ký môn
-    date dateEnd;  // 7 ngày kết thúc đăng ký môn
     string courseName;
     string courseID;
     string teacherName;
