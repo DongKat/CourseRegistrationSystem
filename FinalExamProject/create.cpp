@@ -289,11 +289,13 @@ Courses *newCourse(int currSem, date begin, date end, string courseName, string 
 	return newCourse;
 }
 
-void addCourse(Courses *&course, int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *schedule)
+Courses *addCourse(Courses *&course, int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *schedule)
 {
+	Courses *newCourse = newCourse(currSem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
+
 	if (!course)
 	{
-		course = newCourse(currSem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
+		course = newCourse;
 		return;
 	}
 
@@ -301,8 +303,10 @@ void addCourse(Courses *&course, int currSem, date begin, date end, string cours
 	while (curr -> next)
 		curr = curr -> next;
 
-	curr -> next = newCourse(currSem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
+	curr -> next = newCourse;
 	curr -> next -> prev = curr;
+
+	return newCourse;
 }
 
 void creatFolderNFileCourse(Courses *course)
