@@ -421,8 +421,8 @@ void deleteCourseMain(Courses *&course, string courseID, string courseName, stri
 
 	if (del)
 		deleteCourse(course, del);
-	// else
-	// cout ra la nguoi dung nhap sai cmnr
+	else
+		cout << "There are no course match with your information\n";
 }
 
 void editCourseMain(Courses *&course, string courseID, string courseName, string teacherName)
