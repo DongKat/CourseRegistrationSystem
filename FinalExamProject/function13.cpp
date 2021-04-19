@@ -287,5 +287,24 @@ void removeACourse(Students *aStudent,Courses *courseDelete,fstream &f)
     f.close();
 };
 
+void viewAllStudentInCourse (Students *student)
+{
+    int count=1;
+    Students *pCur= student;
+    while (pCur !=nullptr)
+    {
+        cout< <count++<<"ID: "<<student->ID<<'\t'<<"Name: " <<student->firstName<<" "<<student->lastName;
+        pCur=pCur->next;
+    }
+}
 
-
+void viewAllStudentInClass (Classes *Class)
+{
+    int count=1;
+    Students *pCur= Class->student;
+    while (pCur !=nullptr)
+    {
+        cout<<count++<<"ID: "<<student->ID<<'\t'<<"Name: " <<student->firstName<<" "<<student->lastName;
+        pCur=pCur->next;
+    }
+}
