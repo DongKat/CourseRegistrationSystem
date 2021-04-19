@@ -264,15 +264,13 @@ void addSemester(Semesters semester[], int currSem, date begin, date end)
 	currSem = "Sem " + to_string(currSem);
 }
 
-Courses *newCourse(int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules schedule[])
+Courses *newCourse(string courseName, string courseID, string teacherName, int numCredits, int maxStudent, Schedules schedule[])
 {
 	Courses *newCourse = new Courses;
-	newCourse -> sem = currSem;
-	newCourse -> dateStart = begin;
-	newCourse -> dateEnd = end;
+	newCourse -> sem = Sem[4] - '0';
 	newCourse -> courseName = courseName;
 	newCourse -> courseID = courseID;
-	newCourse -> teacherName = teacher_name;
+	newCourse -> teacherName = teacherName;
 	newCourse -> numCredits = numCredits;
 	newCourse -> maxStudent =  maxStudent;
 	newCourse -> schedule[0] = schedule[0];
@@ -285,13 +283,13 @@ Courses *newCourse(int currSem, date begin, date end, string courseName, string 
 	return newCourse;
 }
 
-Courses *addCourse(Courses *&course, int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *schedule)
+Courses *addCourse(Courses *&course, string courseName, string courseID, string teacherName, int numCredits, int maxStudent, Schedules *schedule)
 {
-	Courses *newCourse = newCourse(currSem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
+	Courses *newC = newCourse(courseName, courseID, teacherName, numCredits, maxStudent, schedule);
 
 	if (!course)
 	{
-		course = newCourse;
+		course = newC;
 		return;
 	}
 
@@ -299,13 +297,13 @@ Courses *addCourse(Courses *&course, int currSem, date begin, date end, string c
 	while (curr -> next)
 		curr = curr -> next;
 
-	curr -> next = newCourse;
+	curr -> next = newC;
 	curr -> next -> prev = curr;
 
-	return newCourse;
+	return newC;
 }
 
-void creatFolderNFileCourse(Courses *course)
+void createFolderNFileCourse(Courses *course)
 {
 	ofstream out;
 
@@ -315,6 +313,7 @@ void creatFolderNFileCourse(Courses *course)
 	
 	out << "Course ID,Course Name,Teacher Name,Num of Credits,Max Students,Session 1,Session 2\n";
 	out << course -> courseID + ',' + course -> courseName + ',' + course -> teacherName + ',' + "Credits: " + to_string(course -> numCredits) + "MaxStu: " + to_string(course -> maxStudent) + ',' + course -> schedule[0].day + ' ' + course -> schedule[0].time + ',' + course -> schedule[1].day + ' '  +course -> schedule[1].time + '\n';
+	out << course -> courseID + ',' + course -> courseName + ',' + course -> teacherName + ',' + "Credits: " + to_string(course -> numCredits) + "MaxStu: " + to_string(course -> maxStudent) + ',' + course -> schedule[0].day + ' ' + course -> schedule[0].time + ',' + course -> schedule[1].day + ' ' + course -> schedule[1].time + '\n';
 
 	out.close();
 
@@ -325,13 +324,30 @@ void creatFolderNFileCourse(Courses *course)
 	out.close();
 }
 
-Courses *findCourse(Courses *&course, string courseID, string courseName, string teacher_name)
+void viewCourseFile(Courses *course)
+{
+	ofstream out;
+
+	Courses *curr = course;
+
+	out.open(Schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + "AllCourses");
+
+	while (curr)
+	{
+		out << curr -> courseID + ',' + curr -> courseName + ',' + curr -> teacherName + '\n';
+		curr = curr -> next;
+	}
+
+	out.close();
+}
+
+Courses *findCourse(Courses *&course, string courseID, string courseName, string teacherName)
 {
 	Courses *curr = course;
 
 	while (curr)
 	{
-		if (curr -> courseID == courseID && curr -> courseName == courseName && curr -> teacherName == course->teacherName)
+		if (curr -> courseID == courseID && curr -> courseName == courseName && curr -> teacherName == course -> teacherName)
 			return curr;
 		curr = curr -> next;
 	}
@@ -360,9 +376,48 @@ void deleteCourse(Courses *&course, Courses *delCourse)
 	delete delCourse;
 }
 
-void deleteCourseMain(Courses *&course, string courseID, string courseName, string teacher_name)
+void addNewCourseMain(Courses *&course)
 {
-	Courses *del = findCourse(course, courseID, courseName, teacher_name);
+	string courseID, courseName, teacherName;
+	int numCredits, maxStudent;
+	cout << "You are creating new course:";
+
+	cout << "Enter course's ID: ";
+	getline(cin, courseID);
+
+	cout << "Enter course's name: ";
+	getline(cin, courseName);
+
+	cout << "Enter course's name of teacher: ";
+	getline(cin, teacherName);
+
+	cout << "Enter course's credits: ";
+	cin >> numCredits;
+
+	cout << "Enter course's max student: ";
+	cin >> maxStudent;
+
+	Schedules schedule[2];
+
+	for (int i = 0; i < 2; ++i)
+	{
+		cout << "Enter first session:\n";
+		cout << "Day of week: "; // MON, THU
+		cin >> schedule[i].day;
+		cout << "Time: ";		//S1, S2, S3
+		cin >. schedule[i].time;
+	}
+
+
+	Courses *newCourse = addCourse(course, courseName, courseID, teacherName, numCredits, maxStudent, schedule);
+	createFolderNFileCourse(newCourse);
+	viewCourseFile(course);
+}
+
+
+void deleteCourseMain(Courses *&course, string courseID, string courseName, string teacherName)
+{
+	Courses *del = findCourse(course, courseID, courseName, teacherName);
 
 	if (del)
 		deleteCourse(course, del);
@@ -370,32 +425,18 @@ void deleteCourseMain(Courses *&course, string courseID, string courseName, stri
 	// cout ra la nguoi dung nhap sai cmnr
 }
 
-void editCourseMain(Courses *&course, string courseID, string courseName, string teacher_name)
+void editCourseMain(Courses *&course, string courseID, string courseName, string teacherName)
 {
-	Courses *edit = findCourse(course, courseID, courseName, teacher_name);
+	Courses *edit = findCourse(course, courseID, courseName, teacherName);
 
 	if (edit)
 	{
 		deleteCourse(course, del);
 		//cho nguoi dung nhap lieu
-		addCourse(Courses, currSem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
+		addCourse(course, courseName, courseID, teacherName, numCredits, maxStudent, schedule);
 	}
 	// else
 	// cout ra la nguoi dung nhap sai cmnr
-}
-
-void viewCourseFile(Courses *course)
-{
-	ofstream out;
-
-	Courses *curr = course;
-
-	out.open(Schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + "AllCourses");
-
-	while (curr)
-		out << curr -> courseID + ',' + curr -> courseName + ',' + curr -> teacherName + '\n';
-
-	out.close();
 }
 
 bool loadCoursesFromFile(Courses *&course)
