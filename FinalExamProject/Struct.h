@@ -3,8 +3,8 @@
 
 using namespace std;
 
-string Schoolyear = "";
-
+string Schoolyear;
+string Sem;
 
 struct date
 {
