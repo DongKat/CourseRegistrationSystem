@@ -6,6 +6,7 @@ using namespace std;
 string Schoolyear = "";
 date dateStart;
 date dateEnd;
+string sem = "";
 
 
 struct date
