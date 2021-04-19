@@ -2,17 +2,14 @@
 
 using namespace std;
 
-void createFolder(string path){
-	_mkdir(path.c_str());
+bool createFolder(string path){ //true if folder existed
+	int tmp=mkdir(path.c_str());
+	if (tmp) return true;
+	else return false;
 }
 
 void removeFolder(string path){
-	_rmdir(path.c_str());
-}
-
-void removeFile(string path)
-{
-	_remove(path.c_str());
+	rmdir(path.c_str());
 }
 
 bool checkDate(date Date1, date Date2){  // true if date1 before or same as date 2
@@ -28,38 +25,31 @@ bool checkDate(date Date1, date Date2){  // true if date1 before or same as date
 	return 1;
 }
 
-schoolYear* newSchoolYear(int yearStart, int yearEnd) {
-	schoolYear* newYear = new schoolYear;
-	newYear->yearStart = yearStart;
-	newYear->yearEnd = yearEnd;
-	newYear->Class = 0;
-	newYear->next = 0;
-	newYear->prev = 0;
-	return newYear;
-}
-
-void createFolderSchoolYear(string path){
-	createFolder(path);
+bool createFolderSchoolYear(string path){	//false if this is new year
+	bool checkNewYear = createFolder(path);
 	createFolder(path+"\\Classes");
 	createFolder(path+"\\Semesters");
 	createFolder(path+"\\Semesters\\Sem 1");
 	createFolder(path+"\\Semesters\\Sem 2");
 	createFolder(path+"\\Semesters\\Sem 3");
+	return checkNewYear;
 }
 
-void addSchoolYear(schoolYear*& sYear, int yearStart, int yearEnd) {
-	if (!sYear) {
-		sYear = newSchoolYear(yearStart, yearEnd);
-		
+bool inputSchoolYear(){ 						//false if this is new SchoolYear
+	int syear,eyear;
+	while (1){
+		cout << "Please intput start year: ";
+		cin >> syear;
+		cout << "Please input end year: ";
+		cin >> eyear;
+		if (eyear<syear) {
+			cout << "Error! The start year must be before end year!\n";
+		}
+		else break;
 	}
-	else{
-		schoolYear* cur = sYear;
-		while (cur && cur->next)
-		cur = cur->next;
-		cur->next = newSchoolYear(yearStart, yearEnd);
-		cur->next->prev = cur;
-	}
-	createFolderSchoolYear(to_string(sYear->yearStart)+"-"+to_string(sYear->yearEnd));
+
+	Schoolyear = to_string(syear)+"-"+to_string(eyear);
+	return createFolderSchoolYear(Schoolyear);
 }
 
 date convertToDay(string Day) {
@@ -147,6 +137,8 @@ Classes* newClass(string filepath, string className, string folder) {
 	Class->student = nullptr;
 	Class->className = className;
 	ifstream f;
+	ofstream fout;
+	fout.open(folder+"\\"+className+"\\"+className+".csv");
 	f.open(filepath);
 	Students* stu = nullptr;
 	int no;
@@ -188,8 +180,10 @@ Classes* newClass(string filepath, string className, string folder) {
 			Class->student = newStudent(no, ID, FirstName, LastName, gender, dateOfBirth, idSocial, className,folder+"\\"+className);
 			stu = Class->student;
 		}
+		fout << no << ","<< ID << "," << FirstName << "," << LastName << "," << gender << "," << DOB << "," << idSocial << "\n";
 	}
 	f.close();
+	fout.close();
 	return Class;
 }
 
@@ -197,19 +191,34 @@ void createFolderClass(string path,string Cname){
 	createFolder(path+"\\Classes\\"+Cname);
 }
 
-void addClass(schoolYear*& sYear, string folder) {
+void addClass(Classes *&Class, string folder) {
 	cin.clear();
 	fflush(stdin);
-	cout << "Please enter class's name: ";
-	string Cname;
-	getline(cin, Cname);
 
-	createFolderClass(folder, Cname);
+	Classes *tmpClass=Class;
+
+	while (tmpClass && tmpClass->next) tmpClass=tmpClass->next;
+
+	string Cname;
+
+	while (1){                       							// lay ten lop
+		cout << "Please enter class's name: ";
+		getline(cin, Cname);
+		if (createFolder(folder+"\\Classes\\"+Cname)){
+			cout <<"Error! This class has already existed!\n";
+		}
+		else break;
+	}
 
 	fstream f;
+
+	f.open(folder+"\\Classes\\Classes.txt", ios::app | ios::out);   //ghi ten lop ra file
+	f << Cname << "\n";
+	f.close();
+
 	string filepath;
 
-	do{
+	do{																//lay danh sach lop
 		filepath.clear();
 		cout << "Please enter the path of CSV file: ";
 		getline(cin, filepath);
@@ -221,96 +230,26 @@ void addClass(schoolYear*& sYear, string folder) {
 
 	f.close();
 
-	if (!sYear->Class) sYear->Class = newClass(filepath, Cname,folder+"\\Classes");
+	if (Class) tmpClass->next = newClass(filepath, Cname,folder+"\\Classes");
 	else {
-		Classes* Class = sYear->Class;
-		while (Class->next) Class = Class->next;
-		Class->next = newClass(filepath, Cname,folder+"\\Classes");
-		Class->next->prev = Class;
+		Class=newClass(filepath,Cname,folder+"\\Classes");
 	}
 }
 
-void deleteStudentFile(string path){
-	string filepath=path+"\\Course Sem 1.csv";
-	remove(filepath.c_str());
-
-	filepath=path+ "\\Course Sem 2.csv";
-	remove(filepath.c_str());
-
-	filepath=path+ "\\Course Sem 3.csv";
-	remove(filepath.c_str());
-
-	filepath=path+ "\\Profile.txt";
-	remove(filepath.c_str());
-
-	removeFolder(path);
-}
-
-void deleteAllStudents(Students*& stu, string path) {
+void deleteAllStudents(Students*& stu) {
 	while (stu) {
 		Students* tmp = stu;
 		stu = stu->next;
-	
-		deleteStudentFile(path+"\\"+tmp->ID);
-
 		delete tmp;
 	}
 }
 
-void deleteStudent(Students *&stu, string path){
-	deleteStudentFile(path+"\\"+stu->ID);
-	
-	if (stu->next) stu->next->prev=stu->prev;
-	if (stu->prev) stu->prev->next=stu->next;
-	delete stu;
-}
-
-void deleteClassFolder(string path){
-	removeFolder(path);
-}
-
-void deleteAllClasses(Classes*& Class, string path) {
+void deleteAllClasses(Classes*& Class) {
 	while (Class) {
 		Classes* tmp = Class;
-		if (tmp->student) deleteAllStudents(tmp->student,path+"\\" +Class->className);
-		deleteClassFolder(path+"\\"+Class->className);
 		Class = Class->next;
 		delete tmp;
 	}
-}
-
-void deleteSchoolYearFolder(string path){
-	removeFolder(path+"\\Classes");
-	removeFolder(path+"\\Semesters\\Sem 1");
-	removeFolder(path+"\\Semesters\\Sem 2");
-	removeFolder(path+"\\Semesters\\Sem 3");
-	removeFolder(path+"\\Semesters");
-	removeFolder(path);
-}
-
-void deleteAllYears(schoolYear*& sYear) {
-	while (sYear) {
-		schoolYear* tmp = sYear;
-		if (tmp->Class) deleteAllClasses(tmp->Class,to_string(sYear->yearStart)+"-"+to_string(sYear->yearEnd)+"\\Classes");
-		deleteSchoolYearFolder(to_string(sYear->yearStart)+"-"+to_string(sYear->yearEnd));
-		sYear = sYear->next;
-		delete tmp;
-	}
-}
-
-void deleteClass(Classes *&Class, string path){
-	removeFolder(path+"\\"+Class->className);
-	if (Class->student) deleteAllStudents(Class->student,path+Class->className);
-	if (Class->next) Class->next->prev=Class->prev;
-	if (Class->prev) Class->prev->next=Class->next;
-}
-
-void deleteYear(schoolYear *&sYear){
-	deleteSchoolYearFolder(to_string(sYear->yearStart)+"-"+to_string(sYear->yearEnd));
-
-	if (sYear->Class) deleteAllClasses(sYear->Class,to_string(sYear->yearStart)+"-"+to_string(sYear->yearEnd)+"\\Classes");
-	if (sYear->next) sYear->next->prev=sYear->prev;
-	if (sYear->prev) sYear->prev->next=sYear->next;
 }
 
 Semesters newSemester(int currSem, date begin, date end)
