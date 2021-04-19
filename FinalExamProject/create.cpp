@@ -387,7 +387,7 @@ void viewCourseFile(Courses *course)
 	out.close();
 }
 
-void loadCoursesFromFile(Courses *&course)
+bool loadCoursesFromFile(Courses *&course)
 {
 
 	ifstream in;
@@ -395,6 +395,9 @@ void loadCoursesFromFile(Courses *&course)
 	string ignore;
 
 	in.open(Schoolyear + "/Semesters/" + Sem + "/AllCourses.csv");
+
+	if (!in.is_open())
+		return false;
  
 	int count = 0;
 
@@ -484,5 +487,5 @@ void loadCoursesFromFile(Courses *&course)
 		in.close();
 	}
 	
-
+	return true;
 }
