@@ -1,33 +1,62 @@
 #include "UI.h"
 
+
+
 void keyboardShortcutMenu() {
 
 	txtColor(15);
 	gotoxy(130, 6);  cout << "K E Y B O A R D   S H O R C U T";
-	gotoxy(130, 8);  cout << "P R E S S    ^    T O   U P";
-	gotoxy(130, 9);  cout << "P R E S S    v    T O   D O W N";
-	gotoxy(130, 10); cout << "P R E S S   ESC   T O   E X I T ";
+	gotoxy(130, 8);  cout << "P R E S S     ^     T O   U P";
+	gotoxy(130, 9);  cout << "P R E S S     v     T O   D O W N";
+	gotoxy(130, 10); cout << "P R E S S    ESC    T O   E X I T ";
+	gotoxy(130, 11); cout << "P R E S S   ENTER   T O   E N T E R ";
 
 	txtColor(240);
-	gotoxy(141, 8); cout << "  ^  ";
-	gotoxy(141, 9); cout << "  v  ";
-	gotoxy(141, 10); cout << " ESC ";
+	gotoxy(142, 8); cout << "  ^  ";
+	gotoxy(142, 9); cout << "  v  ";
+	gotoxy(142, 10); cout << " ESC ";
+	gotoxy(141, 11); cout << " ENTER ";
 	txtColor(15);
 
 }
 
 void keyboardShortcut() {
-	txtColor(240);
-	gotoxy(141, 8); cout << "  ^  ";
-	gotoxy(141, 9); cout << "  v  ";
-	gotoxy(141, 10); cout << " ESC ";
-
 	txtColor(15);
 	gotoxy(130, 6);  cout << "K E Y B O A R D   S H O R C U T";
-	gotoxy(130, 8);  cout << "P R E S S    ^    T O   U P";
-	gotoxy(130, 9);  cout << "P R E S S    v    T O   D O W N";
-	gotoxy(130, 10); cout << "P R E S S   ESC   T O   B A C K ";
+	gotoxy(130, 8);  cout << "P R E S S     ^     T O   U P";
+	gotoxy(130, 9);  cout << "P R E S S     v     T O   D O W N";
+	gotoxy(130, 10); cout << "P R E S S    ESC    T O   B A C K ";
+	gotoxy(130, 11); cout << "P R E S S   ENTER   T O   E N T E R ";
 
+	txtColor(240);
+	gotoxy(142, 8); cout << "  ^  ";
+	gotoxy(142, 9); cout << "  v  ";
+	gotoxy(142, 10); cout << " ESC ";
+	gotoxy(141, 11); cout << " ENTER ";
+	txtColor(15);
+
+}
+
+void fillBlackUserPass() {
+	gotoxy(66, 38);
+	for (int i = 0; i < 40; ++i)
+		cout << char(32);
+	gotoxy(75, 30);
+	for (int i = 0; i < 24; ++i)
+		cout << char(32);
+	gotoxy(75, 35);
+	for (int i = 0; i < 24; ++i)
+		cout << char(32);
+}
+
+void fillBlackMenu() {
+	txtColor(0);
+	for (int j = 14; j < 38; ++j) {
+		for (int i = 0; i < 200; ++i) {
+			gotoxy(i, j);
+			cout << char(30);
+		}
+	}
 }
 
 void Login(char username[], char password[], int sizeUser, int sizePass) {
@@ -36,7 +65,7 @@ void Login(char username[], char password[], int sizeUser, int sizePass) {
 	loginUI();
 
 	while (true) {
-		fillBlackLogin();
+		fillBlackUserPass();
 		inputUsername(username, sizeUser);
 		inputPassword(password, sizePass);
 
@@ -213,6 +242,69 @@ void menuStaffSettings(char username[], char password[], int sizeUser, int sizeP
 		}
 	}
 
+}
+
+void MenuChangePasswordStaff(string username, string& password) {
+	keyboardShortcut();
+	fillBlackMenu();
+
+	txtColor(15);
+
+	string oldPassword;
+	string newPassword;
+	string newPasswordAgain;
+	bool check;
+
+	while (true) {
+		char choice = _getch();
+
+		do {
+			cout << "Old password: ";
+			cin >> oldPassword;
+
+			for (int i = 0; i < oldPassword.size(); ++i) {
+				if (oldPassword.size() > password.size())
+					check = false;
+				else if (oldPassword.size() < password.size())
+					check = false;
+				else if (oldPassword[i] != password[i])
+					check = false;
+				else
+					check = true;
+			}
+		} while (check == false);
+
+		cout << "New password: ";
+		cin >> newPassword;
+
+		do {
+			cout << "Please input your new password again: ";
+			cin >> newPasswordAgain;
+		} while (newPassword.compare(newPasswordAgain) != 0);
+
+		ifstream in;
+		ofstream out;
+
+		in.open("Staff Accounts/" + username);
+
+		string nameFile;
+		string passFile;
+		while (!in.eof()) {
+			getline(in, nameFile, ',');
+			getline(in, passFile);
+		}
+
+		in.close();
+
+		string fileName = "Staff Accounts/" + username;
+		remove(fileName.c_str());
+
+		out.open("Staff Accounts/" + username);
+		out << username << endl << newPassword;
+		out.close();
+
+		password = newPassword;
+	}
 }
 
 void menuStudent(char username[], char password[], int sizeUser, int sizePass) {

@@ -1,0 +1,4 @@
+hotuanthanh,Ho Tuan Thanh,male,23/07/1990,123456789,0909124548
+lethianhthao,Le Thi Anh Thao,female,14/02/1990,123456789,0909534613
+nguyenthiminhphuc,Nguyen Thi Minh Phuc,female,5/3/1990,123456789,0909649342
+hoangthanhtu,Hoang Thanh Tu,female,28/10/1990,123456789,0909256321

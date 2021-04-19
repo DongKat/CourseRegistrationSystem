@@ -64,11 +64,13 @@
     <None Include="Test.csv">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="staff.csv">
-      <Filter>Source Files</Filter>
-    </None>
     <None Include="student.csv">
       <Filter>Source Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="staff.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

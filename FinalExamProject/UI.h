@@ -11,6 +11,8 @@ void setWindowFullSize();
 void logo_moodle();
 void loginUI();
 void fillBlackLogin();
+void fillBlackUserPass();
+void fillBlackMenu();
 
 string convertToString(char* a, int size);
 string inputUsername(char username[], int& sizeUser);
