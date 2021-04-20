@@ -440,7 +440,7 @@ void addNewCourseMain(Courses *&course)
 
 	for (int i = 0; i < 2; ++i)
 	{
-		cout << "Enter first session:\n";
+		cout << "Enter session:\n\n";
 		cout << "Day of week: "; // MON, THU
 		cin >> schedule[i].day;
 		cout << "Time: ";		//S1, S2, S3
