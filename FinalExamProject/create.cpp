@@ -419,7 +419,7 @@ void addNewCourseMain(Courses *&course)
 {
 	string courseID, courseName, teacherName;
 	int numCredits, maxStudent;
-	cout << "You are creating new course:";
+	cout << "You are creating new course:\n\n";
 
 	cout << "Enter course's ID: ";
 	getline(cin, courseID);
