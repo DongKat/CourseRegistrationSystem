@@ -61,7 +61,6 @@ struct BasicCourses
     CourseScore *mark;
     BasicCourses *next=nullptr;
     Schedules schedule[2];
-
 };
 
 struct Courses
@@ -77,8 +76,8 @@ struct Courses
     int countStudent=0;
     BasicStudents *studentID;//8 [50] là tối đa 50 SV 1 lớp - 13 ghi danh- 15 xoá khoá- 16 xem các môn mà sv học
     CourseScore *mark;
+    
     Schedules schedule[2];
-    Scores scoreBoard;// 22-26
     Courses *next=nullptr , *prev;
 };
 

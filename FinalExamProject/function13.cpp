@@ -1,4 +1,4 @@
-bool checkSchedule(Students aStudent,BasicCourses courseNew)
+bool checkSchedule(Students aStudent,Courses courseNew)
 {
     BasicCourses *ptem = aStudent.courseStudent ;
     while (ptem!=nullptr)
@@ -14,7 +14,7 @@ bool checkSchedule(Students aStudent,BasicCourses courseNew)
     return true;
 };
 
-void enrollACourse(Students& aStudent,Courses courseNew,fstream &f)
+void enrollACourse(Students& aStudent,Courses &courseNew,fstream &f)
 {
     int k=courseNew.sem;
     int count=-1;
@@ -33,7 +33,9 @@ void enrollACourse(Students& aStudent,Courses courseNew,fstream &f)
     if((checkSchedule(aStudent,courseNew)==true) && courseNew.countStudent<courseNew.maxStudent)
         if(count<5)
         {
-            f << courseNew.courseID << "," << courseNew.courseName << ",0,0,0,0" <<courseNew.schedule[0].day<<","<<courseNew.schedule[0].time<<","<<courseNew.schedule[1].day<<","<<courseNew.schedule[1].time<<endl;
+            for(int i=0; i<count ; i++)
+                getline(f, ignore_line);
+            f << courseNew.courseID << "," << courseNew.courseName << ",0,0,0,0," <<courseNew.schedule[0].day<<","<<courseNew.schedule[0].time<<","<<courseNew.schedule[1].day<<","<<courseNew.schedule[1].time<<endl;
             f.close();
             f.open(Schoolyear+ "/Semester/Semester" + to_string(k) + "/" + courseNew.courseID + "Scoreboard.csv", ios::in);
             int count1 = -1;
@@ -46,6 +48,8 @@ void enrollACourse(Students& aStudent,Courses courseNew,fstream &f)
             }
             f.close();
             f.open(Schoolyear+ "/Semester/Semester" + to_string(k) + "/" + courseNew.courseID + "Scoreboard.csv", ios::out|ios::in);
+            for(int i=0; i<=count ; i++)
+                getline(f, ignore_line);
             f << ++count1 << "," << aStudent.ID << "," << aStudent.firstName << "," << aStudent.lastName << ",0,0,0,0" << endl;
             f.close();
             
@@ -53,13 +57,13 @@ void enrollACourse(Students& aStudent,Courses courseNew,fstream &f)
             BasicCourses *pt=aStudent.courseStudent;
             if(pt==nullptr)
             {
+                aStudent.courseStudent=new BasicCourses;
                 pt->courseID=courseNew.courseID;
                 pt->courseName=courseNew.courseName;
                 pt->mark=courseNew.mark;
                 for(int i=0; i<2;i++)
                     pt->schedule[i]=courseNew.schedule[i];
                 pt->sem=courseNew.sem;
-                courseNew.studentID->next=nullptr;
             }
             else
             {
@@ -196,12 +200,12 @@ void viewEnrolledCourses(Students aStudent, fstream &f)
     }
     f.close();
 }
-void updateCourseB4D (Students aStudent,Courses courseDelete,fstream &f)
+void updateCourseB4D (Students &aStudent,Courses &courseDelete,fstream &f)
 {
     //file student
     string file="./"+Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(courseDelete.sem) + ".csv";
     remove(file.c_str());
-    f.open(file);
+    f.open(file,ios::out);
     string temp;
     BasicCourses *ptem = aStudent.courseStudent;
     while (ptem!=nullptr)
@@ -222,7 +226,7 @@ void updateCourseB4D (Students aStudent,Courses courseDelete,fstream &f)
     // file scoreboard
     file="./"+Schoolyear+ "/Semester/Semester" + to_string(courseDelete.sem) + "/" + courseDelete.courseID + "Scoreboard.csv";
     remove(file.c_str());
-    f.open(file);
+    f.open(file,ios::out);
     BasicStudents *pCur = courseDelete.studentID;
     int count =1;
     while (pCur!=nullptr)
@@ -312,13 +316,14 @@ void removeACourse(Students *aStudent,Courses *courseDelete,fstream &f)
     f.close();
 };
 
-void viewAllStudentInCourse (Students *student)
+void viewAllStudentInCourse (Courses
+ *course)
 {
     int count=1;
-    Students *pCur= student;
+    Students *pCur= course->studentID;
     while (pCur !=nullptr)
     {
-        cout< <count++<<"ID: "<<student->ID<<'\t'<<"Name: " <<student->firstName<<" "<<student->lastName;
+        cout<<count++<<"ID: "<<pCur->ID<<'\t'<<"Name: " <<pCur->firstName<<" "<<pCur->lastName;
         pCur=pCur->next;
     }
 }
@@ -329,7 +334,7 @@ void viewAllStudentInClass (Classes *Class)
     Students *pCur= Class->student;
     while (pCur !=nullptr)
     {
-        cout<<count++<<"ID: "<<student->ID<<'\t'<<"Name: " <<student->firstName<<" "<<student->lastName;
+        cout<<count++<<"ID: "<<pCur->ID<<'\t'<<"Name: " <<pCur->firstName<<" "<<pCur->lastName;
         pCur=pCur->next;
     }
 }
