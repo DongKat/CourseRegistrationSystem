@@ -500,7 +500,7 @@ bool loadCoursesFromFile(Courses *&course)
 
 	string *getCourse = new string[count];
 
-	in.open("./" + Schoolyear + "/Semesters/" + to_string(course->sem) + "/AllCourses.csv");
+	in.open(Schoolyear + "/Semesters/" + Sem + "/AllCourses.csv");
 
 	count = -1;
 
