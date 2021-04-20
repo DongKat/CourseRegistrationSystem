@@ -352,7 +352,7 @@ void createFolderNFileCourse(Courses *course)
 	
 	out << "Course ID,Course Name,Teacher Name,Num of Credits,Max Students,Session 1,Session 2\n";
 
-	out << course -> courseID + ',' + course -> courseName + ',' + course -> teacherName + ',' + "Credits: " + to_string(course -> numCredits) + ',' + "Max Student: " + to_string(course -> maxStudent) + ',' + course -> schedule[0].day + ' ' + course -> schedule[0].time + ',' + course -> schedule[1].day + ' '  +course -> schedule[1].time + '\n';
+	out << course -> courseID + ',' + course -> courseName + ',' + course -> teacherName + ',' + to_string(course -> numCredits) + ',' + to_string(course -> maxStudent) + ',' + course -> schedule[0].day + ' ' + course -> schedule[0].time + ',' + course -> schedule[1].day + ' '  +course -> schedule[1].time + '\n';
 
 	out.close();
 
@@ -369,7 +369,7 @@ void viewCourseFile(Courses *course)
 
 	Courses *curr = course;
 
-	out.open(Schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + "AllCourses", ofstream::app);
+	out.open(Schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + "/AllCourses", ofstream::app);
 
 	while (curr)
 	{
