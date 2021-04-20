@@ -369,7 +369,7 @@ void viewCourseFile(Courses *course)
 
 	Courses *curr = course;
 
-	out.open(Schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + "AllCourses");
+	out.open(Schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + "AllCourses", ofstream::app);
 
 	while (curr)
 	{
