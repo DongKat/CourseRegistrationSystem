@@ -1,5 +1,5 @@
 #include "loadClass_Students.h"
-#include "create.h";
+#include "create.h"
 
 BasicCourses *loadCourse(string path){
     BasicCourses *course=0,*tmp=0;
@@ -38,7 +38,7 @@ Students *loadStudentInfo(string path){         //path: schoolyear/classes/class
     getline(f,stu->gender);
     string DOB;
     getline(f,DOB);
-    stu->dateOfBirth=convertToDay(DOB);
+    //stu->dateOfBirth=convertToDay(DOB);
     getline(f,stu->idSocial);
 
 
@@ -72,18 +72,19 @@ Classes* loadClass(){
     while (!f.eof()){
         string ClassName;
         getline(f,ClassName);
+        if (ClassName=="") continue;
         if (Class){
            tmp->next=new Classes;
+           tmp->next->prev=tmp;
            tmp=tmp->next;
         }
         else{
             Class=new Classes;
             tmp=Class;
+            tmp->prev=0;
         }
         tmp->className=ClassName;
         tmp->next=0;
-        tmp->prev=0;
-        tmp->next->prev=tmp;
         tmp->student=loadStudent(path+ClassName+"\\",ClassName);
     }
     return Class;
