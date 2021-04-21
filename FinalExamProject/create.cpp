@@ -570,7 +570,7 @@ bool loadCoursesFromFile(Courses *&course)
 			getline(in, currStu -> ID, ',');
 			getline(in, currStu -> firstName, ',');
 			getline(in, currStu -> lastName, ',');
-			getline(in, currStu -> ClassName, ',');
+			getline(in, currStu -> className, ',');
 
 			getline(in, ignore);
 		}
