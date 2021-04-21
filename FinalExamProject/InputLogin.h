@@ -3,6 +3,7 @@
 
 #include "Struct.h"
 
+string convertToString(char* a, int size);
 string inputUsername(char username[], int& sizeUser);
 string inputPassword(char password[], int& sizePass);
 bool checkValidUsernameAndPasswordStaff(string username, string password);

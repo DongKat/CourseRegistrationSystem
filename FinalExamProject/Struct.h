@@ -3,6 +3,13 @@
 
 using namespace std;
 
+string Schoolyear;
+date dateStart;
+date dateEnd;
+string Sem;
+string schoolYear = "2020-2021";
+string sem = "Sem 1";
+
 struct date
 {
     int day;

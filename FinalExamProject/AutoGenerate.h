@@ -6,6 +6,5 @@
 void autoGenerateStaffProfiles(string filePath);
 void autoGenerateStudentAccounts(string filePath);
 void autoGenerateStudentProfiles(string filePath);
-string convertToString(char* a, int size);
 
 #endif
