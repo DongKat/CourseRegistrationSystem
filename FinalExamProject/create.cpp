@@ -280,7 +280,7 @@ void addNewSemesterMain(Semesters *semester)
 	int currSem;
 	date begin, end;
 
-	cout << "You are creating new semester\n";
+	cout << "You are creating new semester\n\n";
 	cout << "Enter semester: ";
 	cin >> currSem;
 
