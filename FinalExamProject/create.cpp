@@ -268,13 +268,13 @@ Semesters newSemester(int currSem, date begin, date end)
 	return newSemester;
 }
 
-void addSemester(Semesters semester[], int currSem, date begin, date end)
+void addSemester(Semesters *semester, int currSem, date begin, date end)
 {
 	semester[currSem - 1] = newSemester(currSem, begin, end);
 	Sem = "Sem " + to_string(currSem);
 }
 
-void addNewSemesterMain(Semesters semester[])
+void addNewSemesterMain(Semesters *semester)
 {
 	int currSem;
 	date begin, end;
