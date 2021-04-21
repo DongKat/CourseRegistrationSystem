@@ -1,20 +1,18 @@
-#include "CourseRegistrationSystem.h"
+#include "AutoGenerate.h"
 #include "create.h"
 #include "Functions.h"
-#include "UI.h"
-#include "Struct.h"
+#include "InputLogin.h"
+#include "loadClass_Students.h"
 #include "Library.h"
-
-string Schoolyear;
-date dateStart;
-date dateEnd;
-string Sem;
+#include "MenuStaff.h"
+#include "MenuStudent.h"
+#include "Struct.h"
+#include "UI.h"
 
 int main() {
 	setWindowFullSize();
 	txtColor(0);
 	autoGenerateStudentAccounts("student.csv");
-	autoGenerateStaffAccounts("staff.txt");
 	autoGenerateStudentProfiles("student.csv");
 	autoGenerateStaffProfiles("staff.txt");
 

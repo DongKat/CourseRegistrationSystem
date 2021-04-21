@@ -1,4 +1,4 @@
-#include "CourseRegistrationSystem.h"
+#include "AutoGenerate.h"
 
 void autoGenerateStaffAccounts(string filePath)
 {
