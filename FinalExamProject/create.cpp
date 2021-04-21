@@ -342,9 +342,9 @@ void createFolderNFileCourse(Courses *course)
 {
 	ofstream out;
 
-	createFolder(Schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + '/' + course -> courseID);
+	createFolder(Schoolyear + "/Semesters/" + Sem + '/' + course -> courseID);
 
-	out.open(Schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Profile.csv");
+	out.open(Schoolyear + "/Semesters/" + Sem + '/' + course -> courseID + "/Profile.csv");
 	
 	out << "Course ID,Course Name,Teacher Name,Num of Credits,Max Students,Session 1,Session 2\n";
 
@@ -352,7 +352,7 @@ void createFolderNFileCourse(Courses *course)
 
 	out.close();
 
-	out.open(Schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Scoreboard.csv");
+	out.open(Schoolyear + "/Semesters/" + Sem + '/' + course -> courseID + "/Scoreboard.csv");
 
 	out << "No,Student ID,First Name,Last Name,Class,Midterm,Final,Bonus,Overall";
 
@@ -365,7 +365,7 @@ void viewCourseFile(Courses *course)
 
 	Courses *curr = course;
 
-	out.open(Schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + "/AllCourses.csv");
+	out.open(Schoolyear + "/Semesters/" + Sem + "/AllCourses.csv");
 
 	out << "Course ID,Course Name,Teacher Name";
 
@@ -394,7 +394,7 @@ Courses *findCourse(Courses *&course, string courseID, string courseName, string
 
 void deleteCourse(Courses *&course, Courses *delCourse)
 {
-	string delPath = (Schoolyear + "/Semesters/" + "/Sem " + to_string(course->sem) + '/' + course->courseID);
+	string delPath = (Schoolyear + "/Semesters/" + Sem + '/' + course->courseID);
 
 	removeFile(delPath + "/Profile.csv");
 	removeFile(delPath + "/Scoreboard.csv");
