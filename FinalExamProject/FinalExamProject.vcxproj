@@ -139,18 +139,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CourseRegistrationSystem.cpp" />
+    <ClCompile Include="AutoGenerate.cpp" />
     <ClCompile Include="create.cpp" />
     <ClCompile Include="Functions.cpp" />
+    <ClCompile Include="loadClass_Students.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="LoginUI.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuStaff.cpp" />
+    <ClCompile Include="MenuStudent.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="InputLogin.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CourseRegistrationSystem.h" />
+    <ClInclude Include="AutoGenerate.h" />
     <ClInclude Include="create.h" />
     <ClInclude Include="Functions.h" />
+    <ClInclude Include="InputLogin.h" />
+    <ClInclude Include="loadClass_Students.h" />
+    <ClInclude Include="MenuStaff.h" />
+    <ClInclude Include="MenuStudent.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Library.h" />
     <ClInclude Include="Struct.h" />
