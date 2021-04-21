@@ -369,7 +369,7 @@ void viewCourseFile(Courses *course)
 
 	out << "Course ID,Course Name,Teacher Name";
 
-	while (curr)
+	while (curr != NULL)
 	{
 		out << '\n' << curr -> courseID + ',' + curr -> courseName + ',' + curr -> teacherName;
 		curr = curr -> next;
@@ -400,15 +400,21 @@ void deleteCourse(Courses *&course, Courses *delCourse)
 	removeFile(delPath + "/Scoreboard.csv");
 	removeFolder(delPath);
 
-	if (delCourse -> prev)
-		delCourse -> prev -> next = delCourse -> next;
-	else
-		course = delCourse -> next;
 
-	if (delCourse -> next)
-		delCourse -> next -> prev = delCourse -> prev;
+	if (course == delCourse)
+		course = course -> next;
+	else
+	{
+		Courses *curr = course;
+		while (curr -> next != delCourse)
+			curr = curr -> next;
+
+		curr -> next = curr -> next -> next;
+	}
 
 	delete delCourse;
+
+	viewCourseFile(course);
 }
 
 void addNewCourseMain(Courses *&course)
