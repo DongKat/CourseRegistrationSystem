@@ -443,9 +443,9 @@ void addNewCourseMain(Courses *&course)
 	{
 		cout << "Enter session:\n\n";
 		cout << "Day of week: "; // MON, THU
-		cin >> schedule[i].day;
+		getline(cin, schedule[i].day);
 		cout << "Time: ";		//S1, S2, S3
-		cin >> schedule[i].time;
+		getline(cin, schedule[i].time);
 	}
 
 
