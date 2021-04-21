@@ -453,8 +453,21 @@ void addNewCourseMain(Courses *&course)
 	viewCourseFile(course);
 }
 
-void deleteCourseMain(Courses *&course, string courseID, string courseName, string teacherName)
+void deleteCourseMain(Courses *&course)
 {
+	string courseID, courseName, teacherName;
+
+	cout << "You are deleting course:\n\n";
+
+	cout << "Enter course's ID: ";
+	getline(cin, courseID);
+
+	cout << "Enter course's name: ";
+	getline(cin, courseName);
+
+	cout << "Enter course's name of teacher: ";
+	getline(cin, teacherName);
+
 	Courses *del = findCourse(course, courseID, courseName, teacherName);
 
 	if (del)
@@ -463,8 +476,21 @@ void deleteCourseMain(Courses *&course, string courseID, string courseName, stri
 		cout << "There are no course match with your information\n";
 }
 
-void editCourseMain(Courses *&course, string courseID, string courseName, string teacherName)
+void editCourseMain(Courses *&course)
 {
+	string courseID, courseName, teacherName;
+
+	cout << "You are editting course:\n\n";
+
+	cout << "Enter course's ID: ";
+	getline(cin, courseID);
+
+	cout << "Enter course's name: ";
+	getline(cin, courseName);
+
+	cout << "Enter course's name of teacher: ";
+	getline(cin, teacherName);
+
 	Courses *edit = findCourse(course, courseID, courseName, teacherName);
 
 	if (edit)
