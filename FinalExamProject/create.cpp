@@ -301,6 +301,8 @@ void addNewSemesterMain(Semesters *semester)
 	cout << "Year: ";
 	cin >>  end.year;
 
+	cin.ignore();
+
 	addSemester(semester, currSem, begin, end);
 }
 
