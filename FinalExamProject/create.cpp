@@ -437,6 +437,8 @@ void addNewCourseMain(Courses *&course)
 	cout << "Enter course's max student: ";
 	cin >> maxStudent;
 
+	cin.ignore();
+
 	Schedules schedule[2];
 
 	for (int i = 0; i < 2; ++i)
