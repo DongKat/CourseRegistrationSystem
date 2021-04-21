@@ -20,9 +20,7 @@ void removeFile(string path)
 	remove(path.c_str());
 }
 
-bool checkDate(date Date1, date Date2)
-{ 
-	// true if date1 before or same as date 2
+bool checkDate(date Date1, date Date2){  // true if date1 before or same as date 2
 	if (Date1.year<Date2.year) return 1;
 	if (Date1.year>Date2.year) return 0;
 
@@ -38,21 +36,16 @@ bool checkDate(date Date1, date Date2)
 bool createFolderSchoolYear(string path){	//false if this is new year
 	bool checkNewYear = createFolder(path);
 	createFolder(path+"\\Classes");
-	createFolder(path+"\\Semesters");
-	createFolder(path+"\\Semesters\\Sem 1");
-	createFolder(path+"\\Semesters\\Sem 2");
-	createFolder(path+"\\Semesters\\Sem 3");
 	return checkNewYear;
 }
 
 bool inputSchoolYear(){ 						//false if this is new SchoolYear
-	int syear,eyear;
-	do{
-		cout << "Please input schoolyear: ";
+	int syear=-1,eyear;
+	while (syear<0){
+		cout << "Please intput start year: ";
 		cin >> syear;
-		eyear = syear + 1;
-
-	} while (syear < 0);
+		eyear=syear+1;
+	}
 
 	Schoolyear = to_string(syear)+"-"+to_string(eyear);
 	return createFolderSchoolYear(Schoolyear);
@@ -144,7 +137,7 @@ Classes* newClass(string filepath, string className, string folder) {
 	Class->className = className;
 	ifstream f;
 	ofstream fout;
-	fout.open(folder+"\\"+className+"\\"+className+".csv");
+	fout.open(folder+"\\"+className+"\\allStudents.txt");
 	f.open(filepath);
 	Students* stu = nullptr;
 	int no;
@@ -186,7 +179,7 @@ Classes* newClass(string filepath, string className, string folder) {
 			Class->student = newStudent(no, ID, FirstName, LastName, gender, dateOfBirth, idSocial, className,folder+"\\"+className);
 			stu = Class->student;
 		}
-		fout << no << ","<< ID << "," << FirstName << "," << LastName << "," << gender << "," << DOB << "," << idSocial << "\n";
+		fout << ID << "\n";
 	}
 	f.close();
 	fout.close();

@@ -35,6 +35,5 @@ void addNewCourseMain(Courses*& course);
 void deleteCourseMain(Courses*& course, string courseID, string courseName, string teacherName);
 void editCourseMain(Courses*& course, string courseID, string courseName, string teacherName);
 bool loadCoursesFromFile(Courses*& course);
-schoolYear* newSchoolYear(int yearStart, int yearEnd);
 
 #endif
