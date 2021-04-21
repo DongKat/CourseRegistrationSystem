@@ -394,8 +394,6 @@ Courses *findCourse(Courses *&course, string courseID, string courseName, string
 
 void deleteCourse(Courses *&course, Courses *delCourse)
 {
-	ifstream in;
-
 	string delPath = (Schoolyear + "/Semesters/" + "/Sem " + to_string(course->sem) + '/' + course->courseID);
 
 	removeFile(delPath + "/Profile.csv");
