@@ -284,7 +284,7 @@ void addNewSemesterMain(Semesters *semester)
 	cout << "Enter semester: ";
 	cin >> currSem;
 
-	cout << "Enter starting date: ";
+	cout << "Enter starting date:\n";
 	cout << "Day: ";
 	cin >> begin.day;
 	cout << "Month: ";
@@ -293,7 +293,7 @@ void addNewSemesterMain(Semesters *semester)
 	cin >>  begin.year;
 
 
-	cout << "Enter ending date: ";
+	cout << "Enter ending date:\n";
 	cout << "Day: ";
 	cin >> end.day;
 	cout << "Month: ";
