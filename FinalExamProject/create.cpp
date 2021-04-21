@@ -359,7 +359,7 @@ void createFolderNFileCourse(Courses *course)
 
 	out.open(Schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Scoreboard.csv", ofstream::app);
 
-	out << "No,Student ID,First Name,Last Name,Midterm,Final,Bonus,Overall\n";
+	out << "No,Student ID,First Name,Last Name,Class,Midterm,Final,Bonus,Overall\n";
 
 	out.close();
 }
@@ -570,6 +570,7 @@ bool loadCoursesFromFile(Courses *&course)
 			getline(in, currStu -> ID, ',');
 			getline(in, currStu -> firstName, ',');
 			getline(in, currStu -> lastName, ',');
+			getline(in, currStu -> ClassName, ',');
 
 			getline(in, ignore);
 		}
