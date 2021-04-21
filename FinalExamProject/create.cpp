@@ -272,7 +272,7 @@ void addSemester(Semesters *semester, int currSem, date begin, date end)
 {
 	semester[currSem - 1] = newSemester(currSem, begin, end);
 	Sem = "Sem " + to_string(currSem);
-	createFolder(Schoolyear + '/Semesters/' + Sem);
+	createFolder(Schoolyear + "/Semesters/" + Sem);
 }
 
 void addNewSemesterMain(Semesters *semester)
