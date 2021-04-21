@@ -498,9 +498,13 @@ bool loadCoursesFromFile(Courses *&course)
 
 	in.close();
 
+	--count;
+
 	string *getCourse = new string[count];
 
 	in.open(Schoolyear + "/Semesters/" + Sem + "/AllCourses.csv");
+
+	getline(in, in, ignore);
 
 	count = -1;
 
