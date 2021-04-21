@@ -361,7 +361,7 @@ void createFolderNFileCourse(Courses *course)
 
 	out.open(Schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Scoreboard.csv");
 
-	out << "No,Student ID,First Name,Last Name,Class,Midterm,Final,Bonus,Overall\n";
+	out << "No,Student ID,First Name,Last Name,Class,Midterm,Final,Bonus,Overall";
 
 	out.close();
 }
@@ -374,9 +374,11 @@ void viewCourseFile(Courses *course)
 
 	out.open(Schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + "/AllCourses.csv");
 
+	out << "Course ID,Course Name,Teacher Name";
+
 	while (curr)
 	{
-		out << curr -> courseID + ',' + curr -> courseName + ',' + curr -> teacherName + '\n';
+		out << '\n' << curr -> courseID + ',' + curr -> courseName + ',' + curr -> teacherName;
 		curr = curr -> next;
 	}
 
