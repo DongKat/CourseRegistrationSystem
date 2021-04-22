@@ -1,4 +1,4 @@
-#include "CourseRegistrationSystem.h"
+#include "AutoGenerate.h"
 
 void autoGenerateStaffAccounts(string filePath)
 {
@@ -23,7 +23,7 @@ void autoGenerateStaffAccounts(string filePath)
 		getline(in, ignore_line, ',');  // Ignore name
 		getline(in, ignore_line, ',');	// Ignore gender
 		getline(in, ignore_line, ',');	// Ignore day month year
-		getline(in, socialID, ',');		
+		getline(in, socialID, ',');
 		getline(in, ignore_line);		// Ignore phoneNumber
 
 		// OUT
@@ -167,7 +167,7 @@ void autoGenerateStudentProfiles(string filePath)
 
 	in.close();
 }
-
+/*
 int main()
 {
 	autoGenerateStudentAccounts("student.csv");
@@ -175,3 +175,4 @@ int main()
 	autoGenerateStudentProfiles("student.csv");
 	autoGenerateStaffProfiles("staff.csv");
 }
+*/

@@ -1,3 +1,4 @@
+#include "InputLogin.h"
 #include "UI.h"
 
 string convertToString(char* a, int size)
@@ -140,4 +141,3 @@ bool checkValidUsernameAndPasswordStudent(string username, string password) {
 
 	return true;
 }
-

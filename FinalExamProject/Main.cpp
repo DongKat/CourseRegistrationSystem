@@ -1,47 +1,27 @@
-#include "CourseRegistrationSystem.h"
+#include "AutoGenerate.h"
 #include "create.h"
 #include "Functions.h"
-#include "UI.h"
+#include "InputLogin.h"
+#include "loadClass_Students.h"
 #include "Library.h"
+#include "MenuStaff.h"
+#include "MenuStudent.h"
 #include "Struct.h"
+#include "UI.h"
 
-int main() 
-{
+int main() {
 	setWindowFullSize();
-	logo_moodle();
-	loginUI();
-
+	txtColor(0);
 	autoGenerateStudentAccounts("student.csv");
-	autoGenerateStaffAccounts("staff.csv");
 	autoGenerateStudentProfiles("student.csv");
-	autoGenerateStaffProfiles("staff.csv");
+	autoGenerateStaffProfiles("staff.txt");
 
 	char username[23];
 	char password[23];
 	int sizeUser = 0;
 	int sizePass = 0;
 
-	while (true) {
-		fillBlackLogin();
-		inputUsername(username, sizeUser);
-		inputPassword(password, sizePass);
-
-		if (checkValidUsernameAndPasswordStaff(username, password) == true) {
-			break;
-		}
-		if (checkValidUsernameAndPasswordStudent(username, password) == true) {
-			break;
-		}
-
-		else {
-			txtColor(12);
-			gotoxy(66, 38); cout << " *** INCORRECT USERNAME OR PASSWORD ***" << endl;
-			Nocursortype();
-			Sleep(700);
-			txtColor(15);
-		}
-
-	}
+	Login(username, password, sizeUser, sizePass);
 
 	system("cls");
 	logo_moodle();

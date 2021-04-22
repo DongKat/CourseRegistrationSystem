@@ -1,15 +1,23 @@
 #include "create.h"
-#include "Library.h"
-#include "Struct.h"
 
 using namespace std;
 
-void createFolder(string path){
-	mkdir(path.c_str());
+bool createFolder(string path)
+{
+	//true if folder existed
+	int tmp=mkdir(path.c_str());
+	if (tmp) return true;
+	else return false;
 }
 
-void removeFolder(string path){
+void removeFolder(string path)
+{
 	rmdir(path.c_str());
+}
+
+void removeFile(string path)
+{
+	remove(path.c_str());
 }
 
 bool checkDate(date Date1, date Date2){  // true if date1 before or same as date 2
@@ -25,38 +33,22 @@ bool checkDate(date Date1, date Date2){  // true if date1 before or same as date
 	return 1;
 }
 
-schoolYear* newSchoolYear(int yearStart, int yearEnd) {
-	schoolYear* newYear = new schoolYear;
-	newYear->yearStart = yearStart;
-	newYear->yearEnd = yearEnd;
-	newYear->Class = 0;
-	newYear->next = 0;
-	newYear->prev = 0;
-	return newYear;
-}
-
-void createFolderSchoolYear(string path){
-	createFolder(path);
+bool createFolderSchoolYear(string path){	//false if this is new year
+	bool checkNewYear = createFolder(path);
 	createFolder(path+"\\Classes");
-	createFolder(path+"\\Semesters");
-	createFolder(path+"\\Semesters\\Sem 1");
-	createFolder(path+"\\Semesters\\Sem 2");
-	createFolder(path+"\\Semesters\\Sem 3");
+	return checkNewYear;
 }
 
-void addSchoolYear(schoolYear*& sYear, int yearStart, int yearEnd) {
-	if (!sYear) {
-		sYear = newSchoolYear(yearStart, yearEnd);
-		
+bool inputSchoolYear(){ 						//false if this is new SchoolYear
+	int syear=-1,eyear;
+	while (syear<0){
+		cout << "Please intput start year: ";
+		cin >> syear;
+		eyear=syear+1;
 	}
-	else{
-		schoolYear* cur = sYear;
-		while (cur && cur->next)
-		cur = cur->next;
-		cur->next = newSchoolYear(yearStart, yearEnd);
-		cur->next->prev = cur;
-	}
-	createFolderSchoolYear(to_string(sYear->yearStart)+"-"+to_string(sYear->yearEnd));
+
+	Schoolyear = to_string(syear)+"-"+to_string(eyear);
+	return createFolderSchoolYear(Schoolyear);
 }
 
 date convertToDay(string Day) {
@@ -144,6 +136,8 @@ Classes* newClass(string filepath, string className, string folder) {
 	Class->student = nullptr;
 	Class->className = className;
 	ifstream f;
+	ofstream fout;
+	fout.open(folder+"\\"+className+"\\allStudents.txt");
 	f.open(filepath);
 	Students* stu = nullptr;
 	int no;
@@ -185,8 +179,10 @@ Classes* newClass(string filepath, string className, string folder) {
 			Class->student = newStudent(no, ID, FirstName, LastName, gender, dateOfBirth, idSocial, className,folder+"\\"+className);
 			stu = Class->student;
 		}
+		fout << ID << "\n";
 	}
 	f.close();
+	fout.close();
 	return Class;
 }
 
@@ -194,19 +190,34 @@ void createFolderClass(string path,string Cname){
 	createFolder(path+"\\Classes\\"+Cname);
 }
 
-void addClass(schoolYear*& sYear, string folder) {
+void addClass(Classes *&Class, string folder) {
 	cin.clear();
 	fflush(stdin);
-	cout << "Please enter class's name: ";
-	string Cname;
-	getline(cin, Cname);
 
-	createFolderClass(folder, Cname);
+	Classes *tmpClass=Class;
+
+	while (tmpClass && tmpClass->next) tmpClass=tmpClass->next;
+
+	string Cname;
+
+	while (1){                       							// lay ten lop
+		cout << "Please enter class's name: ";
+		getline(cin, Cname);
+		if (createFolder(folder+"\\Classes\\"+Cname)){
+			cout <<"Error! This class has already existed!\n";
+		}
+		else break;
+	}
 
 	fstream f;
+
+	f.open(folder+"\\Classes\\Classes.txt", ios::app | ios::out);   //ghi ten lop ra file
+	f << Cname << "\n";
+	f.close();
+
 	string filepath;
 
-	do{
+	do{																//lay danh sach lop
 		filepath.clear();
 		cout << "Please enter the path of CSV file: ";
 		getline(cin, filepath);
@@ -218,96 +229,26 @@ void addClass(schoolYear*& sYear, string folder) {
 
 	f.close();
 
-	if (!sYear->Class) sYear->Class = newClass(filepath, Cname,folder+"\\Classes");
+	if (Class) tmpClass->next = newClass(filepath, Cname,folder+"\\Classes");
 	else {
-		Classes* Class = sYear->Class;
-		while (Class->next) Class = Class->next;
-		Class->next = newClass(filepath, Cname,folder+"\\Classes");
-		Class->next->prev = Class;
+		Class=newClass(filepath,Cname,folder+"\\Classes");
 	}
 }
 
-void deleteStudentFile(string path){
-	string filepath=path+"\\Course Sem 1.csv";
-	remove(filepath.c_str());
-
-	filepath=path+ "\\Course Sem 2.csv";
-	remove(filepath.c_str());
-
-	filepath=path+ "\\Course Sem 3.csv";
-	remove(filepath.c_str());
-
-	filepath=path+ "\\Profile.txt";
-	remove(filepath.c_str());
-
-	removeFolder(path);
-}
-
-void deleteAllStudents(Students*& stu, string path) {
+void deleteAllStudents(Students*& stu) {
 	while (stu) {
 		Students* tmp = stu;
 		stu = stu->next;
-	
-		deleteStudentFile(path+"\\"+tmp->ID);
-
 		delete tmp;
 	}
 }
 
-void deleteStudent(Students *&stu, string path){
-	deleteStudentFile(path+"\\"+stu->ID);
-	
-	if (stu->next) stu->next->prev=stu->prev;
-	if (stu->prev) stu->prev->next=stu->next;
-	delete stu;
-}
-
-void deleteClassFolder(string path){
-	removeFolder(path);
-}
-
-void deleteAllClasses(Classes*& Class, string path) {
+void deleteAllClasses(Classes*& Class) {
 	while (Class) {
 		Classes* tmp = Class;
-		if (tmp->student) deleteAllStudents(tmp->student,path+"\\" +Class->className);
-		deleteClassFolder(path+"\\"+Class->className);
 		Class = Class->next;
 		delete tmp;
 	}
-}
-
-void deleteSchoolYearFolder(string path){
-	removeFolder(path+"\\Classes");
-	removeFolder(path+"\\Semesters\\Sem 1");
-	removeFolder(path+"\\Semesters\\Sem 2");
-	removeFolder(path+"\\Semesters\\Sem 3");
-	removeFolder(path+"\\Semesters");
-	removeFolder(path);
-}
-
-void deleteAllYears(schoolYear*& sYear) {
-	while (sYear) {
-		schoolYear* tmp = sYear;
-		if (tmp->Class) deleteAllClasses(tmp->Class,to_string(sYear->yearStart)+"-"+to_string(sYear->yearEnd)+"\\Classes");
-		deleteSchoolYearFolder(to_string(sYear->yearStart)+"-"+to_string(sYear->yearEnd));
-		sYear = sYear->next;
-		delete tmp;
-	}
-}
-
-void deleteClass(Classes *&Class, string path){
-	removeFolder(path+"\\"+Class->className);
-	if (Class->student) deleteAllStudents(Class->student,path+Class->className);
-	if (Class->next) Class->next->prev=Class->prev;
-	if (Class->prev) Class->prev->next=Class->next;
-}
-
-void deleteYear(schoolYear *&sYear){
-	deleteSchoolYearFolder(to_string(sYear->yearStart)+"-"+to_string(sYear->yearEnd));
-
-	if (sYear->Class) deleteAllClasses(sYear->Class,to_string(sYear->yearStart)+"-"+to_string(sYear->yearEnd)+"\\Classes");
-	if (sYear->next) sYear->next->prev=sYear->prev;
-	if (sYear->prev) sYear->prev->next=sYear->next;
 }
 
 Semesters newSemester(int currSem, date begin, date end)
@@ -320,20 +261,51 @@ Semesters newSemester(int currSem, date begin, date end)
 	return newSemester;
 }
 
-void addSemester(Semesters semester[], int currSem, date begin, date end)
+void addSemester(Semesters *semester, int currSem, date begin, date end)
 {
 	semester[currSem - 1] = newSemester(currSem, begin, end);
+	Sem = "Sem " + to_string(currSem);
+	createFolder(Schoolyear + "/Semesters/" + Sem);
 }
 
-Courses *newCourse(int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules schedule[])
+void addNewSemesterMain(Semesters *semester)
+{
+	int currSem;
+	date begin, end;
+
+	cout << "You are creating new semester\n\n";
+	cout << "Enter semester: ";
+	cin >> currSem;
+
+	cout << "Enter starting date:\n";
+	cout << "Day: ";
+	cin >> begin.day;
+	cout << "Month: ";
+	cin >> begin.month;
+	cout << "Year: ";
+	cin >>  begin.year;
+
+
+	cout << "Enter ending date:\n";
+	cout << "Day: ";
+	cin >> end.day;
+	cout << "Month: ";
+	cin >> end.month;
+	cout << "Year: ";
+	cin >>  end.year;
+
+	cin.ignore();
+
+	addSemester(semester, currSem, begin, end);
+}
+
+Courses *newCourse(string courseName, string courseID, string teacherName, int numCredits, int maxStudent, Schedules schedule[])
 {
 	Courses *newCourse = new Courses;
-	newCourse -> sem = currSem;
-	newCourse -> dateStart = begin;
-	newCourse -> dateEnd = end;
+	newCourse -> sem = Sem[4] - '0';
 	newCourse -> courseName = courseName;
 	newCourse -> courseID = courseID;
-	newCourse -> teacher_name = teacher_name;
+	newCourse -> teacherName = teacherName;
 	newCourse -> numCredits = numCredits;
 	newCourse -> maxStudent =  maxStudent;
 	newCourse -> schedule[0] = schedule[0];
@@ -346,50 +318,73 @@ Courses *newCourse(int currSem, date begin, date end, string courseName, string 
 	return newCourse;
 }
 
-
-void addCourse(Courses *&course, int currSem, date begin, date end, string courseName, string courseID, string teacher_name, int numCredits, int maxStudent, Schedules *schedule)
+Courses *addCourse(Courses *&course, string courseName, string courseID, string teacherName, int numCredits, int maxStudent, Schedules *schedule)
 {
+	Courses *newC = newCourse(courseName, courseID, teacherName, numCredits, maxStudent, schedule);
+
 	if (!course)
 	{
-		course = newCourse(currSem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
-		return;
+		course = newC;
+		return newC;
 	}
 
 	Courses *curr = course;
 	while (curr -> next)
 		curr = curr -> next;
 
-	curr -> next = newCourse(currSem, begin,  end, courseName, courseID, teacher_name, numCredits, maxStudent, schedule);
+	curr -> next = newC;
 	curr -> next -> prev = curr;
+
+	return newC;
 }
 
-void extractCourse(Courses *course)
+void createFolderNFileCourse(Courses *course)
 {
 	ofstream out;
 
-	createFolder(schoolyear + "/Semesters/" + "/Sem "  + to_string(course -> sem) + '/' + course -> courseID);
+	createFolder(Schoolyear + "/Semesters/" + Sem + '/' + course -> courseID);
 
-	out.open(schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Profile.csv");
+	out.open(Schoolyear + "/Semesters/" + Sem + '/' + course -> courseID + "/Profile.csv");
 	
-	out << course -> courseID + ',' + course -> courseName + ',' + course -> teacher_name + ',' + "Credits: " + to_string(course -> numCredits) + "MaxStu: " + to_string(course -> maxStudent);
+	out << "Course ID,Course Name,Teacher Name,Num of Credits,Max Students,Session 1,Session 2\n";
+
+	out << course -> courseID + ',' + course -> courseName + ',' + course -> teacherName + ',' + to_string(course -> numCredits) + ',' + to_string(course -> maxStudent) + ',' + course -> schedule[0].day + ' ' + course -> schedule[0].time + ',' + course -> schedule[1].day + ' '  +course -> schedule[1].time + '\n';
 
 	out.close();
 
-	out.open(schoolyear + "/Semesters/" + "/Sem " + to_string(course -> sem) + '/' + course -> courseID + "/Scoreboard.csv");
+	out.open(Schoolyear + "/Semesters/" + Sem + '/' + course -> courseID + "/Scoreboard.csv");
 
-	out << "No,Student ID,First Name,Last Name,Midterm,Final,Bonus,Overall";
+	out << "No,Student ID,First Name,Last Name,Class,Midterm,Final,Bonus,Overall";
 
 	out.close();
 }
 
+void viewCourseFile(Courses *course)
+{
+	ofstream out;
 
-Courses *findCourse(Courses *&course, string courseID, string courseName, string teacher_name)
+	Courses *curr = course;
+
+	out.open(Schoolyear + "/Semesters/" + Sem + "/AllCourses.csv");
+
+	out << "Course ID,Course Name,Teacher Name";
+
+	while (curr != NULL)
+	{
+		out << '\n' << curr -> courseID + ',' + curr -> courseName + ',' + curr -> teacherName;
+		curr = curr -> next;
+	}
+
+	out.close();
+}
+
+Courses *findCourse(Courses *&course, string courseID, string courseName, string teacherName)
 {
 	Courses *curr = course;
 
 	while (curr)
 	{
-		if (curr -> courseID == courseID && curr -> courseName == courseName && curr -> teacherName == teacherName)
+		if (curr -> courseID == courseID && curr -> courseName == courseName && curr -> teacherName == course -> teacherName)
 			return curr;
 		curr = curr -> next;
 	}
@@ -399,6 +394,12 @@ Courses *findCourse(Courses *&course, string courseID, string courseName, string
 
 void deleteCourse(Courses *&course, Courses *delCourse)
 {
+	string delPath = (Schoolyear + "/Semesters/" + Sem + '/' + delCourse->courseID);
+
+	removeFile(delPath + "/Profile.csv");
+	removeFile(delPath + "/Scoreboard.csv");
+	removeFolder(delPath);
+
 	if (delCourse -> prev)
 		delCourse -> prev -> next = delCourse -> next;
 	else
@@ -408,15 +409,246 @@ void deleteCourse(Courses *&course, Courses *delCourse)
 		delCourse -> next -> prev = delCourse -> prev;
 
 	delete delCourse;
+
+	viewCourseFile(course);
 }
 
-void deleteCourseMain(Courses *&course, string courseID, string courseName, string teacher_name)
+void addNewCourseMain(Courses *&course)
 {
-	Courses *del = findCourse(course, courseID, courseName, teacher_name);
+	string courseID, courseName, teacherName;
+	int numCredits, maxStudent;
+	cout << "You are creating new course:\n\n";
+
+	cout << "Enter course's ID: ";
+	getline(cin, courseID);
+
+	cout << "Enter course's name: ";
+	getline(cin, courseName);
+
+	cout << "Enter course's name of teacher: ";
+	getline(cin, teacherName);
+
+	cout << "Enter course's credits: ";
+	cin >> numCredits;
+
+	cout << "Enter course's max student: ";
+	cin >> maxStudent;
+
+	cin.ignore();
+
+	Schedules schedule[2];
+
+	for (int i = 0; i < 2; ++i)
+	{
+		cout << "Enter session:\n\n";
+		cout << "Day of week: "; // MON, THU
+		getline(cin, schedule[i].day);
+		cout << "Time: ";		//S1, S2, S3
+		getline(cin, schedule[i].time);
+	}
+
+
+	Courses *newCourse = addCourse(course, courseName, courseID, teacherName, numCredits, maxStudent, schedule);
+	createFolderNFileCourse(newCourse);
+	viewCourseFile(course);
+}
+
+void deleteCourseMain(Courses *&course)
+{
+	string courseID, courseName, teacherName;
+
+	cout << "You are deleting course:\n\n";
+
+	cout << "Enter course's ID: ";
+	getline(cin, courseID);
+
+	cout << "Enter course's name: ";
+	getline(cin, courseName);
+
+	cout << "Enter course's name of teacher: ";
+	getline(cin, teacherName);
+
+	Courses *del = findCourse(course, courseID, courseName, teacherName);
 
 	if (del)
 		deleteCourse(course, del);
-	// else
-	// cout ra la nguoi dung nhap sai cmnr
+	else
+		cout << "There are no course match with your information\n";
 }
 
+void editCourseMain(Courses *&course)
+{
+	string courseID, courseName, teacherName;
+
+	cout << "You are editting course:\n\n";
+
+	cout << "Enter course's ID: ";
+	getline(cin, courseID);
+
+	cout << "Enter course's name: ";
+	getline(cin, courseName);
+
+	cout << "Enter course's name of teacher: ";
+	getline(cin, teacherName);
+
+	Courses *edit = findCourse(course, courseID, courseName, teacherName);
+
+	if (edit)
+	{
+		cout << "You are editting course:\n\n";
+
+		cout << "Enter course's ID: ";
+		getline(cin, edit -> courseID);
+
+		cout << "Enter course's name: ";
+		getline(cin, edit -> courseName);
+
+		cout << "Enter course's name of teacher: ";
+		getline(cin, edit -> teacherName);
+
+		cout << "Enter course's credits: ";
+		cin >> edit -> numCredits;
+
+		cout << "Enter course's max student: ";
+		cin >> edit -> maxStudent;
+
+		cin.ignore();
+
+		for (int i = 0; i < 2; ++i)
+		{
+			cout << "Enter session\n";
+			cout << "Day of week: "; // MON, THU
+			getline(cin, edit -> schedule[i].day);
+			cout << "Time: ";		//S1, S2, S3
+			getline(cin, edit -> schedule[i].time);
+		}
+		
+	}
+	else
+		cout << "There are no course match with your information\n";
+}
+
+bool loadCoursesFromFile(Courses *&course)
+{
+
+	ifstream in;
+
+	string ignore;
+
+	in.open(Schoolyear + "/Semesters/" + Sem + "/AllCourses.csv");
+
+	if (!in.is_open())
+		return false;
+ 
+	int count = -1;
+
+	while (!in.eof())
+	{
+		++count;
+		getline(in, ignore);
+	}
+
+	in.close();
+
+	string *getCourse = new string[count];
+
+	in.open(Schoolyear + "/Semesters/" + Sem + "/AllCourses.csv");
+
+	getline(in, ignore);
+
+	count = -1;
+
+	while (!in.eof())
+	{
+		getline(in, getCourse[++count], ',');
+		getline(in, ignore);
+	}
+
+	in.close();
+
+	Courses *curr = nullptr;
+
+	for (int i = 0; i <= count; ++i)
+	{
+		if (course == NULL)
+		{
+			course = new Courses;
+			course -> prev = course -> next = NULL;
+			curr = course;
+		}
+		else
+		{
+			curr -> next = new Courses;
+			curr -> next -> prev = curr;
+			curr -> next -> next = NULL;
+			curr = curr -> next;
+		}
+
+		in.open(Schoolyear + "/Semesters/" + Sem + '/' + getCourse[i] + "/Profile.csv");
+		getline(in, ignore);
+
+		curr -> sem = Sem[4] - '0';
+		getline(in, curr -> courseID, ',');
+		getline(in, curr -> courseName, ',');
+		getline(in, curr -> teacherName,  ',');
+		in >> curr -> numCredits;
+		in.ignore();
+		in >> curr -> maxStudent;
+		in.ignore();
+		getline(in, curr -> schedule[0].day, ' ');
+		getline(in, curr -> schedule[0].time, ',');
+		getline(in, curr -> schedule[1].day, ' ');
+		getline(in, curr -> schedule[1].time);
+
+		in.close();
+
+		in.open(Schoolyear + "/Semesters/" + Sem + '/' + getCourse[i] + "/Scoreboard.csv");
+
+		int countStu = -1;
+		while (!in.eof())
+		{
+			++countStu;
+			getline(in, ignore);
+		}
+
+		in.close();
+
+		if (countStu > 0)
+		{
+			in.open(Schoolyear + "/Semesters/" + Sem + '/' + getCourse[i] + "/Scoreboard.csv");
+			getline(in, ignore);
+
+			BasicStudents *currStu = nullptr;
+
+			while (!in.eof())
+			{
+				if (curr -> studentID == NULL)
+				{
+					curr -> studentID = new BasicStudents;
+					curr -> studentID -> prev = curr -> studentID -> next = NULL;
+					currStu = curr -> studentID;
+				}
+				else
+				{
+					currStu -> next = new BasicStudents;
+					currStu -> next -> prev = currStu;
+					currStu -> next -> next = NULL;
+					currStu = currStu -> next;
+				}
+
+				in >> currStu -> No;
+				in.ignore();
+				getline(in, currStu -> ID, ',');
+				getline(in, currStu -> firstName, ',');
+				getline(in, currStu -> lastName, ',');
+				getline(in, currStu -> className, ',');
+
+				getline(in, ignore);
+			}
+
+			in.close();
+		}
+	}
+	
+	return (count != -1);
+}

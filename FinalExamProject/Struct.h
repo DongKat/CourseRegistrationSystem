@@ -1,4 +1,3 @@
-
 #pragma once
 #include "Library.h"
 #include <iostream>
@@ -7,7 +6,10 @@
 #include <stdio.h>
 #include <algorithm>
 using namespace std;
+<<<<<<< HEAD
 string Schoolyear = "";
+=======
+>>>>>>> master
 
 struct date
 {
@@ -15,6 +17,15 @@ struct date
     int month;
     int year;
 };
+
+string Schoolyear;
+date dateStart;
+date dateEnd;
+string Sem;
+string schoolYear = "2020-2021";
+string sem = "Sem 1";
+
+
 
 struct StaffAccount
 {
@@ -34,7 +45,7 @@ struct Schedules
 };
 struct Scores
 {
-    float GPA;
+    float Total;
     float Midterm;
     float Final;
     float Bonus;
@@ -43,13 +54,16 @@ struct Scores
 struct CourseScore : Scores
 {
     string studentID;
+    CourseScore* next = nullptr;
 };
 
 struct BasicStudents
 {
+    int No;
     string ID;
     string firstName;
     string lastName;
+    string className;
     BasicStudents *next = nullptr;
     BasicStudents *prev;
 };
@@ -63,14 +77,22 @@ struct BasicCourses
     Schedules schedule[2];
 };
 
+struct BasicCourses
+{
+    int sem;
+    string courseName;
+    string courseID;
+    CourseScore *mark;
+    BasicCourses *next=nullptr;
+    Schedules schedule[2];
+};
+
 struct Courses
 {
     int sem;
-    date dateStart; // 7 ngày bắt đầu đăng ký môn
-    date dateEnd;  // 7 ngày kết thúc đăng ký môn
     string courseName;
     string courseID;
-    string teacher_name;
+    string teacherName;
     int numCredits;
     int maxStudent;// cap phat studentID
     int countStudent=0;
@@ -92,6 +114,11 @@ struct Students
     string gender;
     date dateOfBirth;
     string idSocial;
+<<<<<<< HEAD
+=======
+    float overall_gpa = 0;
+    int total_courses_count = 0;
+>>>>>>> master
     BasicCourses *courseStudent=nullptr;
     Students *next;
     Students *prev;
@@ -103,6 +130,7 @@ struct Semesters
     date dateStart;// 6 ngày bắt đầu học kỳ
     date dateEnd;// 6 ngày kết thúc học kỳ
     Courses *course; // 7-11, 19 xem các môn có trong kỳ ( dù có học hay không học )
+    Semesters* next = nullptr, * prev = nullptr;
 };
 
 struct Classes

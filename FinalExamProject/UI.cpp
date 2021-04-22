@@ -189,7 +189,42 @@ void loginUI() {
 	}
 }
 
-void fillBlackLogin() {
+void keyboardShortcutMenu() {
+
+	txtColor(15);
+	gotoxy(130, 6);  cout << "K E Y B O A R D   S H O R C U T";
+	gotoxy(130, 8);  cout << "P R E S S     ^     T O   U P";
+	gotoxy(130, 9);  cout << "P R E S S     v     T O   D O W N";
+	gotoxy(130, 10); cout << "P R E S S    ESC    T O   E X I T ";
+	gotoxy(130, 11); cout << "P R E S S   ENTER   T O   E N T E R ";
+
+	txtColor(240);
+	gotoxy(142, 8); cout << "  ^  ";
+	gotoxy(142, 9); cout << "  v  ";
+	gotoxy(142, 10); cout << " ESC ";
+	gotoxy(141, 11); cout << " ENTER ";
+	txtColor(15);
+
+}
+
+void keyboardShortcut() {
+	txtColor(15);
+	gotoxy(130, 6);  cout << "K E Y B O A R D   S H O R C U T";
+	gotoxy(130, 8);  cout << "P R E S S     ^     T O   U P";
+	gotoxy(130, 9);  cout << "P R E S S     v     T O   D O W N";
+	gotoxy(130, 10); cout << "P R E S S    ESC    T O   B A C K ";
+	gotoxy(130, 11); cout << "P R E S S   ENTER   T O   E N T E R ";
+
+	txtColor(240);
+	gotoxy(142, 8); cout << "  ^  ";
+	gotoxy(142, 9); cout << "  v  ";
+	gotoxy(142, 10); cout << " ESC ";
+	gotoxy(141, 11); cout << " ENTER ";
+	txtColor(15);
+
+}
+
+void fillBlackUserPass() {
 	gotoxy(66, 38);
 	for (int i = 0; i < 40; ++i)
 		cout << char(32);
@@ -199,4 +234,64 @@ void fillBlackLogin() {
 	gotoxy(75, 35);
 	for (int i = 0; i < 24; ++i)
 		cout << char(32);
+}
+
+void fillBlackMenu() {
+	txtColor(0);
+	for (int j = 14; j < 41; ++j) {
+		for (int i = 0; i < 200; ++i) {
+			gotoxy(i, j);
+			cout << char(30);
+		}
+	}
+}
+
+void drawBorderMenuStaff() {
+	txtColor(14);
+	gotoxy(63, 16);
+	for (int i = 0; i < 45; ++i)
+		cout << char(219);
+
+	for (int i = 17; i < 35; ++i) {
+		gotoxy(63, i);
+		cout << char(219);
+	}
+
+	for (int i = 17; i < 35; ++i) {
+		gotoxy(107, i);
+		cout << char(219);
+	}
+
+	gotoxy(63, 34);
+	for (int i = 0; i < 45; ++i)
+		cout << char(223);
+
+	txtColor(240);
+	gotoxy(73, 18); cout << char(32);
+	gotoxy(96, 18); cout << char(32);
+}
+
+void drawBorderMenuStudent() {
+	txtColor(14);
+	gotoxy(63, 16);
+	for (int i = 0; i < 45; ++i)
+		cout << char(219);
+
+	for (int i = 17; i < 33; ++i) {
+		gotoxy(63, i);
+		cout << char(219);
+	}
+
+	for (int i = 17; i < 33; ++i) {
+		gotoxy(107, i);
+		cout << char(219);
+	}
+
+	gotoxy(63, 32);
+	for (int i = 0; i < 45; ++i)
+		cout << char(223);
+
+	txtColor(240);
+	gotoxy(72, 18); cout << char(32);
+	gotoxy(99, 18); cout << char(32);
 }

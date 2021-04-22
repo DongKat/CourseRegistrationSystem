@@ -1,22 +1,33 @@
-#pragma once
+#ifndef __FUNCTIONS_H_INCLUDED__ 
+#define __FUNCTIONS_H_INCLUDED__ 
 
-#include "Library.h"
+
 #include "Struct.h"
 
-
 void readClassCSV(ifstream& classList, Students& student);
-
 
 void createStudent(ifstream& classList, Students& student);
 
 void createStudentList(Students*& pHead, string csvFileName);
 
-void exportCourseStudent(Courses Course);
+void exportCourseStudent(Courses course);
 
-void viewScoreboard(Courses Course);
+void viewCourseScoreboard(Courses course);
 
-void importScoreboard(Courses Course);
+void viewStudentScoreboard(Students student);
 
-void updateStudentResult(Courses Course, string studentID);
+string checkStudentInClass(string studentID);
 
-void viewClassScoreboard(Courses Course, string className);
+void importScoreboard(Courses* courseHead, string courseID);
+
+void deleteMarks(CourseScore*& pHead);
+
+void updateStudentResult(Courses Course, string studentID, Scores newScore);
+
+void viewClassScoreboard(Classes Class);
+
+time_t timeToUnixTime(date end);
+
+bool isCourseRegistrationSessionActive(date registerStartDay, date registerEndDay);
+
+#endif // !_FUNCTIONS_H_
