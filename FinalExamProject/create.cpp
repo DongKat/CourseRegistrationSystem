@@ -495,8 +495,34 @@ void editCourseMain(Courses *&course)
 
 	if (edit)
 	{
-		deleteCourse(course, edit); //error
-		addNewCourseMain(course);
+		cout << "You are editting course:\n\n";
+
+		cout << "Enter course's ID: ";
+		getline(cin, edit -> courseID);
+
+		cout << "Enter course's name: ";
+		getline(cin, edit -> courseName);
+
+		cout << "Enter course's name of teacher: ";
+		getline(cin, edit -> teacherName);
+
+		cout << "Enter course's credits: ";
+		cin >> edit -> numCredits;
+
+		cout << "Enter course's max student: ";
+		cin >> edit -> maxStudent;
+
+		cin.ignore();
+
+		for (int i = 0; i < 2; ++i)
+		{
+			cout << "Enter session\n";
+			cout << "Day of week: "; // MON, THU
+			getline(cin, edit -> schedule[i].day);
+			cout << "Time: ";		//S1, S2, S3
+			getline(cin, edit -> schedule[i].time);
+		}
+		
 	}
 	else
 		cout << "There are no course match with your information\n";
