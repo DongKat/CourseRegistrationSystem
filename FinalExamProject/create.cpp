@@ -400,17 +400,13 @@ void deleteCourse(Courses *&course, Courses *delCourse)
 	removeFile(delPath + "/Scoreboard.csv");
 	removeFolder(delPath);
 
-
-	if (course == delCourse)
-		course = course -> next;
+	if (delCourse -> prev)
+		delCourse -> prev -> next = delCourse -> next;
 	else
-	{
-		Courses *curr = course;
-		while (curr -> next != delCourse)
-			curr = curr -> next;
+		course = delCourse -> next;
 
-		curr -> next = curr -> next -> next;
-	}
+	if (delCourse -> next)
+		delCourse -> next -> prev = delCourse -> prev;
 
 	delete delCourse;
 
@@ -518,7 +514,7 @@ bool loadCoursesFromFile(Courses *&course)
 	if (!in.is_open())
 		return false;
  
-	int count = 0;
+	int count = -1;
 
 	while (!in.eof())
 	{
@@ -527,8 +523,6 @@ bool loadCoursesFromFile(Courses *&course)
 	}
 
 	in.close();
-
-	--count;
 
 	string *getCourse = new string[count];
 
@@ -545,6 +539,7 @@ bool loadCoursesFromFile(Courses *&course)
 	}
 
 	in.close();
+
 	Courses *curr = nullptr;
 
 	for (int i = 0; i <= count; ++i)
@@ -552,14 +547,16 @@ bool loadCoursesFromFile(Courses *&course)
 		if (course == NULL)
 		{
 			course = new Courses;
+			course -> prev = course -> next = NULL;
 			curr = course;
 		}
 		else
 		{
 			curr -> next = new Courses;
+			curr -> next -> prev = curr;
+			curr -> next -> next = NULL;
 			curr = curr -> next;
 		}
-
 
 		in.open(Schoolyear + "/Semesters/" + Sem + '/' + getCourse[i] + "/Profile.csv");
 		getline(in, ignore);
@@ -580,36 +577,52 @@ bool loadCoursesFromFile(Courses *&course)
 		in.close();
 
 		in.open(Schoolyear + "/Semesters/" + Sem + '/' + getCourse[i] + "/Scoreboard.csv");
-		getline(in, ignore);
 
-		BasicStudents *currStu = nullptr;
-		curr -> studentID = NULL;
-
+		int countStu = -1;
 		while (!in.eof())
 		{
-			if (curr -> studentID == NULL)
-			{
-				curr -> studentID = new BasicStudents;
-				currStu = curr -> studentID;
-			}
-			else
-			{
-				currStu -> next = new BasicStudents;
-				currStu = currStu -> next;
-			}
-
-			in >> currStu -> No;
-			in.ignore();
-			getline(in, currStu -> ID, ',');
-			getline(in, currStu -> firstName, ',');
-			getline(in, currStu -> lastName, ',');
-			getline(in, currStu -> className, ',');
-
+			++countStu;
 			getline(in, ignore);
 		}
 
 		in.close();
+
+		if (countStu > 0)
+		{
+			in.open(Schoolyear + "/Semesters/" + Sem + '/' + getCourse[i] + "/Scoreboard.csv");
+			getline(in, ignore);
+
+			BasicStudents *currStu = nullptr;
+
+			while (!in.eof())
+			{
+				if (curr -> studentID == NULL)
+				{
+					curr -> studentID = new BasicStudents;
+					curr -> studentID -> prev = curr -> studentID -> next = NULL;
+					currStu = curr -> studentID;
+				}
+				else
+				{
+					currStu -> next = new BasicStudents;
+					currStu -> next -> prev = currStu;
+					currStu -> next -> next = NULL;
+					currStu = currStu -> next;
+				}
+
+				in >> currStu -> No;
+				in.ignore();
+				getline(in, currStu -> ID, ',');
+				getline(in, currStu -> firstName, ',');
+				getline(in, currStu -> lastName, ',');
+				getline(in, currStu -> className, ',');
+
+				getline(in, ignore);
+			}
+
+			in.close();
+		}
 	}
 	
-	return true;
+	return (count != -1);
 }
