@@ -3,13 +3,6 @@
 
 using namespace std;
 
-string Schoolyear;
-date dateStart;
-date dateEnd;
-string Sem;
-string schoolYear = "2020-2021";
-string sem = "Sem 1";
-
 struct date
 {
     int day;
@@ -17,10 +10,12 @@ struct date
     int year;
 };
 
-string Schoolyear = "";
+string Schoolyear;
 date dateStart;
 date dateEnd;
-string Sem = "";
+string Sem;
+string schoolYear = "2020-2021";
+string sem = "Sem 1";
 
 
 
@@ -103,6 +98,8 @@ struct Students
     string gender;
     date dateOfBirth;
     string idSocial;
+    float overall_gpa = 0;
+    int total_courses_count = 0;
     BasicCourses *courseStudent=nullptr;
     Students *next;
     Students *prev;

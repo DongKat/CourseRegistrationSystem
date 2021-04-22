@@ -148,7 +148,7 @@ string checkStudentInClass(string studentID)
 	}
 }
 
-void importScoreboard(Courses* courseHead, string courseID)
+void importScoreboard(Courses* courseHead, string courseID, Students& student)
 {
 	CourseScore* pHead = new CourseScore, * pCur = pHead;
 	// copy outside file to course scoreboard
@@ -157,11 +157,14 @@ void importScoreboard(Courses* courseHead, string courseID)
 	ifstream file(courseID + "_Scoreboard.csv");
 	ofstream courseScoreboard(course_dir);
 
+	getline(file, line);
+	courseScoreboard << line;
 	while (!file.eof())
 	{
 		getline(file, line);
-		courseScoreboard << line << endl;
+		courseScoreboard << endl << line;
 	}
+
 	file.close();
 	file.open(course_dir);
 
@@ -189,7 +192,7 @@ void importScoreboard(Courses* courseHead, string courseID)
 		pCur->Final = stof(temp);
 		getline(s, temp, ',');
 		pCur->Midterm = stof(temp);
-		getline(s, temp, ',');
+		getline(s, temp);
 		pCur->Bonus = stof(temp);
 
 		pCur->next = new CourseScore;
@@ -201,9 +204,11 @@ void importScoreboard(Courses* courseHead, string courseID)
 	{
 		student_dir = "./" + Schoolyear + "/Classes/" + StudentCur->className + "/" + StudentCur->ID + "/Course Sem " + Sem + "_Scoreboard.csv";
 		ofstream studentScoreboard(student_dir, ios::out | ios::app);
-		while(pCur)
+		while (pCur)
 			if (pCur->studentID == StudentCur->ID)
 			{
+				student.overall_gpa += pCur->Total;
+				student.total_courses_count++;
 				studentScoreboard << CourseCur->courseID << "," << CourseCur->courseName << "," << pCur->Total << "," << pCur->Final << "," << pCur->Midterm << "," << pCur->Bonus << endl;
 				break;
 			}
@@ -268,54 +273,51 @@ void updateStudentResult(Courses Course, string studentID, Scores newScore)
 
 void viewClassScoreboard(Classes Class) // Require changing UI
 {
-	// Read class's students list Students.txt
-	// Go to each studentID folder, read score from Course Sem 1/2/3
-	// Problem many students with different courses
+	Students* pCur = Class.student;
 
 	string studentID;
 	string line, temp;
-	float overall_GPA;
-	int count;
-	ifstream student_list("./" + Schoolyear + "/Classes/" + Class.className + "/Students.txt");
+	float overall_GPA = 0;
 	ifstream file;
 
-	cout << "Student ID\t";
-	cout << "Student Name\t";
-	cout << "Course ID\t";
-	cout << "Course final score\n";
-	cout << "Semester's GPA\n";
-	cout << "Overall GPA\n";
+	int student_count = 1;
+	int gpa_count = 0;
 
-	while (!student_list.eof())
+	while (pCur)
 	{
-		getline(student_list, studentID);
+		cout << "No. " << student_count++ << endl;
+		cout << pCur->ID << "\t" << pCur->lastName << " " << pCur->firstName << endl;
 
-		cout << studentID << "\t";
-		file.open("./" + Schoolyear + "/Classes/" + Class.className + "/" + studentID + "/Profile.txt"); // Get student name with ID
-		getline(file, temp);
-		cout << temp << "\t"; // Assume name is first row
-		file.close();
-
-		file.open("./" + Schoolyear + "/Classes/" + Class.className + "/" + studentID + "/Course Sem" + Sem + ".csv");
-		overall_GPA = 0;
-		count = 0;
+		file.open("./" + Schoolyear + "/Classes/" + Class.className + "/" + pCur->ID + "/Course Sem " + sem + "_Scoreboard.csv");
 		while (!file.eof())
 		{
-			getline(file, line, ','); //get courseID
-			cout << line << "\t";
-			getline(file, line, ','); // skip course name
-			getline(file, line, ','); // skip midterm score
-			getline(file, line, ','); // get final score
-			cout << line << "\t";
-			getline(file, line, ','); // skip bonus
-			getline(file, line); // get overall
-			cout << line << "\n";
-			overall_GPA += stof(line);
-			count++;
+			getline(file, line);
+			stringstream s(line);
+
+			getline(s, temp, ',');
+			cout << temp << "\t";	// print course id
+			getline(s, temp, ',');
+			cout << temp << "\t";	// print course name
+			getline(s, temp, ',');
+			cout << temp << "\t";	// print total mark
+			overall_GPA += stof(temp);
+			gpa_count++;
+			getline(s, temp, ',');
+			cout << temp << "\t";	// print final
+			getline(s, temp, ',');
+			cout << temp << "\t";	// print midterm
+			getline(s, temp);
+			cout << temp << "\n";	// print other mark
 		}
+
+		overall_GPA /= gpa_count;
+		cout << "Overall GPA of whole semester: " << overall_GPA << endl;
+		cout << "Overall GPA: " << pCur->overall_gpa << endl;
 		file.close();
-		overall_GPA /= count;
+		overall_GPA = 0;
+		gpa_count = 0;
 		cout << "Overall GPA: " << overall_GPA << endl;
+		student_count++;
 	}
 }
 
