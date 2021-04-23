@@ -42,6 +42,9 @@
     <ClCompile Include="loadClass_Students.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Function13.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Library.h">

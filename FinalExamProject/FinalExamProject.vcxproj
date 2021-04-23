@@ -146,6 +146,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuStaff.cpp" />
     <ClCompile Include="MenuStudent.cpp" />
+    <ClCompile Include="Function13.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="InputLogin.cpp" />
   </ItemGroup>
