@@ -1,13 +1,13 @@
 #ifndef _LOADCLASS_STUDENTS_H_
 #define _LOADcLASS_STUDENTS_H_
 
-#include "Struct.h"
-#include "Library.h"
+#include "create.h"
+#include "create.cpp"
 
-BasicCourses *loadCourse(string path);
+float convertToFloat(string score);
+BasicCourses *loadCourse(string path, int sem, string StudentID);
 Students *loadStudentInfo(string path);
 Students *loadStudent(string path, string ClassName);
-Classes* loadClass();
 Classes* loadClass();
 
 #endif
