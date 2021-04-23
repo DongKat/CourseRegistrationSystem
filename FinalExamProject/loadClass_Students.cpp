@@ -16,7 +16,7 @@ BasicCourses *loadCourse(string path){
         }
         getline(f,tmp->courseID,',');
         getline(f,tmp->courseName,',');
-        f>>tmp->mark->Midterm >> tmp->mark->Final >> tmp->mark->Bonus >> tmp->mark->GPA;
+        f>>tmp->mark->Midterm >> tmp->mark->Final >> tmp->mark->Bonus >> tmp->mark->Total;
         f.ignore(100000,',');
         getline(f,tmp->schedule[0].day,',');
         getline(f,tmp->schedule[0].time,',');

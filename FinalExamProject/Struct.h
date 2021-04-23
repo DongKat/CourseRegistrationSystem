@@ -10,12 +10,11 @@ struct date
     int year;
 };
 
-string Schoolyear;
-date dateStart;
-date dateEnd;
-string Sem;
-string schoolYear = "2020-2021";
-string sem = "Sem 1";
+extern string Schoolyear;
+extern date dateStart;
+extern date dateEnd;
+extern string Sem;
+
 
 
 
@@ -108,8 +107,7 @@ struct Students
 struct Semesters
 {
     int sem;
-    date dateStart;// 6 ngày bắt đầu học kỳ
-    date dateEnd;// 6 ngày kết thúc học kỳ
+
     Courses *course; // 7-11, 19 xem các môn có trong kỳ ( dù có học hay không học )
     Semesters* next = nullptr, * prev = nullptr;
 };

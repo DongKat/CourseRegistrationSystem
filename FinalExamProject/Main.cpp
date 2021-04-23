@@ -9,6 +9,11 @@
 #include "Struct.h"
 #include "UI.h"
 
+string Schoolyear ="";
+date dateStart;
+date dateEnd;
+string Sem = "";
+
 int main() {
 	setWindowFullSize();
 	txtColor(0);

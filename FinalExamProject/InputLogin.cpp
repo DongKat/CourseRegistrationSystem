@@ -1,5 +1,6 @@
-#include "InputLogin.h"
 #include "UI.h"
+#include "MenuStaff.h"
+#include "MenuStudent.h"
 
 string convertToString(char* a, int size)
 {
@@ -140,4 +141,43 @@ bool checkValidUsernameAndPasswordStudent(string username, string password) {
 	in.close();
 
 	return true;
+}
+
+void Login(char username[], char password[], int sizeUser, int sizePass) {
+	system("cls");
+	logo_moodle();
+	loginUI();
+
+	while (true) {
+		fillBlackUserPass();
+		inputUsername(username, sizeUser);
+		inputPassword(password, sizePass);
+
+		if (checkValidUsernameAndPasswordStaff(username, password) == true) {
+			break;
+		}
+		if (checkValidUsernameAndPasswordStudent(username, password) == true) {
+			break;
+		}
+
+		else {
+			txtColor(12);
+			gotoxy(66, 38); cout << " *** INCORRECT USERNAME OR PASSWORD ***" << endl;
+			Nocursortype();
+			Sleep(700);
+			txtColor(15);
+		}
+
+	}
+	if (checkValidUsernameAndPasswordStaff(username, password) == true) {
+		system("cls");
+		logo_moodle();
+		MenuStaff(username, password, sizeUser, sizePass);
+	}
+
+	if (checkValidUsernameAndPasswordStudent(username, password) == true) {
+		system("cls");
+		logo_moodle();
+		MenuStudent(username, password, sizeUser, sizePass);
+	}
 }

@@ -327,7 +327,7 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 				ifstream in;
 				string s;
 
-				in.open(schoolYear + "/" + "Semesters/" + sem + "/" + "AllCourses.txt");
+				in.open(Schoolyear + "/" + "Semesters/" + Sem + "/" + "AllCourses.txt");
 
 				int i = 20;
 				while (!in.eof()) {

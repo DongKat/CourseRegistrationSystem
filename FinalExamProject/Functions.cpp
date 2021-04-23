@@ -288,7 +288,7 @@ void viewClassScoreboard(Classes Class) // Require changing UI
 		cout << "No. " << student_count++ << endl;
 		cout << pCur->ID << "\t" << pCur->lastName << " " << pCur->firstName << endl;
 
-		file.open("./" + Schoolyear + "/Classes/" + Class.className + "/" + pCur->ID + "/Course Sem " + sem + "_Scoreboard.csv");
+		file.open("./" + Schoolyear + "/Classes/" + Class.className + "/" + pCur->ID + "/Course Sem " + Sem + "_Scoreboard.csv");
 		while (!file.eof())
 		{
 			getline(file, line);

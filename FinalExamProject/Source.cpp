@@ -220,7 +220,7 @@ void updateCourseB4D(Students& aStudent, Courses& courseDelete, fstream& f)
         }
         else
         {
-            f << ptem->courseID << "," << ptem->courseName << "," << ptem->mark->Midterm << "," << ptem->mark->Final << "," << ptem->mark->Bonus << "," << ptem->mark->GPA << "," << courseDelete.schedule[0].day << "," << courseDelete.schedule[0].time << "," << courseDelete.schedule[1].day << "," << courseDelete.schedule[1].time << endl;
+            f << ptem->courseID << "," << ptem->courseName << "," << ptem->mark->Midterm << "," << ptem->mark->Final << "," << ptem->mark->Bonus << "," << ptem->mark->Total << "," << courseDelete.schedule[0].day << "," << courseDelete.schedule[0].time << "," << courseDelete.schedule[1].day << "," << courseDelete.schedule[1].time << endl;
             ptem = ptem->next;
         }
     }
@@ -241,7 +241,7 @@ void updateCourseB4D(Students& aStudent, Courses& courseDelete, fstream& f)
         }
         else
         {
-            f << count++ << pCur->ID << "," << pCur->firstName << "," << pCur->lastName << "," << aStudent.courseStudent->mark->Midterm << "," << aStudent.courseStudent->mark->Final << "," << aStudent.courseStudent->mark->Bonus << "," << aStudent.courseStudent->mark->GPA << endl;
+            f << count++ << pCur->ID << "," << pCur->firstName << "," << pCur->lastName << "," << aStudent.courseStudent->mark->Midterm << "," << aStudent.courseStudent->mark->Final << "," << aStudent.courseStudent->mark->Bonus << "," << aStudent.courseStudent->mark->Total << endl;
             pCur = pCur->next;
         }
     }
@@ -308,8 +308,8 @@ void removeACourse(Students* aStudent, Courses* courseDelete, fstream& f)
         getline(f, ignore_line, ',');
         temp->mark->Bonus = stof(ignore_line);
         getline(f, ignore_line);
-        temp->mark->GPA = stof(ignore_line);
-        for (int i = 2; i < 2; i++)
+        temp->mark->Total= stof(ignore_line);
+        for (int i = 0; i < 2; i++)
         {
             temp->schedule[i].day = courseDelete->schedule[i].day;
             temp->schedule[i].time = courseDelete->schedule[i].time;
@@ -323,7 +323,7 @@ void viewAllStudentInCourse(Courses
     * course)
 {
     int count = 1;
-    Students* pCur = course->studentID;
+    BasicStudents* pCur = course->studentID;
     while (pCur != nullptr)
     {
         cout << count++ << "ID: " << pCur->ID << '\t' << "Name: " << pCur->firstName << " " << pCur->lastName;
