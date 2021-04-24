@@ -1,5 +1,5 @@
-#ifndef __FUNCTIONS_H_INCLUDED__ 
-#define __FUNCTIONS_H_INCLUDED__ 
+#ifndef __FUNCTIONS_H__
+#define __FUNCTIONS_H__
 
 
 #include "Struct.h"

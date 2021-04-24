@@ -95,18 +95,20 @@ void exportCourseStudent(Courses course)
 void viewCourseScoreboard(Courses course)
 {
 	// view Course scoreboard
-	ifstream file("./" + Schoolyear + "/Semester/Sem" + Sem + "/" + course.courseID + "/Scoreboard.csv");
-	string temp;
-	while (file.eof())
+	ifstream file(Schoolyear + "/Semesters/" + Sem + "/" + course.courseID + "/Scoreboard.csv");
+	string temp, line;
+	if (file.is_open())
+		cout << "File opened\n";
+	while (file.peek() != EOF)
 	{
-		getline(file, temp, ',');	cout << temp << " | "; // no
-		getline(file, temp, ',');	cout << temp << " | ";
-		getline(file, temp, ',');	cout << temp << " | ";
-		getline(file, temp, ',');	cout << temp << " | ";
-		getline(file, temp, ',');	cout << temp << " | ";
-		getline(file, temp, ',');	cout << temp << " | ";
-		getline(file, temp, ',');	cout << temp << " | "; // Total
-		getline(file, temp, ',');	cout << temp;
+		getline(file, temp, ',');	cout << temp << " |\t"; // no
+		getline(file, temp, ',');	cout << temp << " |\t";
+		getline(file, temp, ',');	cout << temp << " |\t";
+		getline(file, temp, ',');	cout << temp << " |\t";
+		getline(file, temp, ',');	cout << temp << " |\t";
+		getline(file, temp, ',');	cout << temp << " |\t";
+		getline(file, temp, ',');	cout << temp << " |\t"; // Total
+		getline(file, temp);	cout << temp;
 		cout << endl;
 	}
 }
@@ -115,7 +117,7 @@ void viewStudentScoreboard(Students student)
 {
 	ifstream file("./" + Schoolyear + "/Classes/" + student.className + "/" + student.ID + "/Course Sem " + Sem + ".csv");
 	string temp;
-	while (file.eof())
+	while (file.peek() != EOF)
 	{
 		getline(file, temp, ',');	cout << temp << " | ";		// Course ID
 		getline(file, temp, ',');	cout << temp << " | ";		// Course Name
@@ -159,7 +161,7 @@ void importScoreboard(Courses* courseHead, string courseID, Students& student)
 
 	getline(file, line);
 	courseScoreboard << line;
-	while (!file.eof())
+	while (file.peek() != EOF)
 	{
 		getline(file, line);
 		courseScoreboard << endl << line;
@@ -178,7 +180,7 @@ void importScoreboard(Courses* courseHead, string courseID, Students& student)
 	}
 
 	getline(file, line);	//skip field name
-	while (!file.eof())
+	while (file.peek() != EOF)
 	{
 		getline(file, line);
 		stringstream s(line);
@@ -229,11 +231,11 @@ void updateStudentResult(Courses Course, string studentID, Scores newScore)
 {
 	string oldDir, newDir, temp;
 	bool recordFlag = false; // check if student record is update. if updated -> true
-	oldDir = "./" + Schoolyear + "/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard.csv";
-	newDir = "./" + Schoolyear + "/Semester/Sem" + to_string(Course.sem) + "/" + Course.courseID + "/Scoreboard_new.csv";
+	oldDir = "./" + Schoolyear + "/Semester/" + Sem + "/" + Course.courseID + "/Scoreboard.csv";
+	newDir = "./" + Schoolyear + "/Semester/"+ Sem + "/" + Course.courseID + "/Scoreboard_new.csv";
 	ifstream oldFile(oldDir);
 	ofstream newFile(newDir);
-	while (!oldFile.eof())
+	while (oldFile.peek() != EOF)
 	{
 		if (!recordFlag)
 		{
@@ -289,7 +291,7 @@ void viewClassScoreboard(Classes Class) // Require changing UI
 		cout << pCur->ID << "\t" << pCur->lastName << " " << pCur->firstName << endl;
 
 		file.open("./" + Schoolyear + "/Classes/" + Class.className + "/" + pCur->ID + "/Course Sem " + Sem + "_Scoreboard.csv");
-		while (!file.eof())
+		while (file.peek() != EOF)
 		{
 			getline(file, line);
 			stringstream s(line);
