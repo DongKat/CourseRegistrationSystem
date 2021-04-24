@@ -503,7 +503,7 @@ void editCourseMain(Courses *&course)
 
 	if (edit)
 	{
-		deleleteCourseFolder(edit);
+		deleteCourseFolder(edit);
 
 		cout << "You are editting course:\n\n";
 

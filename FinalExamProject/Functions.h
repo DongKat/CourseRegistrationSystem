@@ -3,6 +3,7 @@
 
 
 #include "Struct.h"
+#include "UI.h"
 
 void readClassCSV(ifstream& classList, Students& student);
 
@@ -10,11 +11,11 @@ void createStudent(ifstream& classList, Students& student);
 
 void createStudentList(Students*& pHead, string csvFileName);
 
-void exportCourseStudent(Courses course);
+void exportCourseStudent(ifstream& f);
 
-void viewCourseScoreboard(Courses course);
+void viewCourseScoreboard(ifstream& f);
 
-void viewStudentScoreboard(Students student);
+void viewStudentScoreboard(ifstream& f);
 
 string checkStudentInClass(string studentID);
 

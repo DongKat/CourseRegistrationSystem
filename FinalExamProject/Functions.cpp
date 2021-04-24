@@ -206,53 +206,53 @@ void importScoreboard(Courses* courseHead, string courseID, Students& student, s
 	delete pHead;
 }
 
-void exportCourseStudent(string courseID)
+void exportCourseStudent(ifstream& file)
 {
 	// copy course scoreboard to outside file
-	string scoreboard_dir = "./" + Schoolyear + "./Semester/Sem " + Sem + "/" + courseID + "/Scoreboard.csv";
 	string temp;
-	ifstream target(scoreboard_dir);
-	ofstream file(courseID + "_Scoreboard.csv");
-	while (!target.eof())
+	ofstream target("Scoreboard.csv");
+	while (!file.eof())
 	{
-		getline(target, temp);
-		file << temp;
+		getline(file, temp);
+		target << temp << endl;
 	}
 }
 
-void viewCourseScoreboard(Courses course)
+void viewCourseScoreboard(ifstream& f)
 {
 	// view Course scoreboard
-	ifstream file(Schoolyear + "/Semesters/" + Sem + "/" + course.courseID + "/Scoreboard.csv");
-	string temp, line;
-	if (file.is_open())
-		cout << "File opened\n";
-	while (file.peek() != EOF)
+	string temp;
+	int tmp = 21;
+	getline(f, temp);
+	while (f.peek() != EOF)
 	{
-		getline(file, temp, ',');	cout << temp << " |\t"; // no
-		getline(file, temp, ',');	cout << temp << " |\t";
-		getline(file, temp, ',');	cout << temp << " |\t";
-		getline(file, temp, ',');	cout << temp << " |\t";
-		getline(file, temp, ',');	cout << temp << " |\t";
-		getline(file, temp, ',');	cout << temp << " |\t";
-		getline(file, temp, ',');	cout << temp << " |\t"; // Total
-		getline(file, temp);	cout << temp;
-		cout << endl;
+		gotoxy(20, tmp);
+		getline(f, temp, ',');	cout << temp << "\t\t"; // no
+		getline(f, temp, ',');	cout << temp << "\t\t";
+		getline(f, temp, ',');	cout << temp << "\t\t";
+		getline(f, temp, ',');	cout << temp << "\t\t";
+		getline(f, temp, ',');	cout << temp << "\t\t";
+		getline(f, temp, ',');	cout << temp << "\t\t";
+		getline(f, temp, ',');	cout << temp << "\t\t"; // Total
+		getline(f, temp);		cout << temp;
+		tmp++;
 	}
 }
 
-void viewStudentScoreboard(Students student)
+void viewStudentScoreboard(ifstream& f)
 {
-	ifstream file("./" + Schoolyear + "/Classes/" + student.className + "/" + student.ID + "/Course Sem " + Sem + ".csv");
 	string temp;
-	while (file.peek() != EOF)
+	int tmp = 21;
+
+	while (f.peek() != EOF)
 	{
-		getline(file, temp, ',');	cout << temp << " | ";		// Course ID
-		getline(file, temp, ',');	cout << temp << " | ";		// Course Name
-		getline(file, temp, ',');	cout << temp << " | ";		// Midterm
-		getline(file, temp, ',');	cout << temp << " | ";		// Final
-		getline(file, temp, ',');	cout << temp << " | ";		// Bonus
-		getline(file, temp);		cout << temp << endl;		// Total
+		gotoxy(20, tmp);
+		getline(f, temp, ',');	cout << temp << "\t";		// Course ID
+		getline(f, temp, ',');	cout << temp << "\t";		// Course Name
+		getline(f, temp, ',');	cout << temp << "\t";		// Midterm
+		getline(f, temp, ',');	cout << temp << "\t";		// Final
+		getline(f, temp, ',');	cout << temp << "\t";		// Bonus
+		getline(f, temp);		cout << temp;		// Total
 	}
 }
 
