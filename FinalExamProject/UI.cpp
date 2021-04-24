@@ -164,29 +164,6 @@ void loginUI() {
 
 	gotoxy(73, 36); cout << char(200);
 	gotoxy(99, 36); cout << char(188);
-
-
-	// input here
-	gotoxy(75, 30);
-	string a;
-	cin >> a;
-
-	gotoxy(75, 35);
-	string b;
-	cin >> b;
-
-	bool check = false;
-
-	if (check == true) {
-		system("cls");
-		logo_moodle();
-	}
-	else {
-		txtColor(12);
-		gotoxy(78, 38); cout << "*** INVALID ***";
-		gotoxy(78, 41);
-		txtColor(15);
-	}
 }
 
 void keyboardShortcutMenu() {

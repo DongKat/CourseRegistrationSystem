@@ -36,10 +36,10 @@ BasicCourses *loadCourse(string path, int sem, string StudentID){
         }
         tmp->courseID=stmp;
         getline(f,tmp->courseName,',');
-<<<<<<< Updated upstream
+
         f>>tmp->mark->Midterm >> tmp->mark->Final >> tmp->mark->Bonus >> tmp->mark->Total;
         f.ignore(100000,',');
-=======
+
         tmp->mark=new CourseScore;
         tmp->mark->next=0;
 
@@ -58,7 +58,7 @@ BasicCourses *loadCourse(string path, int sem, string StudentID){
 
         tmp->mark->studentID=StudentID;
         
->>>>>>> Stashed changes
+
         getline(f,tmp->schedule[0].day,',');
         getline(f,tmp->schedule[0].time,',');
         getline(f,tmp->schedule[1].day,',');

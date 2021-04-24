@@ -1,8 +1,7 @@
 #ifndef _LOADCLASS_STUDENTS_H_
-#define _LOADcLASS_STUDENTS_H_
+#define _LOADCLASS_STUDENTS_H_
 
 #include "create.h"
-#include "create.cpp"
 
 float convertToFloat(string score);
 BasicCourses *loadCourse(string path, int sem, string StudentID);
