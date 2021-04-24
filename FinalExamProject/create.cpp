@@ -475,7 +475,7 @@ void deleteCourseMain(Courses *&course)
 		cout << "There are no course match with your information\n";
 }
 
-void deleteCourseFolder(Courses *course)
+void deleteCourseFolder(Courses *delCourse)
 {
 	string delPath = (Schoolyear + "/Semesters/" + Sem + '/' + delCourse->courseID);
 
