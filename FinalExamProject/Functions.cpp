@@ -78,56 +78,14 @@ void createStudentList(Students*& pHead, string csvFileName)
 	file.close();
 }
 
-void exportCourseStudent(Courses course)
+void deleteMarks(CourseScore*& pHead)
 {
-	// copy course scoreboard to outside file
-	string scoreboard_dir = "./" + Schoolyear + "./Semester/Sem " + Sem + "/" + course.courseID + "/Scoreboard.csv";
-	string temp;
-	ifstream target(scoreboard_dir);
-	ofstream file(course.courseID + "_Scoreboard.csv");
-	while (!target.eof())
+	while (pHead)
 	{
-		getline(target, temp);
-		file << temp;
+		CourseScore* temp = pHead;
+		pHead = pHead->next;
 	}
 }
-
-void viewCourseScoreboard(Courses course)
-{
-	// view Course scoreboard
-	ifstream file(Schoolyear + "/Semesters/" + Sem + "/" + course.courseID + "/Scoreboard.csv");
-	string temp, line;
-	if (file.is_open())
-		cout << "File opened\n";
-	while (file.peek() != EOF)
-	{
-		getline(file, temp, ',');	cout << temp << " |\t"; // no
-		getline(file, temp, ',');	cout << temp << " |\t";
-		getline(file, temp, ',');	cout << temp << " |\t";
-		getline(file, temp, ',');	cout << temp << " |\t";
-		getline(file, temp, ',');	cout << temp << " |\t";
-		getline(file, temp, ',');	cout << temp << " |\t";
-		getline(file, temp, ',');	cout << temp << " |\t"; // Total
-		getline(file, temp);	cout << temp;
-		cout << endl;
-	}
-}
-
-void viewStudentScoreboard(Students student)
-{
-	ifstream file("./" + Schoolyear + "/Classes/" + student.className + "/" + student.ID + "/Course Sem " + Sem + ".csv");
-	string temp;
-	while (file.peek() != EOF)
-	{
-		getline(file, temp, ',');	cout << temp << " | ";		// Course ID
-		getline(file, temp, ',');	cout << temp << " | ";		// Course Name
-		getline(file, temp, ',');	cout << temp << " | ";		// Midterm
-		getline(file, temp, ',');	cout << temp << " | ";		// Final
-		getline(file, temp, ',');	cout << temp << " | ";		// Bonus
-		getline(file, temp);		cout << temp << endl;		// Total
-	}
-}
-
 string checkStudentInClass(string studentID)
 {
 	//trash function
@@ -150,7 +108,36 @@ string checkStudentInClass(string studentID)
 	}
 }
 
-void importScoreboard(Courses* courseHead, string courseID, Students& student)
+
+time_t timeToUnixTime(date end)
+{
+	int hour, min, sec;
+	hour = min = sec = 0;
+	//Assume session starts from 00:00:00
+	time_t a = time(0);
+	tm* timeinfo = localtime(&a);
+
+	timeinfo->tm_year = end.year - 1900;
+	timeinfo->tm_mon = end.month - 1;		//months since January - [0,11]
+	timeinfo->tm_mday = end.day;			//day of the month - [1,31]
+	timeinfo->tm_hour = hour;			//hours since midnight - [0,23]
+	timeinfo->tm_min = min;				//minutes after the hour - [0,59]
+	timeinfo->tm_sec = sec;				//seconds after the minute - [0,59]
+
+	a = mktime(timeinfo);
+
+	return a;
+}
+
+bool isCourseRegistrationSessionActive(date registerStartDay, date registerEndDay)
+{
+	time_t now = time(0);
+	if (timeToUnixTime(registerStartDay) <= now && now <= timeToUnixTime(registerEndDay))
+		return true;
+	return false;
+}
+
+void importScoreboard(Courses* courseHead, string courseID, Students& student, string scoreboard_file_name)
 {
 	CourseScore* pHead = new CourseScore, * pCur = pHead;
 	// copy outside file to course scoreboard
@@ -216,14 +203,56 @@ void importScoreboard(Courses* courseHead, string courseID, Students& student)
 			}
 		StudentCur = StudentCur->next;
 	}
+	delete pHead;
 }
 
-void deleteMarks(CourseScore*& pHead)
+void exportCourseStudent(string courseID)
 {
-	while (pHead)
+	// copy course scoreboard to outside file
+	string scoreboard_dir = "./" + Schoolyear + "./Semester/Sem " + Sem + "/" + courseID + "/Scoreboard.csv";
+	string temp;
+	ifstream target(scoreboard_dir);
+	ofstream file(courseID + "_Scoreboard.csv");
+	while (!target.eof())
 	{
-		CourseScore* temp = pHead;
-		pHead = pHead->next;
+		getline(target, temp);
+		file << temp;
+	}
+}
+
+void viewCourseScoreboard(Courses course)
+{
+	// view Course scoreboard
+	ifstream file(Schoolyear + "/Semesters/" + Sem + "/" + course.courseID + "/Scoreboard.csv");
+	string temp, line;
+	if (file.is_open())
+		cout << "File opened\n";
+	while (file.peek() != EOF)
+	{
+		getline(file, temp, ',');	cout << temp << " |\t"; // no
+		getline(file, temp, ',');	cout << temp << " |\t";
+		getline(file, temp, ',');	cout << temp << " |\t";
+		getline(file, temp, ',');	cout << temp << " |\t";
+		getline(file, temp, ',');	cout << temp << " |\t";
+		getline(file, temp, ',');	cout << temp << " |\t";
+		getline(file, temp, ',');	cout << temp << " |\t"; // Total
+		getline(file, temp);	cout << temp;
+		cout << endl;
+	}
+}
+
+void viewStudentScoreboard(Students student)
+{
+	ifstream file("./" + Schoolyear + "/Classes/" + student.className + "/" + student.ID + "/Course Sem " + Sem + ".csv");
+	string temp;
+	while (file.peek() != EOF)
+	{
+		getline(file, temp, ',');	cout << temp << " | ";		// Course ID
+		getline(file, temp, ',');	cout << temp << " | ";		// Course Name
+		getline(file, temp, ',');	cout << temp << " | ";		// Midterm
+		getline(file, temp, ',');	cout << temp << " | ";		// Final
+		getline(file, temp, ',');	cout << temp << " | ";		// Bonus
+		getline(file, temp);		cout << temp << endl;		// Total
 	}
 }
 
@@ -321,32 +350,4 @@ void viewClassScoreboard(Classes Class) // Require changing UI
 		cout << "Overall GPA: " << overall_GPA << endl;
 		student_count++;
 	}
-}
-
-time_t timeToUnixTime(date end)
-{
-	int hour, min, sec;
-	hour = min = sec = 0;
-	//Assume session starts from 00:00:00
-	time_t a = time(0);
-	tm* timeinfo = localtime(&a);
-
-	timeinfo->tm_year = end.year - 1900;
-	timeinfo->tm_mon = end.month - 1;		//months since January - [0,11]
-	timeinfo->tm_mday = end.day;			//day of the month - [1,31]
-	timeinfo->tm_hour = hour;			//hours since midnight - [0,23]
-	timeinfo->tm_min = min;				//minutes after the hour - [0,59]
-	timeinfo->tm_sec = sec;				//seconds after the minute - [0,59]
-
-	a = mktime(timeinfo);
-
-	return a;
-}
-
-bool isCourseRegistrationSessionActive(date registerStartDay, date registerEndDay)
-{
-	time_t now = time(0);
-	if (timeToUnixTime(registerStartDay) <= now && now <= timeToUnixTime(registerEndDay))
-		return true;
-	return false;
 }
