@@ -475,6 +475,15 @@ void deleteCourseMain(Courses *&course)
 		cout << "There are no course match with your information\n";
 }
 
+void deleteCourseFolder(Courses *course)
+{
+	string delPath = (Schoolyear + "/Semesters/" + Sem + '/' + delCourse->courseID);
+
+	removeFile(delPath + "/Profile.csv");
+	removeFile(delPath + "/Scoreboard.csv");
+	removeFolder(delPath);
+}
+
 void editCourseMain(Courses *&course)
 {
 	string courseID, courseName, teacherName;
@@ -494,6 +503,8 @@ void editCourseMain(Courses *&course)
 
 	if (edit)
 	{
+		deleleteCourseFolder(edit);
+		
 		cout << "You are editting course:\n\n";
 
 		cout << "Enter course's ID: ";
