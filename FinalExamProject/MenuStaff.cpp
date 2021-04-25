@@ -119,7 +119,8 @@ void MenuStaffSettings(char username[], char password[], int sizeUser, int sizeP
 			gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
 			if (choice == 13)
 			{
-
+				MenuStaffScoreboard(username, password, sizeUser, sizePass);
+				keyboardShortcutMenu();
 			}
 		}
 		if (dem == 7)
@@ -371,5 +372,226 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 
 	}
 
+
+}
+
+void MenuStaffScoreboard(char username[], char password[], int sizeUser, int sizePass) {
+	keyboardShortcut();
+	fillBlackMenu();
+
+	int dem = 0;
+
+	txtColor(15);
+	gotoxy(135, 18);	cout << " I M P O R T   C S V ";
+	gotoxy(135, 21);	cout << " E X P O R T   C S V ";
+	gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
+	gotoxy(121, 27);	cout << " V I E W   S T U D E N T   S C O R E B O A R D ";
+	gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+
+	while (true) {
+		char choice = _getch();
+		txtColor(15);
+		gotoxy(135, 18);	cout << " I M P O R T   C S V ";
+		gotoxy(135, 21);	cout << " E X P O R T   C S V ";
+		gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
+		gotoxy(121, 27);	cout << " V I E W   S T U D E N T   S C O R E B O A R D ";
+		gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+
+		if (choice == 80)
+		{
+			dem++;
+			if (dem > 5)
+				dem = 1;
+		}
+
+		if (choice == 72)
+		{
+			dem--;
+			if (dem < 1)
+				dem = 5;
+		}
+
+		if (choice == 27) { // ESC
+			MenuStaff(username, password, sizeUser, sizePass);
+			break;
+		}
+
+		if (dem == 1)
+		{
+			txtColor(240);
+			gotoxy(135, 18);	cout << " I M P O R T   C S V ";
+			if (choice == 13)
+			{
+				txtColor(15);
+				UnNocursortype();
+				string fileName;
+				ifstream f; 
+				gotoxy(70, 20);
+				cout << "Please input file: ";
+				cin >> fileName;
+				f.open(fileName);
+				int temp = 21;
+				while (!f.is_open()) {
+					gotoxy(70, temp);
+					cout << "Please input file: ";
+					cin >> fileName;
+					f.open(fileName);
+					temp++;
+				}
+
+				// Function
+
+	
+				f.close();
+				Nocursortype();
+				fillBlackMenu();
+				txtColor(240);
+				gotoxy(135, 18);	cout << " I M P O R T   C S V ";
+				txtColor(15);
+				gotoxy(135, 21);	cout << " E X P O R T   C S V ";
+				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
+				gotoxy(121, 27);	cout << " V I E W   S T U D E N T   S C O R E B O A R D ";
+				gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+			}
+		}
+
+		if (dem == 2)
+		{
+			txtColor(240);
+			gotoxy(135, 21);	cout << " E X P O R T   C S V ";
+			if (choice == 13)
+			{
+				txtColor(15);
+				UnNocursortype();
+				string courseID;
+				ifstream f;
+				gotoxy(70, 20);
+				cout << "Please input course ID: ";
+				cin >> courseID;
+				f.open(Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard.csv");
+				int temp = 21;
+				while (!f.is_open()) {
+					gotoxy(70, temp);
+					cout << "Please input course ID: ";
+					cin >> courseID;
+					f.open(Schoolyear + "/Semester/" + Sem + "/" + courseID + "/Scoreboard.csv");
+					temp++;
+				}
+
+				exportCourseStudent(f);
+
+				f.close();
+				Nocursortype();
+				fillBlackMenu();
+				txtColor(15);
+				gotoxy(135, 18);	cout << " I M P O R T   C S V ";
+				txtColor(240);
+				gotoxy(135, 21);	cout << " E X P O R T   C S V ";
+				txtColor(15);
+				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
+				gotoxy(121, 27);	cout << " V I E W   S T U D E N T   S C O R E B O A R D ";
+				gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+			}
+		}
+
+		if (dem == 3)
+		{
+			txtColor(240);
+			gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
+			if (choice == 13)
+			{
+				txtColor(15);
+				UnNocursortype();
+				string courseID;
+				ifstream f;
+
+				gotoxy(70, 20);
+				cout << "Please input course ID: ";
+				cin >> courseID;
+				f.open(Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard.csv");
+				int temp = 21;
+				while (!f.is_open()) {
+					gotoxy(70, temp);
+					cout << "Please input course ID: ";
+					cin >> courseID;
+					f.open(Schoolyear + "/Semester/" + Sem + "/" + courseID + "/Scoreboard.csv");
+					temp++;
+				}
+				viewCourseScoreboard(f);
+				_getch();
+
+				Nocursortype();
+				fillBlackMenu();
+				gotoxy(135, 18);	cout << " I M P O R T   C S V ";
+				txtColor(240);
+				gotoxy(135, 21);	cout << " E X P O R T   C S V ";
+				txtColor(15);
+				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
+				gotoxy(121, 27);	cout << " V I E W   S T U D E N T   S C O R E B O A R D ";
+				gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+				f.close();
+												
+				txtColor(15);					
+			}
+		}
+
+		if (dem == 4)
+		{
+			txtColor(240);
+			gotoxy(121, 27);	cout << " V I E W   S T U D E N T   S C O R E B O A R D ";
+			if (choice == 13)
+			{
+				txtColor(15);
+				UnNocursortype();
+				string studentID, className;
+				ifstream f;
+
+				gotoxy(70, 20);
+				cout << "Please input class name:";
+				cin >> className;
+				cout << "Please input student ID: ";
+				cin >> studentID;
+				f.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course Scoreboard " + Sem + ".csv");
+				int temp = 21;
+				while (!f.is_open()) 
+				{
+					gotoxy(70, temp);
+					cout << "Please input class name:";
+					cin >> className;
+					cout << "Please input student ID: ";
+					cin >> studentID;
+					f.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course Scoreboard " + Sem + ".csv");
+					temp++;
+				}
+				viewStudentScoreboard(f);
+				_getch();
+
+				Nocursortype();
+				fillBlackMenu();
+				gotoxy(135, 18);	cout << " I M P O R T   C S V ";
+				txtColor(240);
+				gotoxy(135, 21);	cout << " E X P O R T   C S V ";
+				txtColor(15);
+				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
+				gotoxy(121, 27);	cout << " V I E W   S T U D E N T   S C O R E B O A R D ";
+				gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+				f.close();
+
+				txtColor(15);
+			}
+		}
+
+		if (dem == 5)
+		{
+			txtColor(240);
+			gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+			if (choice == 13)
+			{
+
+			}
+		}
+
+
+	}
 
 }
