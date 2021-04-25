@@ -17,15 +17,15 @@ void removeFolder(string path)
 
 void removeFile(string path)
 {
-	remove(path.c_str());
+	remove( path.c_str());
 }
 
 bool checkDate(date Date1, date Date2){  // true if date1 before or same as date 2
-	if (Date1.year<Date2.year) return 1;
-	if (Date1.year>Date2.year) return 0;
+	if (Date1.year < Date2.year) return 1;
+	if (Date1.year > Date2.year) return 0;
 
-	if (Date1.month<Date2.month) return 1;
-	if (Date1.month>Date2.month) return 0;
+	if (Date1.month < Date2.month) return 1;
+	if (Date1.month > Date2.month) return 0;
 	
 	if (Date1.day<Date2.day) return 1;
 	if (Date1.day>Date2.day) return 0;
