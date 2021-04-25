@@ -508,6 +508,8 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				gotoxy(70, 20);
 				cout << "Please input course ID: ";
 				cin >> courseID;
+
+				Nocursortype();
 				f.open(Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard.csv");
 				int temp = 21;
 				while (!f.is_open()) {
@@ -520,13 +522,13 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				viewCourseScoreboard(f);
 				_getch();
 
-				Nocursortype();
 				fillBlackMenu();
+
 				gotoxy(135, 18);	cout << " I M P O R T   C S V ";
-				txtColor(240);
 				gotoxy(135, 21);	cout << " E X P O R T   C S V ";
-				txtColor(15);
+				txtColor(240);
 				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
+				txtColor(15);
 				gotoxy(121, 27);	cout << " V I E W   S T U D E N T   S C O R E B O A R D ";
 				gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
 				f.close();
@@ -565,9 +567,11 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				}
 				viewStudentScoreboard(f);
 				_getch();
+				f.close();
 
 				Nocursortype();
 				fillBlackMenu();
+				txtColor(15);
 				gotoxy(135, 18);	cout << " I M P O R T   C S V ";
 				txtColor(240);
 				gotoxy(135, 21);	cout << " E X P O R T   C S V ";
@@ -575,7 +579,6 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
 				gotoxy(121, 27);	cout << " V I E W   S T U D E N T   S C O R E B O A R D ";
 				gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
-				f.close();
 
 				txtColor(15);
 			}
