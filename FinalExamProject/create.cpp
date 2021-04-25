@@ -552,6 +552,7 @@ bool loadCoursesFromFile(Courses *&course)
 	if (!in.is_open())
 		return false;
  
+	//Dem so luong courses de khai dynamic string
 	int count = -1;
 
 	while (!in.eof())
@@ -568,6 +569,7 @@ bool loadCoursesFromFile(Courses *&course)
 
 	getline(in, ignore);
 
+	//Lay ten courses vao strings
 	count = -1;
 
 	while (!in.eof())
@@ -580,6 +582,7 @@ bool loadCoursesFromFile(Courses *&course)
 
 	Courses *curr = nullptr;
 
+	//Truy cap vao folder bang string moi lay de lay thong tin chi tien cua course
 	for (int i = 0; i <= count; ++i)
 	{
 		if (course == NULL)
@@ -596,26 +599,29 @@ bool loadCoursesFromFile(Courses *&course)
 			curr = curr -> next;
 		}
 
+		//mo file profile de lay thong tin cua course
 		in.open(Schoolyear + "/Semesters/" + Sem + '/' + getCourse[i] + "/Profile.csv");
 		getline(in, ignore);
 
-		curr -> sem = Sem[4] - '0';
-		getline(in, curr -> courseID, ',');
-		getline(in, curr -> courseName, ',');
-		getline(in, curr -> teacherName,  ',');
-		in >> curr -> numCredits;
+		curr -> sem = Sem[4] - '0';					//lay semester
+		getline(in, curr -> courseID, ',');			//lay course ID
+		getline(in, curr -> courseName, ',');		//lay course name
+		getline(in, curr -> teacherName,  ',');		//lay teach name
+		in >> curr -> numCredits;					//lay numCredits
+		in.ignore();								
+		in >> curr -> maxStudent;					//lay max student
 		in.ignore();
-		in >> curr -> maxStudent;
-		in.ignore();
-		getline(in, curr -> schedule[0].day, ' ');
+		getline(in, curr -> schedule[0].day, ' ');	//bat dau lay shedule
 		getline(in, curr -> schedule[0].time, ',');
 		getline(in, curr -> schedule[1].day, ' ');
 		getline(in, curr -> schedule[1].time);
 
 		in.close();
 
+		//mo file scoreboard de lay thong tin hoc sinh
 		in.open(Schoolyear + "/Semesters/" + Sem + '/' + getCourse[i] + "/Scoreboard.csv");
 
+		//Dem so luong hoc sinh hien tai
 		int countStu = -1;
 		while (!in.eof())
 		{
@@ -625,6 +631,7 @@ bool loadCoursesFromFile(Courses *&course)
 
 		in.close();
 
+		//neu co hoc sinh thi bat dau lay
 		if (countStu > 0)
 		{
 			in.open(Schoolyear + "/Semesters/" + Sem + '/' + getCourse[i] + "/Scoreboard.csv");
@@ -632,6 +639,7 @@ bool loadCoursesFromFile(Courses *&course)
 
 			BasicStudents *currStu = nullptr;
 
+			//bat dau lay 
 			while (!in.eof())
 			{
 				if (curr -> studentID == NULL)
@@ -650,10 +658,10 @@ bool loadCoursesFromFile(Courses *&course)
 
 				in >> currStu -> No;
 				in.ignore();
-				getline(in, currStu -> ID, ',');
-				getline(in, currStu -> firstName, ',');
-				getline(in, currStu -> lastName, ',');
-				getline(in, currStu -> className, ',');
+				getline(in, currStu -> ID, ',');			//lay id hoc sinh
+				getline(in, currStu -> firstName, ',');		//lay first name hoc sinh
+				getline(in, currStu -> lastName, ',');		//lay last name hoc sinh
+				getline(in, currStu -> className, ',');		//lay ten lop hoc sinh
 
 				getline(in, ignore);
 			}
