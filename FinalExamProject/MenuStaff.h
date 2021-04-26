@@ -3,6 +3,8 @@
 
 #include "Struct.h"
 #include "Functions.h"
+#include "UI.h"
+#include "InputLogin.h"
 
 void MenuStaff(char username[], char password[], int sizeUser, int sizePass);
 void MenuStaffSettings(char username[], char password[], int sizeUser, int sizePass);
