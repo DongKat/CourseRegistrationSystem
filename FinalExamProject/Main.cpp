@@ -28,9 +28,5 @@ int main() {
 
 	Login(username, password, sizeUser, sizePass);
 
-	system("cls");
-	logo_moodle();
-	txtColor(15);
-
 	return 0;
 }
