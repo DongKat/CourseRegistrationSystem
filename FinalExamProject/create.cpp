@@ -502,28 +502,30 @@ void editCourseMain(Courses *&course)
 	cout << "Enter course's name of teacher: ";
 	getline(cin, teacherName);
 
+
+	//tim course de edit theo yeu cau cua staff
 	Courses *edit = findCourse(course, courseID, courseName, teacherName);
 
 	if (edit)
 	{
-		deleteCourseFolder(edit);
+		deleteCourseFolder(edit); 		//delete folder
 
-		cout << "You are editting course:\n\n";
+		cout << "You are editting course:\n\n";		
 
 		cout << "Enter course's ID: ";
-		getline(cin, edit -> courseID);
+		getline(cin, edit -> courseID);			//lay id moi
 
-		cout << "Enter course's name: ";
-		getline(cin, edit -> courseName);
+		cout << "Enter course's name: ";	
+		getline(cin, edit -> courseName);		//lay name moi
 
-		cout << "Enter course's name of teacher: ";
-		getline(cin, edit -> teacherName);
+		cout << "Enter course's name of teacher: ";		 
+		getline(cin, edit -> teacherName);		//lay teacher moi
 
-		cout << "Enter course's credits: ";
-		cin >> edit -> numCredits;
+		cout << "Enter course's credits: ";		
+		cin >> edit -> numCredits;				//lay tin chi moi
 
 		cout << "Enter course's max student: ";
-		cin >> edit -> maxStudent;
+		cin >> edit -> maxStudent;				//lay max student moi
 
 		cin.ignore();
 
@@ -531,13 +533,13 @@ void editCourseMain(Courses *&course)
 		{
 			cout << "Enter session\n";
 			cout << "Day of week: "; // MON, THU
-			getline(cin, edit -> schedule[i].day);
+			getline(cin, edit -> schedule[i].day);		//lay thu day
 			cout << "Time: ";		//S1, S2, S3
-			getline(cin, edit -> schedule[i].time);
+			getline(cin, edit -> schedule[i].time);		//lay buoi moi
 		}
 
-		createFolderNFileCourse(edit);
-		viewCourseFile(course);
+		createFolderNFileCourse(edit);					//tao folder moi
+		viewCourseFile(course);							//cap nhat lai file all courses
 	}
 	else
 		cout << "There are no course match with your information\n";
