@@ -40,12 +40,15 @@ bool createFolderSchoolYear(string path){	//false if this is new year
 }
 
 bool inputSchoolYear(){ 						//false if this is new SchoolYear
-	int syear=-1,eyear;
-	while (syear<0){
+	int syear,eyear;
+	do{
 		cout << "Please intput start year: ";
 		cin >> syear;
-		eyear=syear+1;
-	}
+		if (syear<0){
+			cout << "ERROR! The start year must be a positive number!\n";
+		}
+		else eyear=syear+1;
+	} while (syear<0);
 
 	Schoolyear = to_string(syear)+"-"+to_string(eyear);
 	return createFolderSchoolYear(Schoolyear);
