@@ -285,6 +285,23 @@ void MenuChangePasswordStaff(string username, string& password) {
 	gotoxy(64, 32); cout << "               L O G   O U T               ";
 }
 
+void MenuStaffView(char username[], char password[], int sizeUser, int sizePass) {
+	keyboardShortcut();
+	fillBlackMenu();
+
+
+	int dem = 0;
+
+	txtColor(15);
+	gotoxy(135, 18);	cout << " V I E W   L I S T   O F   C L A S S E S ";
+	gotoxy(135, 21);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
+	gotoxy(122, 24);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
+	gotoxy(121, 27);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
+	gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+
+
+}
+
 void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass) {
 	keyboardShortcut();
 	fillBlackMenu();
@@ -373,7 +390,7 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
 			if (choice == 13)
 			{
-				if (Sem != "") {
+				if (Schoolyear != "") {
 					addNewSemesterMain(SEMESTER);
 
 					Nocursortype();
