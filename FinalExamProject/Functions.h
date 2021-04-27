@@ -7,6 +7,7 @@
 
 
 #endif // !_FUNCTIONS_H_
+bool isLegalDate(date someday);
 
 void readClassCSV(ifstream& classList, Students& student);
 
