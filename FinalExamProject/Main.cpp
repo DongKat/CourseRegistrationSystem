@@ -9,10 +9,10 @@
 #include "Struct.h"
 #include "UI.h"
 
-string Schoolyear = "";
+string Schoolyear = "2020-2021";
 date dateStart;
 date dateEnd;
-string Sem = "";
+string Sem = "Sem 1";
 Semesters SEMESTER[3];
 Courses* COURSE = nullptr;
 Classes* CLASS = nullptr;

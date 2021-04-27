@@ -222,7 +222,7 @@ void addClass(Classes *&Class, string folder) {
 
 	string filepath;
 
-	do{																//lay danh sach lop
+	do{								//lay danh sach lop
 		gotoxy(70, temp);
 		filepath.clear();
 		cout << "Please enter the path of CSV file: ";
@@ -329,7 +329,7 @@ void addNewSemesterMain(Semesters *semester)
 		cout << "Year: ";
 		cin >> begin.year;
 		temp++;
-	} while (isLegalDate(begin));
+	} while (!isLegalDate(begin));
 
 
 	gotoxy(67, temp);
@@ -349,7 +349,7 @@ void addNewSemesterMain(Semesters *semester)
 		cout << "Year: ";
 		cin >> end.year;
 		temp++;
-	} while (isLegalDate(end));
+	} while (!isLegalDate(end));
 
 	cin.ignore();
 
