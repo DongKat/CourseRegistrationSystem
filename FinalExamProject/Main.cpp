@@ -9,10 +9,10 @@
 #include "Struct.h"
 #include "UI.h"
 
-string Schoolyear =" ";
+string Schoolyear = "2020-2021";
 date dateStart;
 date dateEnd;
-string Sem = " ";
+string Sem = "Sem 1";
 Semesters SEMESTER[3];
 Courses* COURSE;
 Classes* CLASS;
@@ -20,12 +20,13 @@ Classes* CLASS;
 int main() {
 	setWindowFullSize();
 	txtColor(0);
-	/*autoGenerateStudentAccounts("student.csv");*/
-	autoGenerateStudentProfiles("student1.csv");
-	autoGenerateStaffProfiles("staff.txt");
+	//autoGenerateStudentAccounts("student.csv");
+	//autoGenerateStudentProfiles("student1.csv");
+	//autoGenerateStaffProfiles("staff.txt");
 
+	//loadYearAndSem();
+	//loadCoursesFromFile(COURSE);
 
-	loadYearAndSem();
 	char username[23];
 	char password[23];
 	int sizeUser = 0;
