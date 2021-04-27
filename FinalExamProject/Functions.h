@@ -29,6 +29,11 @@ void exportCourseStudent(ifstream& file);
 
 void viewCourseScoreboard(ifstream& f);
 
+void viewOwnScoreboard(ifstream& f, int pos);
+
+float getSemGPA(ifstream& f);
 
 void updateStudentResult(ifstream& f1, ifstream& f2, ofstream& nf1, ofstream& nf2, string studentID, string courseID, Scores newScore);
+
+void viewClassScoreboard(ifstream& f, string className);
 
