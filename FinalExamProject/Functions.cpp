@@ -134,34 +134,6 @@ string checkStudentInClass(string studentID)
 	}
 }
 
-time_t timeToUnixTime(date end)
-{
-	int hour, min, sec;
-	hour = min = sec = 0;
-	//Assume session starts from 00:00:00
-	time_t a = time(0);
-	tm* timeinfo = localtime(&a);
-
-	timeinfo->tm_year = end.year - 1900;
-	timeinfo->tm_mon = end.month - 1;		//months since January - [0,11]
-	timeinfo->tm_mday = end.day;			//day of the month - [1,31]
-	timeinfo->tm_hour = hour;			//hours since midnight - [0,23]
-	timeinfo->tm_min = min;				//minutes after the hour - [0,59]
-	timeinfo->tm_sec = sec;				//seconds after the minute - [0,59]
-
-	a = mktime(timeinfo);
-
-	return a;
-}
-
-bool isCourseRegistrationSessionActive(date registerStartDay, date registerEndDay)
-{
-	time_t now = time(0);
-	if (timeToUnixTime(registerStartDay) <= now && now <= timeToUnixTime(registerEndDay))
-		return true;
-	return false;
-}
-
 string checkStudentClass(string studentID) // check if student in a class with Allstudents.txt and return class name
 {
 	ifstream classList, studentList;

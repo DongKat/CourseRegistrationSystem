@@ -24,6 +24,8 @@ int main() {
 	autoGenerateStudentProfiles("student1.csv");
 	autoGenerateStaffProfiles("staff.txt");
 
+
+	loadYearAndSem();
 	char username[23];
 	char password[23];
 	int sizeUser = 0;
