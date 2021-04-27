@@ -21,7 +21,7 @@ int main() {
 	setWindowFullSize();
 	txtColor(0);
 	/*autoGenerateStudentAccounts("student.csv");*/
-	autoGenerateStudentProfiles("student.csv");
+	autoGenerateStudentProfiles("student1.csv");
 	autoGenerateStaffProfiles("staff.txt");
 
 	char username[23];

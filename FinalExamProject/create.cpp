@@ -1,4 +1,6 @@
 #include "create.h"
+#include "UI.h"
+#include "Struct.h"
 
 using namespace std;
 
@@ -293,33 +295,65 @@ void addSemester(Semesters *semester, int currSem, date begin, date end)
 
 void addNewSemesterMain(Semesters *semester)
 {
+	txtColor(15);
 	int currSem;
 	date begin, end;
-
+	
+	gotoxy(67, 20);
 	cout << "You are creating new semester\n\n";
-	cout << "Enter semester: ";
-	cin >> currSem;
 
+	int temp = 21;
+
+	do {
+		gotoxy(70, temp);
+		cout << "Enter semester: ";
+		cin >> currSem;
+		temp++;
+	} while (currSem != 1 && currSem != 2 && currSem != 3);
+
+	gotoxy(67, temp);
 	cout << "Enter starting date:\n";
-	cout << "Day: ";
-	cin >> begin.day;
-	cout << "Month: ";
-	cin >> begin.month;
-	cout << "Year: ";
-	cin >>  begin.year;
+	temp++;
+
+	/*do {*/
+		gotoxy(70, temp);
+		cout << "Day: ";
+		cin >> begin.day;
+		temp++;
+		gotoxy(70, temp);
+		cout << "Month: ";
+		cin >> begin.month;
+		temp++;
+		gotoxy(70, temp);
+		cout << "Year: ";
+		cin >> begin.year;
+		temp++;
+	/*} while ();*/
 
 
+	gotoxy(67, temp);
 	cout << "Enter ending date:\n";
-	cout << "Day: ";
-	cin >> end.day;
-	cout << "Month: ";
-	cin >> end.month;
-	cout << "Year: ";
-	cin >>  end.year;
+	temp++;
+
+	/*do {*/
+		gotoxy(70, temp);
+		cout << "Day: ";
+		cin >> end.day;
+		temp++;
+		gotoxy(70, temp);
+		cout << "Month: ";
+		cin >> end.month;
+		temp++;
+		gotoxy(70, temp);
+		cout << "Year: ";
+		cin >> end.year;
+		temp++;
+	//} while ();
 
 	cin.ignore();
 
 	addSemester(semester, currSem, begin, end);
+
 }
 
 Courses *newCourse(string courseName, string courseID, string teacherName, int numCredits, int maxStudent, Schedules schedule[])
