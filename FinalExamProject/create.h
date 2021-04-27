@@ -1,6 +1,8 @@
 #pragma once
-
+#include "Library.h"
 #include "Struct.h"
+#include "UI.h"
+#include "Functions.h"
 
 bool createFolder(string path);
 

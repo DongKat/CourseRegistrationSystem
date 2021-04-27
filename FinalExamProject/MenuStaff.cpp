@@ -354,6 +354,26 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
 			if (choice == 13)
 			{
+				if (Sem != " ") {
+					addNewCourseMain(COURSE);
+
+					Nocursortype();
+					fillBlackMenu();
+					txtColor(15);
+					gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
+					gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
+					gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
+					txtColor(240);
+					gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+					txtColor(15);
+					ViewYearSem();
+				}
+				else {
+					cout << "You must create semester first!";
+					continue;
+
+				}
+				
 			}
 		}
 	}

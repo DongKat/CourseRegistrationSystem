@@ -1,6 +1,5 @@
 #include "create.h"
-#include "UI.h"
-#include "Struct.h"
+
 
 using namespace std;
 
@@ -315,7 +314,7 @@ void addNewSemesterMain(Semesters *semester)
 	cout << "Enter starting date:\n";
 	temp++;
 
-	/*do {*/
+	do {
 		gotoxy(70, temp);
 		cout << "Day: ";
 		cin >> begin.day;
@@ -328,14 +327,14 @@ void addNewSemesterMain(Semesters *semester)
 		cout << "Year: ";
 		cin >> begin.year;
 		temp++;
-	/*} while ();*/
+	} while (isLegalDate(begin));
 
 
 	gotoxy(67, temp);
 	cout << "Enter ending date:\n";
 	temp++;
 
-	/*do {*/
+	do {
 		gotoxy(70, temp);
 		cout << "Day: ";
 		cin >> end.day;
@@ -348,7 +347,7 @@ void addNewSemesterMain(Semesters *semester)
 		cout << "Year: ";
 		cin >> end.year;
 		temp++;
-	//} while ();
+	} while (isLegalDate(end));
 
 	cin.ignore();
 
@@ -474,22 +473,34 @@ void addNewCourseMain(Courses *&course)
 {
 	string courseID, courseName, teacherName;
 	int numCredits, maxStudent;
+	gotoxy(67, 20);
 	cout << "You are creating new course:\n\n";
 
+	int temp = 21;
+	gotoxy(70, temp);
 	cout << "Enter course's ID: ";
 	getline(cin, courseID);
+	temp++;
 
+	gotoxy(70, temp);
 	cout << "Enter course's name: ";
 	getline(cin, courseName);
+	temp++;
 
+	gotoxy(70, temp);
 	cout << "Enter course's name of teacher: ";
 	getline(cin, teacherName);
+	temp++;
 
+	gotoxy(70, temp);
 	cout << "Enter course's credits: ";
 	cin >> numCredits;
+	temp++;
 
+	gotoxy(70, temp);
 	cout << "Enter course's max student: ";
 	cin >> maxStudent;
+	temp++;
 
 	cin.ignore();
 
@@ -497,11 +508,17 @@ void addNewCourseMain(Courses *&course)
 
 	for (int i = 0; i < 2; ++i)
 	{
+		gotoxy(70, temp);
 		cout << "Enter session:\n\n";
+		temp++;
+		gotoxy(70, temp);
 		cout << "Day of week: "; // MON, THU
 		getline(cin, schedule[i].day);
+		temp++;
+		gotoxy(70, temp);
 		cout << "Time: ";		//S1, S2, S3
 		getline(cin, schedule[i].time);
+		temp++;
 	}
 
 
