@@ -263,6 +263,21 @@ Semesters newSemester(int currSem, date begin, date end)
 	return newSemester;
 }
 
+bool loadYearAndSem()
+{
+	ifstream in;
+	
+	in.open("YearAndSemster.txt");
+
+	if (!in.is_open())
+		return 0;
+
+	getline(in, SchoolYear);
+	getline(in, Sem);
+
+	in.close;
+}
+
 void addSemester(Semesters *semester, int currSem, date begin, date end)
 {
 	semester[currSem - 1] = newSemester(currSem, begin, end);
@@ -272,7 +287,8 @@ void addSemester(Semesters *semester, int currSem, date begin, date end)
 	ofstream out;
 
 	out.open("YearAndSemester.txt");
-	out << SchoolYear + '\n' + Sem;
+	out << SchoolYear + '\n' + Sem + '\n';
+	out.close;
 }
 
 void addNewSemesterMain(Semesters *semester)
