@@ -2,6 +2,8 @@
 #define __MENUSTUDENT_H_INCLUDED__ 
 
 #include "Struct.h"
+#include "UI.h"
+#include "InputLogin.h"
 
 void MenuStudent(char username[], char password[], int sizeUser, int sizePass);
 void MenuStudentSettings(char username[], char password[], int sizeUser, int sizePass);

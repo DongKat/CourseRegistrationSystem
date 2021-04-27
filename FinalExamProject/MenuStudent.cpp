@@ -1,6 +1,5 @@
 #include "MenuStudent.h"
-#include "UI.h"
-#include "InputLogin.h"
+
 
 void MenuStudent(char username[], char password[], int sizeUser, int sizePass) {
 	system("cls");

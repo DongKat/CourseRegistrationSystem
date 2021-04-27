@@ -1,5 +1,4 @@
 #include "MenuStaff.h"
-#include "create.h"
 
 void ViewYearSem() {
 	txtColor(15);
@@ -520,7 +519,7 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 				ifstream in;
 				string s;
 
-				in.open(Schoolyear + "/" + "Semesters/" + Sem + "/" + "AllCourses.txt");
+				in.open(Schoolyear + "/" + "Semesters/" + Sem + "/" + "AllCourses.csv");
 
 				int i = 20;
 				while (!in.eof()) {
@@ -743,7 +742,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				gotoxy(70, 20);
 				cout << "Please input class name: ";
 				cin >> className;
-				f.open(Schoolyear + "/Classes/" + className + "/allStudents.txt");
+				f.open(Schoolyear + "/Classes/" + className + "/allStudents.csv");
 
 				while (!f.is_open()) {
 					gotoxy(70, temp);
@@ -751,7 +750,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					gotoxy(70, temp + 1);
 					cout << "Please input class name: ";
 					cin >> className;
-					f.open(Schoolyear + "/Classes/" + className + "/allStudents.txt");
+					f.open(Schoolyear + "/Classes/" + className + "/allStudents.csv");
 					temp+=2;
 				}
 
@@ -777,7 +776,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 		if (dem == 5)
 		{
 			txtColor(240);
-			gotoxy(123, 27);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+			gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
 			if (choice == 13)
 			{
 				txtColor(15);
