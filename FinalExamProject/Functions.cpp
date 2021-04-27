@@ -1,5 +1,31 @@
 #include "Functions.h"
 
+bool isLegalDate(date someday)
+{
+	if (true)
+	{
+		if ((someday.month == 1 || someday.month == 3 || someday.month == 5 || someday.month == 7 || someday.month == 8 || someday.month == 10 || someday.month == 12) && someday.day > 0 && someday.day <= 31)
+			return true;
+		else
+			if (someday.month == 4 || someday.month == 6 || someday.month == 9 || someday.month == 11 && someday.day > 0 && someday.day <= 30)
+				return true;
+			else
+				if (someday.month == 2)
+				{
+					if ((someday.year % 400 == 0 || (someday.year % 100 != 0 && someday.year % 4 == 0)) && someday.day > 0 && someday.day <= 29)
+						return true;
+					else if (someday.day > 0 && someday.day <= 28)
+						return true;
+					else
+						return false;
+				}
+				else
+					return false;
+	}
+	else
+		return false;
+}
+
 void readClassCSV(ifstream& classList, Students& student)
 {
 	//trash function
@@ -225,7 +251,6 @@ void importScoreboard(Courses* courseHead, string courseID, Students& student, i
 */
 void importScoreboardCourse(ifstream& f, string courseID)
 {
-
 	string course_dir = Schoolyear + "./Semester/Sem " + Sem + "/" + courseID + "/Scoreboard.csv";
 	string line;
 
@@ -240,7 +265,6 @@ void importScoreboardCourse(ifstream& f, string courseID)
 
 void importScoreboardStudent(ifstream& f, string courseID)
 {
-
 	string student_dir, line, temp;
 
 	ofstream studentScoreboard;
@@ -441,4 +465,3 @@ void viewClassScoreboard(Classes Class) // Require changing UI
 		student_count++;
 	}
 }
-
