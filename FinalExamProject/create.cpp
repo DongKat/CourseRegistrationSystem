@@ -222,7 +222,7 @@ void addClass(Classes *&Class, string folder) {
 
 	string filepath;
 
-	do{																//lay danh sach lop
+	do{								//lay danh sach lop
 		gotoxy(70, temp);
 		filepath.clear();
 		cout << "Please enter the path of CSV file: ";
