@@ -17,7 +17,7 @@ string Sem = "Sem 1";
 int main() {
 	setWindowFullSize();
 	txtColor(0);
-	autoGenerateStudentAccounts("student.csv");
+	/*autoGenerateStudentAccounts("student.csv");*/
 	autoGenerateStudentProfiles("student.csv");
 	autoGenerateStaffProfiles("staff.txt");
 

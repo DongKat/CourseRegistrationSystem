@@ -149,7 +149,7 @@ void MenuStaffProfileInfo(string username, string password) {
 	string s;
 
 	in.open("Staff Profiles/" + username);
-
+	
 	int i = 24;
 	gotoxy(70, 24);	cout << "Name: ";
 	gotoxy(70, 26);	cout << "Gender: ";
