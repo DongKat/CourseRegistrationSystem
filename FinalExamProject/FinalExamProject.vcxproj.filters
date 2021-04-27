@@ -82,9 +82,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Test.csv">
-      <Filter>Source Files</Filter>
-    </None>
     <None Include="student.csv">
       <Filter>Source Files</Filter>
     </None>
