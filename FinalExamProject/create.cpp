@@ -42,14 +42,15 @@ bool createFolderSchoolYear(string path){	//false if this is new year
 
 bool inputSchoolYear(){ 						//false if this is new SchoolYear
 	int syear,eyear;
+	int temp = 20;
+	txtColor(15);
 	do{
+		gotoxy(70, temp);
 		cout << "Please intput start year: ";
 		cin >> syear;
-		if (syear<0){
-			cout << "ERROR! The start year must be a positive number!\n";
-		}
-		else eyear=syear+1;
-	} while (syear<0);
+		temp++;
+		eyear = syear + 1;
+	} while (syear < 0);
 
 	Schoolyear = to_string(syear)+"-"+to_string(eyear);
 	return createFolderSchoolYear(Schoolyear);
@@ -194,23 +195,24 @@ void createFolderClass(string path,string Cname){
 	createFolder(path+"\\Classes\\"+Cname);}
 
 void addClass(Classes *&Class, string folder) {
+	txtColor(15);
 	cin.clear();
 	fflush(stdin);
+	cin.ignore();
 
 	Classes *tmpClass=Class;
 
 	while (tmpClass && tmpClass->next) tmpClass=tmpClass->next;
 
 	string Cname;
-
-	while (1){                       							// lay ten lop
+	int temp = 20;
+	gotoxy(70, temp);
+	do {                       							// lay ten lop
+		gotoxy(70, temp);
 		cout << "Please enter class's name: ";
 		getline(cin, Cname);
-		if (createFolder(folder+"\\Classes\\"+Cname)){
-			cout <<"Error! This class has already existed!\n";
-		}
-		else break;
-	}
+		temp++;
+	} while (createFolder(folder + "\\Classes\\" + Cname));
 
 	fstream f;
 
@@ -221,13 +223,13 @@ void addClass(Classes *&Class, string folder) {
 	string filepath;
 
 	do{																//lay danh sach lop
+		gotoxy(70, temp);
 		filepath.clear();
 		cout << "Please enter the path of CSV file: ";
 		getline(cin, filepath);
-
+		temp++;
 		f.open(filepath);
 
-		if (!f.is_open()) cout << "Error! File is not found!\n";
 	} while (!f.is_open());
 
 	f.close();
@@ -757,9 +759,9 @@ void viewCourse(Courses *course)
 	 	 << "\nCourse's Name: " << course -> courseName
 	 	 << "\nCourse's Teacher: " << course -> teacherName
 		 << "\nCourse's num of credits: " << course -> numCredits
-		 << "\nCourse's max student: " << course -> maxStudent;
-		 << "\nCourse's first session: " << course -> shedule[0].day << ' ' << course -> shedule[0].time
-		 << "\nCourse's second session: " << course -> shedule[1].day << ' ' << course -> shedule[1].time;
+		 << "\nCourse's max student: " << course -> maxStudent
+		 << "\nCourse's first session: " << course -> schedule[0].day << ' ' << course -> schedule[0].time
+		 << "\nCourse's second session: " << course -> schedule[1].day << ' ' << course -> schedule[1].time;
 }
 
 
