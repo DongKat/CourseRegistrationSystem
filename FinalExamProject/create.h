@@ -30,10 +30,6 @@ void createFolderClass(string path, string Cname);
 
 void addClass(Classes*& Class, string folder);
 
-void deleteAllStudents(Students*& stu);
-
-void deleteAllClasses(Classes*& Class);
-
 Semesters newSemester(int currSem, date begin, date end);
 
 void addSemester(Semesters* semester, int currSem, date begin, date end);

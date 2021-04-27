@@ -238,22 +238,6 @@ void addClass(Classes *&Class, string folder) {
 	}
 }
 
-void deleteAllStudents(Students*& stu) {
-	while (stu) {
-		Students* tmp = stu;
-		stu = stu->next;
-		delete tmp;
-	}
-}
-
-void deleteAllClasses(Classes*& Class) {
-	while (Class) {
-		Classes* tmp = Class;
-		Class = Class->next;
-		delete tmp;
-	}
-}
-
 Semesters newSemester(int currSem, date begin, date end)
 {	
 	Semesters newSemester;

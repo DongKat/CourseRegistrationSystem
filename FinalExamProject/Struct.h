@@ -10,16 +10,6 @@ struct date
     int year;
 };
 
-extern string Schoolyear;
-extern date dateStart;
-extern date dateEnd;
-extern string Sem;
-extern Semester SEMESTER[3];
-extern Courses *COURSE;
-
-
-
-
 struct StaffAccount
 {
     string username;
@@ -131,3 +121,11 @@ struct schoolYear // 1 tạo năm học
     schoolYear *next;
     schoolYear *prev;
 };
+
+extern string Schoolyear;
+extern date dateStart;
+extern date dateEnd;
+extern string Sem;
+extern Semester SEMESTER[3];
+extern Courses *COURSE;
+extern Classes *CLASS;

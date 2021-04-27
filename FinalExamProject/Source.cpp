@@ -345,8 +345,7 @@ void removeACourse(Students* aStudent, Courses* courseDelete, fstream& f)
     f.close();
 };
 
-void viewAllStudentInCourse(Courses
-    * course)
+void viewAllStudentInCourse(Courses* course)
 {
     int count = 1;
     BasicStudents* pCur = course->studentID;
