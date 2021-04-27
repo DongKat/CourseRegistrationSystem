@@ -40,12 +40,15 @@ bool createFolderSchoolYear(string path){	//false if this is new year
 }
 
 bool inputSchoolYear(){ 						//false if this is new SchoolYear
-	int syear=-1,eyear;
-	while (syear<0){
+	int syear,eyear;
+	do{
 		cout << "Please intput start year: ";
 		cin >> syear;
-		eyear=syear+1;
-	}
+		if (syear<0){
+			cout << "ERROR! The start year must be a positive number!\n";
+		}
+		else eyear=syear+1;
+	} while (syear<0);
 
 	Schoolyear = to_string(syear)+"-"+to_string(eyear);
 	return createFolderSchoolYear(Schoolyear);
@@ -499,28 +502,30 @@ void editCourseMain(Courses *&course)
 	cout << "Enter course's name of teacher: ";
 	getline(cin, teacherName);
 
+
+	//tim course de edit theo yeu cau cua staff
 	Courses *edit = findCourse(course, courseID, courseName, teacherName);
 
 	if (edit)
 	{
-		deleteCourseFolder(edit);
+		deleteCourseFolder(edit); 		//delete folder
 
-		cout << "You are editting course:\n\n";
+		cout << "You are editting course:\n\n";		
 
 		cout << "Enter course's ID: ";
-		getline(cin, edit -> courseID);
+		getline(cin, edit -> courseID);			//lay id moi
 
-		cout << "Enter course's name: ";
-		getline(cin, edit -> courseName);
+		cout << "Enter course's name: ";	
+		getline(cin, edit -> courseName);		//lay name moi
 
-		cout << "Enter course's name of teacher: ";
-		getline(cin, edit -> teacherName);
+		cout << "Enter course's name of teacher: ";		 
+		getline(cin, edit -> teacherName);		//lay teacher moi
 
-		cout << "Enter course's credits: ";
-		cin >> edit -> numCredits;
+		cout << "Enter course's credits: ";		
+		cin >> edit -> numCredits;				//lay tin chi moi
 
 		cout << "Enter course's max student: ";
-		cin >> edit -> maxStudent;
+		cin >> edit -> maxStudent;				//lay max student moi
 
 		cin.ignore();
 
@@ -528,13 +533,13 @@ void editCourseMain(Courses *&course)
 		{
 			cout << "Enter session\n";
 			cout << "Day of week: "; // MON, THU
-			getline(cin, edit -> schedule[i].day);
+			getline(cin, edit -> schedule[i].day);		//lay thu day
 			cout << "Time: ";		//S1, S2, S3
-			getline(cin, edit -> schedule[i].time);
+			getline(cin, edit -> schedule[i].time);		//lay buoi moi
 		}
 
-		createFolderNFileCourse(edit);
-		viewCourseFile(course);
+		createFolderNFileCourse(edit);					//tao folder moi
+		viewCourseFile(course);							//cap nhat lai file all courses
 	}
 	else
 		cout << "There are no course match with your information\n";
@@ -552,6 +557,7 @@ bool loadCoursesFromFile(Courses *&course)
 	if (!in.is_open())
 		return false;
  
+	//Dem so luong courses de khai dynamic string
 	int count = -1;
 
 	while (!in.eof())
@@ -568,6 +574,7 @@ bool loadCoursesFromFile(Courses *&course)
 
 	getline(in, ignore);
 
+	//Lay ten courses vao strings
 	count = -1;
 
 	while (!in.eof())
@@ -580,6 +587,7 @@ bool loadCoursesFromFile(Courses *&course)
 
 	Courses *curr = nullptr;
 
+	//Truy cap vao folder bang string moi lay de lay thong tin chi tien cua course
 	for (int i = 0; i <= count; ++i)
 	{
 		if (course == NULL)
@@ -596,26 +604,29 @@ bool loadCoursesFromFile(Courses *&course)
 			curr = curr -> next;
 		}
 
+		//mo file profile de lay thong tin cua course
 		in.open(Schoolyear + "/Semesters/" + Sem + '/' + getCourse[i] + "/Profile.csv");
 		getline(in, ignore);
 
-		curr -> sem = Sem[4] - '0';
-		getline(in, curr -> courseID, ',');
-		getline(in, curr -> courseName, ',');
-		getline(in, curr -> teacherName,  ',');
-		in >> curr -> numCredits;
+		curr -> sem = Sem[4] - '0';					//lay semester
+		getline(in, curr -> courseID, ',');			//lay course ID
+		getline(in, curr -> courseName, ',');		//lay course name
+		getline(in, curr -> teacherName,  ',');		//lay teach name
+		in >> curr -> numCredits;					//lay numCredits
+		in.ignore();								
+		in >> curr -> maxStudent;					//lay max student
 		in.ignore();
-		in >> curr -> maxStudent;
-		in.ignore();
-		getline(in, curr -> schedule[0].day, ' ');
+		getline(in, curr -> schedule[0].day, ' ');	//bat dau lay shedule
 		getline(in, curr -> schedule[0].time, ',');
 		getline(in, curr -> schedule[1].day, ' ');
 		getline(in, curr -> schedule[1].time);
 
 		in.close();
 
+		//mo file scoreboard de lay thong tin hoc sinh
 		in.open(Schoolyear + "/Semesters/" + Sem + '/' + getCourse[i] + "/Scoreboard.csv");
 
+		//Dem so luong hoc sinh hien tai
 		int countStu = -1;
 		while (!in.eof())
 		{
@@ -625,6 +636,7 @@ bool loadCoursesFromFile(Courses *&course)
 
 		in.close();
 
+		//neu co hoc sinh thi bat dau lay
 		if (countStu > 0)
 		{
 			in.open(Schoolyear + "/Semesters/" + Sem + '/' + getCourse[i] + "/Scoreboard.csv");
@@ -632,6 +644,7 @@ bool loadCoursesFromFile(Courses *&course)
 
 			BasicStudents *currStu = nullptr;
 
+			//bat dau lay 
 			while (!in.eof())
 			{
 				if (curr -> studentID == NULL)
@@ -650,10 +663,10 @@ bool loadCoursesFromFile(Courses *&course)
 
 				in >> currStu -> No;
 				in.ignore();
-				getline(in, currStu -> ID, ',');
-				getline(in, currStu -> firstName, ',');
-				getline(in, currStu -> lastName, ',');
-				getline(in, currStu -> className, ',');
+				getline(in, currStu -> ID, ',');			//lay id hoc sinh
+				getline(in, currStu -> firstName, ',');		//lay first name hoc sinh
+				getline(in, currStu -> lastName, ',');		//lay last name hoc sinh
+				getline(in, currStu -> className, ',');		//lay ten lop hoc sinh
 
 				getline(in, ignore);
 			}
