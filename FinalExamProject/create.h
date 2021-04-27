@@ -34,6 +34,8 @@ Semesters newSemester(int currSem, date begin, date end);
 
 void addSemester(Semesters* semester, int currSem, date begin, date end);
 
+bool loadYearAndSem();
+
 void addNewSemesterMain(Semesters* semester);
 
 Courses* newCourse(string courseName, string courseID, string teacherName, int numCredits, int maxStudent, Schedules schedule[]);

@@ -1,4 +1,5 @@
 #include "MenuStaff.h"
+#include "create.h"
 
 void ViewYearSem() {
 	txtColor(15);
@@ -346,6 +347,19 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
 			if (choice == 13)
 			{
+
+				addNewSemesterMain(SEMESTER);
+				Nocursortype();
+				fillBlackMenu();
+				txtColor(15);
+				gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
+				gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
+				txtColor(240);
+				gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
+				txtColor(15);
+				gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+				ViewYearSem();
+
 			}
 		}
 		if (dem == 4)

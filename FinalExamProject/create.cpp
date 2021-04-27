@@ -1,4 +1,6 @@
 #include "create.h"
+#include "UI.h"
+#include "Struct.h"
 
 using namespace std;
 
@@ -17,15 +19,15 @@ void removeFolder(string path)
 
 void removeFile(string path)
 {
-	remove( path.c_str());
+	remove(path.c_str());
 }
 
 bool checkDate(date Date1, date Date2){  // true if date1 before or same as date 2
-	if (Date1.year < Date2.year) return 1;
-	if (Date1.year > Date2.year) return 0;
+	if (Date1.year<Date2.year) return 1;
+	if (Date1.year>Date2.year) return 0;
 
-	if (Date1.month < Date2.month) return 1;
-	if (Date1.month > Date2.month) return 0;
+	if (Date1.month<Date2.month) return 1;
+	if (Date1.month>Date2.month) return 0;
 	
 	if (Date1.day<Date2.day) return 1;
 	if (Date1.day>Date2.day) return 0;
@@ -190,8 +192,7 @@ Classes* newClass(string filepath, string className, string folder) {
 }
 
 void createFolderClass(string path,string Cname){
-	createFolder(path+"\\Classes\\"+Cname);
-}
+	createFolder(path+"\\Classes\\"+Cname);}
 
 void addClass(Classes *&Class, string folder) {
 	cin.clear();
@@ -238,6 +239,22 @@ void addClass(Classes *&Class, string folder) {
 	}
 }
 
+void deleteAllStudents(Students*& stu) {
+	while (stu) {
+		Students* tmp = stu;
+		stu = stu->next;
+		delete tmp;
+	}
+}
+
+void deleteAllClasses(Classes*& Class) {
+	while (Class) {
+		Classes* tmp = Class;
+		Class = Class->next;
+		delete tmp;
+	}
+}
+
 Semesters newSemester(int currSem, date begin, date end)
 {	
 	Semesters newSemester;
@@ -248,42 +265,95 @@ Semesters newSemester(int currSem, date begin, date end)
 	return newSemester;
 }
 
+bool loadYearAndSem()
+{
+	ifstream in;
+	
+	in.open("YearAndSemster.txt");
+
+	if (!in.is_open())
+		return 0;
+
+	getline(in, SchoolYear);
+	getline(in, Sem);
+
+	in.close;
+}
+
 void addSemester(Semesters *semester, int currSem, date begin, date end)
 {
 	semester[currSem - 1] = newSemester(currSem, begin, end);
 	Sem = "Sem " + to_string(currSem);
 	createFolder(Schoolyear + "/Semesters/" + Sem);
+
+	ofstream out;
+
+	out.open("YearAndSemester.txt");
+	out << SchoolYear + '\n' + Sem + '\n';
+	out.close;
 }
 
 void addNewSemesterMain(Semesters *semester)
 {
+	txtColor(15);
 	int currSem;
 	date begin, end;
-
+	
+	gotoxy(67, 20);
 	cout << "You are creating new semester\n\n";
-	cout << "Enter semester: ";
-	cin >> currSem;
 
+	int temp = 21;
+
+	do {
+		gotoxy(70, temp);
+		cout << "Enter semester: ";
+		cin >> currSem;
+		temp++;
+	} while (currSem != 1 && currSem != 2 && currSem != 3);
+
+	gotoxy(67, temp);
 	cout << "Enter starting date:\n";
-	cout << "Day: ";
-	cin >> begin.day;
-	cout << "Month: ";
-	cin >> begin.month;
-	cout << "Year: ";
-	cin >>  begin.year;
+	temp++;
+
+	/*do {*/
+		gotoxy(70, temp);
+		cout << "Day: ";
+		cin >> begin.day;
+		temp++;
+		gotoxy(70, temp);
+		cout << "Month: ";
+		cin >> begin.month;
+		temp++;
+		gotoxy(70, temp);
+		cout << "Year: ";
+		cin >> begin.year;
+		temp++;
+	/*} while ();*/
 
 
+	gotoxy(67, temp);
 	cout << "Enter ending date:\n";
-	cout << "Day: ";
-	cin >> end.day;
-	cout << "Month: ";
-	cin >> end.month;
-	cout << "Year: ";
-	cin >>  end.year;
+	temp++;
+
+	/*do {*/
+		gotoxy(70, temp);
+		cout << "Day: ";
+		cin >> end.day;
+		temp++;
+		gotoxy(70, temp);
+		cout << "Month: ";
+		cin >> end.month;
+		temp++;
+		gotoxy(70, temp);
+		cout << "Year: ";
+		cin >> end.year;
+		temp++;
+	//} while ();
 
 	cin.ignore();
 
 	addSemester(semester, currSem, begin, end);
+
 }
 
 Courses *newCourse(string courseName, string courseID, string teacherName, int numCredits, int maxStudent, Schedules schedule[])
