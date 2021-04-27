@@ -303,23 +303,36 @@ void viewCourseScoreboard(ifstream& f)
 	}
 }
 
-float viewOwnScoreboard(ifstream& f)
+void viewOwnScoreboard(ifstream& f, int pos)
+{
+	string temp;
+
+	while (f.peek() != EOF)
+	{
+		getline(f, temp, ','); 	cout << temp << "\t"; // Course ID
+		getline(f, temp, ',');	cout << temp << "\t"; // Midterm
+		getline(f, temp, ',');	cout << temp << "\t"; // Final
+		getline(f, temp, ',');	cout << temp << "\t"; // Bonus
+		getline(f, temp);		cout << temp << "\t"; // Total
+	}
+}
+
+float getSemGPA(ifstream& f)
 {
 	string temp;
 	float sem_gpa = 0;
 	int course_count = 0;
 	while (f.peek() != EOF)
 	{
-		getline(f, temp, ',');	cout << temp << "\t"; // Course ID
-		getline(f, temp, ',');	cout << temp << "\t"; // Midterm
-		getline(f, temp, ',');	cout << temp << "\t"; // Final
-		getline(f, temp, ',');	cout << temp << "\t"; // Bonus
-		getline(f, temp);		cout << temp << "\t"; // Total
+		getline(f, temp, ',');
+		getline(f, temp, ',');
+		getline(f, temp, ',');
+		getline(f, temp, ',');
+		getline(f, temp);
 		sem_gpa += stof(temp);
 		course_count++;
 	}
 	sem_gpa /= course_count;
-	cout << "Your semester's GPA: " << sem_gpa;
 	return sem_gpa;
 }
 
@@ -398,57 +411,48 @@ void updateStudentResult(ifstream& f1, ifstream& f2, ofstream& nf1, ofstream& nf
 		}
 	}
 }
-//
-//void viewClassScoreboard(ifstream& f) // Require changing UI
-//{
-//	string studentID;
-//	string line, temp;
-//	float overall_GPA = 0;
-//	ifstream studentScoreboard;
-//	ifstream studentProfile;
-//
-//	int student_count = 1;
-//	int gpa_count = 0;
-//
-//	while (f.peek() != EOF)
-//	{
-//		getline(f, studentID);
-//
-//		cout << "No. " << student_count++ << endl;
-//
-//		studentScoreboard.open(Schoolyear + )
-//		studentProfile.open();
-//		
-//
-//		file.open("./" + Schoolyear + "/Classes/" + Class.className + "/" + pCur->ID + "/Course Sem " + Sem + "_Scoreboard.csv");
-//		while (file.peek() != EOF)
-//		{
-//			getline(file, line);
-//			stringstream s(line);
-//
-//			getline(s, temp, ',');
-//			cout << temp << "\t";	// print course id
-//			getline(s, temp, ',');
-//			cout << temp << "\t";	// print course name
-//			getline(s, temp, ',');
-//			cout << temp << "\t";	// print total mark
-//			overall_GPA += stof(temp);
-//			gpa_count++;
-//			getline(s, temp, ',');
-//			cout << temp << "\t";	// print final
-//			getline(s, temp, ',');
-//			cout << temp << "\t";	// print midterm
-//			getline(s, temp);
-//			cout << temp << "\n";	// print other mark
-//		}
-//
-//		overall_GPA /= gpa_count;
-//		cout << "Overall GPA of whole semester: " << overall_GPA << endl;
-//		cout << "Overall GPA: " << pCur->overall_gpa << endl;
-//		file.close();
-//		overall_GPA = 0;
-//		gpa_count = 0;
-//		cout << "Overall GPA: " << overall_GPA << endl;
-//		student_count++;
-//	}
-//}
+
+void viewClassScoreboard(ifstream& f, string className) // Require changing UI
+{
+	string studentID;
+	string line, temp;
+	ifstream studentScoreboard;
+	ifstream studentProfile;
+
+	int student_count = 1;
+
+	int pos = 21;
+
+	while (f.peek() != EOF)
+	{
+		getline(f, studentID);
+
+		cout << "No. " << student_count++ << "\t" << studentID << "\t";
+
+		studentScoreboard.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course " + Sem + " Scoreboard.csv");
+		studentProfile.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Profile.txt");
+
+		getline(studentProfile, temp);	//get last name
+		cout << temp << "\t";
+		getline(studentProfile, temp);	//get first name
+		cout << temp << "\n";
+
+		studentProfile.close();
+
+		viewOwnScoreboard(studentScoreboard, pos);
+
+		cout << "Semester GPA: " << getSemGPA(studentScoreboard);
+		studentScoreboard.close();
+
+		float overall_GPA = 0;
+		for (int i = 1; i <= 3; i++)
+		{
+			studentScoreboard.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course Sem " + to_string(i) + " Scoreboard.csv");
+			overall_GPA += getSemGPA(studentScoreboard);
+			studentScoreboard.close();
+		}
+		overall_GPA /= 3;
+		cout << "Overall GPA: " << overall_GPA;
+		student_count++;
+	}
+}

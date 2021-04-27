@@ -615,6 +615,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				importScoreboardCourse(f, courseID);
 				importScoreboardStudent(f, courseID);
 				f.close();
+				_getch();
 
 				Nocursortype();
 				fillBlackMenu();
@@ -652,8 +653,9 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				}
 
 				exportCourseStudent(f);
-
 				f.close();
+				_getch();
+
 				Nocursortype();
 				fillBlackMenu();
 				txtColor(15);
@@ -682,7 +684,6 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				cout << "Please input course ID: ";
 				cin >> courseID;
 
-				Nocursortype();
 				f.open(Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard.csv");
 				int temp = 21;
 				while (!f.is_open()) {
@@ -693,10 +694,11 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					temp++;
 				}
 				viewCourseScoreboard(f);
+				f.close();
 				_getch();
 
+				Nocursortype();
 				fillBlackMenu();
-
 				gotoxy(135, 18);	cout << " I M P O R T   C S V ";
 				gotoxy(135, 21);	cout << " E X P O R T   C S V ";
 				txtColor(240);
@@ -704,7 +706,6 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				txtColor(15);
 				gotoxy(121, 27);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
 				gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
-				f.close();
 
 				txtColor(15);
 			}
@@ -737,19 +738,20 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					temp+=2;
 				}
 
-				//viewClassScoreboard(f);
+				viewClassScoreboard(f, className);
+				f.close();
+
 				_getch();
 
+				Nocursortype();
 				fillBlackMenu();
-
 				gotoxy(135, 18);	cout << " I M P O R T   C S V ";
 				gotoxy(135, 21);	cout << " E X P O R T   C S V ";
-				txtColor(240);
 				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
-				txtColor(15);
+				txtColor(240);
 				gotoxy(121, 27);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
+				txtColor(15);
 				gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
-				f.close();
 
 				txtColor(15);
 			}
@@ -816,12 +818,14 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				f2.close();
 				nf1.close();
 				nf2.close();
+				_getch();
 
 				remove(oldcourseDir.c_str());
 				remove(oldstudentDir.c_str());
 
 				rename(newcourseDir.c_str(), oldcourseDir.c_str());
 				rename(newstudentDir.c_str(), oldstudentDir.c_str());
+
 
 				Nocursortype();
 				fillBlackMenu();
@@ -835,53 +839,4 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 			}
 		}
 	}
-	/*	Remove this, staff dont need to view a student scoreboard -DCat-
-	if (dem == 4)
-	{
-		txtColor(240);
-		gotoxy(121, 27);	cout << " V I E W   S T U D E N T   S C O R E B O A R D ";
-		if (choice == 13)
-		{
-			txtColor(15);
-			UnNocursortype();
-			string studentID, className;
-			ifstream f;
-
-			gotoxy(70, 20);
-			cout << "Please input class name:";
-			cin >> className;
-			cout << "Please input student ID: ";
-			cin >> studentID;
-			f.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course Scoreboard " + Sem + ".csv");
-			int temp = 21;
-			while (!f.is_open())
-			{
-				gotoxy(70, temp);
-				cout << "Please input class name:";
-				cin >> className;
-				cout << "Please input student ID: ";
-				cin >> studentID;
-				f.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course Scoreboard " + Sem + ".csv");
-				temp++;
-			}
-			viewStudentScoreboard(f);
-			_getch();
-			f.close();
-
-			Nocursortype();
-			fillBlackMenu();
-			txtColor(15);
-			gotoxy(135, 18);	cout << " I M P O R T   C S V ";
-			txtColor(240);
-			gotoxy(135, 21);	cout << " E X P O R T   C S V ";
-			txtColor(15);
-			gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
-			gotoxy(121, 27);	cout << " V I E W   S T U D E N T   S C O R E B O A R D ";
-			gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
-
-			txtColor(15);
-		}
-	}
-	*/
-//}
 }
