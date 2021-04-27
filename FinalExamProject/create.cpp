@@ -258,7 +258,8 @@ Semesters newSemester(int currSem, date begin, date end)
 {	
 	Semesters newSemester;
 	newSemester.sem = currSem;
-
+	dateStart = begin;
+	dateEnd = end;
 
 	return newSemester;
 }
