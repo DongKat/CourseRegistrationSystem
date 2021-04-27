@@ -732,3 +732,20 @@ bool loadCoursesFromFile(Courses *&course)
 	
 	return (count != -1);
 }
+
+void viewCourse(Courses *course)
+{
+	cout << "Course's ID: " << course -> courseID
+	 	 << "\nCourse's Name: " << course -> courseName
+	 	 << "\nCourse's Teacher: " << course -> teacherName
+		 << "\nCourse's num of credits: " << course -> numCredits
+		 << "\nCourse's max student: " << course -> maxStudent;
+		 << "\nCourse's first session: " << course -> shedule[0].day << ' ' << course -> shedule[0].time
+		 << "\nCourse's second session: " << course -> shedule[1].day << ' ' << course -> shedule[1].time;
+}
+
+
+void viewCourseMain(Courses *course)
+{
+	
+}
