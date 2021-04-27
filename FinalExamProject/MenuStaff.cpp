@@ -1,4 +1,5 @@
 #include "MenuStaff.h"
+#include "create.h"
 
 void ViewYearSem() {
 	txtColor(15);
@@ -346,6 +347,43 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
 			if (choice == 13)
 			{
+				if (Sem != " ") {
+					addNewSemesterMain(SEMESTER);
+
+					Nocursortype();
+					system("cls");
+					logo_moodle();
+					keyboardShortcut();
+					ViewYearSem();
+
+					txtColor(15);
+					gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
+					gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
+					txtColor(240);
+					gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
+					txtColor(15);
+					gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+					txtColor(15);
+					ViewYearSem();
+				}
+				else {
+					txtColor(15);
+					gotoxy(70, 20);
+					cout << "You must create school year first!";
+					Sleep(1000);
+
+					fillBlackMenu();
+					txtColor(15);
+					gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
+					gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
+					txtColor(240);
+					gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
+					txtColor(15);
+					gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+					txtColor(15);
+					continue;
+
+				}
 			}
 		}
 		if (dem == 4)
@@ -369,7 +407,19 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 					ViewYearSem();
 				}
 				else {
+					txtColor(15);
+					gotoxy(70, 20);
 					cout << "You must create semester first!";
+					Sleep(1000);
+
+					fillBlackMenu();
+					txtColor(15);
+					gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
+					gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
+					gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
+					txtColor(240);
+					gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+					txtColor(15);
 					continue;
 
 				}
@@ -661,7 +711,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					temp+=2;
 				}
 
-				viewClassScoreboard(f);
+				//viewClassScoreboard(f);
 				_getch();
 
 				fillBlackMenu();
@@ -807,5 +857,5 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 		}
 	}
 	*/
-}
+//}
 }
