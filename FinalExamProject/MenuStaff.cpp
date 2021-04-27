@@ -284,6 +284,24 @@ void MenuChangePasswordStaff(string username, string& password) {
 	gotoxy(64, 32); cout << "               L O G   O U T               ";
 }
 
+void MenuStaffView(char username[], char password[], int sizeUser, int sizePass) {
+	keyboardShortcut();
+	fillBlackMenu();
+
+
+	int dem = 0;
+
+	txtColor(15);
+	gotoxy(135, 18);	cout << " V I E W   L I S T   O F   C L A S S E S ";
+	gotoxy(135, 21);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
+	gotoxy(135, 22);	cout << "            I N   A   C L A S S            ";
+	gotoxy(122, 25);	cout << " V I E W   L I S T   O F   C O U R S E S ";
+	gotoxy(135, 28);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
+	gotoxy(135, 29);	cout << "           I N   A   C O U R S E           ";
+
+
+}
+
 void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass) {
 	keyboardShortcut();
 	fillBlackMenu();
