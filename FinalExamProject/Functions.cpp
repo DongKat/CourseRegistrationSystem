@@ -108,25 +108,70 @@ string checkStudentInClass(string studentID)
 	}
 }
 
-void importScoreboard(Courses* courseHead, string courseID, Students& student, string scoreboard_file_name)
+time_t timeToUnixTime(date end)
+{
+	int hour, min, sec;
+	hour = min = sec = 0;
+	//Assume session starts from 00:00:00
+	time_t a = time(0);
+	tm* timeinfo = localtime(&a);
+
+	timeinfo->tm_year = end.year - 1900;
+	timeinfo->tm_mon = end.month - 1;		//months since January - [0,11]
+	timeinfo->tm_mday = end.day;			//day of the month - [1,31]
+	timeinfo->tm_hour = hour;			//hours since midnight - [0,23]
+	timeinfo->tm_min = min;				//minutes after the hour - [0,59]
+	timeinfo->tm_sec = sec;				//seconds after the minute - [0,59]
+
+	a = mktime(timeinfo);
+
+	return a;
+}
+
+bool isCourseRegistrationSessionActive(date registerStartDay, date registerEndDay)
+{
+	time_t now = time(0);
+	if (timeToUnixTime(registerStartDay) <= now && now <= timeToUnixTime(registerEndDay))
+		return true;
+	return false;
+}
+
+string checkStudentClass(string studentID) // check if student in a class with Allstudents.txt and return class name
+{
+	ifstream classList, studentList;
+	string className, student;
+	classList.open(Schoolyear + "/Classes/AllClasses.txt");
+	while (classList.peek() != EOF)
+	{
+		getline(classList, className);
+		studentList.open(Schoolyear + "/Classes/" + className + "/AllStudents.txt");
+		while (studentList.peek() != EOF)
+		{
+			getline(studentList, student);
+			if (student == studentID)
+				return className;
+		}
+	}
+	return "-1";
+}
+/*
+void importScoreboard(Courses* courseHead, string courseID, Students& student, ifstream& f)
 {
 	CourseScore* pHead = new CourseScore, * pCur = pHead;
 	// copy outside file to course scoreboard
 	string course_dir = Schoolyear + "./Semester/Sem " + Sem + "/" + courseID + "/Scoreboard.csv";
 	string line;
-	ifstream file(courseID + "_Scoreboard.csv");
 	ofstream courseScoreboard(course_dir);
 
-	getline(file, line);
+	getline(f, line);
 	courseScoreboard << line;
-	while (file.peek() != EOF)
+	while (f.peek() != EOF)
 	{
-		getline(file, line);
+		getline(f, line);
 		courseScoreboard << endl << line;
 	}
 
-	file.close();
-	file.open(course_dir);
+	f.close();
 
 	string student_dir;
 	Courses* CourseCur = courseHead;
@@ -137,7 +182,7 @@ void importScoreboard(Courses* courseHead, string courseID, Students& student, s
 		CourseCur = CourseCur->next;
 	}
 
-	getline(file, line);	//skip field name
+	getline(f, line);	//skip field name
 	while (file.peek() != EOF)
 	{
 		getline(file, line);
@@ -175,6 +220,50 @@ void importScoreboard(Courses* courseHead, string courseID, Students& student, s
 		StudentCur = StudentCur->next;
 	}
 	delete pHead;
+}
+
+*/
+void importScoreboardCourse(ifstream& f, string courseID)
+{
+
+	string course_dir = Schoolyear + "./Semester/Sem " + Sem + "/" + courseID + "/Scoreboard.csv";
+	string line;
+
+	ofstream courseScoreboard;
+	courseScoreboard.open(course_dir);
+	while (f.peek() != EOF)
+	{
+		getline(f, line);
+		courseScoreboard << endl << line;
+	}
+}
+
+void importScoreboardStudent(ifstream& f, string courseID)
+{
+
+	string student_dir, line, temp;
+
+	ofstream studentScoreboard;
+
+	while (f.peek() != EOF)
+	{
+		getline(f, line);
+		stringstream s(line);
+		getline(s, temp, ','); // Get studentID
+		string className = checkStudentClass(temp);
+		if (className == "-1")
+		{
+			continue;
+		}
+		else
+		{
+			studentScoreboard.open(Schoolyear + "/Classes/" + className + "/" + temp + "/Course " + Sem + " Scoreboard.csv", ios::app | ios::out);
+			studentScoreboard << courseID << ",";
+			getline(s, temp);
+			studentScoreboard << temp;
+			studentScoreboard.close();
+		}
+	}
 }
 
 void exportCourseStudent(ifstream& file)
@@ -248,7 +337,7 @@ void updateStudentResult(ifstream& f1, ifstream& f2, ofstream& nf1, ofstream& nf
 			nf1 << temp << ',';
 			if (temp == studentID)
 			{
-				recordFlag == true;
+				recordFlag = true;
 				getline(s, temp, ',');	// Read Last Name
 				nf1 << temp << ',';
 				getline(s, temp, ',');	// Read First Name
@@ -352,3 +441,4 @@ void viewClassScoreboard(Classes Class) // Require changing UI
 		student_count++;
 	}
 }
+

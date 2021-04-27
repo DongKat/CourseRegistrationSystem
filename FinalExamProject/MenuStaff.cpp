@@ -149,7 +149,7 @@ void MenuStaffProfileInfo(string username, string password) {
 	string s;
 
 	in.open("Staff Profiles/" + username);
-	
+
 	int i = 24;
 	gotoxy(70, 24);	cout << "Name: ";
 	gotoxy(70, 26);	cout << "Gender: ";
@@ -316,7 +316,6 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
 			if (choice == 13)
 			{
-				
 			}
 		}
 
@@ -326,7 +325,6 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
 			if (choice == 13)
 			{
-				
 			}
 		}
 		if (dem == 3)
@@ -335,7 +333,6 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
 			if (choice == 13)
 			{
-
 			}
 		}
 		if (dem == 4)
@@ -344,11 +341,9 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
 			if (choice == 13)
 			{
-
 			}
 		}
 	}
-
 }
 
 void MenuEditCourses(char username[], char password[], int sizeUser, int sizePass) {
@@ -489,24 +484,29 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 			{
 				txtColor(15);
 				UnNocursortype();
-				string fileName;
+				string fileName, courseID;
 				ifstream f;
 				gotoxy(70, 20);
+				cout << "Please enter course ID: ";
+				cin >> courseID;
 				cout << "Please input file: ";
 				cin >> fileName;
 				f.open(fileName);
 				int temp = 21;
 				while (!f.is_open()) {
 					gotoxy(70, temp);
+					cout << "Please enter course ID: ";
+					cin >> courseID;
 					cout << "Please input file: ";
 					cin >> fileName;
 					f.open(fileName);
 					temp++;
 				}
 
-				// Function
+				importScoreboardCourse(f, courseID);
+				importScoreboardStudent(f, courseID);
+				f.close();				
 
-				f.close();
 				Nocursortype();
 				fillBlackMenu();
 				txtColor(240);
@@ -619,9 +619,9 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					Scores newScore;
 					int temp = 24;
 
-					gotoxy(70, 20);		cout << "Please input course ID: ";		cin >> courseID;
-					gotoxy(70, 21);		cout << "Please input class ID: ";		cin >> className;
-					gotoxy(70, 22);		cout << "Please input student ID: ";	cin >> studentID;
+					gotoxy(70, 20);		cout << "Please input course ID   :";	cin >> courseID;
+					gotoxy(70, 21);		cout << "Please input class ID    :";	cin >> className;
+					gotoxy(70, 22);		cout << "Please input student ID: :";	cin >> studentID;
 
 					oldcourseDir = "./" + Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard.csv";
 					oldstudentDir = "./" + Schoolyear + "/Classes/" + className + "/" + studentID + "/Course " + Sem + " Scoreboard.csv";
@@ -629,14 +629,17 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					f1.open(oldcourseDir);
 					f2.open(oldstudentDir);
 
-					while (!f1.is_open() && !f2.is_open())
+					while (!(f1.is_open() && f2.is_open()))
 					{
 						gotoxy(70, temp);		cout << "Open file failed!";
-						gotoxy(70, temp + 1);	cout << "Please input course ID: ";		cin >> courseID;
-						gotoxy(70, temp + 2);	cout << "Please input class ID:	";		cin >> className;
-						gotoxy(70, temp + 3);	cout << "Please input student ID: ";	cin >> studentID;
+						gotoxy(70, temp + 1);	cout << "Please input course ID   :";	cin >> courseID;
+						gotoxy(70, temp + 2);	cout << "Please input class ID    :";	cin >> className;
+						gotoxy(70, temp + 3);	cout << "Please input student ID: :";	cin >> studentID;
 
 						temp += 5;
+
+						oldcourseDir = "./" + Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard.csv";
+						oldstudentDir = "./" + Schoolyear + "/Classes/" + className + "/" + studentID + "/Course " + Sem + " Scoreboard.csv";
 
 						f1.open(oldcourseDir);
 						f2.open(oldstudentDir);
@@ -647,15 +650,6 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 
 					nf1.open(newcourseDir);
 					nf2.open(newstudentDir);
-
-					fillBlackMenu();
-					txtColor(15);
-					gotoxy(135, 18);	cout << " I M P O R T   C S V ";
-					gotoxy(135, 21);	cout << " E X P O R T   C S V ";
-					gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
-					txtColor(240);
-					gotoxy(123, 27);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
-					txtColor(15);
 
 					gotoxy(70, 20);		cout << "Please enter new score";
 					gotoxy(70, 21);		cout << "New midterm score: ";	cin >> newScore.Midterm;
