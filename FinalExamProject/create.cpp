@@ -471,6 +471,7 @@ void deleteCourse(Courses *&course, Courses *delCourse)
 
 void addNewCourseMain(Courses *&course)
 {
+	txtColor(15);
 	string courseID, courseName, teacherName;
 	int numCredits, maxStudent;
 	gotoxy(67, 20);
