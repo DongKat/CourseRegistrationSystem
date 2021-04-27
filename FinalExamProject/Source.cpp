@@ -1,32 +1,5 @@
 #include "Struct.h"
-#include "Source.h"
-time_t timeToUnixTime(date end)
-{
-    int hour, min, sec;
-    hour = min = sec = 0;
-    //Assume session starts from 00:00:00
-    time_t a = time(0);
-    tm* timeinfo = localtime(&a);
 
-    timeinfo->tm_year = end.year - 1900;
-    timeinfo->tm_mon = end.month - 1;        //months since January - [0,11]
-    timeinfo->tm_mday = end.day;            //day of the month - [1,31]
-    timeinfo->tm_hour = hour;            //hours since midnight - [0,23]
-    timeinfo->tm_min = min;                //minutes after the hour - [0,59]
-    timeinfo->tm_sec = sec;                //seconds after the minute - [0,59]
-
-    a = mktime(timeinfo);
-
-    return a;
-}
-
-bool isCourseRegistrationSessionActive(date registerStartDay, date registerEndDay)
-{
-    time_t now = time(0);
-    if (timeToUnixTime(registerStartDay) <= now && now <= timeToUnixTime(registerEndDay))
-        return true;
-    return false;
-}
 
 bool checkSchedule(Students aStudent, Courses courseNew)
 {
@@ -60,7 +33,7 @@ void enrollACourse(Students& aStudent, Courses& courseNew, fstream& f)
     f.close();
     f.open(Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(k) + ".csv", ios::out | ios::in);
 
-    if ((checkSchedule(aStudent, courseNew) == true) && (isCourseRegistrationSessionActive(dateStart, dateEnd) == true) && courseNew.countStudent < courseNew.maxStudent)
+    if ((checkSchedule(aStudent, courseNew) == true) && courseNew.countStudent < courseNew.maxStudent)
         if (count < 5)
         {
             for (int i = 0; i < count; i++)
@@ -83,7 +56,7 @@ void enrollACourse(Students& aStudent, Courses& courseNew, fstream& f)
             f << ++count1 << "," << aStudent.ID << "," << aStudent.firstName << "," << aStudent.lastName << ",0,0,0,0" << endl;
             f.close();
 
-            // chèn vào list course student
+            // chï¿½n vï¿½o list course student
             BasicCourses* pt = aStudent.courseStudent;
             if (pt == nullptr)
             {
@@ -108,7 +81,7 @@ void enrollACourse(Students& aStudent, Courses& courseNew, fstream& f)
                 courseNew.studentID->next = nullptr;
             }
 
-            // chèn student vào course
+            // chï¿½n student vï¿½o course
             if (courseNew.countStudent == 0)
             {
                 courseNew.studentID = new BasicStudents;
@@ -256,6 +229,7 @@ void updateCourseB4D(Students& aStudent, Courses& courseDelete, fstream& f)
     // file scoreboard
     file = "./" + Schoolyear + "/Semester/Semester" + to_string(courseDelete.sem) + "/" + courseDelete.courseID + "Scoreboard.csv";
     remove(file.c_str());
+    
     f.open(file, ios::out);
     BasicStudents* pCur = courseDelete.studentID;
     int count = 1;
@@ -279,10 +253,10 @@ void removeACourse(Students* aStudent, Courses* courseDelete, fstream& f)
 {
     string ignore_line;
 
-    // update file xoá
+    // update file xoï¿½
     updateCourseB4D(*aStudent, *courseDelete, f);
 
-    //Xoá dãy studentID cua course
+    //Xoï¿½ dï¿½y studentID cua course
     BasicStudents* pCur = courseDelete->studentID;
     BasicStudents* pdelete;
     while (pCur != nullptr)
@@ -346,7 +320,8 @@ void removeACourse(Students* aStudent, Courses* courseDelete, fstream& f)
     f.close();
 };
 
-void viewAllStudentInCourse(Courses* course)
+void viewAllStudentInCourse(Courses
+    * course)
 {
     int count = 1;
     BasicStudents* pCur = course->studentID;
