@@ -379,4 +379,4 @@ void viewClassScoreboard(Classes Class) // Require changing UI
 		cout << "Overall GPA: " << overall_GPA << endl;
 		student_count++;
 	}
-}
+
