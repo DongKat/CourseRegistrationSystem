@@ -17,15 +17,15 @@ void removeFolder(string path)
 
 void removeFile(string path)
 {
-	remove( path.c_str());
+	remove(path.c_str());
 }
 
 bool checkDate(date Date1, date Date2){  // true if date1 before or same as date 2
-	if (Date1.year < Date2.year) return 1;
-	if (Date1.year > Date2.year) return 0;
+	if (Date1.year<Date2.year) return 1;
+	if (Date1.year>Date2.year) return 0;
 
-	if (Date1.month < Date2.month) return 1;
-	if (Date1.month > Date2.month) return 0;
+	if (Date1.month<Date2.month) return 1;
+	if (Date1.month>Date2.month) return 0;
 	
 	if (Date1.day<Date2.day) return 1;
 	if (Date1.day>Date2.day) return 0;
@@ -190,8 +190,7 @@ Classes* newClass(string filepath, string className, string folder) {
 }
 
 void createFolderClass(string path,string Cname){
-	createFolder(path+"\\Classes\\"+Cname);
-}
+	createFolder(path+"\\Classes\\"+Cname);}
 
 void addClass(Classes *&Class, string folder) {
 	cin.clear();
@@ -238,6 +237,22 @@ void addClass(Classes *&Class, string folder) {
 	}
 }
 
+void deleteAllStudents(Students*& stu) {
+	while (stu) {
+		Students* tmp = stu;
+		stu = stu->next;
+		delete tmp;
+	}
+}
+
+void deleteAllClasses(Classes*& Class) {
+	while (Class) {
+		Classes* tmp = Class;
+		Class = Class->next;
+		delete tmp;
+	}
+}
+
 Semesters newSemester(int currSem, date begin, date end)
 {	
 	Semesters newSemester;
@@ -253,6 +268,11 @@ void addSemester(Semesters *semester, int currSem, date begin, date end)
 	semester[currSem - 1] = newSemester(currSem, begin, end);
 	Sem = "Sem " + to_string(currSem);
 	createFolder(Schoolyear + "/Semesters/" + Sem);
+
+	ofstream out;
+
+	out.open("YearAndSemester.txt");
+	out << SchoolYear + '\n' + Sem;
 }
 
 void addNewSemesterMain(Semesters *semester)
