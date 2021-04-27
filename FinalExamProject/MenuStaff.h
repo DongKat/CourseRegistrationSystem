@@ -12,6 +12,6 @@ void MenuStaffProfileInfo(string username, string password);
 void MenuChangePasswordStaff(string username, string& password);
 void MenuEditCourses(char username[], char password[], int sizeUser, int sizePass);
 void MenuStaffScoreboard(char username[], char password[], int sizeUser, int sizePass);
-
+void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass);
 
 #endif

@@ -95,6 +95,8 @@ void MenuStaffSettings(char username[], char password[], int sizeUser, int sizeP
 			gotoxy(64, 26); cout << "            C R E A T E   N E W            ";
 			if (choice == 13)
 			{
+				MenuCreateNew(username, password, sizeUser, sizePass);
+				keyboardShortcutMenu();
 			}
 		}
 		if (dem == 5)
@@ -267,6 +269,86 @@ void MenuChangePasswordStaff(string username, string& password) {
 	gotoxy(64, 28); cout << "          E D I T   C O U R S E S          ";
 	gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
 	gotoxy(64, 32); cout << "               L O G   O U T               ";
+}
+
+void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass) {
+	keyboardShortcut();
+	fillBlackMenu();
+
+	int dem = 0;
+
+	txtColor(15);
+	gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
+	gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
+	gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
+	gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+
+	while (true) {
+		char choice = _getch();
+		txtColor(15);
+		gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
+		gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
+		gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
+		gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+
+		if (choice == 80)
+		{
+			dem++;
+			if (dem > 4)
+				dem = 1;
+		}
+
+		if (choice == 72)
+		{
+			dem--;
+			if (dem < 1)
+				dem = 4;
+		}
+
+		if (choice == 27) { // ESC
+			MenuStaff(username, password, sizeUser, sizePass);
+			break;
+		}
+
+		if (dem == 1)
+		{
+			txtColor(240);
+			gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
+			if (choice == 13)
+			{
+				
+			}
+		}
+
+		if (dem == 2)
+		{
+			txtColor(240);
+			gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
+			if (choice == 13)
+			{
+				
+			}
+		}
+		if (dem == 3)
+		{
+			txtColor(240);
+			gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
+			if (choice == 13)
+			{
+
+			}
+		}
+		if (dem == 4)
+		{
+			txtColor(240);
+			gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+			if (choice == 13)
+			{
+
+			}
+		}
+	}
+
 }
 
 void MenuEditCourses(char username[], char password[], int sizeUser, int sizePass) {
