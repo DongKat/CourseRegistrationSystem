@@ -348,6 +348,7 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			if (choice == 13)
 			{
 
+				addNewSemesterMain(SEMESTER);
 				Nocursortype();
 				fillBlackMenu();
 				txtColor(15);
