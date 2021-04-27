@@ -108,7 +108,6 @@ string checkStudentInClass(string studentID)
 	}
 }
 
-
 time_t timeToUnixTime(date end)
 {
 	int hour, min, sec;
@@ -239,7 +238,7 @@ void viewCourseScoreboard(ifstream& f)
 	}
 }
 
-void viewStudentScoreboard(ifstream& f)
+void viewOwnScoreboard(ifstream& f)
 {
 	string temp;
 	int tmp = 21;
@@ -256,50 +255,80 @@ void viewStudentScoreboard(ifstream& f)
 	}
 }
 
-void updateStudentResult(Courses Course, string studentID, Scores newScore)
+void updateStudentResult(ifstream& f1, ifstream& f2, ofstream& nf1, ofstream& nf2, string studentID, string courseID, Scores newScore)
 {
-	string oldDir, newDir, temp;
-	bool recordFlag = false; // check if student record is update. if updated -> true
-	oldDir = "./" + Schoolyear + "/Semester/" + Sem + "/" + Course.courseID + "/Scoreboard.csv";
-	newDir = "./" + Schoolyear + "/Semester/"+ Sem + "/" + Course.courseID + "/Scoreboard_new.csv";
-	ifstream oldFile(oldDir);
-	ofstream newFile(newDir);
-	while (oldFile.peek() != EOF)
+	// check if student record is update. if updated -> true
+	bool recordFlag = false;
+	string line, temp;
+
+	// Update Course Scoreboard
+	while (f1.peek() != EOF)
 	{
+		getline(f1, line);
+
 		if (!recordFlag)
 		{
-			for (int i = 0; i < 8; i++)
+			stringstream s(line);
+
+			getline(s, temp, ',');	// Read No.
+			nf1 << temp << ',';
+			getline(s, temp, ',');	// Read StudentID
+			nf1 << temp << ',';
+			if (temp == studentID)
 			{
-				if (i == 7)
-				{
-					getline(oldFile, temp);
-					newFile << temp << "\n";
-				}
-				getline(oldFile, temp, ',');
-				newFile << temp << ",";
-				if (temp == studentID)
-				{
-					getline(oldFile, temp, ',');
-					newFile << temp << ",";
-					getline(oldFile, temp, ',');
-					newFile << temp << ",";
-					newFile << "," << newScore.Total << "," << newScore.Final << "," << newScore.Midterm << "," << newScore.Bonus << "\n";
-					getline(oldFile, temp);
-					recordFlag = true;
-					break;
-				}
+				recordFlag == true;
+				getline(s, temp, ',');	// Read Last Name
+				nf1 << temp << ',';
+				getline(s, temp, ',');	// Read First Name
+				nf1 << temp << ',';
+				getline(s, temp);	// Swallow the old score
+				nf1 << newScore.Midterm << ',' << newScore.Final << ',' << newScore.Bonus << ',' << newScore.Total << endl;
+			}
+			else
+			{
+				getline(s, temp);
+				nf1 << temp << endl;
 			}
 		}
 		else
 		{
-			getline(oldFile, temp);
-			newFile << temp << "\n";
+			nf1 << line << endl;
 		}
 	}
-	oldFile.close();
-	newFile.close();
-	remove(oldDir.c_str());
-	rename(newDir.c_str(), oldDir.c_str());
+
+	recordFlag = false; // Reusing variable, optimize memory usage :^)
+
+	while (f2.peek() != EOF)
+	{
+		getline(f2, line);
+
+		if (!recordFlag)
+		{
+			stringstream s(line);
+
+			getline(s, temp, ',');	// Read CourseID
+			nf2 << temp << ',';
+			if (temp == courseID)
+			{
+				recordFlag = true;
+				getline(s, temp, ',');	// Read Course Name
+				nf2 << temp << ',';
+				getline(s, temp);	// Swallow the old score
+				nf2 << newScore.Midterm << ',' << newScore.Final << ',' << newScore.Bonus << ',' << newScore.Total << endl;
+			}
+			// In case student ID is not found
+			else
+			{
+				getline(s, temp);
+				nf2 << temp << endl;
+			}
+		}
+		// In case certain record is found so get the whole line of the rest
+		else
+		{
+			nf2 << line << endl;
+		}
+	}
 }
 
 void viewClassScoreboard(Classes Class) // Require changing UI
