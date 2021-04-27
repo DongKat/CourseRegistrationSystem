@@ -165,7 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="student.csv" />
-    <None Include="Test.csv" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="staff.txt" />

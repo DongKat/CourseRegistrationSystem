@@ -1,8 +1,15 @@
 #include "MenuStaff.h"
 
+void ViewYearSem() {
+	txtColor(15);
+	gotoxy(5, 6);	cout << "School Year: " << Schoolyear;
+	gotoxy(5, 7);	cout << "Sem: " << Sem;
+}
+
 void MenuStaff(char username[], char password[], int sizeUser, int sizePass) {
 	system("cls");
 	logo_moodle();
+	ViewYearSem();
 	Nocursortype();
 
 	keyboardShortcutMenu();
@@ -67,6 +74,7 @@ void MenuStaffSettings(char username[], char password[], int sizeUser, int sizeP
 			if (choice == 13)
 			{
 				MenuStaffProfileInfo(username, password);
+				ViewYearSem();
 				keyboardShortcutMenu();
 			}
 		}
@@ -78,6 +86,7 @@ void MenuStaffSettings(char username[], char password[], int sizeUser, int sizeP
 			if (choice == 13)
 			{
 				MenuChangePasswordStaff(user, pass);
+				ViewYearSem();
 				keyboardShortcutMenu();
 			}
 		}
@@ -96,6 +105,7 @@ void MenuStaffSettings(char username[], char password[], int sizeUser, int sizeP
 			if (choice == 13)
 			{
 				MenuCreateNew(username, password, sizeUser, sizePass);
+				ViewYearSem();
 				keyboardShortcutMenu();
 			}
 		}
@@ -106,6 +116,7 @@ void MenuStaffSettings(char username[], char password[], int sizeUser, int sizeP
 			if (choice == 13)
 			{
 				MenuEditCourses(username, password, sizeUser, sizePass);
+				ViewYearSem();
 				keyboardShortcutMenu();
 			}
 		}
@@ -116,6 +127,7 @@ void MenuStaffSettings(char username[], char password[], int sizeUser, int sizeP
 			if (choice == 13)
 			{
 				MenuStaffScoreboard(username, password, sizeUser, sizePass);
+				ViewYearSem();
 				keyboardShortcutMenu();
 			}
 		}
@@ -126,6 +138,7 @@ void MenuStaffSettings(char username[], char password[], int sizeUser, int sizeP
 			if (choice == 13)
 			{
 				txtColor(0);
+				ViewYearSem();
 				Login(username, password, sizeUser, sizePass);
 			}
 		}
