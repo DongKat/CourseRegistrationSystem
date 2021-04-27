@@ -158,6 +158,7 @@
     <ClInclude Include="loadClass_Students.h" />
     <ClInclude Include="MenuStaff.h" />
     <ClInclude Include="MenuStudent.h" />
+    <ClInclude Include="Source.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Library.h" />
     <ClInclude Include="Struct.h" />

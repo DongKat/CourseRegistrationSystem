@@ -126,6 +126,6 @@ extern string Schoolyear;
 extern date dateStart;
 extern date dateEnd;
 extern string Sem;
-extern Semester SEMESTER[3];
+extern Semesters SEMESTER[3];
 extern Courses *COURSE;
 extern Classes *CLASS;

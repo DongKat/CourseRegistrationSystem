@@ -13,6 +13,9 @@ string Schoolyear ="2020-2021";
 date dateStart;
 date dateEnd;
 string Sem = "Sem 1";
+Semesters SEMESTER[3];
+Courses* COURSE;
+Classes* CLASS;
 
 int main() {
 	setWindowFullSize();

@@ -18,10 +18,6 @@ void deleteMarks(CourseScore*& pHead);
 
 string checkStudentInClass(string studentID);
 
-time_t timeToUnixTime(date end);
-
-bool isCourseRegistrationSessionActive(date registerStartDay, date registerEndDay);
-
 void importScoreboard(Courses* courseHead, string courseID, Students& student, string scoreboard_file_name);
 
 void exportCourseStudent(ifstream& file);

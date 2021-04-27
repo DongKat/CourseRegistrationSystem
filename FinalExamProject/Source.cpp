@@ -1,4 +1,5 @@
 #include "Struct.h"
+#include "Source.h"
 time_t timeToUnixTime(date end)
 {
     int hour, min, sec;
