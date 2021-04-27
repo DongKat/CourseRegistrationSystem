@@ -1,4 +1,5 @@
 #include "MenuStaff.h"
+#include "create.h"
 
 void ViewYearSem() {
 	txtColor(15);
@@ -20,13 +21,13 @@ void MenuStaff(char username[], char password[], int sizeUser, int sizePass) {
 	gotoxy(75, 18); cout << "H E L L O  S T A F F";
 
 	txtColor(15);
-	gotoxy(67, 20); cout << "P R O F I L E   I N F O R M A T I O N";
-	gotoxy(71, 22); cout << "C H A N G E   P A S S W O R D";
-	gotoxy(73, 24); cout << "V I E W   S T U D E N T S"; // VIEW STUDENTS IN CLASSES IN COURSES
-	gotoxy(76, 26); cout << "C R E A T E   N E W"; // CREATE SCHOOLYEAR(CLASS), SEMESTER, COURSE
-	gotoxy(74, 28); cout << "E D I T   C O U R S E S"; // IMPORT COURSES FILE EXISTS AND THEN STAFF CAN ENTER THE COURSE ID AND EDIT
-	gotoxy(76, 30); cout << "S C O R E B O A R D"; // VIEW AND EDIT INCLUDES 1. VIEW SCORES OF 1 COURSE
-	gotoxy(79, 32); cout << "L O G   O U T";				// 2. EDIT STUDENT SCORE IN COURSE, 3. VIEW ALL SCORES OF ALL COURSES
+	gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
+	gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
+	gotoxy(64, 24); cout << "                  V I E W                  ";
+	gotoxy(64, 26); cout << "            C R E A T E   N E W            ";
+	gotoxy(64, 28); cout << "          E D I T   C O U R S E S          ";
+	gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
+	gotoxy(64, 32); cout << "               L O G   O U T               ";
 
 	MenuStaffSettings(username, password, sizeUser, sizePass);
 }
@@ -42,7 +43,7 @@ void MenuStaffSettings(char username[], char password[], int sizeUser, int sizeP
 		txtColor(15);
 		gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
 		gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
-		gotoxy(64, 24); cout << "         V I E W   S T U D E N T S         ";
+		gotoxy(64, 24); cout << "                  V I E W                  ";
 		gotoxy(64, 26); cout << "            C R E A T E   N E W            ";
 		gotoxy(64, 28); cout << "          E D I T   C O U R S E S          ";
 		gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
@@ -93,7 +94,7 @@ void MenuStaffSettings(char username[], char password[], int sizeUser, int sizeP
 		if (dem == 3)
 		{
 			txtColor(240);
-			gotoxy(64, 24); cout << "         V I E W   S T U D E N T S         ";
+			gotoxy(64, 24); cout << "                  V I E W                  ";
 			if (choice == 13)
 			{
 			}
@@ -193,7 +194,7 @@ void MenuStaffProfileInfo(string username, string password) {
 
 			txtColor(15);
 			gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
-			gotoxy(64, 24); cout << "         V I E W   S T U D E N T S         ";
+			gotoxy(64, 24); cout << "                  V I E W                  ";
 			gotoxy(64, 26); cout << "            C R E A T E   N E W            ";
 			gotoxy(64, 28); cout << "          E D I T   C O U R S E S          ";
 			gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
@@ -277,7 +278,7 @@ void MenuChangePasswordStaff(string username, string& password) {
 	txtColor(240);
 	gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
 	txtColor(15);
-	gotoxy(64, 24); cout << "         V I E W   S T U D E N T S         ";
+	gotoxy(64, 24); cout << "                  V I E W                  ";
 	gotoxy(64, 26); cout << "            C R E A T E   N E W            ";
 	gotoxy(64, 28); cout << "          E D I T   C O U R S E S          ";
 	gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
@@ -329,6 +330,16 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
 			if (choice == 13)
 			{
+				inputSchoolYear();
+
+				fillBlackMenu();
+				txtColor(240);
+				gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
+				txtColor(15);
+				gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
+				gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
+				gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+				ViewYearSem();
 			}
 		}
 
@@ -338,6 +349,22 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
 			if (choice == 13)
 			{
+				addClass(CLASS, Schoolyear);
+				
+				Nocursortype();
+				system("cls");
+				logo_moodle();
+				keyboardShortcut();
+				ViewYearSem();
+
+				txtColor(15);
+				gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
+				txtColor(240);
+				gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
+				txtColor(15);
+				gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
+				gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+	
 			}
 		}
 		if (dem == 3)
@@ -346,6 +373,43 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
 			if (choice == 13)
 			{
+				if (Sem != "") {
+					addNewSemesterMain(SEMESTER);
+
+					Nocursortype();
+					system("cls");
+					logo_moodle();
+					keyboardShortcut();
+					ViewYearSem();
+
+					txtColor(15);
+					gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
+					gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
+					txtColor(240);
+					gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
+					txtColor(15);
+					gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+					txtColor(15);
+				
+				}
+				else {
+					txtColor(15);
+					gotoxy(70, 20);
+					cout << "You must create school year first!";
+					Sleep(1000);
+
+					fillBlackMenu();
+					txtColor(15);
+					gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
+					gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
+					txtColor(240);
+					gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
+					txtColor(15);
+					gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+					txtColor(15);
+					continue;
+
+				}
 			}
 		}
 		if (dem == 4)
@@ -354,7 +418,7 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
 			if (choice == 13)
 			{
-				if (Sem != " ") {
+				if (Sem != "") {
 					addNewCourseMain(COURSE);
 
 					Nocursortype();
@@ -369,7 +433,19 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 					ViewYearSem();
 				}
 				else {
+					txtColor(15);
+					gotoxy(70, 20);
 					cout << "You must create semester first!";
+					Sleep(1000);
+
+					fillBlackMenu();
+					txtColor(15);
+					gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
+					gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
+					gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
+					txtColor(240);
+					gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+					txtColor(15);
 					continue;
 
 				}
@@ -664,6 +740,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 
 				viewClassScoreboard(f, className);
 				f.close();
+
 				_getch();
 
 				Nocursortype();
@@ -762,52 +839,4 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 			}
 		}
 	}
-	/*	Remove this, staff dont need to view a student scoreboard -DCat-
-	if (dem == 4)
-	{
-		txtColor(240);
-		gotoxy(121, 27);	cout << " V I E W   S T U D E N T   S C O R E B O A R D ";
-		if (choice == 13)
-		{
-			txtColor(15);
-			UnNocursortype();
-			string studentID, className;
-			ifstream f;
-
-			gotoxy(70, 20);
-			cout << "Please input class name:";
-			cin >> className;
-			cout << "Please input student ID: ";
-			cin >> studentID;
-			f.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course Scoreboard " + Sem + ".csv");
-			int temp = 21;
-			while (!f.is_open())
-			{
-				gotoxy(70, temp);
-				cout << "Please input class name:";
-				cin >> className;
-				cout << "Please input student ID: ";
-				cin >> studentID;
-				f.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course Scoreboard " + Sem + ".csv");
-				temp++;
-			}
-			viewStudentScoreboard(f);
-			_getch();
-			f.close();
-
-			Nocursortype();
-			fillBlackMenu();
-			txtColor(15);
-			gotoxy(135, 18);	cout << " I M P O R T   C S V ";
-			txtColor(240);
-			gotoxy(135, 21);	cout << " E X P O R T   C S V ";
-			txtColor(15);
-			gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
-			gotoxy(121, 27);	cout << " V I E W   S T U D E N T   S C O R E B O A R D ";
-			gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
-
-			txtColor(15);
-		}
-	}
-	*/
 }

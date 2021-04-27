@@ -9,13 +9,13 @@
 #include "Struct.h"
 #include "UI.h"
 
-string Schoolyear = " ";
+string Schoolyear = "";
 date dateStart;
 date dateEnd;
-string Sem = " ";
+string Sem = "";
 Semesters SEMESTER[3];
-Courses* COURSE;
-Classes* CLASS;
+Courses* COURSE = nullptr;
+Classes* CLASS = nullptr;
 
 int main() {
 	setWindowFullSize();

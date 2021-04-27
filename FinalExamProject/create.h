@@ -61,3 +61,8 @@ void deleteCourseFolder(Courses* delCourse);
 void editCourseMain(Courses*& course);
 
 bool loadCoursesFromFile(Courses*& course);
+
+void viewCourseMain(Courses *course);
+
+void viewCourseMain(Courses *course);
+
