@@ -1,6 +1,5 @@
 #include "create.h"
 
-
 using namespace std;
 
 bool createFolder(string path)
@@ -100,10 +99,19 @@ void createFolderStudent(string path){
 	f.open(path+"\\Course Sem 1.csv");
 	f.close();
 
+	f.open(path+"\\Course Sem 1 Scoreboard.csv");
+	f.close();
+
 	f.open(path+"\\Course Sem 2.csv");
 	f.close();
 
+	f.open(path+"\\Course Sem 2 Scoreboard.csv");
+	f.close();
+
 	f.open(path+"\\Course Sem 3.csv");
+	f.close();
+
+	f.open(path+"\\Course Sem 3 Scoreboard.csv");
 	f.close();
 	
 	f.open(path+"\\Profile.txt");
@@ -216,7 +224,7 @@ void addClass(Classes *&Class, string folder) {
 
 	fstream f;
 
-	f.open(folder+"\\Classes\\Classes.txt", ios::app | ios::out);   //ghi ten lop ra file
+	f.open(folder+"\\Classes\\allClasses.txt", ios::app | ios::out);   //ghi ten lop ra file
 	f << Cname << "\n";
 	f.close();
 
@@ -237,22 +245,6 @@ void addClass(Classes *&Class, string folder) {
 	if (Class) tmpClass->next = newClass(filepath, Cname,folder+"\\Classes");
 	else {
 		Class=newClass(filepath,Cname,folder+"\\Classes");
-	}
-}
-
-void deleteAllStudents(Students*& stu) {
-	while (stu) {
-		Students* tmp = stu;
-		stu = stu->next;
-		delete tmp;
-	}
-}
-
-void deleteAllClasses(Classes*& Class) {
-	while (Class) {
-		Classes* tmp = Class;
-		Class = Class->next;
-		delete tmp;
 	}
 }
 
