@@ -22,7 +22,7 @@ int main() {
 	txtColor(0);
 	//autoGenerateStudentAccounts("student.csv");
 	//autoGenerateStudentProfiles("student1.csv");
-	//autoGenerateStaffProfiles("staff.txt");
+	autoGenerateStaffProfiles("staff.txt");
 
 	//loadYearAndSem();
 	//loadCoursesFromFile(COURSE);

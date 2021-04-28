@@ -620,11 +620,12 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 			gotoxy(140, 24); cout << " E D I T ";
 			if (choice == 13)
 			{
+				txtColor(15);
 				string courseID;
 				string course;
 				string teacherName;
 
-				gotoxy(100, 25);
+				gotoxy(70, 20);
 				cout << "Please enter ID Course: ";
 				cin >> courseID;
 			}
@@ -635,6 +636,7 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 			gotoxy(140, 27); cout << " D E L E T E ";
 			if (choice == 13)
 			{
+				txtColor(15);
 			}
 		}
 	}
@@ -691,17 +693,23 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				UnNocursortype();
 				string fileName, courseID;
 				ifstream f;
+				
 				gotoxy(70, 20);
 				cout << "Please enter course ID: ";
 				cin >> courseID;
+		
+				gotoxy(70, 21);
 				cout << "Please input file: ";
 				cin >> fileName;
+			
 				f.open(fileName);
-				int temp = 21;
+				int temp = 22;
 				while (!f.is_open()) {
 					gotoxy(70, temp);
 					cout << "Please enter course ID: ";
 					cin >> courseID;
+					temp++;
+					gotoxy(70, temp);
 					cout << "Please input file: ";
 					cin >> fileName;
 					f.open(fileName);
@@ -772,7 +780,6 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 			if (choice == 13)
 			{
 				txtColor(15);
-				UnNocursortype();
 				string courseID;
 				ifstream f;
 
