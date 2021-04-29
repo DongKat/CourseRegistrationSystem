@@ -297,6 +297,8 @@ bool loadYearAndSem()
 
 void addSemester(Semesters *semester, int currSem, date begin, date end)
 {
+	createFolder(Schoolyear + "/Semesters/");
+
 	semester[currSem - 1] = newSemester(currSem, begin, end);
 	Sem = "Sem " + to_string(currSem);
 	createFolder(Schoolyear + "/Semesters/" + Sem);
@@ -420,6 +422,7 @@ Courses *addCourse(Courses *&course, string courseName, string courseID, string 
 void createFolderNFileCourse(Courses *course)
 {
 	ofstream out;
+
 
 	createFolder(Schoolyear + "/Semesters/" + Sem + '/' + course -> courseID);
 
