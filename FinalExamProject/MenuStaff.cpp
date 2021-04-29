@@ -700,7 +700,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 		if (dem == 1)
 		{
 			txtColor(240);
-			txtColor(15);
+		
 			gotoxy(135, 18);	cout << " E X P O R T   C S V ";
 			if (choice == 13)
 			{
