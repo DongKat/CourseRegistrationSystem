@@ -206,7 +206,7 @@ void addClass(Classes *&Class, string folder) {
 	txtColor(15);
 	cin.clear();
 	fflush(stdin);
-	cin.ignore();
+	
 
 	if (Schoolyear!="") {
 		cout << "You must create school year first!\n";
