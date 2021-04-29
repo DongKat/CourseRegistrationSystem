@@ -370,3 +370,13 @@ void viewAllStudentInClass(Classes* Class)
         pCur = pCur->next;
     }
 }
+
+void viewAllCourse()
+{
+    Courses *curCourse = COURSE;
+    while (curCourse!=nullptr)
+    {
+        cout<<" Course ID: "<<curCourse->courseID<<" Course name: "<<curCourse->courseName;
+        curCourse=curCourse->next;
+    }
+}
