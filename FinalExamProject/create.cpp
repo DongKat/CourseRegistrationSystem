@@ -208,8 +208,10 @@ void addClass(Classes *&Class, string folder) {
 	fflush(stdin);
 	
 
-	if (Schoolyear!="") {
+	if (Schoolyear == "") {
+		gotoxy(70, 20);
 		cout << "You must create school year first!\n";
+		Sleep(1000);
 		return;
 	}
 
@@ -293,8 +295,10 @@ void addSemester(Semesters *semester, int currSem, date begin, date end)
 
 void addNewSemesterMain(Semesters *semester)
 {
-	if (Schoolyear!="") {
+	if (Schoolyear == "") {
+		gotoxy(70, 20);
 		cout << "You must create school year first!\n";
+		Sleep(1000);
 		return;
 	}
 
@@ -475,8 +479,10 @@ void deleteCourse(Courses *&course, Courses *delCourse)
 
 void addNewCourseMain(Courses *&course)
 {
-	if (Sem!=""){
-		cout << "You must create sem first!\n";
+	if (Sem == ""){
+		gotoxy(70, 20);
+		cout << "You must create semester first!\n";
+		Sleep(1000);
 		return;
 	}
 	txtColor(15);
