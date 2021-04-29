@@ -339,13 +339,8 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
-./vs
-./x64
-./FinalExamProject/x64
-./DS_Store
-FinalExamProject/function13.cpp
+vs
+x64
+FinalExamProject/x64
 .DS_Store
 FinalExamProject/.DS_Store
-FinalExamProject/2020-2021/Classes/20apcs2/.DS_Store
-FinalExamProject/2020-2021/Classes/.DS_Store
-FinalExamProject/2020-2021/.DS_Store
