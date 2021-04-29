@@ -24,7 +24,7 @@ void MenuStaff(char username[], char password[], int sizeUser, int sizePass) {
 	gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
 	gotoxy(64, 24); cout << "                  V I E W                  ";
 	gotoxy(64, 26); cout << "            C R E A T E   N E W            ";
-	gotoxy(64, 28); cout << "          E D I T   C O U R S E S          ";
+	gotoxy(64, 28); cout << "               C O U R S E S               ";
 	gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
 	gotoxy(64, 32); cout << "               L O G   O U T               ";
 
@@ -44,7 +44,7 @@ void MenuStaffSettings(char username[], char password[], int sizeUser, int sizeP
 		gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
 		gotoxy(64, 24); cout << "                  V I E W                  ";
 		gotoxy(64, 26); cout << "            C R E A T E   N E W            ";
-		gotoxy(64, 28); cout << "          E D I T   C O U R S E S          ";
+		gotoxy(64, 28); cout << "               C O U R S E S               ";
 		gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
 		gotoxy(64, 32); cout << "               L O G   O U T               ";
 
@@ -115,7 +115,7 @@ void MenuStaffSettings(char username[], char password[], int sizeUser, int sizeP
 		if (dem == 5)
 		{
 			txtColor(240);
-			gotoxy(64, 28); cout << "          E D I T   C O U R S E S          ";
+			gotoxy(64, 28); cout << "               C O U R S E S               ";
 			if (choice == 13)
 			{
 				MenuEditCourses(username, password, sizeUser, sizePass);
@@ -198,7 +198,7 @@ void MenuStaffProfileInfo(string username, string password) {
 			gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
 			gotoxy(64, 24); cout << "                  V I E W                  ";
 			gotoxy(64, 26); cout << "            C R E A T E   N E W            ";
-			gotoxy(64, 28); cout << "          E D I T   C O U R S E S          ";
+			gotoxy(64, 28); cout << "               C O U R S E S               ";
 			gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
 			gotoxy(64, 32); cout << "               L O G   O U T               ";
 			return;
@@ -282,7 +282,7 @@ void MenuChangePasswordStaff(string username, string& password) {
 	txtColor(15);
 	gotoxy(64, 24); cout << "                  V I E W                  ";
 	gotoxy(64, 26); cout << "            C R E A T E   N E W            ";
-	gotoxy(64, 28); cout << "          E D I T   C O U R S E S          ";
+	gotoxy(64, 28); cout << "               C O U R S E S               ";
 	gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
 	gotoxy(64, 32); cout << "               L O G   O U T               ";
 }
