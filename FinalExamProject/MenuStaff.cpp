@@ -595,7 +595,7 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 			if (choice == 13)
 			{
 				txtColor(15);
-				gotoxy(36, 30);
+				
 				ifstream in;
 				string s;
 
@@ -605,7 +605,7 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 				while (!in.eof()) {
 					getline(in, s);
 
-					gotoxy(5, i);
+					gotoxy(50, i);
 					cout << s << endl;
 					i++;
 				}
@@ -626,8 +626,9 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 				string teacherName;
 
 				gotoxy(70, 20);
-				cout << "Please enter ID Course: ";
-				cin >> courseID;
+				editCourseMain(COURSE);
+
+
 			}
 		}
 		if (dem == 3)
@@ -637,6 +638,8 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 			if (choice == 13)
 			{
 				txtColor(15);
+				deleteCourseMain(COURSE);
+
 			}
 		}
 	}
