@@ -104,7 +104,15 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 			gotoxy(64, 28); cout << "            S C O R E B O A R D            ";
 			if (choice == 13)
 			{
+				txtColor(15);
+				UnNocursortype();
+				ifstream f;
+				string className = checkStudentInClass(user);
+				gotoxy(70, 21);		cout << "Opening your semester scoreboard.";
+				f.open(Schoolyear + "/Classes/" + className + "/" + user + "/Course " + Sem + " Scoreboard.csv");
+				viewOwnScoreboard(f, 20);
 
+				
 			}
 		}
 		if (dem == 6)
