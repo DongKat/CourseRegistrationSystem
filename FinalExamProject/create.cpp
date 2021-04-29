@@ -328,7 +328,7 @@ void addNewSemesterMain(Semesters *semester)
 
 	do {
 		gotoxy(70, temp);
-		cout << "Enter semester: ";
+		cout << "Enter semester(Ex:1): ";
 		cin >> currSem;
 		temp++;
 	} while (currSem != 1 && currSem != 2 && currSem != 3);
@@ -347,7 +347,7 @@ void addNewSemesterMain(Semesters *semester)
 		cin >> begin.month;
 		temp++;
 		gotoxy(70, temp);
-		cout << "Year: ";
+		cout << "Year(In the range of School Year): ";
 		cin >> begin.year;
 		temp++;
 	} while (!isLegalDate(begin));
@@ -367,7 +367,7 @@ void addNewSemesterMain(Semesters *semester)
 		cin >> end.month;
 		temp++;
 		gotoxy(70, temp);
-		cout << "Year: ";
+		cout << "Year(In the range of School Year): ";
 		cin >> end.year;
 		temp++;
 	} while (!isLegalDate(end));
@@ -542,11 +542,11 @@ void addNewCourseMain(Courses *&course)
 		cout << "Enter session:\n\n";
 		temp++;
 		gotoxy(70, temp);
-		cout << "Day of week: "; // MON, THU
+		cout << "Day of week(From MON to SUN): "; // MON, THU
 		getline(cin, schedule[i].day);
 		temp++;
 		gotoxy(70, temp);
-		cout << "Time: ";		//S1, S2, S3
+		cout << "Time(S1, S2, S3): ";		//S1, S2, S3
 		getline(cin, schedule[i].time);
 		temp++;
 	}
@@ -634,9 +634,9 @@ void editCourseMain(Courses *&course)
 		for (int i = 0; i < 2; ++i)
 		{
 			cout << "Enter session\n";
-			cout << "Day of week: "; // MON, THU
+			cout << "Day of week(From MON to SUN): "; // MON, THU
 			getline(cin, edit -> schedule[i].day);		//lay thu day
-			cout << "Time: ";		//S1, S2, S3
+			cout << "Time(S1, S2, S3): ";		//S1, S2, S3
 			getline(cin, edit -> schedule[i].time);		//lay buoi moi
 		}
 
