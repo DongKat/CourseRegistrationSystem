@@ -203,9 +203,6 @@ void createFolderClass(string path,string Cname){
 	createFolder(path+"\\Classes\\"+Cname);}
 
 void addClass(Classes *&Class, string folder) {
-	txtColor(15);
-	
-	
 
 	txtColor(15);
 	if (Schoolyear == "") {
@@ -214,7 +211,6 @@ void addClass(Classes *&Class, string folder) {
 		Sleep(1000);
 		return;
 	}
-
 
 	Classes *tmpClass=Class;
 
