@@ -3,5 +3,6 @@
 #include "Struct.h"
 
 void deleteCouseScore(CourseScore *&head);
-void deleteCourse();
-void deleteCourse();
+void deleteCourses();
+void deleteClasses();
+

@@ -16,10 +16,11 @@ void MenuStudent(char username[], char password[], int sizeUser, int sizePass) {
 	txtColor(15);
 	gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
 	gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
-	gotoxy(64, 24); cout << "          E D I T   C O U R S E S          ";
-	gotoxy(64, 26); cout << "          V I E W   C O U R S E S          ";
-	gotoxy(64, 28); cout << "            S C O R E B O A R D            ";
-	gotoxy(64, 30); cout << "               L O G   O U T               ";
+	gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
+	gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
+	gotoxy(64, 28); cout << "  V I E W  E N R O L L E D   C O U R S E S ";
+	gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
+	gotoxy(64, 32); cout << "               L O G   O U T               ";
 
 	MenuStudentSettings(username, password, sizeUser, sizePass);
 }
@@ -35,10 +36,11 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 		txtColor(15);
 		gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
 		gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
-		gotoxy(64, 24); cout << "          E D I T   C O U R S E S          ";
-		gotoxy(64, 26); cout << "          V I E W   C O U R S E S          ";
-		gotoxy(64, 28); cout << "            S C O R E B O A R D            ";
-		gotoxy(64, 30); cout << "               L O G   O U T               ";
+		gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
+		gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
+		gotoxy(64, 28); cout << "  V I E W  E N R O L L E D   C O U R S E S ";
+		gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
+		gotoxy(64, 32); cout << "               L O G   O U T               ";
 
 		if (choice == 80)
 		{
@@ -83,16 +85,22 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 		if (dem == 3)
 		{
 			txtColor(240);
-			gotoxy(64, 24); cout << "          E D I T   C O U R S E S          ";
+			gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
 			if (choice == 13)
 			{
+				string courseID;
+				fstream f;
+
+				// Function view courses
+				cout << "Please enter course ID: ";
+				cin >> courseID;
 
 			}
 		}
 		if (dem == 4)
 		{
 			txtColor(240);
-			gotoxy(64, 26); cout << "          V I E W   C O U R S E S          ";
+			gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
 			if (choice == 13)
 			{
 
@@ -101,7 +109,16 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 		if (dem == 5)
 		{
 			txtColor(240);
-			gotoxy(64, 28); cout << "            S C O R E B O A R D            ";
+			gotoxy(64, 28); cout << "  V I E W  E N R O L L E D   C O U R S E S ";
+			if (choice == 13)
+			{
+
+			}
+		}
+		if (dem == 6)
+		{
+			txtColor(240);
+			gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
 			if (choice == 13)
 			{
 				txtColor(15);
@@ -115,10 +132,10 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				
 			}
 		}
-		if (dem == 6)
+		if (dem == 7)
 		{
 			txtColor(240);
-			gotoxy(64, 30); cout << "               L O G   O U T               ";
+			gotoxy(64, 32); cout << "               L O G   O U T               ";
 			if (choice == 13)
 			{
 				txtColor(0);

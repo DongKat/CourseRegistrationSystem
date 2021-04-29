@@ -55,7 +55,7 @@ void enrollACourse(Students& aStudent, Courses& courseNew, fstream& f)
     while (!f.eof())
     {
         getline(f, ignore_line);
-        count++
+        count++;
     }
     f.close();
     f.open(Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(k) + ".csv", ios::out | ios::in);
@@ -128,6 +128,7 @@ void enrollACourse(Students& aStudent, Courses& courseNew, fstream& f)
             courseNew.countStudent++;
         }
 }
+
 void viewEnrolledCourses(Students aStudent, fstream& f)
 {
     string courseID;
@@ -230,6 +231,7 @@ void viewEnrolledCourses(Students aStudent, fstream& f)
     }
     f.close();
 }
+
 void updateCourseB4D(Students& aStudent, Courses& courseDelete, fstream& f)
 {
     //file student

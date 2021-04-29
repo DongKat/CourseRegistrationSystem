@@ -1,4 +1,5 @@
 #include "Struct.h"
+#include "deleteFinal.h"
 
 void deleteCouseScore(CourseScore *&head)
 {
@@ -9,7 +10,7 @@ void deleteCouseScore(CourseScore *&head)
     }
 }
 
-void deleteCourse()
+void deleteCourses()
 {
     Courses *pCourse=COURSE;
     Courses *pdeleteCourse;
@@ -32,7 +33,7 @@ void deleteCourse()
     }
 };
 
-void deleteCourse()
+void deleteClasses()
 {
     Classes *pClass=CLASS;
     Classes *pdeleteClass;

@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="AutoGenerate.cpp" />
     <ClCompile Include="create.cpp" />
+    <ClCompile Include="deleteFinal.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="loadClass_Students.cpp" />
     <ClCompile Include="main.cpp" />
@@ -153,6 +154,7 @@
   <ItemGroup>
     <ClInclude Include="AutoGenerate.h" />
     <ClInclude Include="create.h" />
+    <ClInclude Include="deleteFinal.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="InputLogin.h" />
     <ClInclude Include="loadClass_Students.h" />
