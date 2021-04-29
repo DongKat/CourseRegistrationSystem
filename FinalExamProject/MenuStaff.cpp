@@ -96,6 +96,9 @@ void MenuStaffSettings(char username[], char password[], int sizeUser, int sizeP
 			gotoxy(64, 24); cout << "                  V I E W                  ";
 			if (choice == 13)
 			{
+				MenuStaffView(username, password, sizeUser, sizePass);
+				ViewYearSem();
+				keyboardShortcutMenu();
 			}
 		}
 		if (dem == 4)
@@ -292,13 +295,89 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 	int dem = 0;
 
 	txtColor(15);
-	gotoxy(135, 18);	cout << " V I E W   L I S T   O F   C L A S S E S ";
-	gotoxy(135, 21);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
-	gotoxy(135, 22);	cout << "            I N   A   C L A S S            ";
-	gotoxy(122, 25);	cout << " V I E W   L I S T   O F   C O U R S E S ";
-	gotoxy(135, 28);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
-	gotoxy(135, 29);	cout << "           I N   A   C O U R S E           ";
+	gotoxy(127, 20);	cout << " V I E W   L I S T   O F   C L A S S E S ";
 
+	gotoxy(126, 23);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
+	gotoxy(126, 24);	cout << "            I N   A   C L A S S            ";
+
+	gotoxy(127, 27);	cout << " V I E W   L I S T   O F   C O U R S E S ";
+
+	gotoxy(126, 30);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
+	gotoxy(126, 31);	cout << "           I N   A   C O U R S E           ";
+
+	while (true) {
+		char choice = _getch();
+		txtColor(15);
+		gotoxy(127, 20);	cout << " V I E W   L I S T   O F   C L A S S E S ";
+
+		gotoxy(126, 23);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
+		gotoxy(126, 24);	cout << "            I N   A   C L A S S            ";
+
+		gotoxy(127, 27);	cout << " V I E W   L I S T   O F   C O U R S E S ";
+
+		gotoxy(126, 30);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
+		gotoxy(126, 31);	cout << "           I N   A   C O U R S E           ";
+
+		if (choice == 80)
+		{
+			dem++;
+			if (dem > 4)
+				dem = 1;
+		}
+
+		if (choice == 72)
+		{
+			dem--;
+			if (dem < 1)
+				dem = 4;
+		}
+
+		if (choice == 27) { // ESC
+			MenuStaff(username, password, sizeUser, sizePass);
+			break;
+		}
+
+		if (dem == 1)
+		{
+			txtColor(240);
+			gotoxy(127, 20);	cout << " V I E W   L I S T   O F   C L A S S E S ";
+			if (choice == 13)
+			{
+				
+			}
+		}
+
+		if (dem == 2)
+		{
+			txtColor(240);
+			gotoxy(126, 23);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
+			gotoxy(126, 24);	cout << "            I N   A   C L A S S            ";
+			if (choice == 13)
+			{
+				
+
+			}
+		}
+		if (dem == 3)
+		{
+			txtColor(240);
+			gotoxy(127, 27);	cout << " V I E W   L I S T   O F   C O U R S E S ";
+			if (choice == 13)
+			{
+			
+			}
+		}
+		if (dem == 4)
+		{
+			txtColor(240);
+			gotoxy(126, 30);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
+			gotoxy(126, 31);	cout << "           I N   A   C O U R S E           ";
+			if (choice == 13)
+			{
+
+			}
+		}
+	}
 
 }
 
@@ -541,11 +620,12 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 			gotoxy(140, 24); cout << " E D I T ";
 			if (choice == 13)
 			{
+				txtColor(15);
 				string courseID;
 				string course;
 				string teacherName;
 
-				gotoxy(100, 25);
+				gotoxy(70, 20);
 				cout << "Please enter ID Course: ";
 				cin >> courseID;
 			}
@@ -556,6 +636,7 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 			gotoxy(140, 27); cout << " D E L E T E ";
 			if (choice == 13)
 			{
+				txtColor(15);
 			}
 		}
 	}
@@ -612,17 +693,23 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				UnNocursortype();
 				string fileName, courseID;
 				ifstream f;
+				
 				gotoxy(70, 20);
 				cout << "Please enter course ID: ";
 				cin >> courseID;
+		
+				gotoxy(70, 21);
 				cout << "Please input file: ";
 				cin >> fileName;
+			
 				f.open(fileName);
-				int temp = 21;
+				int temp = 22;
 				while (!f.is_open()) {
 					gotoxy(70, temp);
 					cout << "Please enter course ID: ";
 					cin >> courseID;
+					temp++;
+					gotoxy(70, temp);
 					cout << "Please input file: ";
 					cin >> fileName;
 					f.open(fileName);
@@ -693,7 +780,6 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 			if (choice == 13)
 			{
 				txtColor(15);
-				UnNocursortype();
 				string courseID;
 				ifstream f;
 
