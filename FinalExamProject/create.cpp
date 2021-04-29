@@ -99,19 +99,19 @@ void createFolderStudent(string path){
 	f.open(path+"\\Course Sem 1.csv");
 	f.close();
 
-	f.open(path+"\\Course Sem 1 Scoreboard.csv");
+	f.open(path+"\\Course Scoreboard Sem 1.csv");
 	f.close();
 
 	f.open(path+"\\Course Sem 2.csv");
 	f.close();
 
-	f.open(path+"\\Course Sem 2 Scoreboard.csv");
+	f.open(path+"\\Course Scoreboard Sem 2.csv");
 	f.close();
 
 	f.open(path+"\\Course Sem 3.csv");
 	f.close();
 
-	f.open(path+"\\Course Sem 3 Scoreboard.csv");
+	f.open(path+"\\Course Scoreboard Sem 3.csv");
 	f.close();
 	
 	f.open(path+"\\Profile.txt");
@@ -208,6 +208,11 @@ void addClass(Classes *&Class, string folder) {
 	fflush(stdin);
 	cin.ignore();
 
+	if (Schoolyear!="") {
+		cout << "You must create school year first!\n";
+		return;
+	}
+
 	Classes *tmpClass=Class;
 
 	while (tmpClass && tmpClass->next) tmpClass=tmpClass->next;
@@ -288,6 +293,11 @@ void addSemester(Semesters *semester, int currSem, date begin, date end)
 
 void addNewSemesterMain(Semesters *semester)
 {
+	if (Schoolyear!="") {
+		cout << "You must create school year first!\n";
+		return;
+	}
+
 	txtColor(15);
 	int currSem;
 	date begin, end;
@@ -465,6 +475,10 @@ void deleteCourse(Courses *&course, Courses *delCourse)
 
 void addNewCourseMain(Courses *&course)
 {
+	if (Sem!=""){
+		cout << "You must create sem first!\n";
+		return;
+	}
 	txtColor(15);
 	string courseID, courseName, teacherName;
 	int numCredits, maxStudent;
