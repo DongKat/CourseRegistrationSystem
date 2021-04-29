@@ -204,30 +204,37 @@ void createFolderClass(string path,string Cname){
 
 void addClass(Classes *&Class, string folder) {
 	txtColor(15);
-	cin.clear();
-	fflush(stdin);
+	
 	
 
+	txtColor(15);
 	if (Schoolyear == "") {
 		gotoxy(70, 20);
 		cout << "You must create school year first!\n";
 		Sleep(1000);
 		return;
 	}
-	cin.ignore();
+
+
 	Classes *tmpClass=Class;
 
 	while (tmpClass && tmpClass->next) tmpClass=tmpClass->next;
 
 	string Cname;
+
 	int temp = 20;
 	gotoxy(70, temp);
-	do {                       							// lay ten lop
+	cout << "Please enter class's name(Ex:20apcs1): ";
+	getline(cin, Cname);
+
+
+	while (createFolder(folder + "\\Classes\\" + Cname)) {   	// lay ten lop
+		
 		gotoxy(70, temp);
-		cout << "Please enter class's name(Ex: 20apcs1): ";
+		cout << "Please enter class's name(Ex:20apcs1): ";
 		getline(cin, Cname);
 		temp++;
-	} while (createFolder(folder + "\\Classes\\" + Cname));
+	} 
 
 	fstream f;
 
@@ -264,6 +271,7 @@ void addClass(Classes *&Class, string folder) {
 	else {
 		Class=newClass(filepath,Cname,folder+"\\Classes");
 	}
+	
 }
 
 Semesters newSemester(int currSem, date begin, date end)
