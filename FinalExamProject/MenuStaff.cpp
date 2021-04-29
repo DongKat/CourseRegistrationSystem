@@ -594,6 +594,17 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 			gotoxy(140, 21); cout << " V I E W ";
 			if (choice == 13)
 			{
+				if (Sem == "") {
+					txtColor(15);
+					gotoxy(70, 20);
+					cout << "You must create semester first!";
+					Sleep(1000);
+					gotoxy(70, 20);
+					txtColor(0);
+					cout << "You must create semester first!";
+					continue;
+				}
+
 				txtColor(15);
 				
 				ifstream in;
