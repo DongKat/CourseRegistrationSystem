@@ -55,7 +55,7 @@ void enrollACourse(Students& aStudent, Courses& courseNew, fstream& f)
     while (!f.eof())
     {
         getline(f, ignore_line);
-        count++
+        count++;
     }
     f.close();
     f.open(Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course Sem" + to_string(k) + ".csv", ios::out | ios::in);

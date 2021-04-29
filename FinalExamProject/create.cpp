@@ -214,7 +214,7 @@ void addClass(Classes *&Class, string folder) {
 		Sleep(1000);
 		return;
 	}
-
+	cin.ignore();
 	Classes *tmpClass=Class;
 
 	while (tmpClass && tmpClass->next) tmpClass=tmpClass->next;
@@ -224,7 +224,7 @@ void addClass(Classes *&Class, string folder) {
 	gotoxy(70, temp);
 	do {                       							// lay ten lop
 		gotoxy(70, temp);
-		cout << "Please enter class's name: ";
+		cout << "Please enter class's name(Ex: 20apcs1): ";
 		getline(cin, Cname);
 		temp++;
 	} while (createFolder(folder + "\\Classes\\" + Cname));
@@ -237,9 +237,20 @@ void addClass(Classes *&Class, string folder) {
 
 	string filepath;
 
+	gotoxy(17, 18); cout << "C S V   F I L E S";
+	gotoxy(20, 19); cout << "17apcs1.csv";
+	gotoxy(20, 20); cout << "17apcs2.csv";
+	gotoxy(20, 21); cout << "18apcs1.csv";
+	gotoxy(20, 22); cout << "18apcs2.csv";
+	gotoxy(20, 23); cout << "19apcs1.csv";
+	gotoxy(20, 24); cout << "19apcs2.csv";
+	gotoxy(20, 25); cout << "20apcs1.csv";
+	gotoxy(20, 26); cout << "20apcs2.csv";
+
 	do{								//lay danh sach lop
 		gotoxy(70, temp);
 		filepath.clear();
+		
 		cout << "Please enter the path of CSV file: ";
 		getline(cin, filepath);
 		temp++;
