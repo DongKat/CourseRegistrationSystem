@@ -285,7 +285,6 @@ void exportCourseStudent(ifstream& file)
 void viewCourseScoreboard(ifstream& f)
 {
 	// view Course scoreboard
-
 	string temp;
 	int tmp = 21;
 	getline(f, temp);
@@ -302,7 +301,6 @@ void viewCourseScoreboard(ifstream& f)
 		getline(f, temp);		cout << temp;
 		tmp++;
 	}
-	_getch();
 }
 
 void viewOwnScoreboard(ifstream& f, int pos)

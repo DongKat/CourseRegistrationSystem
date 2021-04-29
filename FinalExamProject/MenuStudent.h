@@ -2,6 +2,7 @@
 #define __MENUSTUDENT_H_INCLUDED__ 
 
 #include "Struct.h"
+#include "Functions.h"
 #include "UI.h"
 #include "InputLogin.h"
 

@@ -652,20 +652,20 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 	int dem = 0;
 
 	txtColor(15);
-	gotoxy(135, 18);	cout << " I M P O R T   C S V ";
-	gotoxy(135, 21);	cout << " E X P O R T   C S V ";
+	gotoxy(135, 18);	cout << " E X P O R T   C S V ";
+	gotoxy(135, 21);	cout << " I M P O R T   C S V ";
 	gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
-	gotoxy(121, 27);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
-	gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+	gotoxy(123, 27);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+	gotoxy(121, 30);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
 
 	while (true) {
 		char choice = _getch();
 		txtColor(15);
-		gotoxy(135, 18);	cout << " I M P O R T   C S V ";
-		gotoxy(135, 21);	cout << " E X P O R T   C S V ";
+		gotoxy(135, 18);	cout << " E X P O R T   C S V ";
+		gotoxy(135, 21);	cout << " I M P O R T   C S V ";
 		gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
-		gotoxy(121, 27);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
-		gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+		gotoxy(123, 27);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+		gotoxy(121, 30);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
 
 		if (choice == 80)
 		{
@@ -689,7 +689,8 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 		if (dem == 1)
 		{
 			txtColor(240);
-			gotoxy(135, 18);	cout << " I M P O R T   C S V ";
+			txtColor(15);
+			gotoxy(135, 18);	cout << " E X P O R T   C S V ";
 			if (choice == 13)
 			{
 				txtColor(15);
@@ -727,19 +728,19 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				Nocursortype();
 				fillBlackMenu();
 				txtColor(240);
-				gotoxy(135, 18);	cout << " I M P O R T   C S V ";
+				gotoxy(135, 18);	cout << " E X P O R T   C S V ";
 				txtColor(15);
-				gotoxy(135, 21);	cout << " E X P O R T   C S V ";
+				gotoxy(135, 21);	cout << " I M P O R T   C S V ";
 				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
-				gotoxy(121, 27);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
-				gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+				gotoxy(123, 27);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+				gotoxy(121, 30);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
 			}
 		}
 		// Export CSV
 		if (dem == 2)
 		{
 			txtColor(240);
-			gotoxy(135, 21);	cout << " E X P O R T   C S V ";
+			gotoxy(135, 21);	cout << " I M P O R T   C S V ";
 			if (choice == 13)
 			{
 				txtColor(15);
@@ -817,56 +818,11 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 			}
 		}
 		// View Class Scoreboard
+		// Update Student Score
 		if (dem == 4)
 		{
 			txtColor(240);
-			gotoxy(121, 27);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
-			if (choice == 13)
-			{
-				txtColor(15);
-				UnNocursortype();
-				string className;
-				ifstream f;
-				int temp = 21;
-
-				gotoxy(70, 20);
-				cout << "Please input class name: ";
-				cin >> className;
-				f.open(Schoolyear + "/Classes/" + className + "/allStudents.csv");
-
-				while (!f.is_open()) {
-					gotoxy(70, temp);
-					cout << "Class not found";
-					gotoxy(70, temp + 1);
-					cout << "Please input class name: ";
-					cin >> className;
-					f.open(Schoolyear + "/Classes/" + className + "/allStudents.csv");
-					temp+=2;
-				}
-
-				viewClassScoreboard(f, className);
-				f.close();
-
-				_getch();
-
-				Nocursortype();
-				fillBlackMenu();
-				gotoxy(135, 18);	cout << " I M P O R T   C S V ";
-				gotoxy(135, 21);	cout << " E X P O R T   C S V ";
-				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
-				txtColor(240);
-				gotoxy(121, 27);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
-				txtColor(15);
-				gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
-
-				txtColor(15);
-			}
-		}
-		// Update Student Score
-		if (dem == 5)
-		{
-			txtColor(240);
-			gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+			gotoxy(123, 27);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
 			if (choice == 13)
 			{
 				txtColor(15);
@@ -941,6 +897,51 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				gotoxy(121, 27);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
 				txtColor(240);
 				gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+				txtColor(15);
+			}
+		}
+		if (dem == 5)
+		{
+			txtColor(240);
+			gotoxy(121, 30);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
+			if (choice == 13)
+			{
+				txtColor(15);
+				UnNocursortype();
+				string className;
+				ifstream f;
+				int temp = 21;
+
+				gotoxy(70, 20);
+				cout << "Please input class name: ";
+				cin >> className;
+				f.open(Schoolyear + "/Classes/" + className + "/allStudents.csv");
+
+				while (!f.is_open()) {
+					gotoxy(70, temp);
+					cout << "Class not found";
+					gotoxy(70, temp + 1);
+					cout << "Please input class name: ";
+					cin >> className;
+					f.open(Schoolyear + "/Classes/" + className + "/allStudents.csv");
+					temp+=2;
+				}
+
+				viewClassScoreboard(f, className);
+				f.close();
+
+				_getch();
+
+				Nocursortype();
+				fillBlackMenu();
+				gotoxy(135, 18);	cout << " I M P O R T   C S V ";
+				gotoxy(135, 21);	cout << " E X P O R T   C S V ";
+				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
+				txtColor(240);
+				gotoxy(121, 27);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
+				txtColor(15);
+				gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+
 				txtColor(15);
 			}
 		}
