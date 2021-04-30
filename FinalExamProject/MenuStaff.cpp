@@ -427,7 +427,6 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			if (choice == 13)
 			{
 				inputSchoolYear();
-
 				fillBlackMenu();
 				txtColor(240);
 				gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
