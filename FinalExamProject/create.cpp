@@ -203,31 +203,34 @@ void createFolderClass(string path,string Cname){
 	createFolder(path+"\\Classes\\"+Cname);}
 
 void addClass(Classes *&Class, string folder) {
-	txtColor(15);
-	cin.clear();
-	fflush(stdin);
-	
 
+	txtColor(15);
 	if (Schoolyear == "") {
 		gotoxy(70, 20);
 		cout << "You must create school year first!\n";
 		Sleep(1000);
 		return;
 	}
-	cin.ignore();
+
 	Classes *tmpClass=Class;
 
 	while (tmpClass && tmpClass->next) tmpClass=tmpClass->next;
 
 	string Cname;
+
 	int temp = 20;
 	gotoxy(70, temp);
-	do {                       							// lay ten lop
+	cout << "Please enter class's name(Ex:20apcs1): ";
+	getline(cin, Cname);
+
+
+	while (createFolder(folder + "\\Classes\\" + Cname)) {   	// lay ten lop
+		
 		gotoxy(70, temp);
-		cout << "Please enter class's name(Ex: 20apcs1): ";
+		cout << "Please enter class's name(Ex:20apcs1): ";
 		getline(cin, Cname);
 		temp++;
-	} while (createFolder(folder + "\\Classes\\" + Cname));
+	} 
 
 	fstream f;
 
@@ -264,6 +267,7 @@ void addClass(Classes *&Class, string folder) {
 	else {
 		Class=newClass(filepath,Cname,folder+"\\Classes");
 	}
+	
 }
 
 Semesters newSemester(int currSem, date begin, date end)
@@ -293,6 +297,8 @@ bool loadYearAndSem()
 
 void addSemester(Semesters *semester, int currSem, date begin, date end)
 {
+	createFolder(Schoolyear + "/Semesters/");
+
 	semester[currSem - 1] = newSemester(currSem, begin, end);
 	Sem = "Sem " + to_string(currSem);
 	createFolder(Schoolyear + "/Semesters/" + Sem);
@@ -324,7 +330,7 @@ void addNewSemesterMain(Semesters *semester)
 
 	do {
 		gotoxy(70, temp);
-		cout << "Enter semester: ";
+		cout << "Enter semester(Ex:1): ";
 		cin >> currSem;
 		temp++;
 	} while (currSem != 1 && currSem != 2 && currSem != 3);
@@ -343,7 +349,7 @@ void addNewSemesterMain(Semesters *semester)
 		cin >> begin.month;
 		temp++;
 		gotoxy(70, temp);
-		cout << "Year: ";
+		cout << "Year(In the range of School Year): ";
 		cin >> begin.year;
 		temp++;
 	} while (!isLegalDate(begin));
@@ -363,7 +369,7 @@ void addNewSemesterMain(Semesters *semester)
 		cin >> end.month;
 		temp++;
 		gotoxy(70, temp);
-		cout << "Year: ";
+		cout << "Year(In the range of School Year): ";
 		cin >> end.year;
 		temp++;
 	} while (!isLegalDate(end));
@@ -416,6 +422,7 @@ Courses *addCourse(Courses *&course, string courseName, string courseID, string 
 void createFolderNFileCourse(Courses *course)
 {
 	ofstream out;
+
 
 	createFolder(Schoolyear + "/Semesters/" + Sem + '/' + course -> courseID);
 
@@ -538,11 +545,11 @@ void addNewCourseMain(Courses *&course)
 		cout << "Enter session:\n\n";
 		temp++;
 		gotoxy(70, temp);
-		cout << "Day of week: "; // MON, THU
+		cout << "Day of week(From MON to SUN): "; // MON, THU
 		getline(cin, schedule[i].day);
 		temp++;
 		gotoxy(70, temp);
-		cout << "Time: ";		//S1, S2, S3
+		cout << "Time(S1, S2, S3): ";		//S1, S2, S3
 		getline(cin, schedule[i].time);
 		temp++;
 	}
@@ -630,9 +637,9 @@ void editCourseMain(Courses *&course)
 		for (int i = 0; i < 2; ++i)
 		{
 			cout << "Enter session\n";
-			cout << "Day of week: "; // MON, THU
+			cout << "Day of week(From MON to SUN): "; // MON, THU
 			getline(cin, edit -> schedule[i].day);		//lay thu day
-			cout << "Time: ";		//S1, S2, S3
+			cout << "Time(S1, S2, S3): ";		//S1, S2, S3
 			getline(cin, edit -> schedule[i].time);		//lay buoi moi
 		}
 
