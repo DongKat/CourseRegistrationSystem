@@ -8,7 +8,7 @@ bool isCourseRegistrationSessionActive(date registerStartDay, date registerEndDa
 
 bool checkSchedule(Students aStudent, Courses courseNew);
 
-void enrollACourse(Students& aStudent, Courses& courseNew, fstream& f);
+void enrollACourse(Students& aStudent, Courses& courseNew);
 
 void viewEnrolledCourses(Students* aStudent);
 

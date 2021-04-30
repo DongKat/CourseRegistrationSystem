@@ -1,6 +1,5 @@
 #include "MenuStudent.h"
 
-
 void MenuStudent(char username[], char password[], int sizeUser, int sizePass) {
 	system("cls");
 	logo_moodle();
@@ -29,6 +28,30 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 	int dem = 0;
 	string user = convertToString(username, sizeUser);
 	string pass = convertToString(password, sizePass);
+
+	// Find Student node inside Class linked list *sigh. Unelegant, smh
+
+	Classes* pClass = CLASS;	// Find class in linked list
+	Students* pStudent;	// Find student in linked list
+
+	string className;
+
+	while (pClass) // Iterate class list
+	{
+		bool flag = false;	// student found flag
+		pStudent = pClass->student;
+		while (pStudent)					// Iterate students
+		{
+			if (pStudent->ID == user)	// check StudentID
+			{
+				flag = true;
+				break;
+			}
+		}
+		if (flag)
+			break;
+	}
+	// pStudent is a pointer to user's Student node in linked list
 
 	while (true)
 	{
@@ -80,7 +103,6 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				MenuChangePasswordStudent(user, pass);
 				keyboardShortcutMenu();
 			}
-
 		}
 		if (dem == 3)
 		{
@@ -89,32 +111,82 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 			if (choice == 13)
 			{
 				string courseID;
-				fstream f;
-
-				// Function view courses
 				cout << "Please enter course ID: ";
 				cin >> courseID;
 
+				Courses* pCourse = COURSE;
+				while (pCourse)
+				{
+					if (pCourse->courseID == courseID)
+						break;
+				}
+				enrollACourse(*pStudent, *pCourse);
+
 			}
 		}
+
+		// Not tested
 		if (dem == 4)
 		{
 			txtColor(240);
 			gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
 			if (choice == 13)
 			{
+				string courseID;
+				gotoxy(70, 20); cout << "Please enter course ID you want to delete: ";
+				cin >> courseID;
 
+				Courses* pCourse = COURSE;
+				while (pCourse)
+				{
+					if (pCourse->courseID == courseID)
+						break;
+				}
+				removeACourse(pStudent, pCourse);
+
+				Nocursortype();
+				fillBlackMenu();
+				txtColor(15);
+				gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
+				gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
+				gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
+				txtColor(240);
+				gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
+				txtColor(15);
+				gotoxy(64, 28); cout << "  V I E W  E N R O L L E D   C O U R S E S ";
+				gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
+				gotoxy(64, 32); cout << "               L O G   O U T               ";
 			}
 		}
+
+		// Not tested
 		if (dem == 5)
 		{
 			txtColor(240);
 			gotoxy(64, 28); cout << "  V I E W  E N R O L L E D   C O U R S E S ";
 			if (choice == 13)
 			{
+				if (pStudent->enrolledCourses)
+					viewEnrolledCourses(pStudent);
+				else
+					gotoxy(70, 20); cout << "You haven't enrolled any course yet!";
 
+				Nocursortype();
+				fillBlackMenu();
+				txtColor(15);
+				gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
+				gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
+				gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
+				gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
+				txtColor(240);
+				gotoxy(64, 28); cout << "  V I E W  E N R O L L E D   C O U R S E S ";
+				txtColor(15);
+				gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
+				gotoxy(64, 32); cout << "               L O G   O U T               ";
 			}
 		}
+
+		//Not tested
 		if (dem == 6)
 		{
 			txtColor(240);
@@ -125,11 +197,22 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				UnNocursortype();
 				ifstream f;
 				string className = checkStudentInClass(user);
-				gotoxy(70, 21);		cout << "Opening your semester scoreboard.";
+				gotoxy(70, 21);		cout << "Opening your semester scoreboard...";
 				f.open(Schoolyear + "/Classes/" + className + "/" + user + "/Course " + Sem + " Scoreboard.csv");
-				viewOwnScoreboard(f, 20);
+				viewOwnScoreboard(f, 22);
 
-				
+				Nocursortype();
+				fillBlackMenu();
+				txtColor(15);
+				gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
+				gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
+				gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
+				gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
+				gotoxy(64, 28); cout << "  V I E W  E N R O L L E D   C O U R S E S ";
+				txtColor(240);
+				gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
+				txtColor(15);
+				gotoxy(64, 32); cout << "               L O G   O U T               ";
 			}
 		}
 		if (dem == 7)
@@ -188,15 +271,12 @@ void MenuStudentProfileInfo(string username, string password) {
 	gotoxy(70, 30);	cout << "Date Of Birth: " << dob;
 	gotoxy(70, 32);	cout << "Social ID: " << socialID;
 
-
-
 	while (true) {
 		char choice = _getch();
 
 		if (choice == 13 || choice == 27) {
 			fillBlackMenu();
 			drawBorderMenuStudent();
-
 
 			txtColor(15);
 			gotoxy(74, 18); cout << "H E L L O  S T U D E N T";
@@ -212,10 +292,7 @@ void MenuStudentProfileInfo(string username, string password) {
 			gotoxy(64, 30); cout << "               L O G   O U T               ";
 			return;
 		}
-
 	}
-
-
 }
 
 void MenuChangePasswordStudent(string username, string& password) {
@@ -259,8 +336,6 @@ void MenuChangePasswordStudent(string username, string& password) {
 		cin >> newPasswordAgain;
 		temp++;
 	} while (newPassword.compare(newPasswordAgain) != 0);
-
-
 
 	ifstream in;
 	ofstream out;

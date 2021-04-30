@@ -146,7 +146,7 @@ Students* newStudent(int no, string ID, string FirstName, string LastName, strin
 	f.open(folder+"\\"+ID+"\\Profile.txt");
 		f << no << "\n" << ID << "\n" << FirstName << "\n" << LastName << "\n" << gender << "\n";
 		printDateToFile(dateOfBirth,f);
-		f << "\n" << idSocial;
+		f << "\n" << idSocial << endl << className;
 	f.close();
 
 	return stu;
