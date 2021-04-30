@@ -36,6 +36,16 @@ bool checkDate(date Date1, date Date2){  // true if date1 before or same as date
 bool createFolderSchoolYear(string path){	//false if this is new year
 	bool checkNewYear = createFolder(path);
 	createFolder(path+"\\Classes");
+
+	//Duy da o day
+	createFolder(path+ "/Semesters");
+
+	ofstream out;
+	out.open("YearAndSemester.txt");
+	out << SchoolYear + '\n';
+	out.close();
+	//
+
 	return checkNewYear;
 }
 
@@ -297,8 +307,6 @@ bool loadYearAndSem()
 
 void addSemester(Semesters *semester, int currSem, date begin, date end)
 {
-	createFolder(Schoolyear + "/Semesters/");
-
 	semester[currSem - 1] = newSemester(currSem, begin, end);
 	Sem = "Sem " + to_string(currSem);
 	createFolder(Schoolyear + "/Semesters/" + Sem);
