@@ -2,9 +2,8 @@
 
 using namespace std;
 
-bool createFolder(string path)
+bool createFolder(string path) //true if folder existed
 {
-	//true if folder existed
 	int tmp=mkdir(path.c_str());
 	if (tmp) return true;
 	else return false;
