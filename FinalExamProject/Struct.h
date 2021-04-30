@@ -89,9 +89,9 @@ struct Students
     string gender;
     date dateOfBirth;
     string idSocial;
-    float overall_gpa = 0;
-    int total_courses_count = 0;
+
     BasicCourses *courseStudent=nullptr;
+
     Students *next;
     Students *prev;
 };
