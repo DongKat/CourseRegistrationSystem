@@ -31,7 +31,7 @@ bool isCourseRegistrationSessionActive(date registerStartDay, date registerEndDa
 
 bool checkSchedule(Students aStudent, Courses courseNew)
 {
-	BasicCourses* ptem = aStudent.enrolledCourses;
+	BasicCourses* ptem = aStudent.courseStudent;
 	while (ptem != nullptr)
 	{
 		if (ptem->sem == courseNew.sem)
@@ -86,10 +86,10 @@ void enrollACourse(Students& aStudent, Courses& courseNew)
 			f.close();
 
 			// Insert into student's list of enrolled courses
-			BasicCourses* pt = aStudent.enrolledCourses;
+			BasicCourses* pt = aStudent.courseStudent;
 			if (pt == nullptr)
 			{
-				aStudent.enrolledCourses = new BasicCourses;
+				aStudent.courseStudent = new BasicCourses;
 				pt->courseID = courseNew.courseID;
 				pt->courseName = courseNew.courseName;
 				for (int i = 0; i < 2; i++)
@@ -172,7 +172,7 @@ void removeACourse(Students* aStudent, Courses* courseDelete)
 		- Pass two linked list to updateCourseB4D
 	*/
 
-	if (aStudent->enrolledCourses == nullptr)
+	if (aStudent->courseStudent == nullptr)
 		return;
 
 
@@ -200,12 +200,12 @@ void removeACourse(Students* aStudent, Courses* courseDelete)
 	delete pCurStudent;
 
 	//Delete course in students
-	BasicCourses* pCurCourse = aStudent->enrolledCourses;
+	BasicCourses* pCurCourse = aStudent->courseStudent;
 	BasicCourses* pDelCourse;
-	if (aStudent->enrolledCourses->courseID == courseDelete->courseID)
+	if (aStudent->courseStudent->courseID == courseDelete->courseID)
 	{
-		pDelCourse = aStudent->enrolledCourses;
-		aStudent->enrolledCourses = pCurCourse->next;
+		pDelCourse = aStudent->courseStudent;
+		aStudent->courseStudent = pCurCourse->next;
 		delete pDelCourse;
 	}
 	while (pCurCourse != nullptr && pCurCourse->courseID != courseDelete->courseID)
@@ -239,7 +239,7 @@ void updateCourseB4D(Students* aStudent, Courses* courseDelete)
 	remove(dir.c_str());
 	file.open(dir);
 
-	BasicCourses* pCurrentCourse = aStudent->enrolledCourses;
+	BasicCourses* pCurrentCourse = aStudent->courseStudent;
 	while (pCurrentCourse != nullptr)
 	{
 		file << pCurrentCourse->courseID << "," << pCurrentCourse->courseName << "," << courseDelete->schedule[0].day << "," << courseDelete->schedule[0].time << "," << courseDelete->schedule[1].day << "," << courseDelete->schedule[1].time << endl;

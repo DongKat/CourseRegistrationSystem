@@ -86,7 +86,7 @@ struct Students
 	date dateOfBirth;
 	string idSocial;
 
-	BasicCourses* enrolledCourses = nullptr;
+	BasicCourses* courseStudent = nullptr;
 
 	Students* next;
 	Students* prev;
