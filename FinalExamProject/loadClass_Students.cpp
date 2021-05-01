@@ -1,6 +1,5 @@
 #include "loadClass_Students.h"
 
-
 float convertToFloat(string score) {
 	int j = 0;
 	float ans = 0;
@@ -19,7 +18,7 @@ float convertToFloat(string score) {
 	return ans;
 }
 
-BasicCourses* loadCourse(string path, int sem, string StudentID) {
+BasicCourses* loadCourse(string path, string StudentID) {
 	BasicCourses* course = nullptr, * tmp = nullptr;
 	ifstream f;
 	f.open(path);
@@ -38,40 +37,17 @@ BasicCourses* loadCourse(string path, int sem, string StudentID) {
 		}
 		tmp->courseID = stmp;
 		getline(f, tmp->courseName, ',');
-
-		//f>>tmp->mark->Midterm >> tmp->mark->Final >> tmp->mark->Bonus >> tmp->mark->Total;
-		f.ignore(100000, ',');
-
-		//tmp->mark=new CourseScore;
-		//tmp->mark->next=0;
-		/*
-		string score="";
-		getline(f,score,',');
-		tmp->mark->Midterm=convertToFloat(score);
-
-		getline(f,score,',');
-		tmp->mark->Final=convertToFloat(score);
-
-		getline(f,score,',');
-		tmp->mark->Bonus=convertToFloat(score);
-
-		getline(f,score,',');
-		tmp->mark->Total=convertToFloat(score);
-
-		tmp->mark->studentID=StudentID;
-		*/
-
 		getline(f, tmp->schedule[0].day, ',');
 		getline(f, tmp->schedule[0].time, ',');
 		getline(f, tmp->schedule[1].day, ',');
 		getline(f, tmp->schedule[1].time);
-		tmp->sem = sem;
 	}
 	f.close();
 	return course;
 }
 
-Students* loadStudentInfo(string path) {         //path: schoolyear/classes/classname/id/
+Students* loadStudentInfo(string path) //path: schoolyear/classes/classname/id/
+{
 	Students* stu = new Students;
 	stu->courseStudent = nullptr;
 	// get student's basic info
@@ -91,23 +67,13 @@ Students* loadStudentInfo(string path) {         //path: schoolyear/classes/clas
 	f.close();
 
 	//get course
-	stu->courseStudent = loadCourse(path + "\\Course Sem 1.csv", 1, stu->ID);
-
-	BasicCourses* tmp = stu->courseStudent;
-	for (int i = 2; i <= 3; ++i) 
-	{
-		while (tmp && tmp->next) tmp = tmp->next;
-		if (tmp) tmp->next = loadCourse(path + "\\Course Sem" + char(i + '0') + ".csv", i, stu->ID);
-		else 
-		{
-			tmp = loadCourse(path + "\\Course Sem " + char(i + '0') + ".csv", i, stu->ID);
-		}
-	}
+	stu->courseStudent = loadCourse(path + "\\Course " + Sem, stu->ID);
 
 	return stu;
 }
 
-Students* loadStudent(string path, string ClassName) { // path: schoolyear/Classes/ClassName/
+Students* loadStudent(string path, string ClassName) // path: schoolyear/Classes/ClassName/
+{
 	Students* stu = nullptr;
 	ifstream f;
 	f.open(path + "allStudents.txt");
@@ -133,7 +99,8 @@ Students* loadStudent(string path, string ClassName) { // path: schoolyear/Class
 	return stu;
 }
 
-Classes* loadClassFromFile() {
+Classes* loadClassFromFile()
+{
 	Classes* Class = nullptr;
 	string path = Schoolyear + "\\Classes\\";
 	string listClass = path + "Classes.csv";

@@ -56,8 +56,8 @@ struct BasicCourses
 	int sem;
 	string courseID;
 	string courseName;
-	BasicCourses* next = nullptr;
 	Schedules schedule[2];
+	BasicCourses* next = nullptr;
 };
 
 struct Courses
