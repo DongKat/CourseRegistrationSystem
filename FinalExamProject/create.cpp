@@ -38,12 +38,11 @@ bool createFolderSchoolYear(string path){	//false if this is new year
 
 	//Duy da o day
 	createFolder(path+ "/Semesters");
-
 	ofstream out;
 	out.open("YearAndSemester.txt");
 	out << SchoolYear + '\n';
 	out.close();
-	//
+	// Chao duy Anh cung comment o day
 
 	return checkNewYear;
 }
