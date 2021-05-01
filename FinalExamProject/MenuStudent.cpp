@@ -36,9 +36,11 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 
 	string className;
 
+	bool flag = false;	// student found flag
 	while (pClass) // Iterate class list
 	{
-		bool flag = false;	// student found flag
+		if (flag)
+			break;
 		pStudent = pClass->student;
 		while (pStudent)					// Iterate students
 		{
@@ -47,9 +49,9 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				flag = true;
 				break;
 			}
+			pStudent = pStudent->next;
 		}
-		if (flag)
-			break;
+		pClass = pClass->next;
 	}
 	// pStudent is a pointer to user's Student node in linked list
 
@@ -68,7 +70,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 		if (choice == 80)
 		{
 			dem++;
-			if (dem > 6)
+			if (dem > 7)
 				dem = 1;
 		}
 
@@ -76,7 +78,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 		{
 			dem--;
 			if (dem < 1)
-				dem = 6;
+				dem = 7;
 		}
 
 		if (choice == 27) { // ESC
@@ -120,7 +122,14 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 					if (pCourse->courseID == courseID)
 						break;
 				}
-				enrollACourse(*pStudent, *pCourse);
+				try
+				{
+					enrollACourse(*pStudent, *pCourse);
+				}
+				catch (const std::exception& ex)
+				{
+					gotoxy(70, 20);	cout << ex.what();
+				}
 			}
 		}
 
@@ -141,7 +150,14 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 					if (pCourse->courseID == courseID)
 						break;
 				}
-				removeACourse(pStudent, pCourse);
+				try
+				{
+					removeACourse(pStudent, pCourse);
+				}
+				catch (const std::exception& ex)
+				{
+					gotoxy(70, 20); cout << ex.what();
+				}
 
 				Nocursortype();
 				fillBlackMenu();

@@ -34,12 +34,9 @@ bool checkSchedule(Students aStudent, Courses courseNew)
 	BasicCourses* ptem = aStudent.courseStudent;
 	while (ptem != nullptr)
 	{
-		if (ptem->sem == courseNew.sem)
-		{
-			for (int j = 0; j < 2; j++)
-				if ((ptem->schedule[j].day == courseNew.schedule[j].day) && (ptem->schedule[j].time == courseNew.schedule[j].time))
-					return false;
-		}
+		for (int j = 0; j < 2; j++)
+			if (ptem->schedule[j].day == courseNew.schedule[j].day && ptem->schedule[j].time == courseNew.schedule[j].time)
+				return false;
 		ptem = ptem->next;
 	}
 	return true;
@@ -49,84 +46,78 @@ void enrollACourse(Students& aStudent, Courses& courseNew)
 {
 	int k = courseNew.sem;
 	int count = -1;
-	fstream f;
-	f.open(Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course " + Sem + ".csv", ios::in);
+	ifstream infile;
+	infile.open(Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course " + Sem + ".csv");
 	string ignore_line;
-	if (!f.is_open())
-		throw "error";
-	while (!f.eof())
+
+	// Check file exist?
+	if (!infile.is_open())
+		throw std::runtime_error("Oh shit, we messed up. There's no Course Sem file...");
+	// Count how many course already enrolled in file
+	while (infile.peek() != EOF)
 	{
-		getline(f, ignore_line);
+		getline(infile, ignore_line);
 		count++;
 	}
-	f.close();
-	f.open(Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course " + Sem + ".csv", ios::out | ios::in);
+	infile.close();
 
-	if ((checkSchedule(aStudent, courseNew) == true) && (isCourseRegistrationSessionActive(dateStart, dateEnd) == true) && courseNew.countStudent < courseNew.maxStudent)
+	ofstream outfile;
+
+	if (checkSchedule(aStudent, courseNew) && isCourseRegistrationSessionActive(dateStart, dateEnd) && courseNew.countStudent < courseNew.maxStudent)
 		if (count < 5)
 		{
-			for (int i = 0; i < count; i++)
-				getline(f, ignore_line);
-			f << courseNew.courseID << "," << courseNew.courseName << ",0,0,0,0," << courseNew.schedule[0].day << "," << courseNew.schedule[0].time << "," << courseNew.schedule[1].day << "," << courseNew.schedule[1].time << endl;
-			f.close();
-			f.open(Schoolyear + "/Semester/Semester" + to_string(k) + "/" + courseNew.courseID + "Scoreboard.csv", ios::in);
-			int count1 = -1;
-			if (!f.is_open())
-				throw "error";
-			while (!f.eof())
-			{
-				getline(f, ignore_line);
-				count1++;
-			}
-			f.close();
-			f.open(Schoolyear + "/Semester/Semester" + to_string(k) + "/" + courseNew.courseID + "Scoreboard.csv", ios::out | ios::in);
-			for (int i = 0; i <= count; i++)
-				getline(f, ignore_line);
-			f << ++count1 << "," << aStudent.ID << "," << aStudent.firstName << "," << aStudent.lastName << ",0,0,0,0" << endl;
-			f.close();
+			// Open Student's course list, add new course to .csv file
+			outfile.open(Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course " + Sem + ".csv", ios::out | ios::app);
+			outfile << courseNew.courseID << "," << courseNew.courseName << courseNew.schedule[0].day << "," << courseNew.schedule[0].time << "," << courseNew.schedule[1].day << "," << courseNew.schedule[1].time << endl;
+			outfile.close();
+
+			// Add Student's name to Course Scoreboard.csv
+			outfile.open(Schoolyear + "/Semester/" + Sem + "/" + courseNew.courseID + "Scoreboard.csv", ios::out | ios::app);
+			outfile << ++courseNew.countStudent << "," << aStudent.ID << "," << aStudent.firstName << "," << aStudent.lastName << "-1,-1,-1,-1" << endl;
+			// default course's scoreboard:
+			// Ex: 31,101,Anpan,Suhkoi,-1,-1,-1,-1
 
 			// Insert into student's list of enrolled courses
-			BasicCourses* pt = aStudent.courseStudent;
-			if (pt == nullptr)
+			BasicCourses* pt = nullptr;
+			if (aStudent.courseStudent)
 			{
 				aStudent.courseStudent = new BasicCourses;
-				pt->courseID = courseNew.courseID;
-				pt->courseName = courseNew.courseName;
-				for (int i = 0; i < 2; i++)
-					pt->schedule[i] = courseNew.schedule[i];
-				pt->sem = courseNew.sem;
+				pt = aStudent.courseStudent;
 			}
 			else
 			{
 				while (pt->next != nullptr)
 					pt = pt->next;
-				pt->next->courseID = courseNew.courseID;
-				pt->next->courseName = courseNew.courseName;
-				for (int i = 0; i < 2; i++)
-					pt->next->schedule[i] = courseNew.schedule[i];
-				pt->next->sem = courseNew.sem;
-				courseNew.studentID->next = nullptr;
+				pt->next = new BasicCourses;
+				pt = pt->next;
 			}
+			pt->courseID = courseNew.courseID;
+			pt->courseName = courseNew.courseName;
+			for (int i = 0; i < 2; i++)
+				pt->next->schedule[i] = courseNew.schedule[i];
+			pt->next = nullptr;
 
-			// ch�n student v�o course
+			// Insert Student into Course's students list
+			BasicStudents* ps = nullptr;
 			if (courseNew.countStudent == 0)
 			{
 				courseNew.studentID = new BasicStudents;
-				courseNew.studentID->firstName = aStudent.firstName;
-				courseNew.studentID->lastName = aStudent.lastName;
-				courseNew.studentID->ID = aStudent.ID;
-				courseNew.studentID->next = nullptr;
+				ps = courseNew.studentID;
 			}
 			else
 			{
-				courseNew.studentID->next = new BasicStudents;
-				courseNew.studentID->next->firstName = aStudent.firstName;
-				courseNew.studentID->next->lastName = aStudent.lastName;
-				courseNew.studentID->next->ID = aStudent.ID;
-				courseNew.studentID->next = courseNew.studentID;
+				ps->next = new BasicStudents;
+				ps = ps->next;
 			}
-			courseNew.countStudent++;
+			courseNew.studentID->next->firstName = aStudent.firstName;
+			courseNew.studentID->next->lastName = aStudent.lastName;
+			courseNew.studentID->next->ID = aStudent.ID;
+			courseNew.studentID->next = courseNew.studentID;
 		}
+		else
+			throw std::runtime_error("Maximum number of courses reached!");
+	else
+		throw std::runtime_error("New course's schedule conflict with already enrolled ones");
 }
 
 void viewEnrolledCourses(Students* aStudent)
@@ -171,9 +162,9 @@ void removeACourse(Students* aStudent, Courses* courseDelete)
 		- Remove BasicCourse node inside Students
 		- Pass two linked list to updateCourseB4D
 	*/
-
+	// check if course list empty
 	if (aStudent->courseStudent == nullptr)
-		return;
+		throw std::runtime_error("You haven't enroll any course yet!");
 
 	ifstream file;
 	string ignore_line;

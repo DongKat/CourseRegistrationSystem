@@ -15,7 +15,6 @@ void autoGenerateStudentAccounts(string filePath)
 
 	// No, Student ID, First name, Last name, Gender, Date of Birth, Social ID.
 
-
 	while (!in.eof()) // run to the end of file
 	{
 		// GET
@@ -34,7 +33,6 @@ void autoGenerateStudentAccounts(string filePath)
 		out.open("Student Accounts/" + ID);
 		out << ID << endl << socialID << endl;
 		out.close();
-
 	}
 
 	in.close();
@@ -61,7 +59,6 @@ void autoGenerateStaffProfiles(string filePath)
 
 	// No, Student ID, First name, Last name, Gender, Date of Birth, Social ID.
 
-
 	while (!in.eof()) // run to the end of file
 	{
 		// GET
@@ -80,7 +77,6 @@ void autoGenerateStaffProfiles(string filePath)
 		out << day << "/" << month << "/" << year << endl;
 		out << socialID << endl << phoneNumber << endl;
 		out.close();
-
 	}
 
 	in.close();
@@ -110,12 +106,12 @@ void autoGenerateStudentProfiles(string filePath)
 	while (!in.eof()) // run to the end of file
 	{
 		// GET
-		getline(in, no, ','); 
-		getline(in, ID, ','); 
-		getline(in, firstName, ',');	
-		getline(in, lastName, ',');	
-		getline(in, gender, ',');	
-		getline(in, day, '/');	
+		getline(in, no, ',');
+		getline(in, ID, ',');
+		getline(in, firstName, ',');
+		getline(in, lastName, ',');
+		getline(in, gender, ',');
+		getline(in, day, '/');
 		getline(in, month, '/');
 		getline(in, year, ',');
 		getline(in, socialID);
@@ -126,9 +122,7 @@ void autoGenerateStudentProfiles(string filePath)
 		out << day << "/" << month << "/" << year << endl;
 		out << socialID << endl;
 		out.close();
-
 	}
 
 	in.close();
 }
-

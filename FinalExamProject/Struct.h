@@ -68,7 +68,7 @@ struct Courses
 	string teacherName;
 	int numCredits;
 	int maxStudent;// cap phat studentID
-	int countStudent;
+	int countStudent = 0;
 	BasicStudents* studentID;//8 [50] là tối đa 50 SV 1 lớp - 13 ghi danh- 15 xoá khoá- 16 xem các môn mà sv học
 
 	//CourseScore* mark;
@@ -91,7 +91,7 @@ struct Students
 
 	BasicCourses* courseStudent = nullptr;
 
-	Students* next;
+	Students* next = nullptr;
 	Students* prev;
 };
 
@@ -107,7 +107,7 @@ struct Classes
 {
 	string className;
 	Students* student; // 3 thêm sinh viên vào lớp , 18 xem danh sách sinh viên 1 lớp
-	Classes* next;
+	Classes* next = nullptr;
 	Classes* prev;
 };
 

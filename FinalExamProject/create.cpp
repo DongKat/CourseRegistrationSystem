@@ -63,7 +63,7 @@ bool inputSchoolYear() { 						//false if this is new SchoolYear
 	return createFolderSchoolYear(Schoolyear);
 }
 
-date convertToDay(string Day) 
+date convertToDay(string Day)
 {
 	date ans = { 0,0,0 };
 	/*
@@ -300,10 +300,10 @@ bool loadYearAndSem()
 {
 	ifstream in;
 
-	in.open("YearAndSemster.txt");
+	in.open("YearAndSemester.txt");
 
 	if (!in.is_open())
-		return 0;
+		throw std::runtime_error("YearAndSemester.txt not found!");
 
 	getline(in, Schoolyear);
 	getline(in, Sem);
@@ -667,7 +667,7 @@ bool loadCoursesFromFile(Courses*& course)
 	in.open(Schoolyear + "/Semesters/" + Sem + "/AllCourses.csv");
 
 	if (!in.is_open())
-		return false;
+		throw std::runtime_error("Can't load Course from file");
 
 	//Dem so luong courses de khai dynamic string
 	int count = -1;

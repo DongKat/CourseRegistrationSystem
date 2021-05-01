@@ -24,9 +24,17 @@ int main() {
 	//autoGenerateStudentProfiles("student1.csv");
 	autoGenerateStaffProfiles("staff.txt");
 
-	loadYearAndSem();
-	loadCoursesFromFile(COURSE);
-
+	try
+	{
+		loadYearAndSem();
+		loadCoursesFromFile(COURSE);
+		loadClassFromFile(CLASS);
+	}
+	catch (const std::exception& ex)
+	{
+		txtColor(15);
+		cout << ex.what();
+	}
 	//autoGenerateStudentAccounts("student.csv");
 	//autoGenerateStudentProfiles("student1.csv");
 	//autoGenerateStaffProfiles("staff.txt");

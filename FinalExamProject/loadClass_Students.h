@@ -4,9 +4,9 @@
 #include "create.h"
 
 float convertToFloat(string score);
-BasicCourses* loadCourse(string path, int sem, string StudentID);
+BasicCourses* loadCourse(string path, string StudentID);
 Students* loadStudentInfo(string path);
 Students* loadStudent(string path, string ClassName);
-Classes* loadClass();
+Classes* loadClassFromFile(Classes*& pClass);
 
 #endif
