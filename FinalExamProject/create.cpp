@@ -37,13 +37,12 @@ bool createFolderSchoolYear(string path) {	//false if this is new year
 	createFolder(path + "\\Classes");
 
 	//Duy da o day
-	createFolder(path + "/Semesters");
-
+	createFolder(path+ "/Semesters");
 	ofstream out;
 	out.open("YearAndSemester.txt");
 	out << Schoolyear + '\n';
 	out.close();
-	//
+	// Chao duy Anh cung comment o day
 
 	return checkNewYear;
 }
@@ -804,4 +803,5 @@ void viewCourse(Courses* course)
 
 void viewCourseMain(Courses* course)
 {
+
 }
