@@ -2,15 +2,15 @@
 
 
 float convertToFloat(string score) {
-	int j = nullptr;
-	float ans = nullptr;
+	int j = 0;
+	float ans = 0;
 	while (j < score.length() && score[j] != '.') {
 		ans *= 10;
 		ans += float(score[j] - '0');
 		++j;
 	}
 	j++;
-	float tmp = nullptr;
+	float tmp = 0;
 	while (j < score.length()) {
 		ans += float(score[j] - '0') * tmp;
 		tmp /= 10;
@@ -94,10 +94,12 @@ Students* loadStudentInfo(string path) {         //path: schoolyear/classes/clas
 	stu->courseStudent = loadCourse(path + "\\Course Sem 1.csv", 1, stu->ID);
 
 	BasicCourses* tmp = stu->courseStudent;
-	for (int i = 2; i <= 3; ++i) {
+	for (int i = 2; i <= 3; ++i) 
+	{
 		while (tmp && tmp->next) tmp = tmp->next;
 		if (tmp) tmp->next = loadCourse(path + "\\Course Sem" + char(i + '0') + ".csv", i, stu->ID);
-		else {
+		else 
+		{
 			tmp = loadCourse(path + "\\Course Sem " + char(i + '0') + ".csv", i, stu->ID);
 		}
 	}
@@ -131,7 +133,7 @@ Students* loadStudent(string path, string ClassName) { // path: schoolyear/Class
 	return stu;
 }
 
-Classes* loadClass() {
+Classes* loadClassFromFile() {
 	Classes* Class = nullptr;
 	string path = Schoolyear + "\\Classes\\";
 	string listClass = path + "Classes.csv";
