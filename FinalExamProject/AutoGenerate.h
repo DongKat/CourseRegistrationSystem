@@ -1,5 +1,5 @@
-#ifndef __AUTOGENERATE_H_INCLUDED__ 
-#define __AUTOGENERATE_H_INCLUDED__ 
+#ifndef __AUTOGENERATE_H_INCLUDED__
+#define __AUTOGENERATE_H_INCLUDED__
 
 #include "Struct.h"
 

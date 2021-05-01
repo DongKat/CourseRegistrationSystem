@@ -175,13 +175,12 @@ void removeACourse(Students* aStudent, Courses* courseDelete)
 	if (aStudent->courseStudent == nullptr)
 		return;
 
-
 	ifstream file;
 	string ignore_line;
 
 	// Delete student linked list in course
 	BasicStudents* pCurStudent = courseDelete->studentID;
-	BasicStudents* pDelStudent;
+	BasicStudents* pDelStudent = nullptr;
 
 	if (courseDelete->studentID->ID == aStudent->ID)
 	{
@@ -201,7 +200,7 @@ void removeACourse(Students* aStudent, Courses* courseDelete)
 
 	//Delete course in students
 	BasicCourses* pCurCourse = aStudent->courseStudent;
-	BasicCourses* pDelCourse;
+	BasicCourses* pDelCourse = nullptr;
 	if (aStudent->courseStudent->courseID == courseDelete->courseID)
 	{
 		pDelCourse = aStudent->courseStudent;

@@ -1,5 +1,5 @@
-#ifndef __MENUSTUDENT_H_INCLUDED__ 
-#define __MENUSTUDENT_H_INCLUDED__ 
+#ifndef __MENUSTUDENT_H_INCLUDED__
+#define __MENUSTUDENT_H_INCLUDED__
 
 #include "Struct.h"
 #include "Functions.h"

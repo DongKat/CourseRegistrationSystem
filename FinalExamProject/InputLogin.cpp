@@ -12,7 +12,7 @@ string convertToString(char* a, int size)
 	return s;
 }
 
-string inputUsername(char username[], int &sizeUser) {
+string inputUsername(char username[], int& sizeUser) {
 	UnNocursortype();
 	sizeUser = 0;
 	string user;
@@ -90,7 +90,6 @@ string inputPassword(char password[], int& sizePass) {
 }
 
 bool checkValidUsernameAndPasswordStaff(string username, string password) {
-
 	ifstream in;
 
 	in.open("Staff Accounts/" + username);
@@ -101,7 +100,7 @@ bool checkValidUsernameAndPasswordStaff(string username, string password) {
 		while (!in.eof()) {
 			string passwordFile;
 			string ignore_line;
-			
+
 			getline(in, ignore_line, '\n');
 			getline(in, passwordFile, '\n');
 
@@ -117,7 +116,6 @@ bool checkValidUsernameAndPasswordStaff(string username, string password) {
 }
 
 bool checkValidUsernameAndPasswordStudent(string username, string password) {
-
 	ifstream in;
 
 	in.open("Student Accounts/" + username);
@@ -131,7 +129,7 @@ bool checkValidUsernameAndPasswordStudent(string username, string password) {
 
 			getline(in, ignore_line, '\n');
 			getline(in, passwordFile, '\n');
-		
+
 			if (password.compare(passwordFile) == 0)
 				return true;
 			else
@@ -167,7 +165,6 @@ void Login(char username[], char password[], int sizeUser, int sizePass) {
 			Sleep(700);
 			txtColor(15);
 		}
-
 	}
 	if (checkValidUsernameAndPasswordStaff(username, password) == true) {
 		system("cls");

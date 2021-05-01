@@ -291,7 +291,6 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 	keyboardShortcut();
 	fillBlackMenu();
 
-
 	int dem = 0;
 
 	txtColor(15);
@@ -343,7 +342,6 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(127, 20);	cout << " V I E W   L I S T   O F   C L A S S E S ";
 			if (choice == 13)
 			{
-				
 			}
 		}
 
@@ -354,8 +352,6 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(126, 24);	cout << "            I N   A   C L A S S            ";
 			if (choice == 13)
 			{
-				
-
 			}
 		}
 		if (dem == 3)
@@ -364,7 +360,6 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(127, 27);	cout << " V I E W   L I S T   O F   C O U R S E S ";
 			if (choice == 13)
 			{
-			
 			}
 		}
 		if (dem == 4)
@@ -374,11 +369,9 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(126, 31);	cout << "           I N   A   C O U R S E           ";
 			if (choice == 13)
 			{
-
 			}
 		}
 	}
-
 }
 
 void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass) {
@@ -445,7 +438,7 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			if (choice == 13)
 			{
 				addClass(CLASS, Schoolyear);
-				
+
 				Nocursortype();
 				system("cls");
 				logo_moodle();
@@ -459,7 +452,6 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 				txtColor(15);
 				gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
 				gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
-	
 			}
 		}
 		if (dem == 3)
@@ -485,7 +477,6 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 					txtColor(15);
 					gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
 					txtColor(15);
-				
 				}
 				else {
 					txtColor(15);
@@ -503,7 +494,6 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 					gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
 					txtColor(15);
 					continue;
-
 				}
 			}
 		}
@@ -542,9 +532,7 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 					gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
 					txtColor(15);
 					continue;
-
 				}
-				
 			}
 		}
 	}
@@ -605,7 +593,7 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 				}
 
 				txtColor(15);
-				
+
 				ifstream in;
 				string s;
 
@@ -637,8 +625,6 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 
 				gotoxy(70, 20);
 				editCourseMain(COURSE);
-
-
 			}
 		}
 		if (dem == 3)
@@ -649,7 +635,6 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 			{
 				txtColor(15);
 				deleteCourseMain(COURSE);
-
 			}
 		}
 	}
@@ -699,7 +684,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 		if (dem == 1)
 		{
 			txtColor(240);
-		
+
 			gotoxy(135, 18);	cout << " E X P O R T   C S V ";
 			if (choice == 13)
 			{
@@ -707,15 +692,15 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				UnNocursortype();
 				string fileName, courseID;
 				ifstream f;
-				
+
 				gotoxy(70, 20);
 				cout << "Please enter course ID: ";
 				cin >> courseID;
-		
+
 				gotoxy(70, 21);
 				cout << "Please input file: ";
 				cin >> fileName;
-			
+
 				f.open(fileName);
 				int temp = 22;
 				while (!f.is_open()) {
@@ -898,7 +883,6 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				rename(newcourseDir.c_str(), oldcourseDir.c_str());
 				rename(newstudentDir.c_str(), oldstudentDir.c_str());
 
-
 				Nocursortype();
 				fillBlackMenu();
 				gotoxy(135, 18);	cout << " I M P O R T   C S V ";
@@ -934,7 +918,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					cout << "Please input class name: ";
 					cin >> className;
 					f.open(Schoolyear + "/Classes/" + className + "/allStudents.csv");
-					temp+=2;
+					temp += 2;
 				}
 
 				viewClassScoreboard(f, className);

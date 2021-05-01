@@ -32,7 +32,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 	// Find Student node inside Class linked list *sigh. Unelegant, smh
 
 	Classes* pClass = CLASS;	// Find class in linked list
-	Students* pStudent;	// Find student in linked list
+	Students* pStudent = nullptr;	// Find student in linked list
 
 	string className;
 
@@ -121,7 +121,6 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 						break;
 				}
 				enrollACourse(*pStudent, *pCourse);
-
 			}
 		}
 
@@ -166,7 +165,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 			gotoxy(64, 28); cout << "  V I E W  E N R O L L E D   C O U R S E S ";
 			if (choice == 13)
 			{
-				if (pStudent->enrolledCourses)
+				if (pStudent->courseStudent)
 					viewEnrolledCourses(pStudent);
 				else
 					gotoxy(70, 20); cout << "You haven't enrolled any course yet!";

@@ -419,7 +419,7 @@ void viewClassScoreboard(ifstream& f, string className) // Require changing UI
 	string line, temp;
 	ifstream studentScoreboard;
 	ifstream studentProfile;
-	
+
 	int student_count = 1;
 
 	int pos = 21;

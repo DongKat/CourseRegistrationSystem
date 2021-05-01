@@ -1,5 +1,5 @@
-#ifndef __INPUTLOGIN_H_INCLUDED__ 
-#define __INPUTLOGIN_H_INCLUDED__ 
+#ifndef __INPUTLOGIN_H_INCLUDED__
+#define __INPUTLOGIN_H_INCLUDED__
 
 #include "Struct.h"
 

@@ -1,10 +1,8 @@
 #ifndef __FUNCTIONS_H__
 #define __FUNCTIONS_H__
 
-
 #include "Struct.h"
 #include "UI.h"
-
 
 #endif // !_FUNCTIONS_H_
 bool isLegalDate(date someday);
@@ -36,4 +34,3 @@ float getSemGPA(ifstream& f);
 void updateStudentResult(ifstream& f1, ifstream& f2, ofstream& nf1, ofstream& nf2, string studentID, string courseID, Scores newScore);
 
 void viewClassScoreboard(ifstream& f, string className);
-

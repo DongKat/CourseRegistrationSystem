@@ -87,8 +87,6 @@ void logo_moodle() {
 
 	cout << endl;
 	cout << endl;
-
-
 }
 
 void loginUI() {
@@ -167,7 +165,6 @@ void loginUI() {
 }
 
 void keyboardShortcutMenu() {
-
 	txtColor(15);
 	gotoxy(130, 6);  cout << "K E Y B O A R D   S H O R C U T";
 	gotoxy(130, 8);  cout << "P R E S S     ^     T O   U P";
@@ -181,7 +178,6 @@ void keyboardShortcutMenu() {
 	gotoxy(142, 10); cout << " ESC ";
 	gotoxy(141, 11); cout << " ENTER ";
 	txtColor(15);
-
 }
 
 void keyboardShortcut() {
@@ -198,7 +194,6 @@ void keyboardShortcut() {
 	gotoxy(142, 10); cout << " ESC ";
 	gotoxy(141, 11); cout << " ENTER ";
 	txtColor(15);
-
 }
 
 void fillBlackUserPass() {

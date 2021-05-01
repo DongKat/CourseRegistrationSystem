@@ -26,13 +26,13 @@ int main() {
 
 	loadYearAndSem();
 	loadCoursesFromFile(COURSE);
-	//autoGenerateStudentAccounts("student.csv") <33;
-	//autoGenerateStudentProfiles("student1.csv") <333;
-	//autoGenerateStaffProfiles("staff.txt") <3 lunn ;
 
-	//loadYearAndSem() <3;
-	//loadCoursesFromFile(COURSE) <3 ;
+	//autoGenerateStudentAccounts("student.csv");
+	//autoGenerateStudentProfiles("student1.csv");
+	//autoGenerateStaffProfiles("staff.txt");
 
+	//loadYearAndSem();
+	//loadCoursesFromFile(COURSE);
 
 	char username[23];
 	char password[23];
