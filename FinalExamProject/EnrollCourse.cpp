@@ -1,4 +1,3 @@
-#include "Struct.h"
 #include "EnrollCourse.h"
 
 time_t timeToUnixTime(date end)
