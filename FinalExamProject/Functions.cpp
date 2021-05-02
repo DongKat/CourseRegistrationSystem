@@ -208,18 +208,66 @@ void importScoreboard(Courses* courseHead, string courseID, Students& student, i
 }
 
 */
+
+void exportCourseStudent(ifstream& file)
+{
+	// copy course scoreboard to outside file
+	string line;
+	ofstream target("Scoreboard.csv");
+	while (!file.eof())
+	{
+		getline(file, line, ',');
+		target << line << ',';	// No
+		getline(file, line, ',');
+		target << line << ',';	// StudentID
+		getline(file, line, ',');
+		target << line << ' ';	// firstname
+		getline(file, line, ',');
+		target << line << endl;	// lastname
+		// ignore non-existent scores -1,-1,-1,-1
+	}
+}
+
 void importScoreboardCourse(ifstream& f, string courseID)
 {
 	string course_dir = Schoolyear + "./Semester/Sem " + Sem + "/" + courseID + "/Scoreboard.csv";
-	string line;
+	string tempDir = Schoolyear + "./Semester/Sem " + Sem + "/" + courseID + "/Scoreboard_new.csv";
+	string temp, mica;
 
-	ofstream courseScoreboard;
+	ifstream courseScoreboard;
+	ofstream tempScoreboard;
 	courseScoreboard.open(course_dir);
+	tempScoreboard.open(tempDir);
+
 	while (f.peek() != EOF)
 	{
-		getline(f, line);
-		courseScoreboard << endl << line;
+		Scores* tempScore = new Scores;
+		getline(f, temp, ',');	// No
+		getline(f, temp, ',');	// StudentID
+		getline(f, temp, ',');	// FullName
+
+		getline(f, temp, ',');	// Midterm
+		tempScore->Midterm = stof(temp);
+		getline(f, temp, ',');	// Final
+		tempScore->Final = stof(temp);
+		getline(f, temp, ',');	// Bonus
+		tempScore->Bonus = stof(temp);
+		getline(f, temp, ',');	// Total
+		tempScore->Total = stof(temp);
+
+		getline(courseScoreboard, mica, ',');	// No
+		tempScoreboard << mica << ',';
+		getline(courseScoreboard, mica, ',');	// StudentID
+		tempScoreboard << mica << ',';
+		getline(courseScoreboard, mica, ',');	// First Name
+		tempScoreboard << mica << ',';
+		getline(courseScoreboard, mica, ',');	// Last Name
+		tempScoreboard << mica << ',';
+		tempScoreboard << tempScore->Midterm << tempScore->Final << tempScore->Bonus << tempScore->Total << endl;
+		delete tempScore;
 	}
+	remove(tempDir.c_str());
+	rename(tempDir.c_str(), course_dir.c_str());
 }
 
 void importScoreboardStudent(ifstream& f, string courseID)
@@ -246,18 +294,6 @@ void importScoreboardStudent(ifstream& f, string courseID)
 			studentScoreboard << temp;
 			studentScoreboard.close();
 		}
-	}
-}
-
-void exportCourseStudent(ifstream& file)
-{
-	// copy course scoreboard to outside file
-	string temp;
-	ofstream target("Scoreboard.csv");
-	while (!file.eof())
-	{
-		getline(file, temp);
-		target << temp << endl;
 	}
 }
 
