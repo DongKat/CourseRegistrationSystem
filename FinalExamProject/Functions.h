@@ -15,7 +15,7 @@ void createStudentList(Students*& pHead, string csvFileName);
 
 void deleteMarks(CourseScore*& pHead);
 
-string checkStudentInClass(string studentID);
+string checkStudentClass(string studentID);
 
 //void importScoreboard(Courses* courseHead, string courseID, Students& student, string scoreboard_file_name);
 

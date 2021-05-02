@@ -8,10 +8,9 @@
 #include "EnrollCourse.h"
 #include "create.h"
 
-
 void MenuStudent(char username[], char password[], int sizeUser, int sizePass);
 void MenuStudentSettings(char username[], char password[], int sizeUser, int sizePass);
 void MenuStudentProfileInfo(string username, string password);
-void MenuChangePasswordStudent(string username, string &password);
+void MenuChangePasswordStudent(string username, string& password);
 
 #endif

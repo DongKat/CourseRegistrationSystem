@@ -608,7 +608,6 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 				gotoxy(60, 17);	cout << "Course's Name";
 				gotoxy(105, 17);	cout << "Teacher's Name";
 
-
 				getline(in, ignore_line);
 				while (!in.eof()) {
 					getline(in, courseID, ',');
@@ -629,7 +628,7 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 					gotoxy(j, i - 1);
 					cout << char(32);
 				}
-				
+
 				txtColor(15);
 
 				in.close();

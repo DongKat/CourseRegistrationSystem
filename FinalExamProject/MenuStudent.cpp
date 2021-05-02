@@ -211,7 +211,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				txtColor(15);
 				UnNocursortype();
 				ifstream f;
-				string className = checkStudentInClass(user);
+				string className = checkStudentClass(user);
 				gotoxy(70, 21);		cout << "Opening your semester scoreboard...";
 				f.open(Schoolyear + "/Classes/" + className + "/" + user + "/Course " + Sem + " Scoreboard.csv");
 				viewOwnScoreboard(f, 22);

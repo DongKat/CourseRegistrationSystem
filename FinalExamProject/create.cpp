@@ -37,7 +37,7 @@ bool createFolderSchoolYear(string path) {	//false if this is new year
 	createFolder(path + "\\Classes");
 
 	//Duy da o day
-	createFolder(path+ "/Semesters");
+	createFolder(path + "/Semesters");
 	ofstream out;
 	out.open("YearAndSemester.txt");
 	out << Schoolyear + '\n';
@@ -602,7 +602,7 @@ void deleteCourseFolder(Courses* delCourse)
 }
 
 void editCourseMain(Courses*& course)
-{	
+{
 	txtColor(15);
 	string courseID, courseName, teacherName;
 
@@ -836,5 +836,4 @@ void viewCourse(Courses* course)
 
 void viewCourseMain(Courses* course)
 {
-
 }
