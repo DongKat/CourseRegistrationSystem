@@ -18,9 +18,9 @@ float convertToFloat(string score) {
 	return ans;
 }
 
-CourseScore* loadScore(string path,string StudentID) {
-
-}
+//CourseScore* loadScore(string path,string StudentID) {
+//
+//}
 
 BasicCourses* loadCourse(string path, string StudentID) {
 	BasicCourses* course = nullptr, * tmp = nullptr;

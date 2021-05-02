@@ -595,18 +595,42 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 				txtColor(15);
 
 				ifstream in;
-				string s;
-
+				string courseID;
+				string courseName;
+				string teacherName;
+				string ignore_line;
 				in.open(Schoolyear + "/" + "Semesters/" + Sem + "/" + "AllCourses.csv");
 
-				int i = 20;
-				while (!in.eof()) {
-					getline(in, s);
+				int i = 18;
+				int n = 1;
 
-					gotoxy(50, i);
-					cout << s << endl;
+				gotoxy(45, 17);	cout << "Course's ID";
+				gotoxy(60, 17);	cout << "Course's Name";
+				gotoxy(105, 17);	cout << "Teacher's Name";
+
+
+				getline(in, ignore_line);
+				while (!in.eof()) {
+					getline(in, courseID, ',');
+					getline(in, courseName, ',');
+					getline(in, teacherName);
+
+					gotoxy(45, i);
+					cout << courseID;
+					gotoxy(60, i);
+					cout << courseName;
+					gotoxy(105, i);
+					cout << teacherName;
 					i++;
 				}
+
+				txtColor(0);
+				for (int j = 44; j < 120; ++j) {
+					gotoxy(j, i - 1);
+					cout << char(32);
+				}
+				
+				txtColor(15);
 
 				in.close();
 			}
@@ -618,12 +642,6 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 			gotoxy(140, 24); cout << " E D I T ";
 			if (choice == 13)
 			{
-				txtColor(15);
-				string courseID;
-				string course;
-				string teacherName;
-
-				gotoxy(70, 20);
 				editCourseMain(COURSE);
 			}
 		}

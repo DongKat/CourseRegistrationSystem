@@ -17,7 +17,7 @@ void MenuStudent(char username[], char password[], int sizeUser, int sizePass) {
 	gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
 	gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
 	gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
-	gotoxy(64, 28); cout << "  V I E W  E N R O L L E D   C O U R S E S ";
+	gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
 	gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
 	gotoxy(64, 32); cout << "               L O G   O U T               ";
 
@@ -63,7 +63,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 		gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
 		gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
 		gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
-		gotoxy(64, 28); cout << "  V I E W  E N R O L L E D   C O U R S E S ";
+		gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
 		gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
 		gotoxy(64, 32); cout << "               L O G   O U T               ";
 
@@ -168,7 +168,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				txtColor(240);
 				gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
 				txtColor(15);
-				gotoxy(64, 28); cout << "  V I E W  E N R O L L E D   C O U R S E S ";
+				gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
 				gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
 				gotoxy(64, 32); cout << "               L O G   O U T               ";
 			}
@@ -194,7 +194,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
 				gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
 				txtColor(240);
-				gotoxy(64, 28); cout << "  V I E W  E N R O L L E D   C O U R S E S ";
+				gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
 				txtColor(15);
 				gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
 				gotoxy(64, 32); cout << "               L O G   O U T               ";
@@ -223,7 +223,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
 				gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
 				gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
-				gotoxy(64, 28); cout << "  V I E W  E N R O L L E D   C O U R S E S ";
+				gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
 				txtColor(240);
 				gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
 				txtColor(15);
@@ -301,10 +301,11 @@ void MenuStudentProfileInfo(string username, string password) {
 
 			txtColor(15);
 			gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
-			gotoxy(64, 24); cout << "          E D I T   C O U R S E S          ";
-			gotoxy(64, 26); cout << "          V I E W   C O U R S E S          ";
-			gotoxy(64, 28); cout << "            S C O R E B O A R D            ";
-			gotoxy(64, 30); cout << "               L O G   O U T               ";
+			gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
+			gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
+			gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
+			gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
+			gotoxy(64, 32); cout << "               L O G   O U T               ";
 			return;
 		}
 	}
@@ -385,8 +386,9 @@ void MenuChangePasswordStudent(string username, string& password) {
 	txtColor(240);
 	gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
 	txtColor(15);
-	gotoxy(64, 24); cout << "          E D I T   C O U R S E S          ";
-	gotoxy(64, 26); cout << "          V I E W   C O U R S E S          ";
-	gotoxy(64, 28); cout << "            S C O R E B O A R D            ";
-	gotoxy(64, 30); cout << "               L O G   O U T               ";
+	gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
+	gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
+	gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
+	gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
+	gotoxy(64, 32); cout << "               L O G   O U T               ";
 }

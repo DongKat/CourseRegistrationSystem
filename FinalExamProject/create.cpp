@@ -602,19 +602,29 @@ void deleteCourseFolder(Courses* delCourse)
 }
 
 void editCourseMain(Courses*& course)
-{
+{	
+	txtColor(15);
 	string courseID, courseName, teacherName;
 
+	int temp = 20;
+	gotoxy(70, temp);
 	cout << "You are editting course:\n\n";
+	temp++;
 
+	gotoxy(70, temp);
 	cout << "Enter course's ID: ";
 	getline(cin, courseID);
+	temp++;
 
+	gotoxy(70, temp);
 	cout << "Enter course's name: ";
 	getline(cin, courseName);
+	temp++;
 
+	gotoxy(70, temp);
 	cout << "Enter course's name of teacher: ";
 	getline(cin, teacherName);
+	temp++;
 
 	//tim course de edit theo yeu cau cua staff
 	Courses* edit = findCourse(course, courseID, courseName, teacherName);
@@ -622,40 +632,63 @@ void editCourseMain(Courses*& course)
 	if (edit)
 	{
 		deleteCourseFolder(edit); 		//delete folder
-
+		gotoxy(70, temp);
 		cout << "You are editting course:\n\n";
+		temp++;
 
+		gotoxy(70, temp);
 		cout << "Enter course's ID: ";
 		getline(cin, edit->courseID);			//lay id moi
+		temp++;
 
+		gotoxy(70, temp);
 		cout << "Enter course's name: ";
 		getline(cin, edit->courseName);		//lay name moi
+		temp++;
 
+		gotoxy(70, temp);
 		cout << "Enter course's name of teacher: ";
 		getline(cin, edit->teacherName);		//lay teacher moi
+		temp++;
 
+		gotoxy(70, temp);
 		cout << "Enter course's credits: ";
 		cin >> edit->numCredits;				//lay tin chi moi
+		temp++;
 
+		gotoxy(70, temp);
 		cout << "Enter course's max student: ";
 		cin >> edit->maxStudent;				//lay max student moi
+		temp++;
 
 		cin.ignore();
 
 		for (int i = 0; i < 2; ++i)
 		{
+			gotoxy(70, temp);
 			cout << "Enter session\n";
+			temp++;
+
+			gotoxy(70, temp);
 			cout << "Day of week(From MON to SUN): "; // MON, THU
 			getline(cin, edit->schedule[i].day);		//lay thu day
+			temp++;
+
+			gotoxy(70, temp);
 			cout << "Time(S1, S2, S3): ";		//S1, S2, S3
 			getline(cin, edit->schedule[i].time);		//lay buoi moi
+			temp++;
 		}
 
 		createFolderNFileCourse(edit);					//tao folder moi
 		viewCourseFile(course);							//cap nhat lai file all courses
 	}
-	else
+	else {
+		gotoxy(70, temp);
 		cout << "There are no course match with your information\n";
+		temp++;
+		Sleep(1000);
+	}
 }
 
 bool loadCoursesFromFile(Courses*& course)

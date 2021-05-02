@@ -6,6 +6,8 @@
 #include "UI.h"
 #include "InputLogin.h"
 #include "EnrollCourse.h"
+#include "create.h"
+
 
 void MenuStudent(char username[], char password[], int sizeUser, int sizePass);
 void MenuStudentSettings(char username[], char password[], int sizeUser, int sizePass);

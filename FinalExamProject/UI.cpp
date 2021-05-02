@@ -249,17 +249,17 @@ void drawBorderMenuStudent() {
 	for (int i = 0; i < 45; ++i)
 		cout << char(219);
 
-	for (int i = 17; i < 33; ++i) {
+	for (int i = 17; i < 35; ++i) {
 		gotoxy(63, i);
 		cout << char(219);
 	}
 
-	for (int i = 17; i < 33; ++i) {
+	for (int i = 17; i < 35; ++i) {
 		gotoxy(107, i);
 		cout << char(219);
 	}
 
-	gotoxy(63, 32);
+	gotoxy(63, 34);
 	for (int i = 0; i < 45; ++i)
 		cout << char(223);
 
