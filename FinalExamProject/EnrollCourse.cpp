@@ -284,3 +284,14 @@ void viewAllCourse()
 		curCourse = curCourse->next;
 	}
 }
+
+void viewAllClass()
+{
+    Classes* curClass = CLASS;
+    while (curClass != nullptr)
+    {
+        cout << " Class Name: " << curClass->className<<endl;
+        curClass = curClass->next;
+    }
+}
+
