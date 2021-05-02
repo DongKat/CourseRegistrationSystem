@@ -284,6 +284,9 @@ void addClass(Classes*& Class, string folder) {
 	else {
 		Class = newClass(filepath, Cname, folder + "\\Classes");
 	}
+
+	autoGenerateStudentAccounts(filepath);
+	autoGenerateStudentProfiles(filepath);
 }
 
 Semesters newSemester(int currSem, date begin, date end)
