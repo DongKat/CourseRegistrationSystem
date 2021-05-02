@@ -20,8 +20,7 @@ Classes* CLASS = nullptr;
 int main() {
 	setWindowFullSize();
 	txtColor(0);
-	//autoGenerateStudentAccounts("student.csv");
-	//autoGenerateStudentProfiles("student1.csv");
+
 	autoGenerateStaffProfiles("staff.txt");
 
 	try
@@ -35,9 +34,6 @@ int main() {
 		txtColor(15);
 		cout << ex.what();
 	}
-	//autoGenerateStudentAccounts("student.csv");
-	//autoGenerateStudentProfiles("student1.csv");
-	//autoGenerateStaffProfiles("staff.txt");
 
 	//loadYearAndSem();
 	//loadCoursesFromFile(COURSE);
