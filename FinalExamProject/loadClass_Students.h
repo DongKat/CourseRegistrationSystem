@@ -7,6 +7,6 @@ float convertToFloat(string score);
 BasicCourses* loadCourse(string path, int sem);
 Students* loadStudentInfo(string path);
 Students* loadStudent(string path, string ClassName);
-Classes* loadClassFromFile(Classes*& pClass);
+void loadClassFromFile(Classes*& pClass);
 
 #endif

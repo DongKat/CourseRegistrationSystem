@@ -84,11 +84,11 @@ Students* loadStudent(string path, string ClassName) // path: schoolyear/Classes
 {
 	Students* stu = nullptr;
 	ifstream f;
-	f.open(path + "allStudents.txt");
+	f.open(path + "allStudents.csv");
 	if (!f.is_open())
 		throw std::runtime_error("Student file not found. Code: 404");
 	Students* tmp = nullptr;
-	while (!f.eof()) {
+	while (f.peek() != EOF) {
 		string ID;
 		getline(f, ID);
 		string StudentPath = path + ID;
@@ -107,9 +107,8 @@ Students* loadStudent(string path, string ClassName) // path: schoolyear/Classes
 	return stu;
 }
 
-Classes* loadClassFromFile(Classes*& pClass)
+void loadClassFromFile(Classes*& pClass)
 {
-	Classes* Class = nullptr;
 	string path = Schoolyear + "\\Classes\\";
 	string listClass = path + "allClasses.csv";
 	ifstream f;
@@ -121,19 +120,18 @@ Classes* loadClassFromFile(Classes*& pClass)
 		string ClassName;
 		getline(f, ClassName);
 		if (ClassName == "") continue;
-		if (Class) {
+		if (pClass) {
 			tmp->next = new Classes;
 			tmp->next->prev = tmp;
 			tmp = tmp->next;
 		}
 		else {
-			Class = new Classes;
-			tmp = Class;
+			pClass = new Classes;
+			tmp = pClass;
 			tmp->prev = nullptr;
 		}
 		tmp->className = ClassName;
 		tmp->next = nullptr;
 		tmp->student = loadStudent(path + ClassName + "\\", ClassName);
 	}
-	return Class;
 }
