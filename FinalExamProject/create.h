@@ -3,6 +3,7 @@
 #include "Struct.h"
 #include "UI.h"
 #include "Functions.h"
+#include "AutoGenerate.h"
 
 bool createFolder(string path);
 

@@ -342,6 +342,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(127, 20);	cout << " V I E W   L I S T   O F   C L A S S E S ";
 			if (choice == 13)
 			{
+
 			}
 		}
 
@@ -352,6 +353,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(126, 24);	cout << "            I N   A   C L A S S            ";
 			if (choice == 13)
 			{
+
 			}
 		}
 		if (dem == 3)
@@ -360,6 +362,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(127, 27);	cout << " V I E W   L I S T   O F   C O U R S E S ";
 			if (choice == 13)
 			{
+
 			}
 		}
 		if (dem == 4)
