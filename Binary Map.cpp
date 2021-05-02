@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -7,7 +6,7 @@ struct BmpSignature
 {
 	unsigned char data[2];
 };
-
+#pragma pack(1)
 struct BmpHeader
 {
 	BmpSignature signature;
@@ -157,4 +156,28 @@ void releaseBmpPixelArray(PixelArray data)
 	for (int i = 0; i < data.rowCount; i++)
 		delete[]data.pixels[i];
 	delete[]data.pixels;
+}
+
+int main() {
+    FILE* file = fopen("test.bmp", "rb");
+
+    if (isBmpFile(file)) {
+        BmpHeader header;
+
+        readBmpHeader(file, header);
+        printBmpHeader(header);
+
+        BmpDib dib;
+        readBmpDib(file, dib);
+        printBmpDib(dib);
+
+        PixelArray data;
+        readBmpPixelArray(file, header, dib, data);
+
+        drawBmp(dib, data);
+
+        releaseBmpPixelArray(data);
+    }
+
+    fclose(file);
 }
