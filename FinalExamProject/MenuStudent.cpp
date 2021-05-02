@@ -181,10 +181,11 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 			gotoxy(64, 28); cout << "  V I E W  E N R O L L E D   C O U R S E S ";
 			if (choice == 13)
 			{
-				if (pStudent->courseStudent)
-					viewEnrolledCourses(pStudent);
-				else
-					gotoxy(70, 20); cout << "You haven't enrolled any course yet!";
+				if (pStudent)
+					if (pStudent->courseStudent)
+						viewEnrolledCourses(pStudent);
+					else
+						gotoxy(70, 20); cout << "You haven't enrolled any course yet!";
 
 				Nocursortype();
 				fillBlackMenu();
