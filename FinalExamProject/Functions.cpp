@@ -121,28 +121,6 @@ void deleteMarks(CourseScore*& pHead)
 	}
 }
 
-string checkStudentInClass(string studentID)
-{
-	//trash function
-	//return whole directory(class name that students is in)
-	string className, sID; // studentID
-	ifstream classList("./" + Schoolyear + "/Classes/AllClasses.csv");
-	while (!classList.eof())
-	{
-		getline(classList, className);
-		ifstream studentList("./" + Schoolyear + "/Classes/" + className + "/AllStudents.csv");
-		while (!studentList.eof())
-		{
-			getline(studentList, sID);
-			if (sID == studentID)
-			{
-				string dir = "./" + Schoolyear + "/Classes/" + className + "/" + studentID + "/";
-				return dir;
-			}
-		}
-	}
-}
-
 string checkStudentClass(string studentID) // check if student in a class with Allstudents.txt and return class name
 {
 	ifstream classList, studentList;
