@@ -488,8 +488,8 @@ void deleteCourse(Courses*& course, Courses* delCourse)
 {
 	string delPath = (Schoolyear + "/Semesters/" + Sem + '/' + delCourse->courseID);
 
-	removeFile(delPath + "/Profile.csv");
-	removeFile(delPath + "/Scoreboard.csv");
+	removeFile(delPath + "/Profile.csv"); 		//xoa file profile
+	removeFile(delPath + "/Scoreboard.csv");	//xoa file scorse
 	removeFolder(delPath);
 
 	if (delCourse->prev)
@@ -502,7 +502,7 @@ void deleteCourse(Courses*& course, Courses* delCourse)
 
 	delete delCourse;
 
-	viewCourseFile(course);
+	viewCourseFile(course);		//cap nhat lai linked list
 }
 
 void addNewCourseMain(Courses*& course)
@@ -575,19 +575,19 @@ void deleteCourseMain(Courses*& course)
 
 	cout << "You are deleting course:\n\n";
 
-	cout << "Enter course's ID: ";
+	cout << "Enter course's ID: "; //lay course id
 	getline(cin, courseID);
 
-	cout << "Enter course's name: ";
+	cout << "Enter course's name: ";	//lay course name
 	getline(cin, courseName);
 
-	cout << "Enter course's name of teacher: ";
+	cout << "Enter course's name of teacher: ";		//lay course teacher
 	getline(cin, teacherName);
 
 	Courses* del = findCourse(course, courseID, courseName, teacherName);
 
 	if (del)
-		deleteCourse(course, del);
+		deleteCourse(course, del);	//xoa course
 	else
 		cout << "There are no course match with your information\n";
 }
