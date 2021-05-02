@@ -20,4 +20,7 @@ void viewAllStudentInCourse(Courses* course);
 
 void viewAllStudentInClass(Classes* Class);
 
+void viewAllClass();
+
 void viewAllCourse();
+

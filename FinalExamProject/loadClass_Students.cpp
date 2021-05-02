@@ -18,34 +18,33 @@ float convertToFloat(string score) {
 	return ans;
 }
 
-//CourseScore* loadScore(string path,string StudentID) {
-//
-//}
-
-BasicCourses* loadCourse(string path, string StudentID) {
+BasicCourses* loadCourse(string path, int sem) {
 	BasicCourses* course = nullptr, * tmp = nullptr;
 	ifstream f;
 	f.open(path);
-	while (f.peek() != EOF)
-	{
-		string stmp;
-		getline(f, stmp, ',');
-		if (stmp == "") continue;
-		if (course) {
-			tmp->next = new BasicCourses;
-			tmp = tmp->next;
+	if (f.is_open())
+		while (f.peek() != EOF)
+		{
+			string stmp;
+			getline(f, stmp, ',');
+			if (stmp == "") continue;
+			if (course) {
+				tmp->next = new BasicCourses;
+				tmp = tmp->next;
+			}
+			else {
+				course = new BasicCourses;
+				tmp = course;
+			}
+			tmp->courseID = stmp;
+			getline(f, tmp->courseName, ',');
+			getline(f, tmp->schedule[0].day, ',');
+			getline(f, tmp->schedule[0].time, ',');
+			getline(f, tmp->schedule[1].day, ',');
+			getline(f, tmp->schedule[1].time);
+			tmp->next = nullptr;
+			tmp->sem = sem;
 		}
-		else {
-			course = new BasicCourses;
-			tmp = course;
-		}
-		tmp->courseID = stmp;
-		getline(f, tmp->courseName, ',');
-		getline(f, tmp->schedule[0].day, ',');
-		getline(f, tmp->schedule[0].time, ',');
-		getline(f, tmp->schedule[1].day, ',');
-		getline(f, tmp->schedule[1].time);
-	}
 	f.close();
 	return course;
 }
@@ -71,8 +70,13 @@ Students* loadStudentInfo(string path) //path: schoolyear/classes/classname/id/
 	f.close();
 
 	//get course
-	stu->courseStudent = loadCourse(path + "\\Course " + Sem, stu->ID);
-
+	BasicCourses* tmp = stu->courseStudent;
+	for (char i = '1'; i <= '3'; ++i) {
+		while (tmp && tmp->next) tmp = tmp->next;
+		if (tmp) tmp->next = loadCourse(path + "/Course Sem " + i + ".csv", i-'0');
+		else tmp = loadCourse(path + "/Course Sem " + i + ".csv", i-'0');
+	}
+	stu->next = nullptr;
 	return stu;
 }
 

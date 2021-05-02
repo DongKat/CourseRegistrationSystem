@@ -1,6 +1,7 @@
 #include "MenuStaff.h"
 
-void ViewYearSem() {
+void ViewYearSem() 
+{
 	txtColor(15);
 	gotoxy(5, 6);	cout << "School Year: " << Schoolyear;
 	gotoxy(5, 7);	cout << "Sem: " << Sem;
@@ -342,6 +343,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(127, 20);	cout << " V I E W   L I S T   O F   C L A S S E S ";
 			if (choice == 13)
 			{
+				viewAllClass();
 			}
 		}
 
@@ -352,6 +354,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(126, 24);	cout << "            I N   A   C L A S S            ";
 			if (choice == 13)
 			{
+				viewAllStudentInClass(CLASS);
 			}
 		}
 		if (dem == 3)
@@ -360,6 +363,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(127, 27);	cout << " V I E W   L I S T   O F   C O U R S E S ";
 			if (choice == 13)
 			{
+				viewAllCourse();
 			}
 		}
 		if (dem == 4)
@@ -369,6 +373,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(126, 31);	cout << "           I N   A   C O U R S E           ";
 			if (choice == 13)
 			{
+				viewAllStudentInCourse(COURSE);
 			}
 		}
 	}
@@ -589,6 +594,7 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 					gotoxy(70, 20);
 					txtColor(0);
 					cout << "You must create semester first!";
+					txtColor(15);
 					continue;
 				}
 
@@ -623,12 +629,12 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 					i++;
 				}
 
-				txtColor(0);
+				/*txtColor(0);
 				for (int j = 44; j < 120; ++j) {
 					gotoxy(j, i - 1);
 					cout << char(32);
-				}
-
+				}*/
+				
 				txtColor(15);
 
 				in.close();
@@ -641,6 +647,19 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 			gotoxy(140, 24); cout << " E D I T ";
 			if (choice == 13)
 			{
+				if (Sem == "") {
+					txtColor(15);
+					gotoxy(70, 20);
+					cout << "You must create semester first!";
+					Sleep(1000);
+					gotoxy(70, 20);
+					txtColor(0);
+					cout << "You must create semester first!";
+					txtColor(15);
+					continue;
+
+				}
+
 				editCourseMain(COURSE);
 			}
 		}
@@ -650,6 +669,19 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 			gotoxy(140, 27); cout << " D E L E T E ";
 			if (choice == 13)
 			{
+
+				if (Sem == "") {
+					txtColor(15);
+					gotoxy(70, 20);
+					cout << "You must create semester first!";
+					Sleep(1000);
+					gotoxy(70, 20);
+					txtColor(0);
+					cout << "You must create semester first!";
+					txtColor(15);
+					continue;
+				}
+
 				txtColor(15);
 				deleteCourseMain(COURSE);
 			}
@@ -705,6 +737,18 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 			gotoxy(135, 18);	cout << " E X P O R T   C S V ";
 			if (choice == 13)
 			{
+				if (Sem == "") {
+					txtColor(15);
+					gotoxy(70, 20);
+					cout << "You must create semester first!";
+					Sleep(1000);
+					gotoxy(70, 20);
+					txtColor(0);
+					cout << "You must create semester first!";
+					txtColor(15);
+					continue;
+				}
+
 				txtColor(15);
 				UnNocursortype();
 				string fileName, courseID;
@@ -755,6 +799,18 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 			gotoxy(135, 21);	cout << " I M P O R T   C S V ";
 			if (choice == 13)
 			{
+				if (Sem == "") {
+					txtColor(15);
+					gotoxy(70, 20);
+					cout << "You must create semester first!";
+					Sleep(1000);
+					gotoxy(70, 20);
+					txtColor(0);
+					cout << "You must create semester first!";
+					txtColor(15);
+					continue;
+				}
+
 				txtColor(15);
 				UnNocursortype();
 				string courseID;
@@ -795,6 +851,18 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 			gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
 			if (choice == 13)
 			{
+				if (Sem == "") {
+					txtColor(15);
+					gotoxy(70, 20);
+					cout << "You must create semester first!";
+					Sleep(1000);
+					gotoxy(70, 20);
+					txtColor(0);
+					cout << "You must create semester first!";
+					txtColor(15);
+					continue;
+				}
+
 				txtColor(15);
 				string courseID;
 				ifstream f;
@@ -837,6 +905,18 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 			gotoxy(123, 27);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
 			if (choice == 13)
 			{
+				if (Sem == "") {
+					txtColor(15);
+					gotoxy(70, 20);
+					cout << "You must create semester first!";
+					Sleep(1000);
+					gotoxy(70, 20);
+					txtColor(0);
+					cout << "You must create semester first!";
+					txtColor(15);
+					continue;
+				}
+
 				txtColor(15);
 				UnNocursortype();
 				string studentID, className, courseID, oldcourseDir, oldstudentDir, newcourseDir, newstudentDir;
@@ -917,6 +997,18 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 			gotoxy(121, 30);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
 			if (choice == 13)
 			{
+				if (Sem == "") {
+					txtColor(15);
+					gotoxy(70, 20);
+					cout << "You must create semester first!";
+					Sleep(1000);
+					gotoxy(70, 20);
+					txtColor(0);
+					cout << "You must create semester first!";
+					txtColor(15);
+					continue;
+				}
+
 				txtColor(15);
 				UnNocursortype();
 				string className;
