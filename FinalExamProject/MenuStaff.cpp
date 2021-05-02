@@ -342,7 +342,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(127, 20);	cout << " V I E W   L I S T   O F   C L A S S E S ";
 			if (choice == 13)
 			{
-
+				viewAllClass();
 			}
 		}
 
@@ -353,7 +353,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(126, 24);	cout << "            I N   A   C L A S S            ";
 			if (choice == 13)
 			{
-
+				viewAllStudentInClass(CLASS);
 			}
 		}
 		if (dem == 3)
@@ -362,7 +362,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(127, 27);	cout << " V I E W   L I S T   O F   C O U R S E S ";
 			if (choice == 13)
 			{
-
+				viewAllCourse();
 			}
 		}
 		if (dem == 4)
@@ -372,6 +372,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(126, 31);	cout << "           I N   A   C O U R S E           ";
 			if (choice == 13)
 			{
+				viewAllStudentInCourse(COURSE);
 			}
 		}
 	}
@@ -628,11 +629,11 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 					i++;
 				}
 
-				txtColor(0);
+				/*txtColor(0);
 				for (int j = 44; j < 120; ++j) {
 					gotoxy(j, i - 1);
 					cout << char(32);
-				}
+				}*/
 				
 				txtColor(15);
 

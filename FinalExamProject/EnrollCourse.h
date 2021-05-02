@@ -19,3 +19,7 @@ void removeACourse(Students* aStudent, Courses* courseDelete);
 void viewAllStudentInCourse(Courses* course);
 
 void viewAllStudentInClass(Classes* Class);
+
+void viewAllClass();
+
+void viewAllCourse();
