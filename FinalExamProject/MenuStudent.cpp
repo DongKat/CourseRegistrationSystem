@@ -207,7 +207,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 		{
 			txtColor(240);
 			gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
-			/*if (choice == 13)
+			if (choice == 13)
 			{
 				txtColor(15);
 				UnNocursortype();
@@ -229,7 +229,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
 				txtColor(15);
 				gotoxy(64, 32); cout << "               L O G   O U T               ";
-			}*/
+			}
 		}
 		if (dem == 7)
 		{
@@ -270,7 +270,7 @@ void MenuStudentProfileInfo(string username, string password) {
 	string dob;
 	string socialID;
 
-	while (!in.eof()) {
+	while (in.peek() != EOF) {
 		getline(in, ignore);
 		getline(in, studentID);
 		getline(in, lastName);

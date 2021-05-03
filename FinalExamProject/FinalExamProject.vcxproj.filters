@@ -91,13 +91,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="student.csv">
-      <Filter>Source Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="staff.txt">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="YearAndSemester.txt">
+      <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
 </Project>
