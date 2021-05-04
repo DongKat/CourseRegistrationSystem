@@ -435,7 +435,7 @@ Courses* addCourse(Courses*& course, string courseName, string courseID, string 
 	return newC;
 }
 
-void createFolderNFileCourse(Courses* course)
+void createFolderNFileCourse(Courses* course) // tao folder Profile.csv va Scoreboard.csv
 {
 	ofstream out;
 
@@ -456,7 +456,7 @@ void createFolderNFileCourse(Courses* course)
 	out.close();
 }
 
-void viewCourseFile(Courses* course)
+void viewCourseFile(Courses* course) // update course list ra file theo thoi gian thuc
 {
 	ofstream out;
 
