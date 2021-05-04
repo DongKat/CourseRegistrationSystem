@@ -310,5 +310,5 @@ void viewAllClass()
 		}
 	}
 	else
-		throw std::runtime_error("There are no classes yet, create one first you dum dum");
+		throw std::runtime_error("There are no classes yet!");
 }

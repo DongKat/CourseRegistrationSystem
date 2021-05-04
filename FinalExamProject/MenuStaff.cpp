@@ -364,7 +364,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 				}
 				catch (const std::exception& ex)
 				{
-					gotoxy(50, temp); cout << ex.what();
+					gotoxy(70, temp); cout << ex.what();
 					Sleep(500);
 				}
 
@@ -415,7 +415,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 				}
 				catch (const std::exception& ex)
 				{
-					gotoxy(50, temp); cout << ex.what();
+					gotoxy(70, temp); cout << ex.what();
 					Sleep(500);
 				}
 
@@ -450,7 +450,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 				}
 				catch (const std::exception& ex)
 				{
-					gotoxy(50, temp); cout << ex.what();
+					gotoxy(70, temp); cout << ex.what();
 					Sleep(500);
 				}
 
@@ -501,7 +501,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 				}
 				catch (const std::exception& ex)
 				{
-					gotoxy(50, temp); cout << ex.what();
+					gotoxy(70, temp); cout << ex.what();
 					Sleep(500);
 				}
 
