@@ -564,7 +564,7 @@ void addNewCourseMain(Courses*& course)
 		getline(cin, schedule[i].day);
 		temp++;
 		gotoxy(70, temp);
-		cout << "Time(S1, S2, S3): ";		//S1, S2, S3
+		cout << "Time(S1, S2, S3, S4): ";		//S1, S2, S3
 		getline(cin, schedule[i].time);
 		temp++;
 	}
@@ -702,7 +702,7 @@ void editCourseMain(Courses*& course)
 			temp++;
 
 			gotoxy(70, temp);
-			cout << "Time(S1, S2, S3): ";		//S1, S2, S3
+			cout << "Time(S1, S2, S3, S4): ";		//S1, S2, S3
 			getline(cin, edit->schedule[i].time);		//lay buoi moi
 			temp++;
 		}
