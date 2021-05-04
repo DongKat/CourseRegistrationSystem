@@ -114,12 +114,13 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 			{
 				fillBlackMenu();
 				UnNocursortype();
+				txtColor(15);
 				try
 				{
 					if (!COURSE)
 						throw std::runtime_error("There are no courses yet!");
 					string courseID;
-					cout << "Please enter course ID: ";
+					gotoxy(70, 20); cout << "Please enter course ID: ";
 					cin >> courseID;
 
 					Courses* pCourse = COURSE;
@@ -152,18 +153,29 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 			gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
 			if (choice == 13)
 			{
-				string courseID;
-				gotoxy(70, 20); cout << "Please enter course ID you want to delete: ";
-				cin >> courseID;
-
-				Courses* pCourse = COURSE;
-				while (pCourse)
-				{
-					if (pCourse->courseID == courseID)
-						break;
-				}
 				try
 				{
+					UnNocursortype();
+					Courses* pCourse = COURSE;
+					
+					if (!pStudent->courseStudent)
+						throw std::runtime_error("You can't delete a non-existent thing");
+					string courseID;
+					gotoxy(70, 20); cout << "Please enter course ID you want to reverse enroll: ";
+					cin >> courseID;
+
+					while (pCourse)
+					{
+						if (pCourse->courseID == courseID)
+						{
+							flag = true;
+							break;
+						}
+						pCourse = pCourse->next;
+					}
+					if (!flag)
+						throw std::runtime_error("Course Invalid");
+
 					removeACourse(pStudent, pCourse);
 				}
 				catch (const std::exception& ex)
