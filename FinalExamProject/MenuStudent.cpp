@@ -141,10 +141,23 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				}
 				catch (const std::exception& ex)
 				{
+					Nocursortype();
 					gotoxy(70, 21);	cout << ex.what();
 					Sleep(500);
 					fillBlackMenu();
-					drawBorderMenuStaff();
+					drawBorderMenuStudent();
+					txtColor(15);
+					gotoxy(74, 18); cout << "H E L L O  S T U D E N T";
+					gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
+					gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
+					txtColor(240);
+					gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
+					txtColor(15);
+					gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
+					gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
+					gotoxy(64, 30); cout << "       V I E W   S C O R E B O A R D       ";
+					gotoxy(64, 32); cout << "               L O G   O U T               ";
+
 				}
 			}
 		}
@@ -158,7 +171,9 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 			{
 				try
 				{
+					fillBlackMenu();
 					UnNocursortype();
+					txtColor(15);
 					Courses* pCourse = COURSE;
 					
 					if (!pStudent->courseStudent)
@@ -183,7 +198,22 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				}
 				catch (const std::exception& ex)
 				{
-					gotoxy(70, 20); cout << ex.what();
+					Nocursortype();
+					gotoxy(70, 21);	cout << ex.what();
+					Sleep(500);
+					fillBlackMenu();
+					drawBorderMenuStudent();
+					txtColor(15);
+					gotoxy(74, 18); cout << "H E L L O  S T U D E N T";
+					gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
+					gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
+					gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
+					txtColor(240);
+					gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
+					txtColor(15);
+					gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
+					gotoxy(64, 30); cout << "       V I E W   S C O R E B O A R D       ";
+					gotoxy(64, 32); cout << "               L O G   O U T               ";
 				}
 
 				Nocursortype();
@@ -205,7 +235,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 		if (dem == 5)
 		{
 			txtColor(240);
-			gotoxy(64, 28); cout << "  V I E W  E N R O L L E D   C O U R S E S ";
+			gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
 			if (choice == 13)
 			{
 				if (pStudent)
