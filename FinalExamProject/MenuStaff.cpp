@@ -1287,6 +1287,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					Sleep(500);
 					Nocursortype();
 					fillBlackMenu();
+					txtColor(15);
 					gotoxy(135, 18);	cout << " I M P O R T   C S V ";
 					gotoxy(135, 21);	cout << " E X P O R T   C S V ";
 					gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
