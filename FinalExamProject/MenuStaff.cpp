@@ -1008,6 +1008,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				f.open(Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard.csv");
 				int temp = 21;
 				if (!f.is_open()) {
+					Nocursortype();
 					gotoxy(70, temp);
 					cout << "Export file failed!";
 					Sleep(500);
@@ -1024,6 +1025,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				else {
 					exportCourseStudent(f);
 					f.close();
+					Nocursortype();
 				}
 			}
 		}
@@ -1072,6 +1074,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				f.open(fileName);
 				int temp = 22;
 				if (!f.is_open()) {
+					Nocursortype();
 					gotoxy(70, temp);
 					cout << "Import file failed!";
 					Sleep(500);
@@ -1090,11 +1093,8 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					importScoreboardCourse(f, courseID);
 					importScoreboardStudent(f, courseID);
 					f.close();
+					Nocursortype();
 				}
-
-				importScoreboardCourse(f, courseID);
-				importScoreboardStudent(f, courseID);
-				f.close();
 			}
 		}
 		// View Course Scoreboard
@@ -1139,6 +1139,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				int temp = 21;
 
 				if (!f.is_open()) {
+					Nocursortype();
 					txtColor(15);
 					gotoxy(70, temp);
 					cout << "Open file failed!";
@@ -1157,6 +1158,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				else {
 					viewCourseScoreboard(f);
 					f.close();
+					Nocursortype();
 				}
 
 
@@ -1212,6 +1214,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				f2.open(oldstudentDir);
 
 				if (!(f1.is_open() && f2.is_open())) {
+					Nocursortype();
 					gotoxy(70, temp);	cout << "Open file failed!";
 					Sleep(500);
 					Nocursortype();
@@ -1254,7 +1257,6 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 
 					rename(newcourseDir.c_str(), oldcourseDir.c_str());
 					rename(newstudentDir.c_str(), oldstudentDir.c_str());
-
 				}
 
 				
@@ -1300,10 +1302,10 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				f.open(Schoolyear + "/Classes/" + className + "/allStudents.csv");
 
 				if (!f.is_open()) {
+					Nocursortype();
 					gotoxy(70, temp);
 					cout << "Class not found!";
 					Sleep(500);
-					Nocursortype();
 					fillBlackMenu();
 					txtColor(15);
 					gotoxy(135, 18);	cout << " E X P O R T   C S V ";
@@ -1319,9 +1321,6 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					viewClassScoreboard(f, className);
 					f.close();
 				}
-
-				viewClassScoreboard(f, className);
-				f.close();
 			}
 		}
 	}
