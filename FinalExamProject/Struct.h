@@ -48,7 +48,7 @@ struct BasicStudents
 	string lastName;
 	string className;
 	BasicStudents* next = nullptr;
-	BasicStudents* prev;
+	BasicStudents* prev = nullptr;
 };
 
 struct BasicCourses
@@ -69,12 +69,12 @@ struct Courses
 	int numCredits;
 	int maxStudent;// cap phat studentID
 	int countStudent = 0;
-	BasicStudents* studentID;//8 [50] là tối đa 50 SV 1 lớp - 13 ghi danh- 15 xoá khoá- 16 xem các môn mà sv học
+	BasicStudents* studentID = nullptr;//8 [50] là tối đa 50 SV 1 lớp - 13 ghi danh- 15 xoá khoá- 16 xem các môn mà sv học
 
 	//CourseScore* mark;
 
 	Schedules schedule[2];
-	Courses* prev, * next = nullptr;
+	Courses* prev = nullptr, * next = nullptr;
 };
 
 struct Students
@@ -92,7 +92,7 @@ struct Students
 	BasicCourses* courseStudent = nullptr;
 
 	Students* next = nullptr;
-	Students* prev;
+	Students* prev = nullptr;
 };
 
 struct Semesters
@@ -108,7 +108,7 @@ struct Classes
 	string className;
 	Students* student; // 3 thêm sinh viên vào lớp , 18 xem danh sách sinh viên 1 lớp
 	Classes* next = nullptr;
-	Classes* prev;
+	Classes* prev = nullptr;
 };
 
 struct schoolYear // 1 tạo năm học

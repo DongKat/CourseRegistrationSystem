@@ -278,28 +278,37 @@ void viewAllStudentInClass(Classes* Class)
 
 void viewAllCourse()
 {
-	txtColor(15);
-	int temp = 17;
-	gotoxy(50, temp);	cout << "Course's ID";
-	gotoxy(70, temp);	cout << "Course's Name";
-	temp++;
-	Courses* curCourse = COURSE;
-	while (curCourse != nullptr)
+	if (COURSE)
 	{
-		gotoxy(50, temp);	cout << curCourse->courseID;
-		gotoxy(70, temp);	cout << curCourse->courseName;
+		txtColor(15);
+		int temp = 17;
+		gotoxy(50, temp);	cout << "Course's ID";
+		gotoxy(70, temp);	cout << "Course's Name";
 		temp++;
-		curCourse = curCourse->next;
+		Courses* curCourse = COURSE;
+		while (curCourse != nullptr)
+		{
+			gotoxy(50, temp);	cout << curCourse->courseID;
+			gotoxy(70, temp);	cout << curCourse->courseName;
+			temp++;
+			curCourse = curCourse->next;
+		}
 	}
+	else
+		throw std::runtime_error("There are no courses yet!");
 }
 
 void viewAllClass()
 {
-    Classes* curClass = CLASS;
-    while (curClass != nullptr)
-    {
-        cout << " Class Name: " << curClass->className<<endl;
-        curClass = curClass->next;
-    }
+	if (CLASS)
+	{
+		Classes* curClass = CLASS;
+		while (curClass != nullptr)
+		{
+			cout << " Class Name: " << curClass->className << endl;
+			curClass = curClass->next;
+		}
+	}
+	else
+		throw std::runtime_error("There are no classes yet, create one first you dum dum");
 }
-
