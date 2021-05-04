@@ -444,7 +444,7 @@ void viewClassScoreboard(ifstream& f, string className) // Require changing UI
 
 		cout << "No. " << student_count++ << "\t" << studentID << "\t";
 
-		studentScoreboard.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course " + Sem + " Scoreboard.csv");
+		studentScoreboard.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course Scoreboard " + Sem + ".csv");
 		studentProfile.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Profile.txt");
 
 		getline(studentProfile, temp);	//get last name
