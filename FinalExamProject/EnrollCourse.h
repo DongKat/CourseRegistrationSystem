@@ -1,5 +1,6 @@
 #pragma once
 
+#include "UI.h"
 #include "Struct.h"
 
 time_t timeToUnixTime(date end);

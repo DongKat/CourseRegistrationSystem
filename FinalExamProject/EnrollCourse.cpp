@@ -1,5 +1,4 @@
 #include "EnrollCourse.h"
-#include "UI.h"
 
 time_t timeToUnixTime(date end)
 {
@@ -257,6 +256,8 @@ void viewAllStudentInCourse(Courses* course)
 {
 	int count = 1;
 	BasicStudents* pCur = course->studentID;
+	if (pCur == nullptr)
+		throw std::runtime_error("There no students enrolled in this course yet!");
 	while (pCur != nullptr)
 	{
 		cout << count++ << "ID: " << pCur->ID << '\t' << "Name: " << pCur->firstName << " " << pCur->lastName;
@@ -269,9 +270,10 @@ void viewAllStudentInClass(Classes* Class)
 	txtColor(15);
 	int count = 1;
 	Students* pCur = Class->student;
+	cout << "ID\tName\n";
 	while (pCur != nullptr)
 	{
-		cout << count++ << "ID: " << pCur->ID << '\t' << "Name: " << pCur->firstName << " " << pCur->lastName;
+		cout << count++ <<pCur->ID << '\t' << pCur->firstName << " " << pCur->lastName << endl;
 		pCur = pCur->next;
 	}
 }
@@ -300,12 +302,13 @@ void viewAllCourse()
 
 void viewAllClass()
 {
+	int temp = 20;
 	if (CLASS)
 	{
 		Classes* curClass = CLASS;
 		while (curClass != nullptr)
 		{
-			cout << " Class Name: " << curClass->className << endl;
+			gotoxy(70, temp++); cout << " Class Name: " << curClass->className << endl;
 			curClass = curClass->next;
 		}
 	}

@@ -121,15 +121,15 @@ void deleteMarks(CourseScore*& pHead)
 	}
 }
 
-string checkStudentClass(string studentID) // check if student in a class with Allstudents.txt and return class name
+string checkStudentClass(string studentID) // check if student in a class with allStudents.csv and return class name
 {
 	ifstream classList, studentList;
 	string className, student;
-	classList.open(Schoolyear + "/Classes/AllClasses.txt");
+	classList.open(Schoolyear + "/Classes/allClasses.csv");
 	while (classList.peek() != EOF)
 	{
 		getline(classList, className);
-		studentList.open(Schoolyear + "/Classes/" + className + "/AllStudents.txt");
+		studentList.open(Schoolyear + "/Classes/" + className + "/allStudents.csv");
 		while (studentList.peek() != EOF)
 		{
 			getline(studentList, student);

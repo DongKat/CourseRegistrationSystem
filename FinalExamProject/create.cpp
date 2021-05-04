@@ -170,7 +170,7 @@ Classes* newClass(string filepath, string className, string folder) {
 	Class->className = className;
 	ifstream f;
 	ofstream fout;
-	fout.open(folder + "\\" + className + "\\allStudents.txt");
+	fout.open(folder + "\\" + className + "\\allStudents.csv");
 	f.open(filepath);
 	Students* stu = nullptr;
 	int no;
@@ -238,26 +238,6 @@ void addClass(Classes*& Class, string folder) {
 
 	string Cname;
 
-	int temp = 20;
-	gotoxy(70, temp);
-	cout << "Please enter class's name(Ex:20apcs1): ";
-	getline(cin, Cname);
-
-	while (createFolder(folder + "\\Classes\\" + Cname)) {   	// lay ten lop
-		gotoxy(70, temp);
-		cout << "Please enter class's name(Ex:20apcs1): ";
-		getline(cin, Cname);
-		temp++;
-	}
-
-	fstream f;
-
-	f.open(folder + "\\Classes\\allClasses.txt", ios::app | ios::out);   //ghi ten lop ra file
-	f << Cname << "\n";
-	f.close();
-
-	string filepath;
-
 	gotoxy(17, 18); cout << "C S V   F I L E S";
 	gotoxy(20, 19); cout << "17apcs1.csv";
 	gotoxy(20, 20); cout << "17apcs2.csv";
@@ -267,6 +247,28 @@ void addClass(Classes*& Class, string folder) {
 	gotoxy(20, 24); cout << "19apcs2.csv";
 	gotoxy(20, 25); cout << "20apcs1.csv";
 	gotoxy(20, 26); cout << "20apcs2.csv";
+	// Impossible
+
+	int temp = 20;
+	gotoxy(70, temp);
+	cout << "Please enter class's name(Ex:20apcs1): ";
+	getline(cin, Cname);
+
+	while (createFolder(folder + "\\Classes\\" + Cname)) // lay ten lop
+	{   	
+		gotoxy(70, temp);
+		cout << "Please enter class's name(Ex:20apcs1): ";
+		getline(cin, Cname);
+		temp++;
+	}
+
+	fstream f;
+
+	f.open(folder + "\\Classes\\allClasses.csv", ios::app | ios::out);   //ghi ten lop ra file
+	f << Cname << "\n";
+	f.close();
+
+	string filepath;
 
 	do {								//lay danh sach lop
 		gotoxy(70, temp);
@@ -407,8 +409,8 @@ Courses* newCourse(string courseName, string courseID, string teacherName, int n
 	newCourse->schedule[0] = schedule[0];
 	newCourse->schedule[1] = schedule[1];
 
-	newCourse->prev = NULL;
-	newCourse->next = NULL;
+	newCourse->prev = nullptr;
+	newCourse->next = nullptr;
 
 	return newCourse;
 }
@@ -443,7 +445,7 @@ void createFolderNFileCourse(Courses* course)
 
 	out << "Course ID,Course Name,Teacher Name,Num of Credits,Max Students,Session 1,Session 2\n";
 
-	out << course->courseID + ',' + course->courseName + ',' + course->teacherName + ',' + to_string(course->numCredits) + ',' + to_string(course->maxStudent) + ',' + course->schedule[0].day + ' ' + course->schedule[0].time + ',' + course->schedule[1].day + ' ' + course->schedule[1].time + '\n';
+	out << course->courseID + ',' + course->courseName + ',' + course->teacherName + ',' + to_string(course->numCredits) + ',' + to_string(course->maxStudent) + ',' + course->schedule[0].day + ',' + course->schedule[0].time + ',' + course->schedule[1].day + ',' + course->schedule[1].time + '\n';
 
 	out.close();
 
@@ -464,7 +466,7 @@ void viewCourseFile(Courses* course)
 
 	out << "Course ID,Course Name,Teacher Name";
 
-	while (curr != NULL)
+	while (curr != nullptr)
 	{
 		out << '\n' << curr->courseID + ',' + curr->courseName + ',' + curr->teacherName;
 		curr = curr->next;
@@ -484,7 +486,7 @@ Courses* findCourse(Courses*& course, string courseID, string courseName, string
 		curr = curr->next;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void deleteCourse(Courses*& course, Courses* delCourse)
@@ -769,17 +771,17 @@ bool loadCoursesFromFile(Courses*& course)
 	//Truy cap vao folder bang string moi lay de lay thong tin chi tien cua course
 	for (int i = 0; i <= count; ++i)
 	{
-		if (course == NULL)
+		if (course == nullptr)
 		{
 			course = new Courses;
-			course->prev = course->next = NULL;
+			course->prev = course->next = nullptr;
 			curr = course;
 		}
 		else
 		{
 			curr->next = new Courses;
 			curr->next->prev = curr;
-			curr->next->next = NULL;
+			curr->next->next = nullptr;
 			curr = curr->next;
 		}
 
@@ -795,9 +797,9 @@ bool loadCoursesFromFile(Courses*& course)
 		in.ignore();
 		in >> curr->maxStudent;					//lay max student
 		in.ignore();
-		getline(in, curr->schedule[0].day, ' ');	//bat dau lay shedule
+		getline(in, curr->schedule[0].day, ',');	//bat dau lay shedule
 		getline(in, curr->schedule[0].time, ',');
-		getline(in, curr->schedule[1].day, ' ');
+		getline(in, curr->schedule[1].day, ',');
 		getline(in, curr->schedule[1].time);
 
 		in.close();
@@ -826,17 +828,17 @@ bool loadCoursesFromFile(Courses*& course)
 			//bat dau lay
 			while (!in.eof())
 			{
-				if (curr->studentID == NULL)
+				if (curr->studentID == nullptr)
 				{
 					curr->studentID = new BasicStudents;
-					curr->studentID->prev = curr->studentID->next = NULL;
+					curr->studentID->prev = curr->studentID->next = nullptr;
 					currStu = curr->studentID;
 				}
 				else
 				{
 					currStu->next = new BasicStudents;
 					currStu->next->prev = currStu;
-					currStu->next->next = NULL;
+					currStu->next->next = nullptr;
 					currStu = currStu->next;
 				}
 

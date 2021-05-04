@@ -359,6 +359,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			{
 				try
 				{
+					UnNocursortype();
 					txtColor(15);
 					viewAllClass();
 				}
@@ -367,9 +368,9 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 					gotoxy(70, temp); cout << ex.what();
 					Sleep(500);
 				}
-
-				Nocursortype();
+				_getch();
 				fillBlackMenu();
+				Nocursortype();
 				txtColor(15);
 
 				txtColor(240);
@@ -402,14 +403,21 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 					UnNocursortype();
 					string className;
 					Classes* pCur = CLASS;
-					gotoxy(70, 20);	cout << "Please enter course ID: \n";
+					gotoxy(70, 20);	cout << "Please enter class name: ";
 					cin >> className;
 
+					bool flag = false;
 					while (pCur)
-						if (pCur->className != className)
-							pCur = pCur->next;
-						else
+					{
+						if (pCur->className == className)
+						{
+							flag = true;
 							break;
+						}
+						pCur = pCur->next;
+					}
+					if (!flag)
+						throw std::runtime_error("Class Invalid");
 
 					viewAllStudentInClass(pCur);
 				}
@@ -418,9 +426,9 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 					gotoxy(70, temp); cout << ex.what();
 					Sleep(500);
 				}
-
-				Nocursortype();
+				_getch();
 				fillBlackMenu();
+				Nocursortype();
 				txtColor(15);
 
 				gotoxy(127, 20);	cout << " V I E W   L I S T   O F   C L A S S E S ";
@@ -445,6 +453,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			{
 				try
 				{
+					UnNocursortype();
 					txtColor(15);
 					viewAllCourse();
 				}
@@ -453,9 +462,9 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 					gotoxy(70, temp); cout << ex.what();
 					Sleep(500);
 				}
-
-				Nocursortype();
+				_getch();
 				fillBlackMenu();
+				Nocursortype();
 				txtColor(15);
 
 				gotoxy(127, 20);	cout << " V I E W   L I S T   O F   C L A S S E S ";
@@ -481,6 +490,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			{
 				try
 				{
+					UnNocursortype();
 					txtColor(15);
 					if (!COURSE)
 						throw std::runtime_error("There are no courses yet!");
@@ -488,15 +498,21 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 					UnNocursortype();
 					string courseID;
 					Courses* pCur = COURSE;
-					gotoxy(70, 20);	cout << "Please enter course ID: \n";
+					gotoxy(70, 20);	cout << "Please enter course ID: ";
 					cin >> courseID;
 
+					bool flag = false;
 					while (pCur)
-						if (pCur->courseID != courseID)
-							pCur = pCur->next;
-						else
+					{
+						if (pCur->courseID == courseID)
+						{
+							flag = true;
 							break;
-
+						}
+						pCur = pCur->next;
+					}
+					if (!flag)
+						throw std::runtime_error("Course Invalid");
 					viewAllStudentInCourse(pCur);
 				}
 				catch (const std::exception& ex)
@@ -504,9 +520,9 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 					gotoxy(70, temp); cout << ex.what();
 					Sleep(500);
 				}
-
-				Nocursortype();
+				_getch();
 				fillBlackMenu();
+				Nocursortype();
 				txtColor(15);
 
 				gotoxy(127, 20);	cout << " V I E W   L I S T   O F   C L A S S E S ";
@@ -642,6 +658,7 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
 			if (choice == 13)
 			{
+				UnNocursortype();
 				addClass(CLASS, Schoolyear);
 
 				Nocursortype();
@@ -955,8 +972,12 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 		if (dem == 1)
 		{
 			txtColor(240);
+<<<<<<< Updated upstream
 
 			gotoxy(135, 18);	cout << " I M P O R T   C S V ";
+=======
+			gotoxy(135, 21);	cout << " E X P O R T   C S V ";
+>>>>>>> Stashed changes
 			if (choice == 13)
 			{
 				if (Sem == "") {
@@ -983,12 +1004,12 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 
 				txtColor(15);
 				UnNocursortype();
-				string fileName, courseID;
+				string courseID;
 				ifstream f;
-
 				gotoxy(70, 20);
-				cout << "Please enter course ID: ";
+				cout << "Please input course ID: ";
 				cin >> courseID;
+<<<<<<< Updated upstream
 
 				gotoxy(70, 21);
 				cout << "Please input file: ";
@@ -1009,13 +1030,40 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
 					gotoxy(123, 27);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
 					gotoxy(121, 30);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
+=======
+				f.open(Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard.csv");
+				int temp = 21;
+				while (!f.is_open()) {
+					gotoxy(70, temp);
+					cout << "Please input course ID: ";
+					cin >> courseID;
+					f.open(Schoolyear + "/Semester/" + Sem + "/" + courseID + "/Scoreboard.csv");
+					temp++;
+>>>>>>> Stashed changes
 				}
 				else {
 					importScoreboardCourse(f, courseID);
 					importScoreboardStudent(f, courseID);
 					f.close();
 
+<<<<<<< Updated upstream
 				}
+=======
+				exportCourseStudent(f);
+				f.close();
+				_getch();
+
+				Nocursortype();
+				fillBlackMenu();
+				txtColor(15);
+				gotoxy(135, 18);	cout << " I M P O R T   C S V ";
+				txtColor(240);
+				gotoxy(135, 21);	cout << " E X P O R T   C S V ";
+				txtColor(15);
+				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
+				gotoxy(121, 27);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
+				gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+>>>>>>> Stashed changes
 			}
 		}
 		
@@ -1023,7 +1071,12 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 		if (dem == 2)
 		{
 			txtColor(240);
+<<<<<<< Updated upstream
 			gotoxy(135, 21);	cout << " E X P O R T   C S V ";
+=======
+
+			gotoxy(135, 21);	cout << " I M P O R T   C S V ";
+>>>>>>> Stashed changes
 			if (choice == 13)
 			{
 				if (Sem == "") {
@@ -1051,11 +1104,13 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 
 				txtColor(15);
 				UnNocursortype();
-				string courseID;
+				string fileName, courseID;
 				ifstream f;
+
 				gotoxy(70, 20);
-				cout << "Please input course ID: ";
+				cout << "Please enter course ID: ";
 				cin >> courseID;
+<<<<<<< Updated upstream
 				f.open(Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard.csv");
 				int temp = 21;
 				if (!f.is_open()) {
@@ -1077,6 +1132,41 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					exportCourseStudent(f);
 					f.close();
 				}
+=======
+
+				gotoxy(70, 21);
+				cout << "Please input file: ";
+				cin >> fileName;
+
+				f.open(fileName);
+				int temp = 22;
+				while (!f.is_open()) {
+					gotoxy(70, temp);
+					cout << "Please enter course ID: ";
+					cin >> courseID;
+					temp++;
+					gotoxy(70, temp);
+					cout << "Please input file: ";
+					cin >> fileName;
+					f.open(fileName);
+					temp++;
+				}
+
+				importScoreboardCourse(f, courseID);
+				importScoreboardStudent(f, courseID);
+				f.close();
+				_getch();
+
+				Nocursortype();
+				fillBlackMenu();
+				txtColor(240);
+				gotoxy(135, 18);	cout << " E X P O R T   C S V ";
+				txtColor(15);
+				gotoxy(135, 21);	cout << " I M P O R T   C S V ";
+				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
+				gotoxy(123, 27);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+				gotoxy(121, 30);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
+>>>>>>> Stashed changes
 			}
 		}
 		// View Course Scoreboard

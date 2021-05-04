@@ -33,6 +33,7 @@ int main() {
 	{
 		txtColor(15);
 		cout << ex.what();
+		_getch();
 	}
 
 	//loadYearAndSem();
