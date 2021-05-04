@@ -18,7 +18,7 @@ void MenuStudent(char username[], char password[], int sizeUser, int sizePass) {
 	gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
 	gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
 	gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
-	gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
+	gotoxy(64, 30); cout << "       V I E W   S C O R E B O A R D       ";
 	gotoxy(64, 32); cout << "               L O G   O U T               ";
 
 	MenuStudentSettings(username, password, sizeUser, sizePass);
@@ -141,7 +141,10 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				}
 				catch (const std::exception& ex)
 				{
-					gotoxy(70, 20);	cout << ex.what();
+					gotoxy(70, 21);	cout << ex.what();
+					Sleep(500);
+					fillBlackMenu();
+					drawBorderMenuStaff();
 				}
 			}
 		}
