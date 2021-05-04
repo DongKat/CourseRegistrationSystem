@@ -574,25 +574,47 @@ void addNewCourseMain(Courses*& course)
 
 void deleteCourseMain(Courses*& course)
 {
+	txtColor(15);
 	string courseID, courseName, teacherName;
 
+	int temp = 20;
+	gotoxy(70, temp);
 	cout << "You are deleting course:\n\n";
+	temp++;
 
+	gotoxy(70, temp);
 	cout << "Enter course's ID: "; //lay course id
 	getline(cin, courseID);
+	temp++;
 
+	gotoxy(70, temp);
 	cout << "Enter course's name: ";	//lay course name
 	getline(cin, courseName);
+	temp++;
 
+	gotoxy(70, temp);
 	cout << "Enter course's name of teacher: ";		//lay course teacher
 	getline(cin, teacherName);
+	temp++;
 
 	Courses* del = findCourse(course, courseID, courseName, teacherName);
 
 	if (del)
 		deleteCourse(course, del);	//xoa course
-	else
-		cout << "There are no course match with your information\n";
+	else {
+		gotoxy(70, temp);
+		cout << "There are no course match with your information!\n";
+		temp++;
+		Sleep(500);
+		Nocursortype();
+		fillBlackMenu();
+		txtColor(15);
+		gotoxy(140, 21);	cout << " V I E W ";
+		gotoxy(140, 24);	cout << " E D I T ";
+		txtColor(240);
+		gotoxy(140, 27);	cout << " D E L E T E ";
+		txtColor(15);
+	}
 }
 
 void deleteCourseFolder(Courses* delCourse)
@@ -688,9 +710,18 @@ void editCourseMain(Courses*& course)
 	}
 	else {
 		gotoxy(70, temp);
-		cout << "There are no course match with your information\n";
+		cout << "There are no course match with your information!\n";
 		temp++;
-		Sleep(1000);
+		Sleep(500);
+
+		Nocursortype();
+		fillBlackMenu();
+		txtColor(15);
+		gotoxy(140, 21);	cout << " V I E W ";
+		txtColor(240);
+		gotoxy(140, 24);	cout << " E D I T ";
+		txtColor(15);
+		gotoxy(140, 27);	cout << " D E L E T E ";
 	}
 }
 
