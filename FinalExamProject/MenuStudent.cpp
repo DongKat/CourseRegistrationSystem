@@ -112,18 +112,30 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 			gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
 			if (choice == 13)
 			{
-				string courseID;
-				cout << "Please enter course ID: ";
-				cin >> courseID;
-
-				Courses* pCourse = COURSE;
-				while (pCourse)
-				{
-					if (pCourse->courseID == courseID)
-						break;
-				}
+				fillBlackMenu();
+				UnNocursortype();
 				try
 				{
+					if (!COURSE)
+						throw std::runtime_error("There are no courses yet!");
+					string courseID;
+					cout << "Please enter course ID: ";
+					cin >> courseID;
+
+					Courses* pCourse = COURSE;
+
+					bool flag = false;
+					while (pCourse)
+					{
+						if (pCourse->courseID == courseID)
+						{
+							flag = true;
+							break;
+						}
+						pCourse = pCourse->next;
+					}
+					if (!flag)
+						throw std::runtime_error("Course Invalid");
 					enrollACourse(*pStudent, *pCourse);
 				}
 				catch (const std::exception& ex)
