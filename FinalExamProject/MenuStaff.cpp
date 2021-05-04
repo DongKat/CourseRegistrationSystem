@@ -968,16 +968,11 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 			MenuStaff(username, password, sizeUser, sizePass);
 			break;
 		}
-		// Import CSV
+		// Export CSV
 		if (dem == 1)
 		{
 			txtColor(240);
-<<<<<<< Updated upstream
-
-			gotoxy(135, 18);	cout << " I M P O R T   C S V ";
-=======
 			gotoxy(135, 21);	cout << " E X P O R T   C S V ";
->>>>>>> Stashed changes
 			if (choice == 13)
 			{
 				if (Sem == "") {
@@ -992,63 +987,11 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					continue;
 				}
 
-				Nocursortype();
-				fillBlackMenu();
-				txtColor(240);
-				gotoxy(135, 18);	cout << " I M P O R T   C S V ";
-				txtColor(15);
-				gotoxy(135, 21);	cout << " E X P O R T   C S V ";
-				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
-				gotoxy(123, 27);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
-				gotoxy(121, 30);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
-
 				txtColor(15);
 				UnNocursortype();
+
 				string courseID;
 				ifstream f;
-				gotoxy(70, 20);
-				cout << "Please input course ID: ";
-				cin >> courseID;
-<<<<<<< Updated upstream
-
-				gotoxy(70, 21);
-				cout << "Please input file: ";
-				cin >> fileName;
-
-				f.open(fileName);
-				int temp = 22;
-				if (!f.is_open()) {
-					gotoxy(70, temp);
-					cout << "Import file failed!";
-					Sleep(500);
-					Nocursortype();
-					fillBlackMenu();
-					txtColor(240);
-					gotoxy(135, 18);	cout << " I M P O R T   C S V ";
-					txtColor(15);
-					gotoxy(135, 21);	cout << " E X P O R T   C S V ";
-					gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
-					gotoxy(123, 27);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
-					gotoxy(121, 30);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
-=======
-				f.open(Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard.csv");
-				int temp = 21;
-				while (!f.is_open()) {
-					gotoxy(70, temp);
-					cout << "Please input course ID: ";
-					cin >> courseID;
-					f.open(Schoolyear + "/Semester/" + Sem + "/" + courseID + "/Scoreboard.csv");
-					temp++;
->>>>>>> Stashed changes
-				}
-				else {
-					importScoreboardCourse(f, courseID);
-					importScoreboardStudent(f, courseID);
-					f.close();
-
-<<<<<<< Updated upstream
-				}
-=======
 				exportCourseStudent(f);
 				f.close();
 				_getch();
@@ -1063,20 +1006,14 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
 				gotoxy(121, 27);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
 				gotoxy(123, 30);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
->>>>>>> Stashed changes
 			}
 		}
 		
-		// Export CSV
+		// Import CSV
 		if (dem == 2)
 		{
 			txtColor(240);
-<<<<<<< Updated upstream
-			gotoxy(135, 21);	cout << " E X P O R T   C S V ";
-=======
-
 			gotoxy(135, 21);	cout << " I M P O R T   C S V ";
->>>>>>> Stashed changes
 			if (choice == 13)
 			{
 				if (Sem == "") {
@@ -1107,35 +1044,10 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				string fileName, courseID;
 				ifstream f;
 
-				gotoxy(70, 20);
-				cout << "Please enter course ID: ";
+				gotoxy(70, 20);	cout << "Please enter course ID: ";
 				cin >> courseID;
-<<<<<<< Updated upstream
-				f.open(Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard.csv");
-				int temp = 21;
-				if (!f.is_open()) {
-					gotoxy(70, temp);
-					cout << "Export file failed!";
-					Sleep(500);
-					Nocursortype();
-					fillBlackMenu();
-					txtColor(15);
-					gotoxy(135, 18);	cout << " I M P O R T   C S V ";
-					txtColor(240);
-					gotoxy(135, 21);	cout << " E X P O R T   C S V ";
-					txtColor(15);
-					gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
-					gotoxy(123, 27);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
-					gotoxy(121, 30);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
-				}
-				else {
-					exportCourseStudent(f);
-					f.close();
-				}
-=======
 
-				gotoxy(70, 21);
-				cout << "Please input file: ";
+				gotoxy(70, 21);	cout << "Please input file: ";
 				cin >> fileName;
 
 				f.open(fileName);
@@ -1166,7 +1078,6 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
 				gotoxy(123, 27);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
 				gotoxy(121, 30);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
->>>>>>> Stashed changes
 			}
 		}
 		// View Course Scoreboard
