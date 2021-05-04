@@ -24,7 +24,7 @@ struct StaffAccount
 struct Schedules
 {
 	string day; // 8 lưu thứ MON, SAT,..
-	string time; // 8 Lưu ca S1, S2,..
+	string time; // 8 Lưu ca S1, S2,....
 };
 struct Scores
 {
