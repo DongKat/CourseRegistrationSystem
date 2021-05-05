@@ -18,7 +18,7 @@ float convertToFloat(string score) {
 	return ans;
 }
 
-BasicCourses* loadCourse(string path, int sem) {
+BasicCourses* loadCourse(string path,int sem) {
 	BasicCourses* course = nullptr, * tmp = nullptr;
 	ifstream f;
 	f.open(path);
@@ -70,12 +70,13 @@ Students* loadStudentInfo(string path) //path: schoolyear/classes/classname/id/
 	f.close();
 
 	//get course
-	BasicCourses* tmp = stu->courseStudent;
-	for (char i = '1'; i <= '3'; ++i) {
-		while (tmp && tmp->next) tmp = tmp->next;
-		if (tmp) tmp->next = loadCourse(path + "/Course Sem " + i + ".csv", i-'0');
-		else tmp = loadCourse(path + "/Course Sem " + i + ".csv", i-'0');
+	if (stu->courseStudent) {
+		BasicCourses* tmp = stu->courseStudent;
+		while (tmp->next) tmp = tmp->next;
+		tmp->next = loadCourse(path + "/Course Sem " + Sem + ".csv", stoi(Sem));
 	}
+	else stu->courseStudent = loadCourse(path + "/Course Sem " + Sem + ".csv", stoi(Sem));
+
 	stu->next = nullptr;
 	return stu;
 }
