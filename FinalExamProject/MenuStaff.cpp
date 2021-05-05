@@ -562,7 +562,8 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 	gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
 	gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
 
-	while (true) {
+	while (true) 
+	{
 		char choice = _getch();
 		txtColor(15);
 		gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
@@ -595,48 +596,15 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
 			if (choice == 13)
 			{
+				UnNocursortype();
 				if (!schoolYearFlag)
 				{
+					char a;
 					txtColor(15);
-					gotoxy(70, 20); cout << "Are you sure you want to end current schoolyear?";
-					while (true)
-					{
-						int count = 0;
-						txtColor(15);
-						if (choice == 75)
-						{
-							count--;
-							if (count > 2)
-								count = 1;
-						}
-
-						if (choice == 77)
-						{
-							count++;
-							if (count < 1)
-								count = 2;
-						}
-						if (count == 1)
-						{
-							txtColor(240);
-							gotoxy(60, 10); cout << "YES,YES,YES";
-							if (choice == 13)
-							{
-								txtColor(15);
-								inputSchoolYear();
-								break;
-							}
-						}
-						if (count == 2)
-						{
-							txtColor(240);
-							gotoxy(60, 25); cout << "NO, NO, NO";
-							if (choice == 13)
-							{
-								break;
-							}
-						}
-					}
+					gotoxy(70, 20); cout << "Are you sure you want to end current schoolyear? (y/n)";
+					cin >> a;
+					if (a == 'y')
+						inputSchoolYear();
 				}
 				else
 					inputSchoolYear();

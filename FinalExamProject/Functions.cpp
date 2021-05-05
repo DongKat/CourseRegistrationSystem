@@ -139,82 +139,15 @@ string checkStudentClass(string studentID) // check if student in a class with a
 	}
 	return "-1";
 }
-/*
-void importScoreboard(Courses* courseHead, string courseID, Students& student, ifstream& f)
-{
-	CourseScore* pHead = new CourseScore, * pCur = pHead;
-	// copy outside file to course scoreboard
-	string course_dir = Schoolyear + "./Semester/Sem " + Sem + "/" + courseID + "/Scoreboard.csv";
-	string line;
-	ofstream courseScoreboard(course_dir);
-
-	getline(f, line);
-	courseScoreboard << line;
-	while (f.peek() != EOF)
-	{
-		getline(f, line);
-		courseScoreboard << endl << line;
-	}
-
-	f.close();
-
-	string student_dir;
-	Courses* CourseCur = courseHead;
-	while (CourseCur)
-	{
-		if (CourseCur->courseID == courseID)
-			break;
-		CourseCur = CourseCur->next;
-	}
-
-	getline(f, line);	//skip field name
-	while (file.peek() != EOF)
-	{
-		getline(file, line);
-		stringstream s(line);
-		string temp;
-		getline(s, temp, ',');
-		getline(s, temp, ',');
-		pCur->studentID = temp;
-		getline(s, temp, ',');
-		pCur->Total = stof(temp);
-		getline(s, temp, ',');
-		pCur->Final = stof(temp);
-		getline(s, temp, ',');
-		pCur->Midterm = stof(temp);
-		getline(s, temp);
-		pCur->Bonus = stof(temp);
-
-		pCur->next = new CourseScore;
-		pCur = pCur->next;
-	}
-	pCur = pHead;
-	BasicStudents* StudentCur = CourseCur->studentID;
-	while (StudentCur)
-	{
-		student_dir = "./" + Schoolyear + "/Classes/" + StudentCur->className + "/" + StudentCur->ID + "/Course Sem " + Sem + "_Scoreboard.csv";
-		ofstream studentScoreboard(student_dir, ios::out | ios::app);
-		while (pCur)
-			if (pCur->studentID == StudentCur->ID)
-			{
-				student.overall_gpa += pCur->Total;
-				student.total_courses_count++;
-				studentScoreboard << CourseCur->courseID << "," << CourseCur->courseName << "," << pCur->Total << "," << pCur->Final << "," << pCur->Midterm << "," << pCur->Bonus << endl;
-				break;
-			}
-		StudentCur = StudentCur->next;
-	}
-	delete pHead;
-}
-
-*/
 
 void exportCourseStudent(ifstream& file)
 {
 	// copy course scoreboard to outside file
 	string line;
 	ofstream target("Scoreboard.csv");
-	while (!file.eof())
+	target << "No,StudentID,FullName,Midterm,Final,Bonus,Total\n";
+	getline(file, line);
+	while (file.peek() != EOF)
 	{
 		getline(file, line, ',');
 		target << line << ',';	// No
@@ -444,7 +377,7 @@ void viewClassScoreboard(ifstream& f, string className) // Require changing UI
 
 		cout << "No. " << student_count++ << "\t" << studentID << "\t";
 
-		studentScoreboard.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course Scoreboard " + Sem + ".csv");
+		studentScoreboard.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course " + Sem + " Scoreboard.csv");
 		studentProfile.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Profile.txt");
 
 		getline(studentProfile, temp);	//get last name
