@@ -26,8 +26,10 @@ int main() {
 	try
 	{
 		loadYearAndSem();
-		loadCoursesFromFile(COURSE);
-		loadClassFromFile(CLASS);
+		if (Schoolyear != "")
+			loadClassFromFile(CLASS);
+		if (Sem != "")
+			loadCoursesFromFile(COURSE);
 	}
 	catch (const std::exception& ex)
 	{
@@ -43,7 +45,6 @@ int main() {
 	char password[23];
 	int sizeUser = 0;
 	int sizePass = 0;
-
 
 	Login(username, password, sizeUser, sizePass);
 

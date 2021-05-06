@@ -173,16 +173,19 @@ Classes* newClass(string filepath, string className, string folder) {
 	fout.open(folder + "\\" + className + "\\allStudents.csv");
 	f.open(filepath);
 	Students* stu = nullptr;
-	int no;
-	while (f >> no) {
+	string t;
+	getline(f, t); // ignore field names
+	while (f.peek()!=EOF) {
+		int no;
 		string ID;
 		string FirstName, LastName;
 		string gender;
 		date dateOfBirth;
 		string idSocial;
 
-		//get NO
-		f.ignore(1000, ',');
+		//get No
+		getline(f, t, ',');
+		no = stoi(t);
 
 		//get ID
 		getline(f, ID, ',');
@@ -312,6 +315,7 @@ bool loadYearAndSem()
 
 	getline(in, Schoolyear);
 	getline(in, Sem);
+	in >> dateStart.day >> dateStart.month >> dateStart.year >> dateEnd.day >> dateEnd.month >> dateEnd.year;
 
 	in.close();
 }
@@ -326,6 +330,8 @@ void addSemester(Semesters* semester, int currSem, date begin, date end)
 
 	out.open("YearAndSemester.txt");
 	out << Schoolyear + '\n' + Sem + '\n';
+	out << dateStart.day << " " << dateStart.month << " " << dateStart.year << endl;
+	out << dateEnd.day << " " << dateEnd.month << " " << dateEnd.year << endl;
 	out.close();
 }
 
@@ -637,7 +643,6 @@ void editCourseMain(Courses*& course)
 	gotoxy(70, temp);
 	cout << "You are editting course:\n\n";
 	temp++;
-
 	gotoxy(70, temp);
 	cout << "Enter course's ID: ";
 	getline(cin, courseID);

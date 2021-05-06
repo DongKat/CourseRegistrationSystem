@@ -62,75 +62,92 @@ void enrollACourse(Students& aStudent, Courses& courseNew)
 
 	ofstream outfile;
 
-	if (checkSchedule(aStudent, courseNew) && isCourseRegistrationSessionActive(dateStart, dateEnd) && courseNew.countStudent < courseNew.maxStudent)
-		if (count < 5)
-		{
-			// Open Student's course list, add new course to .csv file
-			outfile.open(Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course " + Sem + ".csv", ios::out | ios::app);
-			outfile << courseNew.courseID << "," << courseNew.courseName << courseNew.schedule[0].day << "," << courseNew.schedule[0].time << "," << courseNew.schedule[1].day << "," << courseNew.schedule[1].time << endl;
-			outfile.close();
+	if (checkSchedule(aStudent, courseNew))
+		if (isCourseRegistrationSessionActive(dateStart, dateEnd))
+			if (courseNew.countStudent < courseNew.maxStudent)
+				if (count < 5)
+				{
+					// Open Student's course list, add new course to .csv file
+					string dir = Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course " + Sem + ".csv";
+					outfile.open(dir, ios::out | ios::app);
+					outfile << courseNew.courseID << "," << courseNew.courseName << "," << courseNew.schedule[0].day << "," << courseNew.schedule[0].time << "," << courseNew.schedule[1].day << "," << courseNew.schedule[1].time << endl;
+					if (!outfile.is_open())
+						throw std::runtime_error("Can't load Semester's Scoreboard");
+					outfile.close();
 
-			// Add Student's name to Course Scoreboard.csv
-			outfile.open(Schoolyear + "/Semester/" + Sem + "/" + courseNew.courseID + "Scoreboard.csv", ios::out | ios::app);
-			outfile << ++courseNew.countStudent << "," << aStudent.ID << "," << aStudent.firstName << "," << aStudent.lastName << "-1,-1,-1,-1" << endl;
-			// default course's scoreboard:
-			// Ex: 31,101,Anpan,Suhkoi,-1,-1,-1,-1
+					// Add Student's name to Course Scoreboard.csv
+					dir = Schoolyear + "/Semesters/" + Sem + "/" + courseNew.courseID + "/Scoreboard.csv";
+					outfile.open(dir, ios::out | ios::app);
+					if (!outfile.is_open())
+						throw std::runtime_error("Can't load Semester's Scoreboard");
+					outfile << ++courseNew.countStudent << "," << aStudent.ID << "," << aStudent.firstName << "," << aStudent.lastName << "-1,-1,-1,-1" << endl;
+					outfile.close();
 
-			// Insert into student's list of enrolled courses
-			BasicCourses* pt = nullptr;
-			if (aStudent.courseStudent)
-			{
-				aStudent.courseStudent = new BasicCourses;
-				pt = aStudent.courseStudent;
-			}
+					// default course's scoreboard:
+					// Ex: 31,101,Anpan,Suhkoi,-1,-1,-1,-1
+
+					// Insert into student's list of enrolled courses
+					BasicCourses* pt = nullptr;
+					if (!aStudent.courseStudent)
+					{
+						aStudent.courseStudent = new BasicCourses;
+						pt = aStudent.courseStudent;
+					}
+					else
+					{
+						while (pt->next != nullptr)
+							pt = pt->next;
+						pt->next = new BasicCourses;
+						pt = pt->next;
+					}
+					pt->courseID = courseNew.courseID;
+					pt->courseName = courseNew.courseName;
+					for (int i = 0; i < 2; i++)
+					{
+						pt->schedule[i].day = courseNew.schedule[i].day;
+						pt->schedule[i].time = courseNew.schedule[i].time;
+					}
+					// Insert Student into Course's students list
+					BasicStudents* ps = nullptr;
+					if (!courseNew.studentID)
+					{
+						courseNew.studentID = new BasicStudents;
+						ps = courseNew.studentID;
+					}
+					else
+					{
+						ps->next = new BasicStudents;
+						ps = ps->next;
+					}
+					courseNew.countStudent++;
+					courseNew.studentID->firstName = aStudent.firstName;
+					courseNew.studentID->lastName = aStudent.lastName;
+					courseNew.studentID->ID = aStudent.ID;
+					courseNew.studentID = courseNew.studentID;
+				}
+				else
+					throw std::runtime_error("Maximum number of courses reached!");
 			else
-			{
-				while (pt->next != nullptr)
-					pt = pt->next;
-				pt->next = new BasicCourses;
-				pt = pt->next;
-			}
-			pt->courseID = courseNew.courseID;
-			pt->courseName = courseNew.courseName;
-			for (int i = 0; i < 2; i++)
-				pt->next->schedule[i] = courseNew.schedule[i];
-			pt->next = nullptr;
-
-			// Insert Student into Course's students list
-			BasicStudents* ps = nullptr;
-			if (courseNew.countStudent == 0)
-			{
-				courseNew.studentID = new BasicStudents;
-				ps = courseNew.studentID;
-			}
-			else
-			{
-				ps->next = new BasicStudents;
-				ps = ps->next;
-			}
-			courseNew.studentID->next->firstName = aStudent.firstName;
-			courseNew.studentID->next->lastName = aStudent.lastName;
-			courseNew.studentID->next->ID = aStudent.ID;
-			courseNew.studentID->next = courseNew.studentID;
-		}
+				throw std::runtime_error("Course Full. Better luck next time :D");
 		else
-			throw std::runtime_error("Maximum number of courses reached!");
+			throw std::runtime_error("Course Registration Session no longer active");
 	else
-		throw std::runtime_error("New course's schedule conflict with already enrolled ones");
+				throw std::runtime_error("New course's schedule conflict with already enrolled ones");
 }
 
 void viewEnrolledCourses(Students* aStudent)
 {
 	string line, temp;
-
+	int a = 21;
 	ifstream file;
 	file.open(Schoolyear + "/Classes/" + aStudent->className + "/" + aStudent->ID + "/Course " + Sem + ".csv");
 
 	// Print field Names
-	cout << "Course ID\t" << "Course Name\t" << "Teacher Name\t" << "Credits\t" << "Number of students\t" << "Session 1\t" << "Session 2\t";
+	gotoxy(30, 20); cout << "Course ID\t" << "Course Name\t" << "Teacher Name\t" << "Credits\t" << "Number of students\t" << "Session 1\t" << "Session 2\t";
 
 	while (file.peek() != EOF)
 	{
+		gotoxy(30, a++);
 		getline(file, temp, ',');	// Course ID
 		cout << temp << "\t";
 		getline(file, temp, ',');	// Course Name
@@ -270,10 +287,10 @@ void viewAllStudentInClass(Classes* Class)
 	txtColor(15);
 	int count = 1;
 	Students* pCur = Class->student;
-	cout << "ID\tName\n";
+	cout << "\tID\tName\n";
 	while (pCur != nullptr)
 	{
-		cout << count++ <<pCur->ID << '\t' << pCur->firstName << " " << pCur->lastName << endl;
+		cout << count++ << '\t' << pCur->ID << '\t' << pCur->firstName << " " << pCur->lastName << endl;
 		pCur = pCur->next;
 	}
 }

@@ -58,6 +58,8 @@ Students* loadStudentInfo(string path) //path: schoolyear/classes/classname/id/
 	// get student's basic info
 	ifstream f;
 	f.open(path + "\\Profile.txt");
+	if (!f.is_open())
+		throw std::runtime_error("Can't open Student Profile");
 	f >> stu->no;
 	f.ignore(10000, '\n');
 	getline(f, stu->ID);
@@ -76,9 +78,9 @@ Students* loadStudentInfo(string path) //path: schoolyear/classes/classname/id/
 	{
 		BasicCourses* tmp = stu->courseStudent;
 		while (tmp->next) tmp = tmp->next;
-		tmp->next = loadCourse(path + "/Course Sem " + Sem + ".csv");
+		tmp->next = loadCourse(path + "/Course " + Sem + ".csv");
 	}
-	else stu->courseStudent = loadCourse(path + "/Course Sem " + Sem + ".csv");
+	else stu->courseStudent = loadCourse(path + "/Course " + Sem + ".csv");
 
 	stu->next = nullptr;
 	return stu;
