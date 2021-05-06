@@ -125,7 +125,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 
 					Courses* pCourse = COURSE;
 
-					bool flag = false;
+					flag = false;
 					while (pCourse)
 					{
 						if (pCourse->courseID == courseID)
@@ -141,24 +141,23 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				}
 				catch (const std::exception& ex)
 				{
-					Nocursortype();
 					gotoxy(70, 21);	cout << ex.what();
-					Sleep(500);
-					fillBlackMenu();
-					drawBorderMenuStudent();
-					txtColor(15);
-					gotoxy(74, 18); cout << "H E L L O  S T U D E N T";
-					gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
-					gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
-					txtColor(240);
-					gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
-					txtColor(15);
-					gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
-					gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
-					gotoxy(64, 30); cout << "       V I E W   S C O R E B O A R D       ";
-					gotoxy(64, 32); cout << "               L O G   O U T               ";
-
+					_getch();
 				}
+				Nocursortype();
+				fillBlackMenu();
+				drawBorderMenuStudent();
+				txtColor(15);
+				gotoxy(74, 18); cout << "H E L L O  S T U D E N T";
+				gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
+				gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
+				txtColor(240);
+				gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
+				txtColor(15);
+				gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
+				gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
+				gotoxy(64, 30); cout << "       V I E W   S C O R E B O A R D       ";
+				gotoxy(64, 32); cout << "               L O G   O U T               ";
 			}
 		}
 
@@ -169,19 +168,20 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 			gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
 			if (choice == 13)
 			{
+				UnNocursortype();
+				fillBlackMenu();
+				txtColor(15);
 				try
 				{
-					fillBlackMenu();
-					UnNocursortype();
-					txtColor(15);
 					Courses* pCourse = COURSE;
-					
+
 					if (!pStudent->courseStudent)
 						throw std::runtime_error("You can't delete a non-existent thing");
 					string courseID;
 					gotoxy(70, 20); cout << "Please enter course ID you want to reverse enroll: ";
-					cin >> courseID;
+					getline(cin, courseID);
 
+					flag = false;
 					while (pCourse)
 					{
 						if (pCourse->courseID == courseID)
@@ -198,23 +198,23 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				}
 				catch (const std::exception& ex)
 				{
-					Nocursortype();
 					gotoxy(70, 21);	cout << ex.what();
-					Sleep(500);
-					fillBlackMenu();
-					drawBorderMenuStudent();
-					txtColor(15);
-					gotoxy(74, 18); cout << "H E L L O  S T U D E N T";
-					gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
-					gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
-					gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
-					txtColor(240);
-					gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
-					txtColor(15);
-					gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
-					gotoxy(64, 30); cout << "       V I E W   S C O R E B O A R D       ";
-					gotoxy(64, 32); cout << "               L O G   O U T               ";
+					_getch();
 				}
+				Nocursortype();
+				fillBlackMenu();
+				drawBorderMenuStudent();
+				txtColor(15);
+				gotoxy(74, 18); cout << "H E L L O  S T U D E N T";
+				gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
+				gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
+				gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
+				txtColor(240);
+				gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
+				txtColor(15);
+				gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
+				gotoxy(64, 30); cout << "       V I E W   S C O R E B O A R D       ";
+				gotoxy(64, 32); cout << "               L O G   O U T               ";
 			}
 		}
 
@@ -225,28 +225,32 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 			gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
 			if (choice == 13)
 			{
-				if (pStudent) {
+				UnNocursortype();
+				fillBlackMenu();
+				txtColor(15);
+				if (pStudent)
+				{
 					if (pStudent->courseStudent)
 						viewEnrolledCourses(pStudent);
-					else {
-						Nocursortype();
-						fillBlackMenu();
-						txtColor(15);
+					else
+					{
 						gotoxy(70, 20); cout << "You haven't enrolled any course yet!";
-						Sleep(500);
-						fillBlackMenu();
-						drawBorderMenuStudent();
-						txtColor(15);
-						gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
-						gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
-						gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
-						gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
-						txtColor(240);
-						gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
-						txtColor(15);
-						gotoxy(64, 30); cout << "       V I E W   S C O R E B O A R D       ";
-						gotoxy(64, 32); cout << "               L O G   O U T               ";
+						_getch();
 					}
+					Nocursortype();
+					fillBlackMenu();
+					drawBorderMenuStudent();
+					txtColor(15);
+					gotoxy(74, 18); cout << "H E L L O  S T U D E N T";
+					gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
+					gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
+					gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
+					gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
+					txtColor(240);
+					gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
+					txtColor(15);
+					gotoxy(64, 30); cout << "       V I E W   S C O R E B O A R D       ";
+					gotoxy(64, 32); cout << "               L O G   O U T               ";
 				}
 			}
 		}
@@ -258,17 +262,28 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 			gotoxy(64, 30); cout << "       V I E W   S C O R E B O A R D       ";
 			if (choice == 13)
 			{
-				txtColor(15);
-				UnNocursortype();
-				ifstream f;
-				string className = checkStudentClass(user);
-				gotoxy(70, 21);		cout << "Opening your semester Scoreboard...";
-				f.open(Schoolyear + "/Classes/" + className + "/" + user + "/Course " + Sem + " Scoreboard.csv");
-				viewOwnScoreboard(f, 22);
+				try
+				{
 
+					txtColor(15);
+					UnNocursortype();
+					ifstream f;
+					string className = checkStudentClass(user);
+					f.open(Schoolyear + "/Classes/" + className + "/" + user + "/Course " + Sem + " Scoreboard.csv");
+					if (!f.is_open())
+						throw std::runtime_error("Can't open user scoreboard");
+					viewOwnScoreboard(f, 22);
+
+				}
+				catch (std::exception& ex)
+				{
+					gotoxy(70, 20);	cout << ex.what();
+					_getch();
+				}
 				Nocursortype();
 				fillBlackMenu();
 				txtColor(15);
+				gotoxy(74, 18); cout << "H E L L O  S T U D E N T";
 				gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
 				gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
 				gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";

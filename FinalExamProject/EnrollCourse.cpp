@@ -70,7 +70,7 @@ void enrollACourse(Students& aStudent, Courses& courseNew)
 					// Open Student's course list, add new course to .csv file
 					string dir = Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course " + Sem + ".csv";
 					outfile.open(dir, ios::out | ios::app);
-					outfile << courseNew.courseID << "," << courseNew.courseName << "," << courseNew.schedule[0].day << "," << courseNew.schedule[0].time << "," << courseNew.schedule[1].day << "," << courseNew.schedule[1].time << endl;
+					outfile << courseNew.courseID << "," << courseNew.courseName << "," << courseNew.teacherName << "," << courseNew.countStudent << ',' << courseNew.maxStudent << ',' << courseNew.schedule[0].day << "," << courseNew.schedule[0].time << "," << courseNew.schedule[1].day << "," << courseNew.schedule[1].time << endl;
 					if (!outfile.is_open())
 						throw std::runtime_error("Can't load Semester's Scoreboard");
 					outfile.close();
@@ -119,7 +119,6 @@ void enrollACourse(Students& aStudent, Courses& courseNew)
 						ps->next = new BasicStudents;
 						ps = ps->next;
 					}
-					courseNew.countStudent++;
 					courseNew.studentID->firstName = aStudent.firstName;
 					courseNew.studentID->lastName = aStudent.lastName;
 					courseNew.studentID->ID = aStudent.ID;
@@ -132,44 +131,176 @@ void enrollACourse(Students& aStudent, Courses& courseNew)
 		else
 			throw std::runtime_error("Course Registration Session no longer active");
 	else
-				throw std::runtime_error("New course's schedule conflict with already enrolled ones");
+		throw std::runtime_error("New course's schedule conflict with already enrolled ones");
 }
 
 void viewEnrolledCourses(Students* aStudent)
 {
 	string line, temp;
-	int a = 21;
+	int a = 20;
 	ifstream file;
 	file.open(Schoolyear + "/Classes/" + aStudent->className + "/" + aStudent->ID + "/Course " + Sem + ".csv");
+	if (!file.is_open())
+		throw std::runtime_error("Can't open Student Course List");
 
 	// Print field Names
-	gotoxy(30, 20); cout << "Course ID\t" << "Course Name\t" << "Teacher Name\t" << "Credits\t" << "Number of students\t" << "Session 1\t" << "Session 2\t";
+	txtColor(15);
+	gotoxy(30, 20); cout << "CourseID";
+	gotoxy(41, 20);	cout << "Course Name";
+	gotoxy(54, 20);	cout << "Teacher Name";
+	gotoxy(68, 20);	cout << "Credits";
+	gotoxy(77, 20);	cout << "Number of students";
+	gotoxy(97, 20); cout << "Session 1";
+	gotoxy(108, 20); cout << "Session 2";
 
 	while (file.peek() != EOF)
 	{
-		gotoxy(30, a++);
+		a++;
 		getline(file, temp, ',');	// Course ID
-		cout << temp << "\t";
-		getline(file, temp, ',');	// Course Name
-		cout << temp << "\t";
-		getline(file, temp, ',');	// Teacher
-		cout << temp << "\t";
-		getline(file, temp, ',');	// Credits
-		cout << temp << "\t";
-		getline(file, temp, ',');	// NumStudents
-		cout << temp << "\t";
-		getline(file, temp, ',');	// Weekday 1
-		cout << temp << "\t";
-		getline(file, temp, ',');	// Period 1
-		cout << temp << "\t";
-		getline(file, temp, ',');	// Weekday 2
-		cout << temp << "\t";
-		getline(file, temp);		// Period 2
-		cout << temp;
-	}
-	file.close();
-}
+		gotoxy(30, a);	cout << temp;
 
+		getline(file, temp, ',');	// Course Name
+		gotoxy(41, a);	cout << temp;
+
+		getline(file, temp, ',');	// Teacher
+		gotoxy(54, a);	 cout << temp;
+
+		getline(file, temp, ',');	// Credits
+		gotoxy(68, a);	cout << temp;
+
+		getline(file, temp, ',');	// NumStudents
+		gotoxy(77, a);	cout << temp;
+
+		getline(file, temp, ',');	// MaxStudents
+		cout << "/" << temp;
+
+		getline(file, temp, ',');	// Weekday 1
+		gotoxy(97, a);
+		switch (stoi(temp))
+		{
+		case 2:
+		{
+			cout << "MON";
+			break;
+		}
+		case 3:
+		{
+			cout << "TUE";
+			break;
+		}
+		case 4:
+		{
+			cout << "WED";
+			break;
+		}
+		case 5:
+		{
+			cout << "THU";
+			break;
+		}
+		case 6:
+		{
+			cout << "FRI";
+			break;
+		}
+		case 7:
+		{
+			cout << "SAT";
+			break;
+		}
+		};
+		cout << " ";
+		getline(file, temp, ',');	// Period 1
+		switch (stoi(temp))
+		{
+		case 1:
+		{
+			cout << "07:30";
+			break;
+		}
+		case 2:
+		{
+			cout << "09:30";
+			break;
+		}
+		case 3:
+		{
+			cout << "13:30";
+			break;
+		}
+		case 4:
+		{
+			cout << "15:30";
+			break;
+		}
+		};
+
+		getline(file, temp, ',');	// Weekday 2
+		gotoxy(108, a);
+		switch (stoi(temp))
+		{
+		case 2:
+		{
+			cout << "MON";
+			break;
+		}
+		case 3:
+		{
+			cout << "TUE";
+			break;
+		}
+		case 4:
+		{
+			cout << "WED";
+			break;
+		}
+		case 5:
+		{
+			cout << "THU";
+			break;
+		}
+		case 6:
+		{
+			cout << "FRI";
+			break;
+		}
+		case 7:
+		{
+			cout << "SAT";
+			break;
+		}
+		cout << " ";
+		};
+		cout << " ";
+		getline(file, temp);		// Period 2
+		switch (stoi(temp))
+		{
+		case 1:
+		{
+			cout << "07:30";
+			break;
+		}
+		case 2:
+		{
+			cout << "09:30";
+			break;
+		}
+		case 3:
+		{
+			cout << "13:30";
+			break;
+		}
+		case 4:
+		{
+			cout << "15:30";
+			break;
+		}
+		};
+
+		_getch();
+		file.close();
+	}
+}
 void removeACourse(Students* aStudent, Courses* courseDelete)
 {
 	// How does it work:
@@ -195,15 +326,19 @@ void removeACourse(Students* aStudent, Courses* courseDelete)
 		courseDelete->studentID = pCurStudent->next;
 		delete pDelStudent;
 	}
-	while (pCurStudent != nullptr && pCurStudent->ID != aStudent->ID)
+	else
 	{
-		pDelStudent = pCurStudent;
-		pCurStudent = pCurStudent->next;
+		while (pCurStudent != nullptr && pCurStudent->ID != aStudent->ID)
+		{
+			pDelStudent = pCurStudent;
+			pCurStudent = pCurStudent->next;
+		}
+		if (pCurStudent == nullptr)
+			return;
+		pDelStudent->next = pCurStudent->next;
+		delete pCurStudent;
+
 	}
-	if (pCurStudent == nullptr)
-		return;
-	pDelStudent->next = pCurStudent->next;
-	delete pCurStudent;
 
 	//Delete course in students
 	BasicCourses* pCurCourse = aStudent->courseStudent;
@@ -214,15 +349,19 @@ void removeACourse(Students* aStudent, Courses* courseDelete)
 		aStudent->courseStudent = pCurCourse->next;
 		delete pDelCourse;
 	}
-	while (pCurCourse != nullptr && pCurCourse->courseID != courseDelete->courseID)
+	else
 	{
-		pDelCourse = pCurCourse;
-		pCurCourse = pCurCourse->next;
+		while (pCurCourse != nullptr && pCurCourse->courseID != courseDelete->courseID)
+		{
+			pDelCourse = pCurCourse;
+			pCurCourse = pCurCourse->next;
+		}
+		if (pCurCourse == nullptr)
+			return;
+		pDelCourse->next = pCurCourse->next;
+		delete pCurCourse;
+
 	}
-	if (pCurCourse == nullptr)
-		return;
-	pDelCourse->next = pCurCourse->next;
-	delete pCurCourse;
 
 	updateCourseB4D(aStudent, courseDelete);
 };

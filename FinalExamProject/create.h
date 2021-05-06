@@ -65,4 +65,3 @@ bool loadCoursesFromFile(Courses*& course);
 
 void viewCourseMain(Courses* course);
 
-void viewCourseMain(Courses* course);

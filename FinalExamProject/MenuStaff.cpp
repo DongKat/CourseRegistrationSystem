@@ -562,7 +562,7 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 	gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
 	gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
 
-	while (true) 
+	while (true)
 	{
 		char choice = _getch();
 		txtColor(15);
@@ -626,23 +626,30 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
 			if (choice == 13)
 			{
-				UnNocursortype();
-				addClass(CLASS, Schoolyear);
+				try
+				{
+					UnNocursortype();
+					addClass(CLASS, Schoolyear);
 
-				Nocursortype();
-				system("cls");
-				logo_moodle();
-				keyboardShortcut();
+					Nocursortype();
+					system("cls");
+					logo_moodle();
+					keyboardShortcut();
 
-				ViewYearSem();
+					ViewYearSem();
 
-				txtColor(15);
-				gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
-				txtColor(240);
-				gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
-				txtColor(15);
-				gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
-				gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+					txtColor(15);
+					gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
+					txtColor(240);
+					gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
+					txtColor(15);
+					gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
+					gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+				}
+				catch (const std::exception&)
+				{
+					cout << " FILE BROKEN";
+				}
 			}
 		}
 		if (dem == 3)	//===============================================================================================================
@@ -846,12 +853,9 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 					gotoxy(70, 20);
 					cout << "You must create semester first!";
 					Sleep(1000);
-					gotoxy(70, 20);
-					txtColor(0);
-					cout << "You must create semester first!";
-					txtColor(15);
-					continue;
 				}
+				else
+					editCourseMain(COURSE);
 				Nocursortype();
 				fillBlackMenu();
 				txtColor(15);
@@ -861,7 +865,6 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 				txtColor(15);
 				gotoxy(140, 27);	cout << " D E L E T E ";
 
-				editCourseMain(COURSE);
 			}
 		}
 		if (dem == 3)
@@ -902,7 +905,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 
 	int dem = 0;
 
-	txtColor(15); 
+	txtColor(15);
 	gotoxy(135, 18);	cout << " E X P O R T   C S V ";
 	gotoxy(135, 21);	cout << " I M P O R T   C S V ";
 	gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
@@ -997,7 +1000,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				}
 			}
 		}
-		
+
 		// Import CSV
 		if (dem == 2)
 		{
@@ -1154,7 +1157,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 
 				Nocursortype();
 				fillBlackMenu();
-				txtColor(15); 
+				txtColor(15);
 				gotoxy(135, 18);	cout << " E X P O R T   C S V ";
 				gotoxy(135, 21);	cout << " I M P O R T   C S V ";
 				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
@@ -1218,7 +1221,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					f2.close();
 					nf1.close();
 					nf2.close();
-			
+
 
 					remove(oldcourseDir.c_str());
 					remove(oldstudentDir.c_str());
@@ -1227,7 +1230,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					rename(newstudentDir.c_str(), oldstudentDir.c_str());
 				}
 
-				
+
 			}
 		}
 		if (dem == 5)

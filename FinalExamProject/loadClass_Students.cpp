@@ -27,8 +27,6 @@ BasicCourses* loadCourse(string path)
 		while (f.peek() != EOF)
 		{
 			string stmp;
-			getline(f, stmp, ',');
-			if (stmp == "") continue;
 			if (course) {
 				tmp->next = new BasicCourses;
 				tmp = tmp->next;
@@ -37,7 +35,7 @@ BasicCourses* loadCourse(string path)
 				course = new BasicCourses;
 				tmp = course;
 			}
-			tmp->courseID = stmp;
+			getline(f, tmp->courseID, ',');
 			getline(f, tmp->courseName, ',');
 			getline(f, tmp->schedule[0].day, ',');
 			getline(f, tmp->schedule[0].time, ',');
