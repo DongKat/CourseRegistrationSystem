@@ -251,6 +251,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 			}
 		}
 
+
 		//Not tested
 		if (dem == 6)
 		{
