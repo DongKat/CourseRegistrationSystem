@@ -18,7 +18,8 @@ float convertToFloat(string score) {
 	return ans;
 }
 
-BasicCourses* loadCourse(string path,int sem) {
+BasicCourses* loadCourse(string path) 
+{
 	BasicCourses* course = nullptr, * tmp = nullptr;
 	ifstream f;
 	f.open(path);
@@ -43,8 +44,9 @@ BasicCourses* loadCourse(string path,int sem) {
 			getline(f, tmp->schedule[1].day, ',');
 			getline(f, tmp->schedule[1].time);
 			tmp->next = nullptr;
-			tmp->sem = sem;
 		}
+	else
+		throw std::runtime_error("Can't open student course list file!");
 	f.close();
 	return course;
 }
@@ -70,12 +72,13 @@ Students* loadStudentInfo(string path) //path: schoolyear/classes/classname/id/
 	f.close();
 
 	//get course
-	if (stu->courseStudent) {
+	if (stu->courseStudent) 
+	{
 		BasicCourses* tmp = stu->courseStudent;
 		while (tmp->next) tmp = tmp->next;
-		tmp->next = loadCourse(path + "/Course Sem " + Sem + ".csv", stoi(Sem));
+		tmp->next = loadCourse(path + "/Course Sem " + Sem + ".csv");
 	}
-	else stu->courseStudent = loadCourse(path + "/Course Sem " + Sem + ".csv", stoi(Sem));
+	else stu->courseStudent = loadCourse(path + "/Course Sem " + Sem + ".csv");
 
 	stu->next = nullptr;
 	return stu;
