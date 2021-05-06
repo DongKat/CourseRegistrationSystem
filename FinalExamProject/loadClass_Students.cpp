@@ -73,9 +73,9 @@ Students* loadStudentInfo(string path) //path: schoolyear/classes/classname/id/
 	if (stu->courseStudent) {
 		BasicCourses* tmp = stu->courseStudent;
 		while (tmp->next) tmp = tmp->next;
-		tmp->next = loadCourse(path + "/Course Sem " + Sem + ".csv", stoi(Sem));
+		tmp->next = loadCourse(path + "/Course " + Sem + ".csv", Sem[4]-'0');
 	}
-	else stu->courseStudent = loadCourse(path + "/Course Sem " + Sem + ".csv", stoi(Sem));
+	else stu->courseStudent = loadCourse(path + "/Course " + Sem + ".csv", Sem[4] - '0');
 
 	stu->next = nullptr;
 	return stu;
