@@ -481,11 +481,11 @@ void viewCourseFile(Courses* course) // update course list ra file theo thoi gia
 	out.close();
 }
 
-Courses* findCourse(Courses*& course, string courseID, string courseName, string teacherName)
+Courses* findCourse(Courses*& course, string courseID, string courseName, string teacherName) // dung cho edit va delete
 {
 	Courses* curr = course;
 
-	while (curr)
+	while (curr) //Bat dau tim course bang thong tin buoc nhap
 	{
 		if (curr->courseID == courseID && curr->courseName == courseName && curr->teacherName == course->teacherName)
 			return curr;
