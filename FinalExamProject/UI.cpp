@@ -1,5 +1,16 @@
 #include "UI.h"
 
+void setWindowSize(SHORT width, SHORT height)
+{
+	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+	SMALL_RECT WindowSize;
+	WindowSize.Top = 0;
+	WindowSize.Left = 0;
+	WindowSize.Right = width;
+	WindowSize.Bottom = height;
+	SetConsoleWindowInfo(hStdout, 1, &WindowSize);
+}
+
 void Nocursortype() {
 	CONSOLE_CURSOR_INFO Info;
 	Info.bVisible = FALSE;
