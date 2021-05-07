@@ -1,5 +1,24 @@
 #include "UI.h"
 
+void resizeConsole(int width, int height)
+{
+	HWND console = GetConsoleWindow();
+	RECT r;
+	GetWindowRect(console, &r);
+	MoveWindow(console, r.left, r.top, width, height, TRUE);
+}
+
+void setScreenBufferSize(SHORT width, SHORT height)
+{
+	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	COORD NewSize;
+	NewSize.X = width;
+	NewSize.Y = height;
+
+	SetConsoleScreenBufferSize(hStdout, NewSize);
+}
+
 void setWindowSize(SHORT width, SHORT height)
 {
 	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);

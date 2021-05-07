@@ -3,6 +3,8 @@
 
 #include "Struct.h"
 
+void resizeConsole(int width, int height);
+void setScreenBufferSize(SHORT width, SHORT height);
 void setWindowSize(SHORT width, SHORT height);
 
 void txtColor(int color);
