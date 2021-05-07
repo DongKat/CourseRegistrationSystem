@@ -423,6 +423,7 @@ void viewAllStudentInCourse(Courses* course)
 		cout << count++ << ' ' << "ID: " << pCur->ID << '\t' << "Name: " << pCur->firstName << " " << pCur->lastName;
 		pCur = pCur->next;
 	}
+	Nocursortype();
 }
 void viewAllStudentInClass(Classes* Class)
 {
@@ -435,6 +436,7 @@ void viewAllStudentInClass(Classes* Class)
 		cout << count++ << '\t' << pCur->ID << '\t' << pCur->firstName << " " << pCur->lastName << endl;
 		pCur = pCur->next;
 	}
+	Nocursortype();
 }
 void viewAllCourse()
 {
@@ -453,9 +455,11 @@ void viewAllCourse()
 			temp++;
 			curCourse = curCourse->next;
 		}
+		Nocursortype();
 	}
 	else
 		throw std::runtime_error("There are no courses yet!");
+	Nocursortype();
 }
 void viewAllClass()
 {
@@ -471,4 +475,5 @@ void viewAllClass()
 	}
 	else
 		throw std::runtime_error("There are no classes yet!");
+	Nocursortype();
 }

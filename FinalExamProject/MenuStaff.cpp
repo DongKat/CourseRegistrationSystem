@@ -357,19 +357,11 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(127, 20);	cout << " V I E W   L I S T   O F   C L A S S E S ";
 			if (choice == 13)
 			{
-				try
-				{
-					UnNocursortype();
-					txtColor(15);
-					viewAllClass();
-				}
-				catch (const std::exception& ex)
-				{
-					gotoxy(70, temp); cout << ex.what();
-					Sleep(500);
-				}
-				_getch();
-				fillBlackMenu();
+				txtColor(0);
+				system("cls");
+				logo_moodle();
+				ViewYearSem();
+				keyboardShortcutMenu();
 				Nocursortype();
 				txtColor(15);
 
@@ -384,6 +376,20 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 
 				gotoxy(126, 30);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
 				gotoxy(126, 31);	cout << "           I N   A   C O U R S E           ";
+
+				try
+				{
+					UnNocursortype();
+					txtColor(15);
+					viewAllClass();
+					
+				}
+				catch (const std::exception& ex)
+				{
+					gotoxy(70, temp); cout << ex.what();
+					Sleep(500);
+				}
+
 			}
 		}
 
@@ -394,6 +400,27 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(126, 24);	cout << "            I N   A   C L A S S            ";
 			if (choice == 13)
 			{
+
+				txtColor(0);
+				system("cls");
+				logo_moodle();
+				ViewYearSem();
+				keyboardShortcutMenu();
+				Nocursortype();
+				txtColor(15);
+
+				gotoxy(127, 20);	cout << " V I E W   L I S T   O F   C L A S S E S ";
+
+				txtColor(240);
+				gotoxy(126, 23);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
+				gotoxy(126, 24);	cout << "            I N   A   C L A S S            ";
+				txtColor(15);
+
+				gotoxy(127, 27);	cout << " V I E W   L I S T   O F   C O U R S E S ";
+
+				gotoxy(126, 30);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
+				gotoxy(126, 31);	cout << "           I N   A   C O U R S E           ";
+
 				try
 				{
 					txtColor(15);
@@ -420,28 +447,14 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 						throw std::runtime_error("Class Invalid");
 
 					viewAllStudentInClass(pCur);
+					
 				}
 				catch (const std::exception& ex)
 				{
 					gotoxy(70, temp); cout << ex.what();
 					Sleep(500);
 				}
-				_getch();
-				fillBlackMenu();
-				Nocursortype();
-				txtColor(15);
 
-				gotoxy(127, 20);	cout << " V I E W   L I S T   O F   C L A S S E S ";
-
-				txtColor(240);
-				gotoxy(126, 23);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
-				gotoxy(126, 24);	cout << "            I N   A   C L A S S            ";
-				txtColor(15);
-
-				gotoxy(127, 27);	cout << " V I E W   L I S T   O F   C O U R S E S ";
-
-				gotoxy(126, 30);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
-				gotoxy(126, 31);	cout << "           I N   A   C O U R S E           ";
 			}
 		}
 
@@ -451,19 +464,12 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(127, 27);	cout << " V I E W   L I S T   O F   C O U R S E S ";
 			if (choice == 13)
 			{
-				try
-				{
-					UnNocursortype();
-					txtColor(15);
-					viewAllCourse();
-				}
-				catch (const std::exception& ex)
-				{
-					gotoxy(70, temp); cout << ex.what();
-					Sleep(500);
-				}
-				_getch();
-				fillBlackMenu();
+
+				txtColor(0);
+				system("cls");
+				logo_moodle();
+				ViewYearSem();
+				keyboardShortcutMenu();
 				Nocursortype();
 				txtColor(15);
 
@@ -478,6 +484,21 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 
 				gotoxy(126, 30);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
 				gotoxy(126, 31);	cout << "           I N   A   C O U R S E           ";
+
+				try
+				{
+					UnNocursortype();
+					txtColor(15);
+					viewAllCourse();
+					
+				}
+				catch (const std::exception& ex)
+				{
+					gotoxy(70, temp); cout << ex.what();
+					Sleep(500);
+				}
+
+				
 			}
 		}
 
@@ -488,6 +509,27 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 			gotoxy(126, 31);	cout << "           I N   A   C O U R S E           ";
 			if (choice == 13)
 			{
+
+				txtColor(0);
+				system("cls");
+				logo_moodle();
+				ViewYearSem();
+				keyboardShortcutMenu();
+				Nocursortype();
+				txtColor(15);
+
+				gotoxy(127, 20);	cout << " V I E W   L I S T   O F   C L A S S E S ";
+
+				gotoxy(126, 23);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
+				gotoxy(126, 24);	cout << "            I N   A   C L A S S            ";
+
+				gotoxy(127, 27);	cout << " V I E W   L I S T   O F   C O U R S E S ";
+
+				txtColor(240);
+				gotoxy(126, 30);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
+				gotoxy(126, 31);	cout << "           I N   A   C O U R S E           ";
+				txtColor(15);
+
 				try
 				{
 					UnNocursortype();
@@ -514,28 +556,15 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 					if (!flag)
 						throw std::runtime_error("Course Invalid");
 					viewAllStudentInCourse(pCur);
+				
 				}
 				catch (const std::exception& ex)
 				{
 					gotoxy(70, temp); cout << ex.what();
 					Sleep(500);
 				}
-				_getch();
-				fillBlackMenu();
-				Nocursortype();
-				txtColor(15);
 
-				gotoxy(127, 20);	cout << " V I E W   L I S T   O F   C L A S S E S ";
-
-				gotoxy(126, 23);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
-				gotoxy(126, 24);	cout << "            I N   A   C L A S S            ";
-
-				gotoxy(127, 27);	cout << " V I E W   L I S T   O F   C O U R S E S ";
-
-				txtColor(240);
-				gotoxy(126, 30);	cout << " V I E W   L I S T   O F   S T U D E N T S ";
-				gotoxy(126, 31);	cout << "           I N   A   C O U R S E           ";
-				txtColor(15);
+				
 			}
 		}
 		//===========================================================================================================================
