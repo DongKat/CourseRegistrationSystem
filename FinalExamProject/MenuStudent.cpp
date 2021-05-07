@@ -16,7 +16,7 @@ void MenuStudent(char username[], char password[], int sizeUser, int sizePass) {
 	gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
 	gotoxy(64, 22); cout << "       C H A N G E   P A S S W O R D       ";
 	gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
-	gotoxy(64, 26); cout << "       R E M O V E   A   E N R O L L E D   C O U R S E       ";
+	gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
 	gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
 	gotoxy(64, 30); cout << "       V I E W   S C O R E B O A R D       ";
 	gotoxy(64, 32); cout << "               L O G   O U T               ";
