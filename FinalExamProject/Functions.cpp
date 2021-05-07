@@ -78,21 +78,28 @@ void exportCourseStudent(ifstream& file)
 		getline(file, line, ',');
 		target << line << ' ';	// firstname
 		getline(file, line, ',');
-		target << line << endl;	// lastname
+		target << line << ',' << endl;	// lastname
+		getline(file, line);	
 		// ignore non-existent scores -1,-1,-1,-1
 	}
 }
 
 void importScoreboardCourse(ifstream& f, string courseID)
 {
-	string course_dir = Schoolyear + "./Semester/Sem " + Sem + "/" + courseID + "/Scoreboard.csv";
-	string tempDir = Schoolyear + "./Semester/Sem " + Sem + "/" + courseID + "/Scoreboard_new.csv";
+	string course_dir = Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard.csv";
+	string tempDir = Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard_new.csv";
 	string temp, mica;
 
 	ifstream courseScoreboard;
 	ofstream tempScoreboard;
 	courseScoreboard.open(course_dir);
 	tempScoreboard.open(tempDir);
+
+	if (!courseScoreboard.is_open())
+		throw  std::runtime_error("Can't open course scoreboard");
+
+	getline(f, temp);	// Ignore first line
+	getline(courseScoreboard, mica);
 
 	while (f.peek() != EOF)
 	{
@@ -107,7 +114,7 @@ void importScoreboardCourse(ifstream& f, string courseID)
 		tempScore->Final = stof(temp);
 		getline(f, temp, ',');	// Bonus
 		tempScore->Bonus = stof(temp);
-		getline(f, temp, ',');	// Total
+		getline(f, temp);	// Total
 		tempScore->Total = stof(temp);
 
 		getline(courseScoreboard, mica, ',');	// No
@@ -118,7 +125,7 @@ void importScoreboardCourse(ifstream& f, string courseID)
 		tempScoreboard << mica << ',';
 		getline(courseScoreboard, mica, ',');	// Last Name
 		tempScoreboard << mica << ',';
-		tempScoreboard << tempScore->Midterm << tempScore->Final << tempScore->Bonus << tempScore->Total << endl;
+		tempScoreboard << tempScore->Midterm << ',' << tempScore->Final << ',' <<  tempScore->Bonus << ',' << tempScore->Total << endl;
 		delete tempScore;
 	}
 	remove(tempDir.c_str());

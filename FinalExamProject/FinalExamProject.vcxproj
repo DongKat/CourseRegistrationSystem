@@ -170,6 +170,9 @@
     <Text Include="staff.txt" />
     <Text Include="YearAndSemester.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Scoreboard.csv" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

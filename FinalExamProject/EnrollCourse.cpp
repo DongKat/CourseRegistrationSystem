@@ -1,5 +1,7 @@
 #include "EnrollCourse.h"
 
+
+// Aux Functions
 time_t timeToUnixTime(date end)
 {
 	int hour, min, sec;
@@ -19,7 +21,6 @@ time_t timeToUnixTime(date end)
 
 	return a;
 }
-
 bool isCourseRegistrationSessionActive(date registerStartDay, date registerEndDay)
 {
 	time_t now = time(0);
@@ -27,7 +28,6 @@ bool isCourseRegistrationSessionActive(date registerStartDay, date registerEndDa
 		return true;
 	return false;
 }
-
 bool checkSchedule(Students aStudent, Courses courseNew)
 {
 	BasicCourses* ptem = aStudent.courseStudent;
@@ -40,7 +40,21 @@ bool checkSchedule(Students aStudent, Courses courseNew)
 	}
 	return true;
 };
+bool checkIsEnrolled(Students aStudent, Courses courseNew)
+{
+	BasicCourses* pCur = aStudent.courseStudent;
+	if (!pCur)
+		return true;
+	while (pCur)
+	{
+		if (pCur->courseID == courseNew.courseID)
+			return false;
+		pCur = pCur->next;
+	}
+	return true;
+}
 
+// Student Enroll Course
 void enrollACourse(Students& aStudent, Courses& courseNew)
 {
 	int k = courseNew.sem;
@@ -63,77 +77,63 @@ void enrollACourse(Students& aStudent, Courses& courseNew)
 	ofstream outfile;
 
 	if (checkSchedule(aStudent, courseNew))
-		if (isCourseRegistrationSessionActive(dateStart, dateEnd))
-			if (courseNew.countStudent < courseNew.maxStudent)
-				if (count < 5)
-				{
-					// Open Student's course list, add new course to .csv file
-					string dir = Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course " + Sem + ".csv";
-					outfile.open(dir, ios::out | ios::app);
-					outfile << courseNew.courseID << "," << courseNew.courseName << "," << courseNew.teacherName << "," << courseNew.countStudent << ',' << courseNew.maxStudent << ',' << courseNew.schedule[0].day << "," << courseNew.schedule[0].time << "," << courseNew.schedule[1].day << "," << courseNew.schedule[1].time << endl;
-					if (!outfile.is_open())
-						throw std::runtime_error("Can't load Semester's Scoreboard");
-					outfile.close();
-
-					// Add Student's name to Course Scoreboard.csv
-					dir = Schoolyear + "/Semesters/" + Sem + "/" + courseNew.courseID + "/Scoreboard.csv";
-					outfile.open(dir, ios::out | ios::app);
-					if (!outfile.is_open())
-						throw std::runtime_error("Can't load Semester's Scoreboard");
-					outfile << ++courseNew.countStudent << "," << aStudent.ID << "," << aStudent.firstName << "," << aStudent.lastName << "-1,-1,-1,-1" << endl;
-					outfile.close();
-
-					// default course's scoreboard:
-					// Ex: 31,101,Anpan,Suhkoi,-1,-1,-1,-1
-
-					// Insert into student's list of enrolled courses
-					BasicCourses* pt = nullptr;
-					if (!aStudent.courseStudent)
+		if (checkIsEnrolled(aStudent, courseNew))
+			if (isCourseRegistrationSessionActive(dateStart, dateEnd))
+				if (courseNew.countStudent < courseNew.maxStudent)
+					if (count < 5)
 					{
-						aStudent.courseStudent = new BasicCourses;
-						pt = aStudent.courseStudent;
+						// Insert into student's list of enrolled courses
+						BasicCourses* pt = new BasicCourses;
+						pt->next = aStudent.courseStudent;
+						aStudent.courseStudent = pt;
+
+						pt->courseID = courseNew.courseID;
+						pt->courseName = courseNew.courseName;
+						for (int i = 0; i < 2; i++)
+						{
+							pt->schedule[i].day = courseNew.schedule[i].day;
+							pt->schedule[i].time = courseNew.schedule[i].time;
+						}
+
+						// Insert Student into Course's students list
+						BasicStudents* ps = new BasicStudents;
+						ps->next = courseNew.studentID;
+						courseNew.studentID = ps;
+
+						ps->firstName = aStudent.firstName;
+						ps->lastName = aStudent.lastName;
+						ps->ID = aStudent.ID;
+
+						// Open Student's course list, add new course to .csv file
+						string dir = Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course " + Sem + ".csv";
+						outfile.open(dir, ios::out | ios::app);
+						outfile << courseNew.courseID << "," << courseNew.courseName << "," << courseNew.teacherName << "," << courseNew.numCredits << ',' << courseNew.countStudent << ',' << ++courseNew.maxStudent << ',' << courseNew.schedule[0].day << "," << courseNew.schedule[0].time << "," << courseNew.schedule[1].day << "," << courseNew.schedule[1].time << endl;
+						if (!outfile.is_open())
+							throw std::runtime_error("Can't load Semester's Scoreboard");
+						outfile.close();
+
+						// Add Student's name to Course Scoreboard.csv
+						dir = Schoolyear + "/Semesters/" + Sem + "/" + courseNew.courseID + "/Scoreboard.csv";
+						outfile.open(dir, ios::out | ios::app);
+						if (!outfile.is_open())
+							throw std::runtime_error("Can't load Semester's Scoreboard");
+						outfile << ++courseNew.countStudent << "," << aStudent.ID << "," << aStudent.firstName << "," << aStudent.lastName << ",-1,-1,-1,-1" << endl;
+						outfile.close();
+						// default course's scoreboard:
+						// Ex: 31,101,Anpan,Suhkoi,-1,-1,-1,-1
+
 					}
 					else
-					{
-						while (pt->next != nullptr)
-							pt = pt->next;
-						pt->next = new BasicCourses;
-						pt = pt->next;
-					}
-					pt->courseID = courseNew.courseID;
-					pt->courseName = courseNew.courseName;
-					for (int i = 0; i < 2; i++)
-					{
-						pt->schedule[i].day = courseNew.schedule[i].day;
-						pt->schedule[i].time = courseNew.schedule[i].time;
-					}
-					// Insert Student into Course's students list
-					BasicStudents* ps = nullptr;
-					if (!courseNew.studentID)
-					{
-						courseNew.studentID = new BasicStudents;
-						ps = courseNew.studentID;
-					}
-					else
-					{
-						ps->next = new BasicStudents;
-						ps = ps->next;
-					}
-					courseNew.studentID->firstName = aStudent.firstName;
-					courseNew.studentID->lastName = aStudent.lastName;
-					courseNew.studentID->ID = aStudent.ID;
-					courseNew.studentID = courseNew.studentID;
-				}
+						throw std::runtime_error("Maximum number of courses reached!");
 				else
-					throw std::runtime_error("Maximum number of courses reached!");
+					throw std::runtime_error("Course Full. Better luck next time :D");
 			else
-				throw std::runtime_error("Course Full. Better luck next time :D");
+				throw std::runtime_error("Course Registration Session no longer active");
 		else
-			throw std::runtime_error("Course Registration Session no longer active");
+			throw std::runtime_error("You already enrolled in this course");
 	else
 		throw std::runtime_error("New course's schedule conflict with already enrolled ones");
 }
-
 void viewEnrolledCourses(Students* aStudent)
 {
 	string line, temp;
@@ -297,10 +297,13 @@ void viewEnrolledCourses(Students* aStudent)
 		}
 		};
 
+	}
 		_getch();
 		file.close();
-	}
 }
+
+
+// Edit Course
 void removeACourse(Students* aStudent, Courses* courseDelete)
 {
 	// How does it work:
@@ -365,7 +368,6 @@ void removeACourse(Students* aStudent, Courses* courseDelete)
 
 	updateCourseB4D(aStudent, courseDelete);
 };
-
 void updateCourseB4D(Students* aStudent, Courses* courseDelete)
 {
 	// How does it work:
@@ -408,6 +410,8 @@ void updateCourseB4D(Students* aStudent, Courses* courseDelete)
 	file.close();
 }
 
+
+// View Menu
 void viewAllStudentInCourse(Courses* course)
 {
 	int count = 1;
@@ -416,11 +420,10 @@ void viewAllStudentInCourse(Courses* course)
 		throw std::runtime_error("There no students enrolled in this course yet!");
 	while (pCur != nullptr)
 	{
-		cout << count++ << "ID: " << pCur->ID << '\t' << "Name: " << pCur->firstName << " " << pCur->lastName;
+		cout << count++ << ' ' << "ID: " << pCur->ID << '\t' << "Name: " << pCur->firstName << " " << pCur->lastName;
 		pCur = pCur->next;
 	}
 }
-
 void viewAllStudentInClass(Classes* Class)
 {
 	txtColor(15);
@@ -433,7 +436,6 @@ void viewAllStudentInClass(Classes* Class)
 		pCur = pCur->next;
 	}
 }
-
 void viewAllCourse()
 {
 	if (COURSE)
@@ -455,7 +457,6 @@ void viewAllCourse()
 	else
 		throw std::runtime_error("There are no courses yet!");
 }
-
 void viewAllClass()
 {
 	int temp = 20;

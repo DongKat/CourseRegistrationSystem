@@ -1,7 +1,5 @@
 #include "create.h"
 
-using namespace std;
-
 // Auxiliary functions
 date convertToDay(string Day)
 {
@@ -163,7 +161,7 @@ bool loadCoursesFromFile(Courses*& course)
 			BasicStudents* currStu = nullptr;
 
 			//bat dau lay
-			while (in.peek()!= EOF)
+			while (in.peek() != EOF)
 			{
 				if (curr->studentID == nullptr)
 				{
@@ -202,13 +200,18 @@ bool loadYearAndSem()
 	in.open("YearAndSemester.txt");
 
 	if (!in.is_open())
-		throw std::runtime_error("YearAndSemester.txt not found!");
+	{
+		ofstream out("YearAndSemester.txt");
+		return false;
+	}
+		
 
 	getline(in, Schoolyear);
 	getline(in, Sem);
 	in >> dateStart.day >> dateStart.month >> dateStart.year >> dateEnd.day >> dateEnd.month >> dateEnd.year;
 
 	in.close();
+	return true;
 }
 void viewCourseFile(Courses* course) // update course list ra file theo thoi gian thuc
 {
@@ -245,9 +248,6 @@ void removeFile(string path)
 	remove(path.c_str());
 }
 
-
-
-
 void printDateToFile(date Date, ofstream& f) {
 	if (Date.day < 10) f << 0;
 	f << Date.day << "/";
@@ -260,7 +260,6 @@ void printDateToConsole(date Date) {
 	if (Date.month < 10) cout << 0;
 	cout << Date.month << "/" << Date.year;
 }
-
 
 void createFolderStudent(string path) {
 	createFolder(path);
@@ -328,7 +327,9 @@ bool inputSchoolYear() { 						//false if this is new SchoolYear
 	Schoolyear = to_string(syear) + "-" + to_string(eyear);
 	return createFolderSchoolYear(Schoolyear);
 }
-bool createFolderSchoolYear(string path) {	//false if this is new year
+bool createFolderSchoolYear(string path) 
+{	
+	//false if this is new year
 	bool checkNewYear = createFolder(path);
 	createFolder(path + "\\Classes");
 
@@ -343,6 +344,8 @@ bool createFolderSchoolYear(string path) {	//false if this is new year
 	return checkNewYear;
 }
 
+
+
 // For create Class mewyu
 Classes* newClass(string filepath, string className, string folder) {
 	Classes* Class = new Classes;
@@ -356,7 +359,7 @@ Classes* newClass(string filepath, string className, string folder) {
 	Students* stu = nullptr;
 	string t;
 	getline(f, t); // ignore field names
-	while (f.peek()!=EOF) {
+	while (f.peek() != EOF) {
 		int no;
 		string ID;
 		string FirstName, LastName;
@@ -405,7 +408,8 @@ Classes* newClass(string filepath, string className, string folder) {
 void createFolderClass(string path, string Cname) {
 	createFolder(path + "\\Classes\\" + Cname);
 }
-void addClass(Classes*& Class, string folder) {
+void addClass(Classes*& Class, string folder) 
+{
 	txtColor(15);
 	if (Schoolyear == "") {
 		gotoxy(70, 20);
@@ -437,7 +441,7 @@ void addClass(Classes*& Class, string folder) {
 	getline(cin, Cname);
 
 	while (createFolder(folder + "\\Classes\\" + Cname)) // lay ten lop
-	{   	
+	{
 		gotoxy(70, temp);
 		cout << "Please enter class's name(Ex:20apcs1): ";
 		getline(cin, Cname);
@@ -473,7 +477,6 @@ void addClass(Classes*& Class, string folder) {
 	autoGenerateStudentProfiles(filepath);
 }
 
-
 // For Create Sem Mewnyu
 Semesters newSemester(int currSem, date begin, date end)
 {
@@ -498,8 +501,6 @@ void addSemester(Semesters* semester, int currSem, date begin, date end)
 	out << dateEnd.day << " " << dateEnd.month << " " << dateEnd.year << endl;
 	out.close();
 }
-
-
 
 // For Create Course Mewnyyyuuu
 Courses* newCourse(string courseName, string courseID, string teacherName, int numCredits, int maxStudent, Schedules schedule[])
@@ -688,7 +689,7 @@ void addNewSemesterMain(Semesters* semester)
 	date begin, end;
 
 	gotoxy(67, 20);
-	cout << "You are creating new semester\n\n";
+	cout << "You are creating new semester";
 
 	int temp = 21;
 
@@ -700,10 +701,31 @@ void addNewSemesterMain(Semesters* semester)
 	} while (currSem != 1 && currSem != 2 && currSem != 3);
 
 	gotoxy(67, temp);
-	cout << "Enter starting date:\n";
+	cout << "Enter course registration session starting date";
 	temp++;
 
-	do {
+	gotoxy(70, temp);
+	cout << "Day: ";
+	cin >> begin.day;
+	temp++;
+	gotoxy(70, temp);
+	cout << "Month: ";
+	cin >> begin.month;
+	temp++;
+	gotoxy(70, temp);
+	cout << "Year(In the range of School Year): ";
+	cin >> begin.year;
+	temp++;
+
+	while (!isLegalDate(begin))
+	{
+		temp++;
+		gotoxy(67, temp);
+		cout << "Enter course registration session starting date";
+		temp++;
+		gotoxy(70, temp);
+		cout << "Date out of range!";
+		temp++;
 		gotoxy(70, temp);
 		cout << "Day: ";
 		cin >> begin.day;
@@ -716,13 +738,33 @@ void addNewSemesterMain(Semesters* semester)
 		cout << "Year(In the range of School Year): ";
 		cin >> begin.year;
 		temp++;
-	} while (!isLegalDate(begin));
+	}
 
 	gotoxy(67, temp);
-	cout << "Enter ending date:\n";
+	cout << "Enter course registration session ending date";
 	temp++;
 
-	do {
+	gotoxy(70, temp);
+	cout << "Day: ";
+	cin >> end.day;
+	temp++;
+	gotoxy(70, temp);
+	cout << "Month: ";
+	cin >> end.month;
+	temp++;
+	gotoxy(70, temp);
+	cout << "Year(In the range of School Year): ";
+	cin >> end.year;
+	temp++;
+
+	while (!isLegalDate(end))
+	{
+		temp++;
+		gotoxy(67, temp);
+		cout << "Enter course registration session ending date";
+		temp++;
+		gotoxy(70, temp);
+		cout << "Date out of range!";
 		gotoxy(70, temp);
 		cout << "Day: ";
 		cin >> end.day;
@@ -735,10 +777,9 @@ void addNewSemesterMain(Semesters* semester)
 		cout << "Year(In the range of School Year): ";
 		cin >> end.year;
 		temp++;
-	} while (!isLegalDate(end));
+	}
 
 	cin.ignore();
-
 	addSemester(semester, currSem, begin, end);
 }
 
