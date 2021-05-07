@@ -17,7 +17,7 @@ Courses* COURSE = nullptr;
 Classes* CLASS = nullptr;
 
 int main() {
-	resizeConsole(1920,1080);
+	resizeConsole(1300,700);
 	txtColor(0);
 
 	autoGenerateStaffProfiles("staff.txt");
