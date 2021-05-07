@@ -118,7 +118,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				UnNocursortype();
 				txtColor(15);
 				viewDetailAllCourses(COURSE);
-				
+
 				try
 				{
 					if (!COURSE)
@@ -142,10 +142,11 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 					if (!flag)
 						throw std::runtime_error("Course Invalid");
 					enrollACourse(*pStudent, *pCourse);
+					gotoxy(130, 22); cout << "Course enroll successfully!";
 				}
 				catch (const std::exception& ex)
 				{
-					gotoxy(70, 21);	cout << ex.what();
+					gotoxy(130, 21);	cout << ex.what();
 					_getch();
 				}
 				Nocursortype();
@@ -165,7 +166,6 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 			}
 		}
 
-		// Not tested
 		if (dem == 4)
 		{
 			txtColor(240);
@@ -222,7 +222,6 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 			}
 		}
 
-		// Not tested
 		if (dem == 5)
 		{
 			txtColor(240);
@@ -260,7 +259,6 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 		}
 
 
-		//Not tested
 		if (dem == 6)
 		{
 			txtColor(240);
@@ -269,24 +267,30 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 			{
 				try
 				{
-
+					fillBlackMenu();
 					txtColor(15);
-					UnNocursortype();
+					Nocursortype();
 					ifstream f;
-					string className = checkStudentClass(user);
+					className = checkStudentClass(user);
 					f.open(Schoolyear + "/Classes/" + className + "/" + user + "/Course " + Sem + " Scoreboard.csv");
 					if (!f.is_open())
 						throw std::runtime_error("Can't open user scoreboard");
-					viewOwnScoreboard(f, 22);
+					gotoxy(50, 20);	cout << "Course ID";
+					gotoxy(65, 20);	cout << "Midterm";
+					gotoxy(80, 20);	cout << "Final";
+					gotoxy(95, 20);	cout << "Bonus";
+					gotoxy(110, 20);	cout << "Total";
+					viewOwnScoreboard(f, 21);
 
 				}
 				catch (std::exception& ex)
 				{
 					gotoxy(70, 20);	cout << ex.what();
-					_getch();
 				}
+				_getch();
 				Nocursortype();
 				fillBlackMenu();
+				drawBorderMenuStudent();
 				txtColor(15);
 				gotoxy(74, 18); cout << "H E L L O  S T U D E N T";
 				gotoxy(64, 20); cout << "   P R O F I L E   I N F O R M A T I O N   ";
@@ -374,7 +378,7 @@ void MenuStudentProfileInfo(string username, string password) {
 			gotoxy(64, 24); cout << "       E N R O L L   A   C O U R S E       ";
 			gotoxy(64, 26); cout << "       R E M O V E   A   C O U R S E       ";
 			gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
-			gotoxy(64, 30); cout << "            S C O R E B O A R D            ";
+			gotoxy(64, 30); cout << "       V I E W   S C O R E B O A R D       ";
 			gotoxy(64, 32); cout << "               L O G   O U T               ";
 			return;
 		}

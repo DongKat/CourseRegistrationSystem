@@ -427,9 +427,14 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 					if (!CLASS)
 						throw std::runtime_error("There are no classes yet!");
 
-					UnNocursortype();
+					
 					string className;
 					Classes* pCur = CLASS;
+
+					viewAllClass();
+
+					UnNocursortype();
+
 					gotoxy(70, 20);	cout << "Please enter class name: ";
 					cin >> className;
 
@@ -532,7 +537,6 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 
 				try
 				{
-					UnNocursortype();
 					txtColor(15);
 					if (!COURSE)
 						throw std::runtime_error("There are no courses yet!");
@@ -561,6 +565,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 				catch (const std::exception& ex)
 				{
 					gotoxy(70, temp); cout << ex.what();
+					Nocursortype();
 					Sleep(500);
 				}
 
@@ -637,6 +642,7 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 				}
 				else
 					inputSchoolYear();
+				Nocursortype();
 				fillBlackMenu();
 				txtColor(240);
 				gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
@@ -666,7 +672,7 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 					keyboardShortcut();
 
 					ViewYearSem();
-
+					Nocursortype();
 					txtColor(15);
 					gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
 					txtColor(240);
@@ -695,7 +701,7 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 					logo_moodle();
 					keyboardShortcut();
 					ViewYearSem();
-
+					Nocursortype();
 					txtColor(15);
 					gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
 					gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
@@ -733,11 +739,15 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 				if (Sem != "") {
 					try
 					{
-					addNewCourseMain(COURSE);
+						addNewCourseMain(COURSE);
 					}
 					catch (const std::exception& ex)
 					{
 						gotoxy(70, 20); cout << ex.what();
+					}
+					catch (...)
+					{
+						gotoxy(70, 20); cout << "Input data error";
 					}
 					Nocursortype();
 					fillBlackMenu();
@@ -755,7 +765,7 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 					gotoxy(70, 20);
 					cout << "You must create semester first!";
 					Sleep(1000);
-
+					Nocursortype();
 					fillBlackMenu();
 					txtColor(15);
 					gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
@@ -1075,15 +1085,17 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				gotoxy(70, 20);	cout << "Please enter course ID: ";
 				cin >> courseID;
 
-				gotoxy(70, 21);	cout << "Please input file: ";
-				cin >> fileName;
+				gotoxy(70, 21);	cout << "Please input file (Scoreboard.csv): ";
+				getline(cin, fileName);
 
 				f.open(fileName);
 				int temp = 22;
 				if (!f.is_open()) {
 					gotoxy(70, temp);
 					cout << "Import file failed!";
+					UnNocursortype();
 					Sleep(500);
+					Nocursortype();
 				}
 				else {
 					try
@@ -1093,6 +1105,10 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					f.open(fileName);
 					importScoreboardCourse(f, courseID);
 					f.close();
+					gotoxy(70, temp); cout << "Import file successfully!";
+					UnNocursortype();
+					Sleep(500);
+					Nocursortype();
 					}
 					catch (const std::exception&ex)
 					{

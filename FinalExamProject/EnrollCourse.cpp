@@ -35,7 +35,7 @@ bool checkSchedule(Students aStudent, Courses courseNew)
 	while (ptem != nullptr)
 	{
 		for (int i = 0; i < 2; i++)
-			for(int j = 0; j < 2; j++)
+			for (int j = 0; j < 2; j++)
 				if (ptem->schedule[j].day == courseNew.schedule[i].day && ptem->schedule[j].time == courseNew.schedule[i].time)
 					return false;
 		ptem = ptem->next;
@@ -59,6 +59,8 @@ bool checkIsEnrolled(Students aStudent, Courses courseNew)
 // Student Enroll Course
 void enrollACourse(Students& aStudent, Courses& courseNew)
 {
+
+
 	int k = courseNew.sem;
 	int count = -1;
 	ifstream infile;
@@ -78,8 +80,8 @@ void enrollACourse(Students& aStudent, Courses& courseNew)
 
 	ofstream outfile;
 
-	if (checkSchedule(aStudent, courseNew))
-		if (checkIsEnrolled(aStudent, courseNew))
+	if (checkIsEnrolled(aStudent, courseNew))
+		if (checkSchedule(aStudent, courseNew))
 			if (isCourseRegistrationSessionActive(dateStart, dateEnd))
 				if (courseNew.countStudent < courseNew.maxStudent)
 					if (count < 5)
@@ -109,7 +111,7 @@ void enrollACourse(Students& aStudent, Courses& courseNew)
 						// Open Student's course list, add new course to .csv file
 						string dir = Schoolyear + "/Classes/" + aStudent.className + "/" + aStudent.ID + "/Course " + Sem + ".csv";
 						outfile.open(dir, ios::out | ios::app);
-						outfile << courseNew.courseID << "," << courseNew.courseName << "," << courseNew.teacherName << "," << courseNew.numCredits << ',' << courseNew.countStudent << ',' << ++courseNew.maxStudent << ',' << courseNew.schedule[0].day << "," << courseNew.schedule[0].time << "," << courseNew.schedule[1].day << "," << courseNew.schedule[1].time << endl;
+						outfile << courseNew.courseID << "," << courseNew.courseName << "," << courseNew.schedule[0].day << "," << courseNew.schedule[0].time << "," << courseNew.schedule[1].day << "," << courseNew.schedule[1].time << endl;
 						if (!outfile.is_open())
 							throw std::runtime_error("Can't load Semester's Scoreboard");
 						outfile.close();
@@ -132,9 +134,9 @@ void enrollACourse(Students& aStudent, Courses& courseNew)
 			else
 				throw std::runtime_error("Course Registration Session no longer active");
 		else
-			throw std::runtime_error("You already enrolled in this course");
+			throw std::runtime_error("Courses's schedule conflicts");
 	else
-		throw std::runtime_error("New course's schedule conflict with already enrolled ones");
+		throw std::runtime_error("You already enrolled in this course");
 }
 void viewEnrolledCourses(Students* aStudent)
 {
@@ -148,12 +150,9 @@ void viewEnrolledCourses(Students* aStudent)
 	// Print field Names
 	txtColor(15);
 	gotoxy(30, 20); cout << "CourseID";
-	gotoxy(41, 20);	cout << "Course Name";
-	gotoxy(54, 20);	cout << "Teacher Name";
-	gotoxy(68, 20);	cout << "Credits";
-	gotoxy(77, 20);	cout << "Number of students";
-	gotoxy(97, 20); cout << "Session 1";
-	gotoxy(108, 20); cout << "Session 2";
+	gotoxy(51, 20);	cout << "Course Name";
+	gotoxy(94, 20); cout << "Session 1";
+	gotoxy(104, 20); cout << "Session 2";
 
 	while (file.peek() != EOF)
 	{
@@ -162,37 +161,27 @@ void viewEnrolledCourses(Students* aStudent)
 		gotoxy(30, a);	cout << temp;
 
 		getline(file, temp, ',');	// Course Name
-		gotoxy(41, a);	cout << temp;
-
-		getline(file, temp, ',');	// Teacher
-		gotoxy(54, a);	 cout << temp;
-
-		getline(file, temp, ',');	// Credits
-		gotoxy(68, a);	cout << temp;
-
-		getline(file, temp, ',');	// NumStudents
-		gotoxy(77, a);	cout << temp;
-
-		getline(file, temp, ',');	// MaxStudents
-		cout << "/" << temp;
+		gotoxy(51, a);	cout << temp;
 
 		getline(file, temp, ',');	// Weekday 1
-		gotoxy(97, a);
+		gotoxy(94, a);
+		cout << temp << " ";
 
-		cout << " ";
 		getline(file, temp, ',');	// Period 1
-		
+		cout << temp;
+
 
 		getline(file, temp, ',');	// Weekday 2
-		gotoxy(108, a);
-		
-		cout << " ";
+		gotoxy(104, a);
+		cout << temp << " ";
+
 		getline(file, temp);		// Period 2
-	
+		cout << temp;
+
 
 	}
-		_getch();
-		file.close();
+	_getch();
+	file.close();
 }
 
 
@@ -288,16 +277,16 @@ void updateCourseB4D(Students* aStudent, Courses* courseDelete)
 	file.close();
 
 	// Update file in course folder
-	dir = "./" + Schoolyear + "/Semester/" + Sem + "/" + courseDelete->courseID + "/Scoreboard.csv";
+	dir = "./" + Schoolyear + "/Semesters/" + Sem + "/" + courseDelete->courseID + "/Scoreboard.csv";
 
 	remove(dir.c_str());
 	file.open(dir);
-
+	file << "Course ID,Course Name,Teacher Name,Num of Credits,Max Student,Weekday 1,Time 1,Weekday 2,Time 2\n";
 	BasicStudents* pCurrentStudent = courseDelete->studentID;
 	int count = 1;
 	while (pCurrentStudent != nullptr)
 	{
-		file << count++ << "," << pCurrentStudent->ID << "," << pCurrentStudent->firstName << "," << pCurrentStudent->lastName << ",0,0,0,0" << endl;
+		file << count++ << "," << pCurrentStudent->ID << "," << pCurrentStudent->firstName << "," << pCurrentStudent->lastName << ",-1,-1,-1,-1" << endl;
 		pCurrentStudent = pCurrentStudent->next;
 	}
 	file.close();
@@ -313,7 +302,7 @@ void viewAllStudentInCourse(Courses* course)
 		throw std::runtime_error("There no students enrolled in this course yet!");
 	while (pCur != nullptr)
 	{
-		cout << count++ << ' ' << "ID: " << pCur->ID << '\t' << "Name: " << pCur->firstName << " " << pCur->lastName;
+		cout << count++ << ' ' << "ID: " << pCur->ID << '\t' << "Name: " << pCur->firstName << " " << pCur->lastName << endl;
 		pCur = pCur->next;
 	}
 	Nocursortype();
@@ -323,10 +312,21 @@ void viewAllStudentInClass(Classes* Class)
 	txtColor(15);
 	int count = 1;
 	Students* pCur = Class->student;
-	cout << "\tID\tName\n";
+
+	int x = 65;
+	int y = 22;
+
+	gotoxy(x, y); 			cout << "No";
+	gotoxy(x += 8, y); 	cout << "ID";
+	gotoxy(x += 16, y);		cout << "Name";
+
 	while (pCur != nullptr)
 	{
-		cout << count++ << '\t' << pCur->ID << '\t' << pCur->firstName << " " << pCur->lastName << endl;
+		x = 65;
+		gotoxy(x, ++y); 			cout << count++;
+		gotoxy(x += 8, y); 	cout << pCur->ID;
+		gotoxy(x += 16, y);		cout << pCur->firstName << ' ' << pCur->lastName;
+
 		pCur = pCur->next;
 	}
 	Nocursortype();
@@ -351,6 +351,7 @@ void viewAllCourse()
 		Nocursortype();
 	}
 	else
+
 		throw std::runtime_error("There are no courses yet!");
 	Nocursortype();
 }
@@ -373,15 +374,16 @@ void viewAllClass()
 	Nocursortype();
 }
 
-void viewDetailAllCourses(Courses *course)
+void viewDetailAllCourses(Courses* course)
 {
+	Nocursortype();
 	if (!course)
 		return;
 
-	Courses *curr = course;
+	Courses* curr = course;
 
 	int x = 5, y = 15;
-	
+
 	gotoxy(x, y); cout << "ID";
 	gotoxy(x += 10, y); cout << "Name";
 	gotoxy(x += 40, y); cout << "Teacher";
@@ -394,16 +396,16 @@ void viewDetailAllCourses(Courses *course)
 	while (curr)
 	{
 		x = 5;
-		gotoxy(x, ++y); cout << curr -> courseID;
-		gotoxy(x += 10, y); cout << curr -> courseName;
-		gotoxy(x += 40, y); cout << curr -> teacherName;
-		gotoxy(x += 25, y); cout << curr -> numCredits;
-		gotoxy(x += 14, y); cout << curr -> schedule[0].day << "  " << (curr -> schedule[0].time == "S1" ? "7:30" : curr -> schedule[0].time == "S2" ? "9:30" : curr -> schedule[0].time == "S3" ? "13:30" : "15:30");
-		
-		gotoxy(x += 15, y); cout << curr -> schedule[1].day << "  " << (curr -> schedule[1].time == "S1" ? "7:30" : curr -> schedule[1].time == "S2" ? "9:30" : curr -> schedule[1].time == "S3" ? "13:30" : "15:30");
+		gotoxy(x, ++y); cout << curr->courseID;
+		gotoxy(x += 10, y); cout << curr->courseName;
+		gotoxy(x += 40, y); cout << curr->teacherName;
+		gotoxy(x += 25, y); cout << curr->numCredits;
+		gotoxy(x += 14, y); cout << curr->schedule[0].day << "  " << (curr->schedule[0].time == "S1" ? "7:30" : curr->schedule[0].time == "S2" ? "9:30" : curr->schedule[0].time == "S3" ? "13:30" : "15:30");
 
-		
+		gotoxy(x += 15, y); cout << curr->schedule[1].day << "  " << (curr->schedule[1].time == "S1" ? "7:30" : curr->schedule[1].time == "S2" ? "9:30" : curr->schedule[1].time == "S3" ? "13:30" : "15:30");
 
-		curr = curr -> next;
+
+
+		curr = curr->next;
 	}
 }

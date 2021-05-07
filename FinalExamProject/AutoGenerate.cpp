@@ -100,9 +100,10 @@ void autoGenerateStudentProfiles(string filePath)
 	string month;
 	string year;
 	string socialID;
-
+	string ignore_line;
 	// No, Student ID, First name, Last name, Gender, Date of Birth, Social ID.
 
+	getline(in, ignore_line);
 	while (!in.eof()) // run to the end of file
 	{
 		// GET

@@ -79,7 +79,7 @@ void exportCourseStudent(ifstream& file)
 		target << line << ' ';	// firstname
 		getline(file, line, ',');
 		target << line << ',' << endl;	// lastname
-		getline(file, line);	
+		getline(file, line);
 		// ignore non-existent scores -1,-1,-1,-1
 	}
 }
@@ -127,7 +127,7 @@ void importScoreboardCourse(ifstream& f, string courseID)
 		getline(courseScoreboard, mica, ',');	// Last Name
 		tempScoreboard << mica << ',';
 		getline(courseScoreboard, mica);
-		tempScoreboard << tempScore->Midterm << ',' << tempScore->Final << ',' <<  tempScore->Bonus << ',' << tempScore->Total << endl;
+		tempScoreboard << tempScore->Midterm << ',' << tempScore->Final << ',' << tempScore->Bonus << ',' << tempScore->Total << endl;
 		delete tempScore;
 	}
 	courseScoreboard.close();
@@ -157,11 +157,11 @@ void importScoreboardStudent(ifstream& f, string courseID)
 		else
 		{
 			string dir = Schoolyear + "/Classes/" + className + "/" + temp + "/Course " + Sem + " Scoreboard.csv";
-			studentScoreboard.open(dir, ios::app | ios::out);
+			studentScoreboard.open(dir, ios::app);
 			studentScoreboard << courseID << ",";
 			getline(s, temp, ','); // Skip name
 			getline(s, temp);
-			studentScoreboard << temp;
+			studentScoreboard << temp << endl;
 			studentScoreboard.close();
 		}
 	}
@@ -171,20 +171,28 @@ void viewCourseScoreboard(ifstream& f)
 {
 	// view Course scoreboard
 	string temp;
-	int tmp = 21;
 	getline(f, temp);	// ignore first line
+	int pos = 23;
+	gotoxy(8, pos); cout << "No";
+	gotoxy(15, pos); cout << "Student ID";
+	gotoxy(27, pos); cout << "Full Name";
+	gotoxy(57, pos); cout << "Course ID";
+	gotoxy(71, pos); cout << "Midterm";
+	gotoxy(82, pos); cout << "Final";
+	gotoxy(92, pos); cout << "Bonus";
+	gotoxy(102, pos); cout << "Total";
+	pos++;
 	while (f.peek() != EOF)
 	{
-		gotoxy(20, tmp);
-		getline(f, temp, ',');	cout << temp << "\t\t"; // no
-		getline(f, temp, ',');	cout << temp << "\t\t";
-		getline(f, temp, ',');	cout << temp << "\t\t";
-		getline(f, temp, ',');	cout << temp << "\t\t";
-		getline(f, temp, ',');	cout << temp << "\t\t";
-		getline(f, temp, ',');	cout << temp << "\t\t";
-		getline(f, temp, ',');	cout << temp << "\t\t"; // Total
-		getline(f, temp);		cout << temp;
-		tmp++;
+		getline(f, temp, ',');	gotoxy(8, pos);		cout << temp;// no
+		getline(f, temp, ',');	gotoxy(15, pos);	cout << temp;
+		getline(f, temp, ',');	gotoxy(27, pos);	cout << temp;
+		getline(f, temp, ',');	gotoxy(57, pos);	cout << temp;
+		getline(f, temp, ',');	gotoxy(71, pos);	cout << temp;
+		getline(f, temp, ',');	gotoxy(82, pos);	cout << temp;
+		getline(f, temp, ',');	gotoxy(92, pos);	cout << temp;// Total
+		getline(f, temp);		gotoxy(102, pos);	cout << temp;
+		pos++;
 	}
 }
 
@@ -194,11 +202,12 @@ void viewOwnScoreboard(ifstream& f, int pos)
 
 	while (f.peek() != EOF)
 	{
-		getline(f, temp, ','); 	cout << temp << "\t\t"; // Course ID
-		getline(f, temp, ',');	cout << temp << "\t"; // Midterm
-		getline(f, temp, ',');	cout << temp << "\t"; // Final
-		getline(f, temp, ',');	cout << temp << "\t"; // Bonus
-		getline(f, temp);		cout << temp << "\t"; // Total
+		getline(f, temp, ','); 	gotoxy(50, pos);	cout << temp; // Course ID
+		getline(f, temp, ',');	gotoxy(65, pos);	cout << temp; // Midterm
+		getline(f, temp, ',');	gotoxy(80, pos);	cout << temp; // Final
+		getline(f, temp, ',');	gotoxy(95, pos);	cout << temp; // Bonus
+		getline(f, temp);		gotoxy(110, pos);	cout << temp; // Total
+		pos++;
 	}
 }
 
@@ -299,6 +308,7 @@ void updateStudentResult(ifstream& f1, ifstream& f2, ofstream& nf1, ofstream& nf
 
 void viewClassScoreboard(ifstream& f, string className) // Require changing UI
 {
+	Nocursortype();
 	string studentID;
 	string line, temp;
 	ifstream studentScoreboard;
@@ -306,33 +316,49 @@ void viewClassScoreboard(ifstream& f, string className) // Require changing UI
 
 	int student_count = 1;
 
-	int pos = 21;
+	int pos = 23;
+	gotoxy(8, pos); cout << "No";
+	gotoxy(15, pos); cout << "Student ID";
+	gotoxy(27, pos); cout << "Full Name";
+	gotoxy(57, pos); cout << "Course ID";
+	gotoxy(71, pos); cout << "Midterm";
+	gotoxy(82, pos); cout << "Final";
+	gotoxy(92, pos); cout << "Bonus";
+	gotoxy(102, pos); cout << "Total";
 
-	cout << "No\tStudentID\tFull Name\tCourseID\tMidterm\tFinal\tBonus\tTotal\n";
+	pos++;
 	while (f.peek() != EOF)
 	{
 		getline(f, studentID);
 
-		cout << student_count++ << "\t" << studentID << "\t\t";
+		gotoxy(8, pos); cout << student_count++;
+		gotoxy(15, pos); cout << studentID;
 
 		studentScoreboard.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course " + Sem + " Scoreboard.csv");
 		studentProfile.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Profile.txt");
 
-		getline(studentProfile, temp);	
-		getline(studentProfile, temp);	
+		getline(studentProfile, temp);
+		getline(studentProfile, temp);
 		getline(studentProfile, temp);	//get last name
-		cout << temp << " ";
+		gotoxy(27, pos); cout << temp << " ";
 		getline(studentProfile, temp);	//get first name
-		cout << temp << "\t  ";
+		cout << temp;
 
 		studentProfile.close();
-
-		viewOwnScoreboard(studentScoreboard, pos);
+		
+		while (studentScoreboard.peek() != EOF)
+		{
+			getline(studentScoreboard, temp, ',');	gotoxy(57, pos);	cout << temp; // Course ID
+			getline(studentScoreboard, temp, ',');	gotoxy(71, pos);	cout << temp; // Midterm
+			getline(studentScoreboard, temp, ',');	gotoxy(82, pos);	cout << temp; // Final
+			getline(studentScoreboard, temp, ',');	gotoxy(92, pos);	cout << temp; // Bonus
+			getline(studentScoreboard, temp);		gotoxy(102, pos);	cout << temp; // Total
+			pos++;
+		}
 		studentScoreboard.close();
-		cout << endl;
 
 		studentScoreboard.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course " + Sem + " Scoreboard.csv");
-		cout << "Semester GPA: " << getSemGPA(studentScoreboard) << endl;
+		gotoxy(88, pos); cout << "Semester GPA: " << std::setprecision(3) << getSemGPA(studentScoreboard);
 		studentScoreboard.close();
 
 		float overall_GPA = 0;
@@ -348,6 +374,8 @@ void viewClassScoreboard(ifstream& f, string className) // Require changing UI
 		getline(a, t);
 		int k = stoi(t);
 		overall_GPA /= k;
-		cout << "Overall GPA: " << overall_GPA << endl << endl;
+		gotoxy(88, ++pos); cout << "Overall GPA:  " << std::setprecision(3) << overall_GPA << endl << endl;
+		pos++;
+		pos++;
 	}
 }

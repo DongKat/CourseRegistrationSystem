@@ -53,7 +53,7 @@ Courses* findCourse(Courses*& course, string courseID, string courseName, string
 
 	while (curr)
 	{
-		if (curr->courseID == courseID && curr->courseName == courseName && curr->teacherName == course->teacherName)
+		if (curr->courseID == courseID && curr->courseName == courseName && curr->teacherName == teacherName)
 			return curr;
 		curr = curr->next;
 	}
@@ -149,6 +149,7 @@ bool loadCoursesFromFile(Courses*& course)
 			++countStu;
 			getline(in, ignore);
 		}
+		curr->countStudent = --countStu;
 
 		in.close();
 
@@ -440,6 +441,7 @@ void addClass(Classes*& Class, string folder)
 	gotoxy(70, temp);
 	cout << "Please enter class's name(Ex:20apcs1): ";
 	getline(cin, Cname);
+	temp++;
 
 	while (createFolder(folder + "\\Classes\\" + Cname)) // lay ten lop
 	{
@@ -548,7 +550,7 @@ void createFolderNFileCourse(Courses* course) // tao folder Profile.csv va Score
 
 	out.open(Schoolyear + "/Semesters/" + Sem + '/' + course->courseID + "/Profile.csv");
 
-	out << "Course ID,Course Name,Teacher Name,Num of Credits,Max Students,Session 1,Session 2\n";
+	out << "Course ID,Course Name,Teacher Name,Num of Credits,Max Student,Weekday 1,Time 1,Weekday 2,Time 2\n";
 
 	out << course->courseID + ',' + course->courseName + ',' + course->teacherName + ',' + to_string(course->numCredits) + ',' + to_string(course->maxStudent) + ',' + course->schedule[0].day + ',' + course->schedule[0].time + ',' + course->schedule[1].day + ',' + course->schedule[1].time + '\n';
 
@@ -592,6 +594,7 @@ void deleteCourseFolder(Courses* delCourse)
 // For Create Mewnyu
 void addNewCourseMain(Courses*& course)
 {
+	UnNocursortype();
 	if (Sem == "") {
 		gotoxy(70, 20);
 		cout << "You must create semester first!\n";
@@ -612,9 +615,11 @@ void addNewCourseMain(Courses*& course)
 
 	Courses* pCur = COURSE;
 	while (pCur)
+	{
 		if (pCur->courseID == courseID)
 			throw std::runtime_error("You already create a similiar course");
-
+		pCur = pCur->next;
+	}
 	gotoxy(70, temp);
 	cout << "Enter course's name: ";
 	getline(cin, courseName);
@@ -646,33 +651,37 @@ void addNewCourseMain(Courses*& course)
 		cout << "Enter session:\n\n";
 		temp++;
 
-		while (true) {
+		while (true) 
+		{
 			gotoxy(70, temp);
 			cout << "Day of week(From MON to SAT): "; // MON, THU
 			getline(cin, t);
 			temp++;
-			if (t != "MON" || t != "TUE" || t != "WED" || t != "THU" || t != "FRI" || t != "SAT") {
+			if (t == "MON" || t == "TUE" || t == "WED" || t == "THU" || t == "FRI" || t == "SAT") {
+				break;
+			}
+			else {
 				gotoxy(70, temp);
 				cout << "Please enter a valid day of week";
 				temp++;
 			}
-			else
-				break;
 		}
 		schedule[i].day = t;
 
-		while (true) {
+		while (true)
+		{
 			gotoxy(70, temp);
 			cout << "Time(S1, S2, S3, S4): ";		//S1, S2, S3, S4
 			getline(cin, t);
 			temp++;
-			if (t != "S1" || t != "S2" || t != "S3" || t != "S4") {
+			if (t == "S1" || t == "S2" || t == "S3" || t == "S4") {
+				break;
+			}
+			else {
 				gotoxy(70, temp);
 				cout << "Please enter a valid time!";
 				temp++;
 			}
-			else
-				break;
 		}
 		schedule[i].time = t;
 	}
@@ -680,6 +689,7 @@ void addNewCourseMain(Courses*& course)
 	Courses* newCourse = addCourse(course, courseName, courseID, teacherName, numCredits, maxStudent, schedule);
 	createFolderNFileCourse(newCourse);
 	viewCourseFile(course);
+	Nocursortype();
 }
 void addNewSemesterMain(Semesters* semester)
 {
@@ -864,33 +874,37 @@ void editCourseMain(Courses*& course)
 			cout << "Enter session:\n\n";
 			temp++;
 
-			while (true) {
+			while (true)
+			{
 				gotoxy(70, temp);
 				cout << "Day of week(From MON to SAT): "; // MON, THU
 				getline(cin, edit->schedule[i].day);
 				temp++;
-				if (edit->schedule[i].day != "MON" || edit->schedule[i].day != "TUE" || edit->schedule[i].day != "WED" || edit->schedule[i].day != "THU" || edit->schedule[i].day != "FRI" || edit->schedule[i].day != "SAT") {
+				if (edit->schedule[i].day == "MON" || edit->schedule[i].day == "TUE" || edit->schedule[i].day == "WED" || edit->schedule[i].day == "THU" || edit->schedule[i].day == "FRI" || edit->schedule[i].day == "SAT") {
+					break;
+				}
+				else {
 					gotoxy(70, temp);
 					cout << "Please enter a valid day of week";
 					temp++;
 				}
-				else
-					break;
 			}
 
-
-			while (true) {
+			while (true)
+			{
 				gotoxy(70, temp);
 				cout << "Time(S1, S2, S3, S4): ";		//S1, S2, S3, S4
 				getline(cin, edit->schedule[i].time);
 				temp++;
-				if (edit->schedule[i].time != "S1" || edit->schedule[i].time != "S2" || edit->schedule[i].time != "S3" || edit->schedule[i].time != "S4") {
+				if (edit->schedule[i].time == "S1" || edit->schedule[i].time == "S2" || edit->schedule[i].time == "S3" || edit->schedule[i].time == "S4") {
+					break;
+				}
+				else 
+				{
 					gotoxy(70, temp);
 					cout << "Please enter a valid time!";
 					temp++;
 				}
-				else
-					break;
 			}
 		}
 
