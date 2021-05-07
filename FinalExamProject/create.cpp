@@ -559,6 +559,40 @@ void createFolderNFileCourse(Courses* course) // tao folder Profile.csv va Score
 
 	out.close();
 }
+
+void viewCourseFile(Courses* course) // update course list ra file theo thoi gian thuc
+{
+	ofstream out;
+
+	Courses* curr = course;
+
+	out.open(Schoolyear + "/Semesters/" + Sem + "/AllCourses.csv");
+
+	out << "Course ID,Course Name,Teacher Name";
+
+	while (curr != nullptr)
+	{
+		out << '\n' << curr->courseID + ',' + curr->courseName + ',' + curr->teacherName;
+		curr = curr->next;
+	}
+
+	out.close();
+}
+
+Courses* findCourse(Courses*& course, string courseID, string courseName, string teacherName) // dung cho edit va delete
+{
+	Courses* curr = course;
+
+	while (curr) //Bat dau tim course bang thong tin buoc nhap
+	{
+		if (curr->courseID == courseID && curr->courseName == courseName && curr->teacherName == course->teacherName)
+			return curr;
+		curr = curr->next;
+	}
+
+	return nullptr;
+}
+
 void deleteCourse(Courses*& course, Courses* delCourse)
 {
 	string delPath = (Schoolyear + "/Semesters/" + Sem + '/' + delCourse->courseID);
