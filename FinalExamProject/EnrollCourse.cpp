@@ -1,4 +1,5 @@
 #include "EnrollCourse.h"
+#include "Struct.h"
 
 
 // Aux Functions
@@ -370,4 +371,39 @@ void viewAllClass()
 	else
 		throw std::runtime_error("There are no classes yet!");
 	Nocursortype();
+}
+
+void viewDetailAllCourses(Courses *course)
+{
+	if (!course)
+		return;
+
+	Courses *curr = course;
+
+	int x = 5, y = 15;
+	
+	gotoxy(x, y); cout << "ID";
+	gotoxy(x += 10, y); cout << "Name";
+	gotoxy(x += 40, y); cout << "Teacher";
+	gotoxy(x += 25, y); cout << "Credits";
+	gotoxy(x += 14, y); cout << "Session 1";
+	gotoxy(x += 15, y); cout << "Session 2";
+
+
+
+	while (curr)
+	{
+		x = 5;
+		gotoxy(x, ++y); cout << curr -> courseID;
+		gotoxy(x += 10, y); cout << curr -> courseName;
+		gotoxy(x += 40, y); cout << curr -> teacherName;
+		gotoxy(x += 25, y); cout << curr -> numCredits;
+		gotoxy(x += 14, y); cout << curr -> schedule[0].day << "  " << (curr -> schedule[0].time == "S1" ? "7:30" : curr -> schedule[0].time == "S2" ? "9:30" : curr -> schedule[0].time == "S3" ? "13:30" : "15:30");
+		
+		gotoxy(x += 15, y); cout << curr -> schedule[1].day << "  " << (curr -> schedule[1].time == "S1" ? "7:30" : curr -> schedule[1].time == "S2" ? "9:30" : curr -> schedule[1].time == "S3" ? "13:30" : "15:30");
+
+		
+
+		curr = curr -> next;
+	}
 }

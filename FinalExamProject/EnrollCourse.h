@@ -23,4 +23,6 @@ void viewAllStudentInClass(Classes* Class);
 
 void viewAllCourse();
 
+void viewDetailAllCourses(Courses *course);
+
 void viewAllClass();
