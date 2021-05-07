@@ -610,6 +610,11 @@ void addNewCourseMain(Courses*& course)
 	getline(cin, courseID);
 	temp++;
 
+	Courses* pCur = COURSE;
+	while (pCur)
+		if (pCur->courseID == courseID)
+			throw std::runtime_error("You already create a similiar course");
+
 	gotoxy(70, temp);
 	cout << "Enter course's name: ";
 	getline(cin, courseName);
