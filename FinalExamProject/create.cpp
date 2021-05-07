@@ -644,41 +644,37 @@ void addNewCourseMain(Courses*& course)
 		string t;
 		gotoxy(70, temp);
 		cout << "Enter session:\n\n";
-
 		temp++;
-		gotoxy(70, temp);
-		cout << "Day of week(From MON to SUN): "; // MON, THU
-		getline(cin, t);
-		try
-		{
-			if (stoi(t) > 7 || stoi(t) < 2)
-				throw string("Please enter a valid weekday");
-		}
-		catch (string ex)
-		{
-			gotoxy(70, ++temp);	cout << ex;
+
+		while (true) {
+			gotoxy(70, temp);
+			cout << "Day of week(From MON to SAT): "; // MON, THU
+			getline(cin, t);
+			temp++;
+			if (t != "MON" || t != "TUE" || t != "WED" || t != "THU" || t != "FRI" || t != "SAT") {
+				gotoxy(70, temp);
+				cout << "Please enter a valid day of week";
+				temp++;
+			}
+			else
+				break;
 		}
 		schedule[i].day = t;
 
-		temp++;
-		gotoxy(70, temp);
-		cout << "Time(S1, S2, S3, S4): ";		//S1, S2, S3, S4
-		getline(cin, t);
-		try
-		{
-			if (stoi(t) > 4 || stoi(t) < 1)
-				throw string("Please enter a valid session");
-		}
-		catch (string ex)
-		{
-			gotoxy(70, ++temp);	cout << ex;
-		}
-		catch(...)
-		{
-			gotoxy(70, ++temp); cout << "Input data invalid";
+		while (true) {
+			gotoxy(70, temp);
+			cout << "Time(S1, S2, S3, S4): ";		//S1, S2, S3, S4
+			getline(cin, t);
+			temp++;
+			if (t != "S1" || t != "S2" || t != "S3" || t != "S4") {
+				gotoxy(70, temp);
+				cout << "Please enter a valid time!";
+				temp++;
+			}
+			else
+				break;
 		}
 		schedule[i].time = t;
-		temp++;
 	}
 
 	Courses* newCourse = addCourse(course, courseName, courseID, teacherName, numCredits, maxStudent, schedule);
@@ -863,23 +859,43 @@ void editCourseMain(Courses*& course)
 
 		for (int i = 0; i < 2; ++i)
 		{
+			string t;
 			gotoxy(70, temp);
-			cout << "Enter session\n";
+			cout << "Enter session:\n\n";
 			temp++;
 
-			gotoxy(70, temp);
-			cout << "Day of week(From MON to SUN, type 2-7): "; // MON, THU
-			getline(cin, edit->schedule[i].day);		//lay thu day
-			temp++;
+			while (true) {
+				gotoxy(70, temp);
+				cout << "Day of week(From MON to SAT): "; // MON, THU
+				getline(cin, edit->schedule[i].day);
+				temp++;
+				if (edit->schedule[i].day != "MON" || edit->schedule[i].day != "TUE" || edit->schedule[i].day != "WED" || edit->schedule[i].day != "THU" || edit->schedule[i].day != "FRI" || edit->schedule[i].day != "SAT") {
+					gotoxy(70, temp);
+					cout << "Please enter a valid day of week";
+					temp++;
+				}
+				else
+					break;
+			}
 
-			gotoxy(70, temp);
-			cout << "Time(S1, S2, S3, S4, type 1-4): ";		//S1, S2, S3, S4
-			getline(cin, edit->schedule[i].time);		//lay buoi moi
-			temp++;
 
-			gotoxy(70, temp);
-			cout << "Changes saved!";
+			while (true) {
+				gotoxy(70, temp);
+				cout << "Time(S1, S2, S3, S4): ";		//S1, S2, S3, S4
+				getline(cin, edit->schedule[i].time);
+				temp++;
+				if (edit->schedule[i].time != "S1" || edit->schedule[i].time != "S2" || edit->schedule[i].time != "S3" || edit->schedule[i].time != "S4") {
+					gotoxy(70, temp);
+					cout << "Please enter a valid time!";
+					temp++;
+				}
+				else
+					break;
+			}
 		}
+
+		gotoxy(70, temp);
+		cout << "Changes saved!";
 
 		createFolderNFileCourse(edit);					//tao folder moi
 		viewCourseFile(course);							//cap nhat lai file all courses
@@ -889,6 +905,7 @@ void editCourseMain(Courses*& course)
 		gotoxy(70, temp);
 		cout << "There are no course match with your information!\n";
 		temp++;
+		Nocursortype();
 		Sleep(500);
 	}
 }
@@ -925,8 +942,9 @@ void deleteCourseMain(Courses*& course)
 		gotoxy(70, temp);
 		cout << "There are no course match with your information!\n";
 		temp++;
+		Nocursortype();	
 		Sleep(500);
-		Nocursortype();
+
 		fillBlackMenu();
 		txtColor(15);
 		gotoxy(140, 21);	cout << " V I E W ";
