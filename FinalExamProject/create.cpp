@@ -269,19 +269,19 @@ void createFolderStudent(string path) {
 	f.open(path + "\\Course Sem 1.csv");
 	f.close();
 
-	f.open(path + "\\Course Scoreboard Sem 1.csv");
+	f.open(path + "\\Course Sem 1 Scoreboard.csv");
 	f.close();
 
 	f.open(path + "\\Course Sem 2.csv");
 	f.close();
 
-	f.open(path + "\\Course Scoreboard Sem 2.csv");
+	f.open(path + "\\Course Sem 2 Scoreboard .csv");
 	f.close();
 
 	f.open(path + "\\Course Sem 3.csv");
 	f.close();
 
-	f.open(path + "\\Course Scoreboard Sem 3.csv");
+	f.open(path + "\\Course Sem 3 Scoreboard.csv");
 	f.close();
 
 	f.open(path + "\\Profile.txt");
@@ -669,6 +669,10 @@ void addNewCourseMain(Courses*& course)
 		catch (string ex)
 		{
 			gotoxy(70, ++temp);	cout << ex;
+		}
+		catch(...)
+		{
+			gotoxy(70, ++temp); cout << "Input data invalid";
 		}
 		schedule[i].time = t;
 		temp++;

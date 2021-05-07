@@ -1,3 +1,4 @@
-No,Student ID,First Name Last Name
-Class,Midterm,Final Bonus
-Overall,Overall,Overall Overall
+No,StudentID,FullName,Midterm,Final,Bonus,Total
+1,1,Ojou Maou,1,1,1,1
+2,2,Anko Jii,2,2,2,2
+3,3,Robin Jackhan,3,3,3,3

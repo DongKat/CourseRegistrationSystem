@@ -1053,8 +1053,10 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				else {
 					try
 					{
-					importScoreboardCourse(f, courseID);
 					importScoreboardStudent(f, courseID);
+					f.close();
+					f.open(fileName);
+					importScoreboardCourse(f, courseID);
 					f.close();
 					}
 					catch (const std::exception&ex)
@@ -1141,7 +1143,6 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 
 			}
 		}
-		// View Class Scoreboard
 		// Update Student Score
 		if (dem == 4)
 		{
@@ -1239,6 +1240,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 
 			}
 		}
+		// View Class Scoreboard
 		if (dem == 5)
 		{
 			txtColor(240);
@@ -1294,10 +1296,12 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 
 					txtColor(15);
 				}
-				else {
+				else 
+				{
 					viewClassScoreboard(f, className);
 					f.close();
 				}
+				_getch();
 			}
 		}
 	}

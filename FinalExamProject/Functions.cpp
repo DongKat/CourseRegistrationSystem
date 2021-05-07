@@ -86,8 +86,8 @@ void exportCourseStudent(ifstream& file)
 
 void importScoreboardCourse(ifstream& f, string courseID)
 {
-	string course_dir = Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard.csv";
-	string tempDir = Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard_new.csv";
+	string course_dir = "./" + Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard.csv";
+	string tempDir = "./" + Schoolyear + "/Semesters/" + Sem + "/" + courseID + "/Scoreboard_new.csv";
 	string temp, mica;
 
 	ifstream courseScoreboard;
@@ -100,6 +100,7 @@ void importScoreboardCourse(ifstream& f, string courseID)
 
 	getline(f, temp);	// Ignore first line
 	getline(courseScoreboard, mica);
+	tempScoreboard << mica << endl;
 
 	while (f.peek() != EOF)
 	{
@@ -125,23 +126,28 @@ void importScoreboardCourse(ifstream& f, string courseID)
 		tempScoreboard << mica << ',';
 		getline(courseScoreboard, mica, ',');	// Last Name
 		tempScoreboard << mica << ',';
+		getline(courseScoreboard, mica);
 		tempScoreboard << tempScore->Midterm << ',' << tempScore->Final << ',' <<  tempScore->Bonus << ',' << tempScore->Total << endl;
 		delete tempScore;
 	}
-	remove(tempDir.c_str());
+	courseScoreboard.close();
+	tempScoreboard.close();
+	remove(course_dir.c_str());
 	rename(tempDir.c_str(), course_dir.c_str());
 }
 
 void importScoreboardStudent(ifstream& f, string courseID)
 {
-	string student_dir, line, temp;
+	string line, temp;
 
 	ofstream studentScoreboard;
 
+	getline(f, line);	// Ignore first line
 	while (f.peek() != EOF)
 	{
 		getline(f, line);
 		stringstream s(line);
+		getline(s, temp, ','); // Get No
 		getline(s, temp, ','); // Get studentID
 		string className = checkStudentClass(temp);
 		if (className == "-1")
@@ -150,8 +156,10 @@ void importScoreboardStudent(ifstream& f, string courseID)
 		}
 		else
 		{
-			studentScoreboard.open(Schoolyear + "/Classes/" + className + "/" + temp + "/Course " + Sem + " Scoreboard.csv", ios::app | ios::out);
+			string dir = Schoolyear + "/Classes/" + className + "/" + temp + "/Course " + Sem + " Scoreboard.csv";
+			studentScoreboard.open(dir, ios::app | ios::out);
 			studentScoreboard << courseID << ",";
+			getline(s, temp, ','); // Skip name
 			getline(s, temp);
 			studentScoreboard << temp;
 			studentScoreboard.close();
@@ -164,7 +172,7 @@ void viewCourseScoreboard(ifstream& f)
 	// view Course scoreboard
 	string temp;
 	int tmp = 21;
-	getline(f, temp);
+	getline(f, temp);	// ignore first line
 	while (f.peek() != EOF)
 	{
 		gotoxy(20, tmp);
@@ -186,7 +194,7 @@ void viewOwnScoreboard(ifstream& f, int pos)
 
 	while (f.peek() != EOF)
 	{
-		getline(f, temp, ','); 	cout << temp << "\t"; // Course ID
+		getline(f, temp, ','); 	cout << temp << "\t\t"; // Course ID
 		getline(f, temp, ',');	cout << temp << "\t"; // Midterm
 		getline(f, temp, ',');	cout << temp << "\t"; // Final
 		getline(f, temp, ',');	cout << temp << "\t"; // Bonus
@@ -209,6 +217,8 @@ float getSemGPA(ifstream& f)
 		sem_gpa += stof(temp);
 		course_count++;
 	}
+	if (course_count == 0)
+		return sem_gpa;
 	sem_gpa /= course_count;
 	return sem_gpa;
 }
@@ -269,8 +279,6 @@ void updateStudentResult(ifstream& f1, ifstream& f2, ofstream& nf1, ofstream& nf
 			if (temp == courseID)
 			{
 				recordFlag = true;
-				getline(s, temp, ',');	// Read Course Name
-				nf2 << temp << ',';
 				getline(s, temp);	// Swallow the old score
 				nf2 << newScore.Midterm << ',' << newScore.Final << ',' << newScore.Bonus << ',' << newScore.Total << endl;
 			}
@@ -300,25 +308,31 @@ void viewClassScoreboard(ifstream& f, string className) // Require changing UI
 
 	int pos = 21;
 
+	cout << "No\tStudentID\tFull Name\tCourseID\tMidterm\tFinal\tBonus\tTotal\n";
 	while (f.peek() != EOF)
 	{
 		getline(f, studentID);
 
-		cout << "No. " << student_count++ << "\t" << studentID << "\t";
+		cout << student_count++ << "\t" << studentID << "\t\t";
 
 		studentScoreboard.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course " + Sem + " Scoreboard.csv");
 		studentProfile.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Profile.txt");
 
+		getline(studentProfile, temp);	
+		getline(studentProfile, temp);	
 		getline(studentProfile, temp);	//get last name
-		cout << temp << "\t";
+		cout << temp << " ";
 		getline(studentProfile, temp);	//get first name
-		cout << temp << "\n";
+		cout << temp << "\t  ";
 
 		studentProfile.close();
 
 		viewOwnScoreboard(studentScoreboard, pos);
+		studentScoreboard.close();
+		cout << endl;
 
-		cout << "Semester GPA: " << getSemGPA(studentScoreboard);
+		studentScoreboard.open(Schoolyear + "/Classes/" + className + "/" + studentID + "/Course " + Sem + " Scoreboard.csv");
+		cout << "Semester GPA: " << getSemGPA(studentScoreboard) << endl;
 		studentScoreboard.close();
 
 		float overall_GPA = 0;
@@ -328,8 +342,12 @@ void viewClassScoreboard(ifstream& f, string className) // Require changing UI
 			overall_GPA += getSemGPA(studentScoreboard);
 			studentScoreboard.close();
 		}
-		overall_GPA /= 3;
-		cout << "Overall GPA: " << overall_GPA;
-		student_count++;
+		stringstream a(Sem);
+		string t;
+		getline(a, t, ' ');
+		getline(a, t);
+		int k = stoi(t);
+		overall_GPA /= k;
+		cout << "Overall GPA: " << overall_GPA << endl << endl;
 	}
 }
