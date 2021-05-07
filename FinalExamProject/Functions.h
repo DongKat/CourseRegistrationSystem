@@ -7,12 +7,6 @@
 #endif // !_FUNCTIONS_H_
 bool isLegalDate(date someday);
 
-void readClassCSV(ifstream& classList, Students& student);
-
-void createStudent(ifstream& classList, Students& student);
-
-void createStudentList(Students*& pHead, string csvFileName);
-
 void deleteMarks(CourseScore*& pHead);
 
 string checkStudentClass(string studentID);

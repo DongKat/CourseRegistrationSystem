@@ -560,8 +560,6 @@ void createFolderNFileCourse(Courses* course) // tao folder Profile.csv va Score
 
 	out.close();
 }
-
-
 void deleteCourse(Courses*& course, Courses* delCourse)
 {
 	string delPath = (Schoolyear + "/Semesters/" + Sem + '/' + delCourse->courseID);
