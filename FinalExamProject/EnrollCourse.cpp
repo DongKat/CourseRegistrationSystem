@@ -33,9 +33,10 @@ bool checkSchedule(Students aStudent, Courses courseNew)
 	BasicCourses* ptem = aStudent.courseStudent;
 	while (ptem != nullptr)
 	{
-		for (int j = 0; j < 2; j++)
-			if (ptem->schedule[j].day == courseNew.schedule[j].day && ptem->schedule[j].time == courseNew.schedule[j].time)
-				return false;
+		for (int i = 0; i < 2; i++)
+			for(int j = 0; j < 2; j++)
+				if (ptem->schedule[j].day == courseNew.schedule[i].day && ptem->schedule[j].time == courseNew.schedule[i].time)
+					return false;
 		ptem = ptem->next;
 	}
 	return true;
@@ -176,126 +177,17 @@ void viewEnrolledCourses(Students* aStudent)
 
 		getline(file, temp, ',');	// Weekday 1
 		gotoxy(97, a);
-		switch (stoi(temp))
-		{
-		case 2:
-		{
-			cout << "MON";
-			break;
-		}
-		case 3:
-		{
-			cout << "TUE";
-			break;
-		}
-		case 4:
-		{
-			cout << "WED";
-			break;
-		}
-		case 5:
-		{
-			cout << "THU";
-			break;
-		}
-		case 6:
-		{
-			cout << "FRI";
-			break;
-		}
-		case 7:
-		{
-			cout << "SAT";
-			break;
-		}
-		};
+
 		cout << " ";
 		getline(file, temp, ',');	// Period 1
-		switch (stoi(temp))
-		{
-		case 1:
-		{
-			cout << "07:30";
-			break;
-		}
-		case 2:
-		{
-			cout << "09:30";
-			break;
-		}
-		case 3:
-		{
-			cout << "13:30";
-			break;
-		}
-		case 4:
-		{
-			cout << "15:30";
-			break;
-		}
-		};
+		
 
 		getline(file, temp, ',');	// Weekday 2
 		gotoxy(108, a);
-		switch (stoi(temp))
-		{
-		case 2:
-		{
-			cout << "MON";
-			break;
-		}
-		case 3:
-		{
-			cout << "TUE";
-			break;
-		}
-		case 4:
-		{
-			cout << "WED";
-			break;
-		}
-		case 5:
-		{
-			cout << "THU";
-			break;
-		}
-		case 6:
-		{
-			cout << "FRI";
-			break;
-		}
-		case 7:
-		{
-			cout << "SAT";
-			break;
-		}
-		cout << " ";
-		};
+		
 		cout << " ";
 		getline(file, temp);		// Period 2
-		switch (stoi(temp))
-		{
-		case 1:
-		{
-			cout << "07:30";
-			break;
-		}
-		case 2:
-		{
-			cout << "09:30";
-			break;
-		}
-		case 3:
-		{
-			cout << "13:30";
-			break;
-		}
-		case 4:
-		{
-			cout << "15:30";
-			break;
-		}
-		};
+	
 
 	}
 		_getch();
@@ -464,12 +356,14 @@ void viewAllCourse()
 void viewAllClass()
 {
 	int temp = 20;
+	int c = 1;
 	if (CLASS)
 	{
 		Classes* curClass = CLASS;
+		gotoxy(30, temp++); cout << "No\tClass Name\n";
 		while (curClass != nullptr)
 		{
-			gotoxy(70, temp++); cout << " Class Name: " << curClass->className << endl;
+			gotoxy(30, temp++); cout << c++ << "\t\t" << curClass->className << endl;
 			curClass = curClass->next;
 		}
 	}
