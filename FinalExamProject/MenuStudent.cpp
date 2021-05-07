@@ -1,4 +1,6 @@
 #include "MenuStudent.h"
+#include "EnrollCourse.h"
+#include "Struct.h"
 
 void MenuStudent(char username[], char password[], int sizeUser, int sizePass) {
 	system("cls");
@@ -115,12 +117,14 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				fillBlackMenu();
 				UnNocursortype();
 				txtColor(15);
+				viewDetailAllCourses(COURSE);
+				
 				try
 				{
 					if (!COURSE)
 						throw std::runtime_error("There are no courses yet!");
 					string courseID;
-					gotoxy(70, 20); cout << "Please enter course ID: ";
+					gotoxy(130, 20); cout << "Please enter course ID: ";
 					cin >> courseID;
 
 					Courses* pCourse = COURSE;
