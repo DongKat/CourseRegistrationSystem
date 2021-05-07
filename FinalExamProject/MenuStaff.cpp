@@ -731,8 +731,14 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 			if (choice == 13)
 			{
 				if (Sem != "") {
+					try
+					{
 					addNewCourseMain(COURSE);
-
+					}
+					catch (const std::exception& ex)
+					{
+						gotoxy(70, 20); cout << ex.what();
+					}
 					Nocursortype();
 					fillBlackMenu();
 					txtColor(15);
