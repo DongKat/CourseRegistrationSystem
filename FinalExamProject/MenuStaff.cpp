@@ -1247,7 +1247,8 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 
 					nf1.open(newcourseDir);
 					nf2.open(newstudentDir);
-
+					fillBlackMenu();
+					txtColor(15);
 					gotoxy(70, 20);		cout << "Please enter new score";
 					gotoxy(70, 21);		cout << "New midterm score: ";	cin >> newScore.Midterm;
 					gotoxy(70, 22);		cout << "New midterm score: ";	cin >> newScore.Final;
