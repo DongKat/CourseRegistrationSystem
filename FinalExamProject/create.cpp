@@ -459,25 +459,41 @@ void addClass(Classes*& Class, string folder)
 
 	string filepath;
 
-	do {								//lay danh sach lop
+	//lay danh sach lop
+	filepath.clear();
+	gotoxy(70, temp);
+	cout << "Please enter the path of CSV file: ";
+	getline(cin, filepath);
+	temp++;
+	f.open(filepath);
+
+	if (!f.is_open()) {
 		gotoxy(70, temp);
-		filepath.clear();
-
-		cout << "Please enter the path of CSV file: ";
-		getline(cin, filepath);
-		temp++;
-		f.open(filepath);
-	} while (!f.is_open());
-
-	f.close();
-
-	if (Class) tmpClass->next = newClass(filepath, Cname, folder + "\\Classes");
-	else {
-		Class = newClass(filepath, Cname, folder + "\\Classes");
+		cout << "The path is not existed!";
+		UnNocursortype();
+		Sleep(500);
+		Nocursortype();
+		fillBlackMenu();
+		txtColor(15);
+		gotoxy(132, 21);	cout << " C R E A T E   Y E A R ";
+		txtColor(240);
+		gotoxy(132, 24);	cout << " C R E A T E   C L A S S ";
+		txtColor(15);
+		gotoxy(132, 27);	cout << " C R E A T E   S E M E S T E R ";
+		gotoxy(132, 30);	cout << " C R E A T E   C O U R S E ";
+		return;
 	}
+	else {
+		f.close();
 
-	autoGenerateStudentAccounts(filepath);
-	autoGenerateStudentProfiles(filepath);
+		if (Class) tmpClass->next = newClass(filepath, Cname, folder + "\\Classes");
+		else {
+			Class = newClass(filepath, Cname, folder + "\\Classes");
+		}
+
+		autoGenerateStudentAccounts(filepath);
+		autoGenerateStudentProfiles(filepath);
+	}
 }
 
 // For Create Sem Mewnyu
