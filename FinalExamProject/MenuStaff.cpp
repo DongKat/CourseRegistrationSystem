@@ -382,7 +382,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 					UnNocursortype();
 					txtColor(15);
 					viewAllClass();
-					
+
 				}
 				catch (const std::exception& ex)
 				{
@@ -427,7 +427,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 					if (!CLASS)
 						throw std::runtime_error("There are no classes yet!");
 
-					
+
 					string className;
 					Classes* pCur = CLASS;
 
@@ -452,7 +452,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 						throw std::runtime_error("Class Invalid");
 
 					viewAllStudentInClass(pCur);
-					
+
 				}
 				catch (const std::exception& ex)
 				{
@@ -495,7 +495,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 					UnNocursortype();
 					txtColor(15);
 					viewAllCourse();
-					
+
 				}
 				catch (const std::exception& ex)
 				{
@@ -503,7 +503,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 					Sleep(500);
 				}
 
-				
+
 			}
 		}
 
@@ -560,7 +560,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 					if (!flag)
 						throw std::runtime_error("Course Invalid");
 					viewAllStudentInCourse(pCur);
-				
+
 				}
 				catch (const std::exception& ex)
 				{
@@ -569,7 +569,7 @@ void MenuStaffView(char username[], char password[], int sizeUser, int sizePass)
 					Sleep(500);
 				}
 
-				
+
 			}
 		}
 		//===========================================================================================================================
@@ -642,6 +642,7 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 				}
 				else
 					inputSchoolYear();
+				cin.ignore(1);
 				Nocursortype();
 				fillBlackMenu();
 				txtColor(240);
@@ -884,6 +885,14 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 				txtColor(15);
 
 				in.close();
+				_getch();
+				Nocursortype();
+				fillBlackMenu();
+				txtColor(240);
+				gotoxy(140, 21);	cout << " V I E W ";
+				txtColor(15);
+				gotoxy(140, 24);	cout << " E D I T ";
+				gotoxy(140, 27);	cout << " D E L E T E ";
 			}
 		}
 
@@ -929,16 +938,20 @@ void MenuEditCourses(char username[], char password[], int sizeUser, int sizePas
 					txtColor(15);
 					continue;
 				}
-				Nocursortype();
-				fillBlackMenu();
-				txtColor(15);
-				gotoxy(140, 21);	cout << " V I E W ";
-				gotoxy(140, 24);	cout << " E D I T ";
-				txtColor(240);
-				gotoxy(140, 27);	cout << " D E L E T E ";
-				txtColor(15);
+				else
+				{
+					deleteCourseMain(COURSE);
+					Nocursortype();
+					fillBlackMenu();
+					txtColor(15);
+					gotoxy(140, 21);	cout << " V I E W ";
+					gotoxy(140, 24);	cout << " E D I T ";
+					txtColor(240);
+					gotoxy(140, 27);	cout << " D E L E T E ";
+					txtColor(15);
+				}
 
-				deleteCourseMain(COURSE);
+
 			}
 		}
 	}
@@ -1044,6 +1057,7 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
 				gotoxy(123, 27);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
 				gotoxy(121, 30);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
+				cin.ignore(1);
 			}
 		}
 
@@ -1081,9 +1095,8 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				UnNocursortype();
 				string fileName, courseID;
 				ifstream f;
-
 				gotoxy(70, 20);	cout << "Please enter course ID: ";
-				cin >> courseID;
+				getline(cin, courseID);
 
 				gotoxy(70, 21);	cout << "Please input file (Scoreboard.csv): ";
 				getline(cin, fileName);
@@ -1100,17 +1113,17 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 				else {
 					try
 					{
-					importScoreboardStudent(f, courseID);
-					f.close();
-					f.open(fileName);
-					importScoreboardCourse(f, courseID);
-					f.close();
-					gotoxy(70, temp); cout << "Import file successfully!";
-					UnNocursortype();
-					Sleep(500);
-					Nocursortype();
+						importScoreboardStudent(f, courseID);
+						f.close();
+						f.open(fileName);
+						importScoreboardCourse(f, courseID);
+						f.close();
+						gotoxy(70, temp); cout << "Import file successfully!";
+						UnNocursortype();
+						Sleep(500);
+						Nocursortype();
 					}
-					catch (const std::exception&ex)
+					catch (const std::exception& ex)
 					{
 						gotoxy(70, 22);	cout << ex.what();
 					}
@@ -1267,9 +1280,10 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					txtColor(15);
 					gotoxy(70, 20);		cout << "Please enter new score";
 					gotoxy(70, 21);		cout << "New midterm score: ";	cin >> newScore.Midterm;
-					gotoxy(70, 22);		cout << "New midterm score: ";	cin >> newScore.Final;
-					gotoxy(70, 23);		cout << "New midterm score: ";	cin >> newScore.Bonus;
-					gotoxy(70, 24);		cout << "New midterm score: ";	cin >> newScore.Total;
+					gotoxy(70, 22);		cout << "New final score  : ";	cin >> newScore.Final;
+					gotoxy(70, 23);		cout << "New bonus score  : ";	cin >> newScore.Bonus;
+					gotoxy(70, 24);		cout << "New total score  : ";	cin >> newScore.Total;
+					gotoxy(70, 25);		cout << "Changes saved!";
 
 					// Note:
 					// f1 - course, f2 - student
@@ -1288,7 +1302,16 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 					rename(newcourseDir.c_str(), oldcourseDir.c_str());
 					rename(newstudentDir.c_str(), oldstudentDir.c_str());
 				}
-
+				Nocursortype();
+				fillBlackMenu();
+				txtColor(15);
+				gotoxy(135, 18);	cout << " E X P O R T   C S V ";
+				gotoxy(135, 21);	cout << " I M P O R T   C S V ";
+				gotoxy(122, 24);	cout << " V I E W   C O U R S E   S C O R E B O A R D ";
+				txtColor(240);
+				gotoxy(123, 27);	cout << " U P D A T E   S T U D E N T   R E S U L T ";
+				txtColor(15);
+				gotoxy(121, 30);	cout << " V I E W   C L A S S   S C O R E B O A R D ";
 
 			}
 		}
@@ -1348,12 +1371,13 @@ void MenuStaffScoreboard(char username[], char password[], int sizeUser, int siz
 
 					txtColor(15);
 				}
-				else 
+				else
 				{
 					viewClassScoreboard(f, className);
 					f.close();
 				}
 				_getch();
+				cin.ignore(1);
 			}
 		}
 	}

@@ -163,6 +163,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 				gotoxy(64, 28); cout << " V I E W   E N R O L L E D   C O U R S E S ";
 				gotoxy(64, 30); cout << "       V I E W   S C O R E B O A R D       ";
 				gotoxy(64, 32); cout << "               L O G   O U T               ";
+				cin.ignore(1);
 			}
 		}
 

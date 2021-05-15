@@ -247,7 +247,7 @@ void removeACourse(Students* aStudent, Courses* courseDelete)
 		delete pCurCourse;
 
 	}
-
+	courseDelete->countStudent--;
 	updateCourseB4D(aStudent, courseDelete);
 };
 void updateCourseB4D(Students* aStudent, Courses* courseDelete)
@@ -281,7 +281,7 @@ void updateCourseB4D(Students* aStudent, Courses* courseDelete)
 
 	remove(dir.c_str());
 	file.open(dir);
-	file << "Course ID,Course Name,Teacher Name,Num of Credits,Max Student,Weekday 1,Time 1,Weekday 2,Time 2\n";
+	file << "No,Student ID,First Name,Last Name,Class,Midterm,Final,Bonus,Overall\n";
 	BasicStudents* pCurrentStudent = courseDelete->studentID;
 	int count = 1;
 	while (pCurrentStudent != nullptr)

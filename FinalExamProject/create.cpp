@@ -205,7 +205,7 @@ bool loadYearAndSem()
 		ofstream out("YearAndSemester.txt");
 		return false;
 	}
-		
+
 
 	getline(in, Schoolyear);
 	getline(in, Sem);
@@ -329,8 +329,8 @@ bool inputSchoolYear() { 						//false if this is new SchoolYear
 	Schoolyear = to_string(syear) + "-" + to_string(eyear);
 	return createFolderSchoolYear(Schoolyear);
 }
-bool createFolderSchoolYear(string path) 
-{	
+bool createFolderSchoolYear(string path)
+{
 	//false if this is new year
 	bool checkNewYear = createFolder(path);
 	createFolder(path + "\\Classes");
@@ -410,7 +410,7 @@ Classes* newClass(string filepath, string className, string folder) {
 void createFolderClass(string path, string Cname) {
 	createFolder(path + "\\Classes\\" + Cname);
 }
-void addClass(Classes*& Class, string folder) 
+void addClass(Classes*& Class, string folder)
 {
 	txtColor(15);
 	if (Schoolyear == "") {
@@ -437,25 +437,12 @@ void addClass(Classes*& Class, string folder)
 	gotoxy(20, 26); cout << "20apcs2.csv";
 	// Impossible
 
-	int temp = 20;
-	gotoxy(70, temp);
-	cout << "Please enter class's name(Ex:20apcs1): ";
-	getline(cin, Cname);
-	temp++;
 
-	while (createFolder(folder + "\\Classes\\" + Cname)) // lay ten lop
-	{
-		gotoxy(70, temp);
-		cout << "Please enter class's name(Ex:20apcs1): ";
-		getline(cin, Cname);
-		temp++;
-	}
+	int temp = 20;
 
 	fstream f;
 
-	f.open(folder + "\\Classes\\allClasses.csv", ios::app | ios::out);   //ghi ten lop ra file
-	f << Cname << "\n";
-	f.close();
+	
 
 	string filepath;
 
@@ -484,6 +471,29 @@ void addClass(Classes*& Class, string folder)
 		return;
 	}
 	else {
+		f.close();
+
+
+		gotoxy(70, temp);
+		cout << "Please enter class's name(Ex:20apcs1): ";
+		getline(cin, Cname);
+		temp++;
+
+
+
+		while (createFolder(folder + "\\Classes\\" + Cname)) // lay ten lop
+		{
+			gotoxy(70, temp);
+			cout << "Class existed";
+			Sleep(500);
+			gotoxy(70, temp);
+			cout << "Please enter class's name(Ex:20apcs1): ";
+			getline(cin, Cname);
+			temp++;
+		}
+
+		f.open(folder + "\\Classes\\allClasses.csv", ios::app | ios::out);   //ghi ten lop ra file
+		f << Cname << "\n";
 		f.close();
 
 		if (Class) tmpClass->next = newClass(filepath, Cname, folder + "\\Classes");
@@ -574,7 +584,7 @@ void createFolderNFileCourse(Courses* course) // tao folder Profile.csv va Score
 
 	out.open(Schoolyear + "/Semesters/" + Sem + '/' + course->courseID + "/Scoreboard.csv");
 
-	out << "No,Student ID,First Name,Last Name,Class,Midterm,Final,Bonus,Overall\n";
+	out << "No,Student ID,First Name,Last Name,Midterm,Final,Bonus,Overall\n";
 
 	out.close();
 }
@@ -667,7 +677,7 @@ void addNewCourseMain(Courses*& course)
 		cout << "Enter session:\n\n";
 		temp++;
 
-		while (true) 
+		while (true)
 		{
 			gotoxy(70, temp);
 			cout << "Day of week(From MON to SAT): "; // MON, THU
@@ -915,7 +925,7 @@ void editCourseMain(Courses*& course)
 				if (edit->schedule[i].time == "S1" || edit->schedule[i].time == "S2" || edit->schedule[i].time == "S3" || edit->schedule[i].time == "S4") {
 					break;
 				}
-				else 
+				else
 				{
 					gotoxy(70, temp);
 					cout << "Please enter a valid time!";
@@ -967,20 +977,16 @@ void deleteCourseMain(Courses*& course)
 	Courses* del = findCourse(course, courseID, courseName, teacherName);
 
 	if (del)
+	{
 		deleteCourse(course, del);	//xoa course
+		gotoxy(70, temp); cout << "Course is deleted!";
+	}
 	else {
 		gotoxy(70, temp);
 		cout << "There are no course match with your information!\n";
 		temp++;
-		Nocursortype();	
+		Nocursortype();
 		Sleep(500);
 
-		fillBlackMenu();
-		txtColor(15);
-		gotoxy(140, 21);	cout << " V I E W ";
-		gotoxy(140, 24);	cout << " E D I T ";
-		txtColor(240);
-		gotoxy(140, 27);	cout << " D E L E T E ";
-		txtColor(15);
 	}
 }
