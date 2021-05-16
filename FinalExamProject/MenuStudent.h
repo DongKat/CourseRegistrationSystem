@@ -4,9 +4,10 @@
 #include "Struct.h"
 #include "Functions.h"
 #include "UI.h"
+#include "create.h"
 #include "InputLogin.h"
 #include "EnrollCourse.h"
-#include "create.h"
+#include "deleteFinal.h"
 
 void MenuStudent(char username[], char password[], int sizeUser, int sizePass);
 void MenuStudentSettings(char username[], char password[], int sizeUser, int sizePass);
