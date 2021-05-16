@@ -638,11 +638,15 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 					gotoxy(70, 20); cout << "Are you sure you want to end current schoolyear?(y/n): ";
 					cin >> a;
 					
-					if (a == 'y')
-					{
-						deleteCourses();
-						deleteClasses();
+					if (a == 'y') {
+						COURSE = nullptr;
+						CLASS = nullptr;
+						Sem = "";
 						inputSchoolYear();
+						gotoxy(10, 7);
+						txtColor(0);
+						cout << char(32) << char(32) << char(32) << char(32) << char(32) << char(32) << char(32);
+						txtColor(15);
 					}
 				}
 				else {
