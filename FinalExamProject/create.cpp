@@ -316,7 +316,7 @@ Students* newStudent(int no, string ID, string FirstName, string LastName, strin
 // For Create Schoolyear
 bool inputSchoolYear() { 						//false if this is new SchoolYear
 	int syear, eyear;
-	int temp = 20;
+	int temp = 21;
 	txtColor(15);
 	do {
 		gotoxy(70, temp);

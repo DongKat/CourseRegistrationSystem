@@ -635,8 +635,9 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 				{
 					char a;
 					txtColor(15);
-					gotoxy(70, 20); cout << "Are you sure you want to end current schoolyear? (y/n)";
+					gotoxy(70, 20); cout << "Are you sure you want to end current schoolyear?(y/n): ";
 					cin >> a;
+					
 					if (a == 'y')
 						inputSchoolYear();
 				}
@@ -644,6 +645,8 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 					inputSchoolYear();
 					deleteCourses();
 					deleteClasses();
+					COURSE = nullptr;
+					CLASS = nullptr;
 				}
 				cin.ignore(1);
 				Nocursortype();
