@@ -639,14 +639,14 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 					cin >> a;
 					
 					if (a == 'y')
+					{
+						deleteCourses();
+						deleteClasses();
 						inputSchoolYear();
+					}
 				}
 				else {
 					inputSchoolYear();
-					deleteCourses();
-					deleteClasses();
-					COURSE = nullptr;
-					CLASS = nullptr;
 				}
 				cin.ignore(1);
 				Nocursortype();
