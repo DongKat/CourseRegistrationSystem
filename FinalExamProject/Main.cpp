@@ -46,6 +46,8 @@ int main() {
 	int sizePass = 0;
 
 	Login(username, password, sizeUser, sizePass);
+	deleteCourses();
+	deleteClasses();
 
 	return 0;
 }
