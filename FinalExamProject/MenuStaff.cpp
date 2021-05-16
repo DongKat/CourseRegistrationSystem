@@ -639,8 +639,10 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 					cin >> a;
 					
 					if (a == 'y') {
-						COURSE = nullptr;
+						deleteClasses();
+						deleteCourses();
 						CLASS = nullptr;
+						COURSE = nullptr;
 						Sem = "";
 						inputSchoolYear();
 						gotoxy(10, 7);

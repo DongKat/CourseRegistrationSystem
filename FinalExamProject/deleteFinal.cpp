@@ -16,7 +16,7 @@ void deleteCourses()
 	Courses* pdeleteCourse;
 	while (pCourse != nullptr)
 	{
-		BasicStudents* pStu = COURSE->studentID;
+		BasicStudents* pStu = pCourse->studentID;
 		BasicStudents* pdeleteStu;
 		while (pStu != nullptr)
 		{
@@ -40,25 +40,22 @@ void deleteClasses()
 	while (pClass != nullptr)
 	{
 		//deleteCouseScore(CLASS->student->courseStudent->mark);
-
-		BasicCourses* pStu = CLASS->student->courseStudent;
-		BasicCourses* pdeleteStu;
-		while (pStu != nullptr)
-		{
-			pdeleteStu = pStu;
-			pStu = pStu->next;
-			delete pdeleteStu;
-		}
-
-		Students* pStudent = CLASS->student;
+		Students* pStudent = pClass->student;
 		Students* pdeleteStudent;
 		while (pStudent != nullptr)
 		{
+			BasicCourses* pStu = pStudent->courseStudent;
+			BasicCourses* pdeleteStu;
+			while (pStu != nullptr)
+			{
+				pdeleteStu = pStu;
+				pStu = pStu->next;
+				delete pdeleteStu;
+			}
 			pdeleteStudent = pStudent;
 			pStudent = pStudent->next;
 			delete pdeleteStudent;
 		}
-
 		pdeleteClass = pClass;
 		pClass = pClass->next;
 		delete pdeleteClass;
