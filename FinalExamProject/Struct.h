@@ -106,7 +106,7 @@ struct Semesters
 struct Classes
 {
 	string className;
-	Students* student; // 3 thêm sinh viên vào lớp , 18 xem danh sách sinh viên 1 lớp
+	Students* student = nullptr; // 3 thêm sinh viên vào lớp , 18 xem danh sách sinh viên 1 lớp
 	Classes* next = nullptr;
 	Classes* prev = nullptr;
 };
