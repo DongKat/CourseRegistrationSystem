@@ -84,6 +84,8 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 		}
 
 		if (choice == 27) { // ESC
+			deleteCourses();
+			deleteClasses();
 			system("cls");
 			exit(0);
 		}

@@ -175,8 +175,8 @@ void viewCourseScoreboard(ifstream& f)
 	int pos = 23;
 	gotoxy(8, pos); cout << "No";
 	gotoxy(15, pos); cout << "Student ID";
-	gotoxy(27, pos); cout << "Last Name";
-	gotoxy(57, pos); cout << "First Name";
+	gotoxy(27, pos); cout << "First Name";
+	gotoxy(57, pos); cout << "Last Name";
 	gotoxy(71, pos); cout << "Midterm";
 	gotoxy(82, pos); cout << "Final";
 	gotoxy(92, pos); cout << "Bonus";

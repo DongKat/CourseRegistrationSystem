@@ -320,7 +320,7 @@ bool inputSchoolYear() { 						//false if this is new SchoolYear
 	txtColor(15);
 	do {
 		gotoxy(70, temp);
-		cout << "Please intput start year: ";
+		cout << "Please input start year: ";
 		cin >> syear;
 		temp++;
 		eyear = syear + 1;
