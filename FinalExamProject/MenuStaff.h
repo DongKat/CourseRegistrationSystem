@@ -7,6 +7,7 @@
 #include "create.h"
 #include "InputLogin.h"
 #include "EnrollCourse.h"
+#include "deleteFinal.h"
 
 void MenuStaff(char username[], char password[], int sizeUser, int sizePass);
 void MenuStaffSettings(char username[], char password[], int sizeUser, int sizePass);

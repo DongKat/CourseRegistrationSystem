@@ -640,8 +640,11 @@ void MenuCreateNew(char username[], char password[], int sizeUser, int sizePass)
 					if (a == 'y')
 						inputSchoolYear();
 				}
-				else
+				else {
 					inputSchoolYear();
+					deleteCourses();
+					deleteClasses();
+				}
 				cin.ignore(1);
 				Nocursortype();
 				fillBlackMenu();
