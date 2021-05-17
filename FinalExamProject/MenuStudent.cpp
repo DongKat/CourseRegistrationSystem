@@ -202,6 +202,8 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 						throw std::runtime_error("Course Invalid");
 
 					removeACourse(pStudent, pCourse);
+					gotoxy(70, 22); cout << "Course removed!";
+					Sleep(500);
 				}
 				catch (const std::exception& ex)
 				{
@@ -241,7 +243,7 @@ void MenuStudentSettings(char username[], char password[], int sizeUser, int siz
 					else
 					{
 						gotoxy(70, 20); cout << "You haven't enrolled any course yet!";
-						_getch();
+						Sleep(500);
 					}
 					Nocursortype();
 					fillBlackMenu();

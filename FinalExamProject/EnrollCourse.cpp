@@ -300,9 +300,17 @@ void viewAllStudentInCourse(Courses* course)
 	BasicStudents* pCur = course->studentID;
 	if (pCur == nullptr)
 		throw std::runtime_error("There no students enrolled in this course yet!");
+	int temp = 21;
+	gotoxy(20, temp); cout << "No";
+	gotoxy(24, temp); cout << "ID";
+	gotoxy(34, temp); cout << "Name";
+	temp++;
 	while (pCur != nullptr)
 	{
-		cout << count++ << ' ' << "ID: " << pCur->ID << '\t' << "Name: " << pCur->firstName << " " << pCur->lastName << endl;
+		gotoxy(20, temp); cout << count++;
+		gotoxy(24, temp); cout << pCur->ID;
+		gotoxy(34, temp); cout << pCur->firstName << " " << pCur->lastName;
+		temp++;
 		pCur = pCur->next;
 	}
 	Nocursortype();
